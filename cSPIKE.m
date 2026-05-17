@@ -1,16 +1,17 @@
 close all
 
+% ==== Selection showing + plotting ====
+measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+showing=15;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+sort_spike_trains=1;       % 0-no,1-yes
+
+
 % ==== Parameters ====
 tmin=0;
 tmax=10;
 threshold=1000;
-
-% ==== Selection showing + plotting ====
-measures=48;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-adaptive_measures=0;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-showing=15;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-sort_spike_trains=1;       % 0-no,1-yes
 
 % ==== Dataset ====
 num_trains=4;
@@ -37,8 +38,8 @@ if mod(showing,2)>0
 end
 if mod(plotting,2)>0
     figure;
-    set(gcf, 'Color','w');
     hold on;
+    set(gcf, 'Color','w');
     for i=1:num_trains
         y = num_trains - i + 1;
         for j=1:numel(plot_spikes{i})
@@ -60,8 +61,9 @@ end
 
 
 % ==== SPIKE distance ====
-
-
+if mod(measures,4)>1 
+    SPIKE_distances_all
+end
 
 % ==== RI-SPIKE ====
 
@@ -167,7 +169,7 @@ if mod(measures,64)>31
             colormap(jet);
             colorbar;
             axis equal;
-            xlim([0.5 n+0.5]);
+            xlim([0.5 n+0.5]); 
             ylim([0.5 n+0.5]);
             set(gca, 'XDir', 'normal');
             set(gca, 'YDir', 'reverse');

@@ -8,8 +8,8 @@
 
 measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
 adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-showing=0;                % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-plotting=8;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+showing=15;                % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 
 
 %% =========================
