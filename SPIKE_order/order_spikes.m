@@ -1,7 +1,7 @@
-function [results, SO_matrix]=order_spikes(tmin,tmax,spikes)
+function [sortedOrders, sortedTimes, SO_matrix]=order_spikes(tmin,tmax,spikes)
 % Aggregate pairwise order vectors for all spike trains.
     n=length(spikes);
-    results=cell(n,1);
+    results=cell(n,1); 
     SO_matrix=zeros(n,n);
 
     if n==0
@@ -9,7 +9,7 @@ function [results, SO_matrix]=order_spikes(tmin,tmax,spikes)
     end
 
     if n==1
-        results{1}=zeros(1,length(spikes{1}));
+        results{1}=zeros(1,length(spikes{1})); 
         return;
     end
 
@@ -24,8 +24,16 @@ function [results, SO_matrix]=order_spikes(tmin,tmax,spikes)
             end
         end
 
-        results{i}=aggregated/(n-1);
+        results{i}=aggregated/(n-1); 
     end
+
+    time = horzcat(spikes{:}); 
+    value = horzcat(results{:}); 
+
+    [sortedTimes,orderInd]=sort(time);
+    sortedOrders=value(orderInd);
+
+
 
     if nargout>1
         for i=1:n-1

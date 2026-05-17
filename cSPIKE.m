@@ -1,0 +1,184 @@
+close all
+
+% ==== Parameters ====
+tmin=0;
+tmax=10;
+threshold=1000;
+
+% ==== Selection showing + plotting ====
+measures=48;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+adaptive_measures=0;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+showing=15;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+sort_spike_trains=1;       % 0-no,1-yes
+
+% ==== Dataset ====
+num_trains=4;
+spikes=cell(1,num_trains);
+%spikes{1} = [0.0001 0.7142];
+%spikes{2} = [0.2858 0.9999];                   
+%spikes{3} = [0.1429 0.8571];
+spikes{1}=[0 1.9 3.9 7 10];
+spikes{2}=[0 2 7.1 9 10];
+spikes{3}=[0 2.1 4.1 6.9 10];
+spikes{4}=[0 2.2 6.8 7.1 10];
+plot_spikes = spikes;
+
+% ==== Add auxiliary spikes at boundaries ====
+number_spikes=sum(cellfun(@length, spikes));
+[spike, ~, ~]=add_auxiliary_spikes(spikes,tmin,tmax);
+
+% ==== SPIKE trains ====
+if mod(showing,2)>0 
+    for i=1:num_trains
+        fprintf('Spike train %d: ', i);
+        disp(spikes{i});
+    end
+end
+if mod(plotting,2)>0
+    figure;
+    set(gcf, 'Color','w');
+    hold on;
+    for i=1:num_trains
+        y = num_trains - i + 1;
+        for j=1:numel(plot_spikes{i})
+            line([plot_spikes{i}(j) plot_spikes{i}(j)], [y-0.35 y+0.35], 'Color', 'k', 'LineWidth', 1.5);
+        end
+    end
+    set(gca, 'Color', 'w');
+    set(gca, 'XColor', 'k');
+    set(gca, 'YColor', 'k');
+    set(gca, 'YTick', []);
+    xMargin = 0.001;
+    xlim([tmin - xMargin, tmax + xMargin]);
+    ylim([0.5 num_trains+0.5]);
+    hold off;
+end
+
+% ==== ISI distance ====
+
+
+
+% ==== SPIKE distance ====
+
+
+
+% ==== RI-SPIKE ====
+
+
+
+% ==== SPIKE-Synchro ====
+
+
+% ==== SPIKE-Order ====
+if mod(measures,32)>15
+    [sortedOrders,sortedTimes,SO_matrix]=order_spikes(tmin,tmax,spikes);
+    if mod(showing,4)>1 || mod(plotting,16)>1
+        spike_order=0;
+        if mod(showing,4)>1
+            disp(['Spike order D = ', num2str(spike_order)]);
+        end
+    end
+    if mod(showing,8)>3 || mod(plotting,8)>3 
+        if mod(showing,8)>3 % showing profile
+            spike_order_profile = [sortedTimes(:), sortedOrders(:)];
+            disp('Spike order profile: ');
+            disp(spike_order_profile);
+        end
+        if mod(plotting,8)>3 % plotting profile
+            figure;
+            hold on;
+            grid on;
+            plot([tmin,tmax],[spike_order,spike_order], '-', 'Color', 'red', 'LineWidth', 1);
+            plot(sortedTimes,sortedOrders,'-o','Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
+            xlim([tmin,tmax]);
+            ylim([-1.1,1.1]);
+            title(sprintf('Spike order D = %.4g', spike_order));
+            yticks([-1,0,1]);
+            hold off;
+        end
+    end
+    if mod(showing,16)>7 || mod(plotting,16)>7
+        if mod(showing,16)>7 % showing matrix
+            disp('Spike order matrix: ');
+            disp(SO_matrix);
+        end
+        if mod(plotting,16)>7 % plotting matrix
+            n=length(spikes);
+            figure;
+            hold on;
+            imagesc(SO_matrix, [-1 1]);
+            colormap(jet);
+            colorbar;
+            axis equal;
+            xlim([0.5 n+0.5]);
+            ylim([0.5 n+0.5]);
+            set(gca, 'XDir', 'normal');
+            set(gca, 'YDir', 'reverse');
+            set(gca, 'XTick', 1:n, 'YTick', 1:n);
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(sprintf('Spike order matrix D = %g', spike_order));
+            hold off;
+        end
+    end
+end
+
+% ==== SPIKE-Train-Order ====
+if mod(measures,64)>31
+    [results,order_matrix]=order_trains(tmin,tmax,spikes);
+    if mod(showing,16)>1 || mod(plotting,16)>1
+        [F,sortedTimes,sortedOrders]=compute_spike_train_order_value(spikes,results,number_spikes);
+        if mod(showing,4)>1
+            fprintf('Spike train order F = %.4f\n', F);
+        end
+    end
+    if mod(showing,8)>3 || mod(plotting,8)>3
+        if mod(showing,8)>3 % showing profile
+            spike_train_order_profile = [sortedTimes(:), sortedOrders(:)];
+            disp('Spike train order profile: ');
+            disp(spike_train_order_profile);
+        end
+        if mod(plotting,8)>3 % plotting profile
+            figure;
+            hold on;
+            grid on;
+            plot([tmin,tmax],[F,F], '-', 'Color', 'red', 'LineWidth', 1);
+            plot(sortedTimes,sortedOrders,'-o','Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
+            xlim([tmin,tmax]);
+            ylim([-1.1,1.1]);
+            title(sprintf('Spike train order F = %.4g', F));
+            yticks([-1,0,1]);
+            hold off;
+        end
+    end
+    if mod(showing,16)>7 || mod(plotting,16)>7
+        if mod(showing,16)>7 % showing matrix
+            disp('Spike train order matrix: ');
+            disp(order_matrix);
+        end
+        if mod(plotting,16)>7 % plotting matrix
+            n=length(spikes);
+            figure;
+            hold on;
+            matrix_min = min(order_matrix(:));
+            matrix_max = max(order_matrix(:));
+            imagesc(order_matrix, [matrix_min matrix_max]);
+            colormap(jet);
+            colorbar;
+            axis equal;
+            xlim([0.5 n+0.5]);
+            ylim([0.5 n+0.5]);
+            set(gca, 'XDir', 'normal');
+            set(gca, 'YDir', 'reverse');
+            set(gca, 'XTick', 1:n, 'YTick', 1:n);
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(sprintf('Spike train order F = %g', F));
+            hold off;
+        end
+    end
+end 
+
+
+    
