@@ -11,7 +11,7 @@ function [C_matrix,C_global,spike_synchro_data] = f_spike_synchro_multi(st, t_mi
                 spike_synchro_data{i, j} = []; % No data for self-comparison
                 continue;  % Skip self-comparison
             end
-            [C_ij, times_ij] = f_spike_synchro(st{i}, st{j}, t_min, t_max);
+            [C_ij, times_ij] = f_adapt_spike_synchro(st{i}, st{j}, t_min, t_max, 'auto');
             
             %Update C_matrix
             for k = 1:length(C_ij)

@@ -9,7 +9,6 @@ function fig_handles = f_spike_synchro_plot(fig_input, data, params)
     spike_synchro_data = data.spike_synchro_data; % Cell array with [time, C_value] pairs
     
     % Plot pairwise coincidence matrix
-    figure;
     imagesc(C_matrix);
     colorbar;
     colormap(jet);
