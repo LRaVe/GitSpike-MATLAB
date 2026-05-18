@@ -15,6 +15,7 @@ spikes_trains{3} = [2 5];
 
 tmin=0;
 tmax=10;
+threshold = 1000; 
 
 %% Call of the function of f_ISI_distance
 [maMatrice, I,moyenneDistance] = f_ISI_distance(spikes_trains, tmin, tmax);
@@ -25,18 +26,18 @@ fprintf('The average of ISI-distance is: %.4f\n', moyenneDistance);
 %% Call of the function of f_ISI_distance_adaptative
 % ISI-Distance Classique (MRTS = 0)
 fprintf('--- Running classic ISI-distance ---\n');
-[mat_classic, I_list_c, mean_c] = f_ISI_distance_adaptive(spikes_trains, ...
+[mat_classic, I_list_c, mean_c] = f_ISI_distance_adaptive_v1(spikes_trains, ...
     tmin, tmax, 0);
 
 % ISI-Distance Adaptive (MRTS = 'auto')
 fprintf('\n--- Running adaptive auto ISI-distance (auto) ---\n');
-[mat_adapt, I_list_a, mean_a] = f_ISI_distance_adaptive(spikes_trains, ...
+[mat_adapt, I_list_a, mean_a] = f_ISI_distance_adaptive_v1(spikes_trains, ...
     tmin, tmax, 'auto');
 
 % ISI-Distance Adaptive (MRTS = 1.5)
 fprintf('\n--- Running adaptive manual ISI-distance (1.5) ---\n');
-[mat_adapt_d, I_list_d, mean_d] = f_ISI_distance_adaptive(spikes_trains, ...
-    tmin, tmax,  1.5);
+[mat_adapt_d, I_list_d, mean_d] = f_ISI_distance_adaptive_v1(spikes_trains, ...
+    tmin, tmax, threshold);
 
 % Comparaison of the resultats in the window
 fprintf('\nRESULTS COMPARISON:\n');

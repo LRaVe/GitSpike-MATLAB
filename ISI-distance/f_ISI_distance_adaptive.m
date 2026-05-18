@@ -21,7 +21,7 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive(spikes_trains, tmin, 
     end
     
     if ischar(MRTS) && strcmpi(MRTS, 'auto')
-        MRTS = calculate_auto_mrts(spikes_trains); 
+        MRTS = autoMRTS(spikes_trains,'auto'); 
         mode_label = sprintf('Adaptive (auto MRTS = %.3f)', MRTS);
     elseif MRTS > 0
         mode_label = sprintf('Adaptive (manual MRTS = %.3f)', MRTS);
@@ -165,17 +165,18 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive(spikes_trains, tmin, 
 end
 
 
-function MRTS = calculate_auto_mrts(spikes_trains)
-    % Automatics calcul of MRTS parameter (Means of the smallest ISI of the dataset)
-    sum_isi_sqr = 0;
-    num_isi = 0;
-        for i=1:length(spikes_trains)
-            for j=1:(length(spikes_trains{i})-1)
-                sum_isi_sqr = sum_isi_sqr + (spikes_trains{i}(j+1) ...
-                    -spikes_trains{i}(j))^2;
+function [MRTS] = autoMRTS(spikes, threshold)
+    if ischar(threshold) && strcmpi(threshold, 'auto')
+        sum_isi_sqr = 0;
+        num_isi = 0;
+        for i=1:length(spikes)
+            for j=1:(length(spikes{i})-1)
+                sum_isi_sqr = sum_isi_sqr + (spikes{i}(j+1)-spikes{i}(j))^2;
                 num_isi = num_isi + 1;
             end
         end
         MRTS = (sum_isi_sqr/num_isi)^0.5;
-        display (MRTS)
+    else
+        MRTS = threshold;
+    end
 end
