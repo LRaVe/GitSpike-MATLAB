@@ -3,7 +3,7 @@
 clear all;
 
 
-dataset = 1;
+dataset = 2;
 
 if dataset == 1
     t_min=0;
@@ -42,7 +42,7 @@ end
 
 
 % Call multi-train function
-[C_matrix, C_global, spike_synchro_data] = f_spike_synchro_multi(spikes, t_min, t_max);
+[C_matrix, C_global, spike_synchro_data] = f_adapt_spike_synchro_multi(spikes, t_min, t_max, 'auto');
 
 fprintf('=== Pairwise Coincidence Matrix ===\n');
 disp(C_matrix);
