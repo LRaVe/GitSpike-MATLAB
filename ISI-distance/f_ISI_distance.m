@@ -2,7 +2,7 @@
 % Author: Laure WOLFF
 % Date: May 2026
 
-function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, ...
+function f_ISI_distance(spikes_trains, tmin, ...
     tmax,showing,plotting)
 % F_ISI_DISTANCE Calculates the ISI-distance between multiple spike trains
 %
@@ -29,7 +29,7 @@ function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, ...
     end
 
     if num_trains >= 2
-   compteur = 1;
+    compteur = 0;
    num_pairs = (num_trains * (num_trains - 1)) / 2;
    num_cols = 2; % On fixe 2 colonnes pour que ce soit lisible
    num_rows = ceil(num_pairs / num_cols);
@@ -82,7 +82,7 @@ function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, ...
            pair_data{end+1}.t = t_all;
            pair_data{end}.It = It_list;
 
-           if bitand(plotting, 4)
+           if bitand(plotting, 4) 
                     subplot(num_rows, num_cols, compteur); 
                     stairs(t_all, [It_list, It_list(end)]); 
                     title(['Pair', num2str(i), ' & ', num2str(j)]);  

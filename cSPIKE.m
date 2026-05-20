@@ -1,10 +1,10 @@
 close all
 
 % ==== Selection showing + plotting ====
-measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-showing=15;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+measures=17;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+adaptive_measures=0;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+showing=14;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+plotting=14;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 sort_spike_trains=1;       % 0-no,1-yes
 
 
@@ -28,6 +28,13 @@ plot_spikes = spikes;
 % ==== Add auxiliary spikes at boundaries ====
 number_spikes=sum(cellfun(@length, spikes));
 [spike, ~, ~]=add_auxiliary_spikes(spikes,tmin,tmax);
+
+% Make sure subfolders containing ISI and order helpers are available
+thisFile = mfilename('fullpath');
+if ~isempty(thisFile)
+    repoRoot = fileparts(thisFile);
+    addpath(genpath(repoRoot));
+end
 
 % ==== SPIKE trains ====
 if mod(showing,2)>0 
@@ -57,6 +64,13 @@ if mod(plotting,2)>0
 end
 
 % ==== ISI distance ====
+if mod(measures,2)>0
+    f_ISI_distance(spikes, tmin, tmax, showing, plotting);
+end
+
+if mod(adaptive_measures,2)>0
+    f_ISI_distance_adaptive_v1(spikes, tmin, tmax, threshold, showing, plotting);
+end
 
 
 
