@@ -2,7 +2,8 @@
 % Author: Laure WOLFF
 % Date: May 2026
 
-function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, tmax)
+function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, ...
+    tmax,showing,plotting)
 % F_ISI_DISTANCE Calculates the ISI-distance between multiple spike trains
 %
 % Inputs:
@@ -81,18 +82,20 @@ function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, tmax)
            pair_data{end+1}.t = t_all;
            pair_data{end}.It = It_list;
 
-           subplot(num_rows, num_cols, compteur - 1); 
-           stairs(t_all, I_plot, 'LineWidth', 1.5); 
-           xlabel('Time');
-           ylabel('I_t');
-           xlim([0 tmax]);   
-           ylim([0 1]);
-           title(['Pair ', num2str(i), ' & ', num2str(j)]);  
-           subtitle(['Distance: ', num2str(Iij/(tmax-tmin), '%.3f')]);
-           grid on;
+           if bitand(plotting, 4)
+                    subplot(num_rows, num_cols, compteur); 
+                    stairs(t_all, [It_list, It_list(end)]); 
+                    title(['Pair', num2str(i), ' & ', num2str(j)]);  
+                    subtitle(['Dist: ', num2str(Iij, '%.4f')]);
+                    ylim([0 1]); 
+                    grid on;
+           end
        end
    end   
        I_mean = mean(I);
+       if bitand(showing, 2)
+            fprintf('The ISI-distance is: %.4f\n', I_mean);
+        end
        t_global = unique(all_t_events); 
        I_matrix = zeros(length(pair_data), length(t_global)-1);
        
@@ -109,20 +112,41 @@ function [dist_matrix,I, I_mean] = f_ISI_distance(spikes_trains, tmin, tmax)
        
        %display(I)
        
-       figure;
-       imagesc(dist_matrix); 
-       colorbar;
-       title('Matrix of the ISI-distance');
-       
-       figure;
-       stairs(t_global, [I_pop_mean, I_pop_mean(end)]);
-       xlabel('Time'); 
-       ylabel('Average I_t');
-       xlim([0 tmax]);   
-       ylim([0 1]);
-       title('Evolution of Population Average ISI distance');
-       grid on;
+       if bitand(plotting, 8)
+           figure;
+           imagesc(dist_matrix); 
+           colorbar;
+           title('Matrix of the ISI-distance');
+       end
+
+       if bitand(showing, 8)
+            disp('Final ISI-Distance matrix:');
+            disp(dist_matrix);
+       end
+
+       if bitand(plotting, 4)
+           figure;
+           stairs(t_global, [I_pop_mean, I_pop_mean(end)]);
+           xlabel('Time'); 
+           ylabel('Average I_t');
+           xlim([0 tmax]);   
+           ylim([0 1]);
+           title('Evolution of Population Average ISI distance');
+           grid on;
+       end
+
+       if bitand(showing, 4)
+            fprintf('\n=== Final ISI-Distance plot : ===\n');
+            fprintf('  Time(t)  |  Average ISI Distance I(t)\n');
+            I_pop_extended = [I_pop_mean, I_pop_mean(end)];
+            for idx_plot = 1:length(t_global)
+                fprintf('      %8.4f     |      %8.4f\n', t_global(idx_plot), ...
+                    I_pop_extended(idx_plot));
+            end
+        end
+
+
     else
-       I_mean = 0; % Cas avec moins de 2 trains
+       I_mean = 0; 
     end
 end

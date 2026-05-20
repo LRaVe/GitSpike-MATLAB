@@ -20,17 +20,21 @@ threshold = 1000;
 showing=14;                % +2:Distance,+4:Profile,+8:Matrix
 plotting=14;               % +4:Profile,+8:Matrix
 
-% %% Call of the function of f_ISI_distance
-% [maMatrice, I,moyenneDistance] = f_ISI_distance(spikes_trains, tmin, tmax);
-% fprintf('The pairwise ISI-distances of this dataset are: %s\n', ...
-%     num2str(I, '%.4f  '));
-% fprintf('The average of ISI-distance is: %.4f\n', moyenneDistance);
+%% Call of the function of f_ISI_distance
+[maMatrice, I,moyenneDistance] = f_ISI_distance(spikes_trains, tmin, tmax, ...
+    showing,plotting);
 
 %% Call of the function of f_ISI_distance_adaptative
-% ISI-Distance Classique (MRTS = 0)
-fprintf('--- Running classic ISI-distance ---\n');
-[mat_classic, I_list_c, mean_c] = f_ISI_distance_adaptive_v1(spikes_trains, ...
-    tmin, tmax, 0, showing, plotting);
+
+%ISI-Distance Classique (MRTS = 0)
+fprintf('--- Running classic ISI-distance with the adaptative ISI-distance function---\n');
+try
+    [mat_classic, I_list_c, mean_c] = f_ISI_distance_adaptive_v1(spikes_trains, tmin, tmax, 0, showing, plotting);
+catch ME
+    fprintf('\n[INFO MAIN] Classic mode was successfully blocked by security:\n');
+    fprintf('--> %s\n\n', ME.message);
+    mat_classic = []; I_list_c = []; mean_c = NaN;
+end
 
 % ISI-Distance Adaptive (MRTS = 'auto')
 fprintf('\n--- Running adaptive auto ISI-distance (auto) ---\n');

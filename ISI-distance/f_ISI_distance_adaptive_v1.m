@@ -28,13 +28,13 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive_v1(spikes_trains, ...
         plotting = 15; 
     end
 
-    MRTS = autoMRTS(spikes_trains, threshold); 
-    
-    if MRTS > 0
-        mode_label = sprintf('Adaptive (MRTS = %.3f)', MRTS);
-    else
-        mode_label = 'Classic (MRTS = 0)';
+    if isnumeric(threshold) && threshold <= 0
+        error('ISI_Distance:ClassicModeNotAllowed', ...
+              'Error: Classic ISI-distance (MRTS = 0) is disabled. Please provide a positive threshold or use ''auto''.');
     end
+
+    MRTS = autoMRTS(spikes_trains, threshold);
+    mode_label = sprintf('Adaptive (MRTS = %.3f)', MRTS);
 
     num_trains = length(spikes_trains);
     I = [];
@@ -118,7 +118,7 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive_v1(spikes_trains, ...
         I_mean = mean(I);
 
         if bitand(showing, 2)
-            fprintf('The global ISI-distance is: %.4f\n', I_mean);
+            fprintf('The global adaptative ISI-distance is: %.4f\n', I_mean);
         end
         
         % Average of the population
@@ -140,11 +140,11 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive_v1(spikes_trains, ...
             imagesc(dist_matrix); 
             colorbar; 
             title('ISI Matrix');
-            subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
+            subtitle(['Global adaptative ISI-distance: ', num2str(I_mean, '%.4f')]);
         end
 
         if bitand(showing, 8)
-            disp('Final ISI-Distance matrix:');
+            disp('Final adaptative ISI-Distance matrix:');
             disp(dist_matrix);
         end
 
@@ -152,13 +152,13 @@ function [dist_matrix,I, I_mean] = f_ISI_distance_adaptive_v1(spikes_trains, ...
             figure('Name', ['Population Average - ' mode_label]);
             stairs(t_global, [I_pop_mean, I_pop_mean(end)]);
             title('Population Average');
-            subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
+            subtitle(['Global adaptative ISI-distance: ', num2str(I_mean, '%.4f')]);
             ylim([0 1]); 
             grid on;
         end
 
         if bitand(showing, 4)
-            fprintf('\n=== Final ISI-Distance plot (%s) : ===\n', mode_label);
+            fprintf('\n=== Final adaptative ISI-Distance plot (%s) : ===\n', mode_label);
             fprintf('  Time(t)  |  Average ISI Distance I(t)\n');
             I_pop_extended = [I_pop_mean, I_pop_mean(end)];
             for idx_plot = 1:length(t_global)
