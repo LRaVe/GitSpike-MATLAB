@@ -1,8 +1,8 @@
 close all
 
 % ==== Selection showing + plotting ====
-measures=17;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-adaptive_measures=0;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+measures=0;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+adaptive_measures=4;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
 showing=14;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 plotting=14;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 sort_spike_trains=1;       % 0-no,1-yes
@@ -75,8 +75,8 @@ end
 
 
 % ==== SPIKE distance ====
-if mod(measures,4)>1 
-    SPIKE_distances_all
+if mod(measures,8)>1 || mod(adaptive_measures,8)>1
+    SPIKE_distances_all(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting);
 end
 
 % ==== RI-SPIKE ====

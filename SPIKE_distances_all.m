@@ -6,190 +6,198 @@
 % close all;
 
 
-measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-showing=15;                % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+%measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+%adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+%showing=15;                % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+%plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 
 
 %% =========================
 % INPUT SPIKE TRAINS
 % =========================
-spikes{1} = [12 16 76 80];
-spikes{2} = [8 20 72 84];
-spikes{3} = [10 14 84 92];
-spikes{4} = [12 44 48 80];
-spikes{5} = [8 52 56 84];
-spikes{6} = [10 92];
+%spikes{1} = [12 16 76 80];
+%spikes{2} = [8 20 72 84];
+%spikes{3} = [10 14 84 92];
+%spikes{4} = [12 44 48 80];
+%spikes{5} = [8 52 56 84];
+%spikes{6} = [10 92];
 
 
 % global time window
-t_min = 0;
-t_max = 100;
-threshold = 50;
+%t_min = 0;
+%t_max = 100;
+%threshold = 50;
 
 
 
+function SPIKE_distances_all(spikes,t_min,t_max,threshold,measures,adaptive_measures,showing,plotting)
+
+    %% =====================================================
+    % DISPLAY
+    % =====================================================
+
+    [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max);
+    threshold = autoMRTS(spikes, threshold);
 
 
-%% =====================================================
-% DISPLAY
-% =====================================================
+    Distances = [0, 0, 0, 0];
 
-[spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max);
-threshold = autoMRTS(spikes, threshold);
+    if mod(measures,4)>1
+        Distances(1) = 1;
+    end
+    if mod(measures,8)>3
+        Distances(2) = 1;
+    end
+    if mod(adaptive_measures,4)>1
+        Distances(3) = 1;
+    end
+    if mod(adaptive_measures,8)>3
+        Distances(4) = 1;
+    end
+    if any(Distances ~= 0)
+        [SPIKE_distance, SPIKE_distance_profile, SPIKE_distance_matrix, RI_SPIKE_distance, RI_SPIKE_distance_profile, RI_SPIKE_distance_matrix, A_SPIKE_distance, A_SPIKE_distance_profile, A_SPIKE_distance_matrix, RIA_SPIKE_distance, RIA_SPIKE_distance_profile, RIA_SPIKE_distance_matrix] = SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold);
+    end;
 
-
-Distances = [0, 0, 0, 0];
-
-if mod(measures,4)>1
-    Distances(1) = 1;
-end
-if mod(measures,8)>3
-    Distances(2) = 1;
-end
-if mod(adaptive_measures,4)>1
-    Distances(3) = 1;
-end
-if mod(adaptive_measures,8)>3
-    Distances(4) = 1;
-end
-if any(Distances ~= 0)
-    [SPIKE_distance, SPIKE_distance_profile, SPIKE_distance_matrix, RI_SPIKE_distance, RI_SPIKE_distance_profile, RI_SPIKE_distance_matrix, A_SPIKE_distance, A_SPIKE_distance_profile, A_SPIKE_distance_matrix, RIA_SPIKE_distance, RIA_SPIKE_distance_profile, RIA_SPIKE_distance_matrix] = SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold);
-end;
-
-if mod(measures,4)>1                                                        % SPIKE-distance
-    if mod(showing,4)>1
-        disp(SPIKE_distance);
+    if mod(measures,4)>1                                                        % SPIKE-distance
+        if mod(showing,4)>1
+            fprintf('SPIKE-distance: %.4f\n', SPIKE_distance);
+        end
+        if mod(showing,8)>3
+            fprintf('SPIKE-distance profile: \n');
+            disp(SPIKE_distance_profile);
+        end
+        if mod(showing,16)>7
+            fprintf('SPIKE-distance matrix: \n');
+            disp(SPIKE_distance_matrix);
+        end
+        if mod(plotting,8)>3
+            figure;
+            area(SPIKE_distance_profile(:,1), SPIKE_distance_profile(:,2));
+            xlabel('Time');
+            ylabel('SPIKE-distance');
+            title(['SPIKE-distance = ', num2str(SPIKE_distance)]);
+            xlim([t_min t_max]);
+            ylim([0 1]);
+            colororder([0.5 0.5 1]);
+            grid on;
+        end
+        if mod(plotting,16)>7
+            figure;
+            imagesc(SPIKE_distance_matrix);
+            colorbar;
+            colormap jet;
+            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(['SPIKE-distance = ', num2str(SPIKE_distance)]);
+        end
     end
-    if mod(showing,8)>3
-        disp(SPIKE_distance_profile);
+    
+    if mod(measures,8)>3                                                        % RI-SPIKE-distance
+        if mod(showing,4)>1
+            fprintf('RI-SPIKE-distance: %.4f\n', RI_SPIKE_distance);
+        end
+        if mod(showing,8)>3
+            fprintf('RI-SPIKE-distance profile: \n');
+            disp(RI_SPIKE_distance_profile);
+        end
+        if mod(showing,16)>7
+            fprintf('RI-SPIKE-distance matrix: \n');
+            disp(RI_SPIKE_distance_matrix);
+        end
+        if mod(plotting,8)>3
+            figure;
+            area(RI_SPIKE_distance_profile(:,1), RI_SPIKE_distance_profile(:,2));
+            xlabel('Time');
+            ylabel('RI-SPIKE-distance');
+            title(['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)]);
+            xlim([t_min t_max]);
+            ylim([0 1]);
+            colororder([0.5 0.5 1]);
+            grid on;
+        end
+        if mod(plotting,16)>7
+            figure;
+            imagesc(RI_SPIKE_distance_matrix);
+            colorbar;
+            colormap jet;
+            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)]);
+        end
     end
-    if mod(showing,16)>7
-        disp(SPIKE_distance_matrix);
-    end
-    if mod(plotting,8)>3
-        figure;
-        area(SPIKE_distance_profile(:,1), SPIKE_distance_profile(:,2));
-        xlabel('Time');
-        ylabel('SPIKE-distance');
-        title(['SPIKE-distance = ', num2str(SPIKE_distance)]);
-        xlim([t_min t_max]);
-        ylim([0 1]);
-        colororder([0.5 0.5 1]);
-        grid on;
-    end
-    if mod(plotting,16)>7
-        figure;
-        imagesc(SPIKE_distance_matrix);
-        colorbar;
-        colormap jet;
-        set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
-        xlabel('Spike trains');
-        ylabel('Spike trains');
-        title(['SPIKE-distance = ', num2str(SPIKE_distance)]);
-    end
-end
-
-
-if mod(measures,8)>3                                                        % RI-SPIKE-distance
-    if mod(showing,4)>1
-        disp(RI_SPIKE_distance);
-    end
-    if mod(showing,8)>3
-        disp(RI_SPIKE_distance_profile);
-    end
-    if mod(showing,16)>7
-        disp(RI_SPIKE_distance_matrix);
-    end
-    if mod(plotting,8)>3
-        figure;
-        area(RI_SPIKE_distance_profile(:,1), RI_SPIKE_distance_profile(:,2));
-        xlabel('Time');
-        ylabel('RI-SPIKE-distance');
-        title(['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)]);
-        xlim([t_min t_max]);
-        ylim([0 1]);
-        colororder([0.5 0.5 1]);
-        grid on;
-    end
-    if mod(plotting,16)>7
-        figure;
-        imagesc(RI_SPIKE_distance_matrix);
-        colorbar;
-        colormap jet;
-        set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
-        xlabel('Spike trains');
-        ylabel('Spike trains');
-        title(['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)]);
-    end
-end
 
 
-if mod(adaptive_measures,4)>1                                               % A-SPIKE-distance
-    if mod(showing,4)>1
-        disp(A_SPIKE_distance);
+    if mod(adaptive_measures,4)>1                                               % A-SPIKE-distance
+        if mod(showing,4)>1
+            fprintf('A-SPIKE-distance: %.4f\n', A_SPIKE_distance);
+        end
+        if mod(showing,8)>3
+            fprintf('A-SPIKE-distance profile: \n');
+            disp(A_SPIKE_distance_profile);
+        end
+        if mod(showing,16)>7
+            fprintf('A-SPIKE-distance matrix: \n');
+            disp(A_SPIKE_distance_matrix);
+        end
+        if mod(plotting,8)>3
+            figure;
+            area(A_SPIKE_distance_profile(:,1), A_SPIKE_distance_profile(:,2));
+            xlabel('Time');
+            ylabel('A-SPIKE-distance');
+            title(['A-SPIKE-distance = ', num2str(A_SPIKE_distance)]);
+            xlim([t_min t_max]);
+            ylim([0 1]);
+            colororder([0.5 0.5 1]);
+            grid on;
+        end
+        if mod(plotting,16)>7
+            figure;
+            imagesc(A_SPIKE_distance_matrix);
+            colorbar;
+            colormap jet;
+            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(['A-SPIKE-distance = ', num2str(A_SPIKE_distance)]);
+        end
     end
-    if mod(showing,8)>3
-        disp(A_SPIKE_distance_profile);
-    end
-    if mod(showing,16)>7
-        disp(A_SPIKE_distance_matrix);
-    end
-    if mod(plotting,8)>3
-        figure;
-        area(A_SPIKE_distance_profile(:,1), A_SPIKE_distance_profile(:,2));
-        xlabel('Time');
-        ylabel('A-SPIKE-distance');
-        title(['A-SPIKE-distance = ', num2str(A_SPIKE_distance)]);
-        xlim([t_min t_max]);
-        ylim([0 1]);
-        colororder([0.5 0.5 1]);
-        grid on;
-    end
-    if mod(plotting,16)>7
-        figure;
-        imagesc(A_SPIKE_distance_matrix);
-        colorbar;
-        colormap jet;
-        set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
-        xlabel('Spike trains');
-        ylabel('Spike trains');
-        title(['A-SPIKE-distance = ', num2str(A_SPIKE_distance)]);
-    end
-end
 
 
-if mod(adaptive_measures,8)>3                                               % RIA-SPIKE-distance
-    if mod(showing,4)>1
-        disp(RIA_SPIKE_distance);
-    end
-    if mod(showing,8)>3
-        disp(RIA_SPIKE_distance_profile);
-    end
-    if mod(showing,16)>7
-        disp(RIA_SPIKE_distance_matrix);
-    end
-    if mod(plotting,8)>3
-        figure;
-        area(RIA_SPIKE_distance_profile(:,1), RIA_SPIKE_distance_profile(:,2));
-        xlabel('Time');
-        ylabel('RIA-SPIKE-distance');
-        title(['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)]);
-        xlim([t_min t_max]);
-        ylim([0 1]);
-        colororder([0.5 0.5 1]);
-        grid on;
-    end
-    if mod(plotting,16)>7
-        figure;
-        imagesc(RIA_SPIKE_distance_matrix);
-        colorbar;
-        colormap jet;
-        set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
-        xlabel('Spike trains');
-        ylabel('Spike trains');
-        title(['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)]);
+    if mod(adaptive_measures,8)>3                                               % RIA-SPIKE-distance
+        if mod(showing,4)>1
+            fprintf('RIA-SPIKE-distance: %.4f\n', RIA_SPIKE_distance);
+        end
+        if mod(showing,8)>3
+            fprintf('RIA-SPIKE-distance profile: \n');
+            disp(RIA_SPIKE_distance_profile);
+        end
+        if mod(showing,16)>7
+            fprintf('RIA-SPIKE-distance matrix: \n');
+            disp(RIA_SPIKE_distance_matrix);
+        end
+        if mod(plotting,8)>3
+            figure;
+            area(RIA_SPIKE_distance_profile(:,1), RIA_SPIKE_distance_profile(:,2));
+            xlabel('Time');
+            ylabel('RIA-SPIKE-distance');
+            title(['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)]);
+            xlim([t_min t_max]);
+            ylim([0 1]);
+            colororder([0.5 0.5 1]);
+            grid on;
+        end
+        if mod(plotting,16)>7
+            figure;
+            imagesc(RIA_SPIKE_distance_matrix);
+            colorbar;
+            colormap jet;
+            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)]);
+        end
     end
 end
 
@@ -255,11 +263,11 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
                 S = (S_1 + S_2) / (2*mean([ISI_dist_1 ISI_dist_2]));
                 SPIKE_distance_profile{2}{end+1} = [spikes1(idx_1) S];
             end
-            if Distances(1)==1 %A-SPIKE-distance
+            if Distances(3)==1 %A-SPIKE-distance
                 S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*mean([ISI_dist_1 ISI_dist_2])*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{3}{end+1} = [spikes1(idx_1) S];
             end
-            if Distances(2)==1 %RIA-SPIKE-distance
+            if Distances(4)==1 %RIA-SPIKE-distance
                 S = (S_1 + S_2) / (2*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{4}{end+1} = [spikes1(idx_1) S];
             end
@@ -278,11 +286,11 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
                 S = (S_1 + S_2) / (2*mean([ISI_dist_1 ISI_dist_2]));
                 SPIKE_distance_profile{2}{end+1} = [spikes1(idx_1) S];
             end
-            if Distances(1)==1 %A-SPIKE-distance
+            if Distances(3)==1 %A-SPIKE-distance
                 S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*mean([ISI_dist_1 ISI_dist_2])*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{3}{end+1} = [spikes1(idx_1) S];
             end
-            if Distances(2)==1 %RIA-SPIKE-distance
+            if Distances(4)==1 %RIA-SPIKE-distance
                 S = (S_1 + S_2) / (2*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{4}{end+1} = [spikes1(idx_1) S];
             end
@@ -328,11 +336,11 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
                 S = (S_1 + S_2) / (2*mean([ISI_dist_1 ISI_dist_2]));
                 SPIKE_distance_profile{2}{end+1} = [spikes2(idx_2) S];
             end
-            if Distances(1)==1 %A-SPIKE-distance
+            if Distances(3)==1 %A-SPIKE-distance
                 S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*mean([ISI_dist_1 ISI_dist_2])*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{3}{end+1} = [spikes2(idx_2) S];
             end
-            if Distances(2)==1 %RIA-SPIKE-distance
+            if Distances(4)==1 %RIA-SPIKE-distance
                 S = (S_1 + S_2) / (2*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{4}{end+1} = [spikes2(idx_2) S];
             end
@@ -351,11 +359,11 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
                 S = (S_1 + S_2) / (2*mean([ISI_dist_1 ISI_dist_2]));
                 SPIKE_distance_profile{2}{end+1} = [spikes2(idx_2) S];
             end
-            if Distances(1)==1 %A-SPIKE-distance
+            if Distances(3)==1 %A-SPIKE-distance
                 S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*mean([ISI_dist_1 ISI_dist_2])*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{3}{end+1} = [spikes2(idx_2) S];
             end
-            if Distances(2)==1 %RIA-SPIKE-distance
+            if Distances(4)==1 %RIA-SPIKE-distance
                 S = (S_1 + S_2) / (2*max(mean([ISI_dist_1 ISI_dist_2]),threshold));
                 SPIKE_distance_profile{4}{end+1} = [spikes2(idx_2) S];
             end
@@ -369,10 +377,9 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
     %% =====================================================
     for k=1:4
         if Distances(k)==1
-    
             profile = cell2mat(SPIKE_distance_profile{k}');
             profile = sortrows(profile, 1);
-        
+
             % ==========================================
             % keep only points inside interval
             % ==========================================
@@ -405,19 +412,20 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
             
                     % projection onto boundary
                     profile(i,1) = t_max;
-            
+
                 end
             end
-        end
-    
-        % remove duplicates
-        [~, idx] = unique(profile,'rows','stable');
-        profile = profile(idx,:);
-    
-        % sort
-        profile = sortrows(profile,1);
+            % remove duplicates
+            [~, idx] = unique(profile,'rows','stable');
+            profile = profile(idx,:);
 
-        profile_mat{k}=profile;
+            % sort
+            profile = sortrows(profile,1);
+
+            profile_mat{k}=profile;
+        else
+            profile_mat{k} = [];
+        end
     end
 
     
@@ -548,14 +556,22 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
         for j = i+1:N
 
             [d, prof] = SPIKE_dist_2x2(spikes{i}, spikes{j}, t_min, t_max, aux_begin(i), aux_end(i), aux_begin(j), aux_end(j), Distances, threshold);
-            D_matrix(i,j) = d(1);
-            D_matrix(j,i) = d(1);
-            RI_D_matrix(i,j) = d(2);
-            RI_D_matrix(j,i) = d(2);
-            A_D_matrix(i,j) = d(3);
-            A_D_matrix(j,i) = d(3);
-            RIA_D_matrix(i,j) = d(4);
-            RIA_D_matrix(j,i) = d(4);
+            if numel(d) >= 1
+                D_matrix(i,j) = d(1);
+                D_matrix(j,i) = d(1);
+            end
+            if numel(d) >= 2
+                RI_D_matrix(i,j) = d(2);
+                RI_D_matrix(j,i) = d(2);
+            end
+            if numel(d) >= 3
+                A_D_matrix(i,j) = d(3);
+                A_D_matrix(j,i) = d(3);
+            end
+            if numel(d) >= 4
+                RIA_D_matrix(i,j) = d(4);
+                RIA_D_matrix(j,i) = d(4);
+            end
 
             idx_prof = idx_prof + 1;
 
@@ -580,9 +596,14 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     %% =====================================================
 
     t_all = [];
+    base_profile_idx = find(Distances, 1, 'first');
 
-    for p = 1:length(profiles{1})
-        t_all = [t_all ; profiles{1}{p}(:,1)];
+    if ~isempty(base_profile_idx)
+        for p = 1:length(profiles{base_profile_idx})
+            if ~isempty(profiles{base_profile_idx}{p})
+                t_all = [t_all ; profiles{base_profile_idx}{p}(:,1)];
+            end
+        end
     end
 
     t_all = unique(sort(t_all));
@@ -615,6 +636,10 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
             for p = 1:length(profiles{i})
     
                 P = profiles{i}{p};
+
+                if isempty(P)
+                    continue;
+                end
     
                 idx = find(P(:,1) == t);
     
