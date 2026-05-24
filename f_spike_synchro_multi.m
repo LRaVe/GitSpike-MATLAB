@@ -1,8 +1,10 @@
-function [C_matrix,C_global,spike_synchro_data] = f_spike_synchro_multi(st, t_min, t_max)
+function [C_matrix,C_global,spike_synchro_data] = f_spike_synchro_multi(st, t_min, t_max, RMTS)
     n_trains = length(st);
     C_matrix = zeros(n_trains, n_trains);
     spike_synchro_data = cell(n_trains, n_trains); % Store [time, C_value] pairs for each train comparison
-    
+    if nargin < 4
+        RMTS = 0;
+    end
     %Compute pairwise coincidence matrices for all pairs of spike trains, without matrix for now
     for i = 1:n_trains
         for j = [1:n_trains]  % Compare train i to all other trains
@@ -11,8 +13,8 @@ function [C_matrix,C_global,spike_synchro_data] = f_spike_synchro_multi(st, t_mi
                 spike_synchro_data{i, j} = []; % No data for self-comparison
                 continue;  % Skip self-comparison
             end
-            [C_ij, times_ij] = f_adapt_spike_synchro(st{i}, st{j}, t_min, t_max, 'auto');
-            
+            [C_ij, times_ij] = f_adapt_spike_synchro(st{i}, st{j}, t_min, t_max, RMTS);
+                
             %Update C_matrix
             for k = 1:length(C_ij)
                 C_matrix(i, j) = C_matrix(i, j) + C_ij(k);
