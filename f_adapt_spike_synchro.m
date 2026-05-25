@@ -110,8 +110,6 @@ end
 
 function [x_ip,x_if] = compute_ISI(spike_train, spike, t_min, t_max)
     % Compute ISI before and after a given spike
-    % Robust handling for empty spike trains, single spikes,
-    % first/last spikes and when the queried spike is not present.
 
     % Empty spike train
     if isempty(spike_train)
@@ -128,13 +126,23 @@ function [x_ip,x_if] = compute_ISI(spike_train, spike, t_min, t_max)
         if spike_index > 1
             x_ip = spike - spike_train(spike_index - 1);
         else
-            x_ip = spike - t_min; % use window edge for first spike
+            % At the first spike, reuse the forward ISI so boundary coincidences don't collapse to a zero window
+            if length(spike_train) > 1
+                x_ip = spike_train(spike_index + 1) - spike;
+            else
+                x_ip = t_max - t_min;
+            end
         end
 
         if spike_index < length(spike_train)
             x_if = spike_train(spike_index + 1) - spike;
         else
-            x_if = t_max - spike; % use window edge for last spike
+            % At the last spike, reuse the backward ISI for the same reason
+            if length(spike_train) > 1
+                x_if = spike - spike_train(spike_index - 1);
+            else
+                x_if = t_max - t_min;
+            end
         end
     else
         % Spike not exactly present: compute distance to nearest neighbors
