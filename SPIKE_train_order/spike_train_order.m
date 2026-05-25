@@ -36,13 +36,15 @@ function spike_train_order()
     F = compute_spike_train_order_value(spikes, results, number_spikes);
 
     if nargout==0
+        % Visualize results if no output is requested
         spike_train_order_profile=plot_spike_train_order(spikes,results,order_matrix,F,tmin,tmax);
-    end
 
-    % Display results to console
-    fprintf('Spike train order F = %.4f\n', F);
-    disp('Spike train order profile: ');
-    disp(spike_train_order_profile);
-    disp('Spike train order matrix:');
-    disp(order_matrix);
+        % Display results to console with formatted F and a blank line
+        fprintf('Spike train order F = %.4f\n', F);
+        disp('');
+        disp('Spike train order profile: ');
+        disp(spike_train_order_profile);
+        disp('Spike train order matrix:');
+        disp(order_matrix);
+    end
 end

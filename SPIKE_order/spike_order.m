@@ -37,6 +37,7 @@ function spike_order()
         spike_order_profile=plot_spike_order(spikes,SO_matrix,tmin,tmax,threshold);
     end
 
+
     disp(['Spike order D = ', num2str(sum(cellfun(@sum, results)))]);
     disp('Spike order profile: ');
     disp(spike_order_profile);
