@@ -1,3 +1,8 @@
+%% SPIKE-order pairwise computation
+% Author: Agathe JULIEN
+% Date: May 2026
+
+
 function res=pairwise_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
     % Compute pairwise spike ordering between two spike trains
 

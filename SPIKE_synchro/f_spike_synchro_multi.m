@@ -1,3 +1,8 @@
+%% Adaptive SPIKE-synchronization computation for multiple spike trains
+% Author: Lucas RAVELOARINORO
+% Date: May 2026
+
+
 function [C_matrix, C_global, sortedTimes, sortedValues, spike_synchro_data] = f_spike_synchro_multi(st, t_min, t_max, RMTS)
     n_trains = length(st);
     C_matrix = zeros(n_trains, n_trains);

@@ -2,41 +2,13 @@
 % Author: Maxime BELTOISE
 % Date: May 2026
 
-% clear all;
-% close all;
 
-
-%measures=6;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-%adaptive_measures=6;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-%showing=15;                % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-%plotting=15;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-
-
-%% =========================
-% INPUT SPIKE TRAINS
-% =========================
-%spikes{1} = [12 16 76 80];
-%spikes{2} = [8 20 72 84];
-%spikes{3} = [10 14 84 92];
-%spikes{4} = [12 44 48 80];
-%spikes{5} = [8 52 56 84];
-%spikes{6} = [10 92];
-
-
-% global time window
-%t_min = 0;
-%t_max = 100;
-%threshold = 50;
-
-
-
-function SPIKE_distances_all(spikes,t_min,t_max,threshold,measures,adaptive_measures,showing,plotting)
+function SPIKE_distances_all(spikes,t_min,t_max,threshold,measures,adaptive_measures,showing,plotting,aux_begin,aux_end)
 
     %% =====================================================
     % DISPLAY
     % =====================================================
 
-    [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max);
     threshold = autoMRTS(spikes, threshold);
 
 

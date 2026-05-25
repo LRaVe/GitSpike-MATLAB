@@ -1,3 +1,8 @@
+%% Compute spike-train-order values for multiple spike trains
+% Author: Agathe JULIEN
+% Date: May 2026
+
+
 function [results,order_matrix]=order_trains(tmin,tmax,spikes)
     % Compute spike-train-order values for all spikes and pairwise relationships
     % Aggregates pairwise train-order vectors for all spike trains

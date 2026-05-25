@@ -44,8 +44,8 @@ end
 plot_spikes = spikes;
 
 % ==== Add auxiliary spikes at boundaries ====
-number_spikes=sum(cellfun(@length, spikes));
-[spike, ~, ~]=add_auxiliary_spikes(spikes,tmin,tmax);
+number_spikes=sum(cellfun(@length,spikes));
+[spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, tmin, tmax);
 
 
 % ==== SPIKE trains ====
@@ -87,7 +87,7 @@ end
 
 % ==== SPIKE distance + RI-SPIKE ====
 if mod(measures,8)>1 || mod(adaptive_measures,8)>1
-    SPIKE_distances_all(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting);
+    SPIKE_distances_all(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end);
 end
 
 
