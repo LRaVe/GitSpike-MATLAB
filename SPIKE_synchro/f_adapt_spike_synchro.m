@@ -1,3 +1,8 @@
+%% Adaptive SPIKE-synchronization computation between two spike trains
+% Author: Lucas RAVELOARINORO
+% Date: May 2026
+
+
 function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
     % Adaptive SPIKE-synchronization between two spike trains
     % If RMTS is empty or not provided, use regular SPIKE synchronization

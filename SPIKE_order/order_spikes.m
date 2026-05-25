@@ -1,3 +1,8 @@
+%% SPIKE-order profile and matrix computation
+% Author: Agathe JULIEN
+% Date: May 2026
+
+
 function [sortedOrders, sortedTimes, SO_matrix]=order_spikes(tmin,tmax,spikes)
 % Aggregate pairwise order vectors for all spike trains.
     n=length(spikes);

@@ -1,3 +1,8 @@
+%% SPIKE-synchronization computation between two spike trains
+% Author: Lucas RAVELOARINORO
+% Date: May 2026
+
+
 function [C, spike_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t_max)
     % Given two spike trains, this function calculates the coincidence of spikes between them.
     % Uses a greedy matching algorithm to pair spikes based on minimum distance.

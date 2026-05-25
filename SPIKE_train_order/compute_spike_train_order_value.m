@@ -1,3 +1,8 @@
+%% Compute the overall spike-train-order value F
+% Author: Agathe JULIEN
+% Date: May 2026
+
+
 function [F,sortedTimes,sortedOrders] = compute_spike_train_order_value(spikes, orders, number_spikes)
     % Calculate the overall spike-train-order value F
     

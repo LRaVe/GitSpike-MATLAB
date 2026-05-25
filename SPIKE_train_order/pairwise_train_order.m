@@ -1,3 +1,8 @@
+%% Compute pairwise spike-train ordering for two spike trains
+% Author: Agathe JULIEN
+% Date: May 2026
+
+
 function [res1,res2]=pairwise_train_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
     % Compute bidirectional pairwise spike-train ordering
     % For each coincidence, both trains receive the same ordering value
