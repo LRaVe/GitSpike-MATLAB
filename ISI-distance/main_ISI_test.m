@@ -1,48 +1,45 @@
 %% ISI-distance tests
 % Author: Laure WOLFF
 % Date: May 2026
-
 clear; 
 clc; 
 close all;
 
-%% Dataset
+%% Dataset Configuration
 num_trains = 3;
-spikes_trains=cell(1,num_trains);
+spikes_trains = cell(1, num_trains);
 spikes_trains{1} = [0 1 2 4 7]; 
 spikes_trains{2} = [3 4 6 10];
 spikes_trains{3} = [2 5];
 
-tmin=0;
-tmax=10;
-threshold = 1000; 
+tmin = 0;
+tmax = 10;
+threshold = 1000; % Manual test value for MRTS
 
-%% Call of the function of f_ISI_distance
-[maMatrice, I,moyenneDistance] = f_ISI_distance(spikes_trains, tmin, tmax);
-fprintf('The pairwise ISI-distances of this dataset are: %s\n', ...
-    num2str(I, '%.4f  '));
-fprintf('The average of ISI-distance is: %.4f\n', moyenneDistance);
+showing = 15; 
+plotting = 15;
 
-%% Call of the function of f_ISI_distance_adaptative
-% ISI-Distance Classique (MRTS = 0)
-fprintf('--- Running classic ISI-distance ---\n');
-[mat_classic, I_list_c, mean_c] = f_ISI_distance_adaptive_v1(spikes_trains, ...
-    tmin, tmax, 0);
+%% Classic ISI-distance 
+fprintf('==================================================\n');
+fprintf('        RUNNING CLASSIC ISI DISTANCE FUNCTION     \n');
+fprintf('==================================================\n');
 
-% ISI-Distance Adaptive (MRTS = 'auto')
-fprintf('\n--- Running adaptive auto ISI-distance (auto) ---\n');
-[mat_adapt, I_list_a, mean_a] = f_ISI_distance_adaptive_v1(spikes_trains, ...
-    tmin, tmax, 'auto');
-
-% ISI-Distance Adaptive (MRTS = 1.5)
-fprintf('\n--- Running adaptive manual ISI-distance (1.5) ---\n');
-[mat_adapt_d, I_list_d, mean_d] = f_ISI_distance_adaptive_v1(spikes_trains, ...
-    tmin, tmax, threshold);
-
-% Comparaison of the resultats in the window
-fprintf('\nRESULTS COMPARISON:\n');
-fprintf('Classic nean:  %.4f\n', mean_c);
-fprintf('Adaptive auto mean: %.4f\n', mean_a);
-fprintf('Adaptive manual mean: %.4f\n', mean_d);
+f_ISI_distance(spikes_trains, tmin, tmax, showing, plotting);
 
 
+%% Adaptive/Classic ISI-distance
+fprintf('\n==================================================\n');
+fprintf('     RUNNING ADAPTIVE ISI DISTANCE FUNCTION       \n');
+fprintf('==================================================\n');
+
+% Classic ISI-Distance via the adaptive function (MRTS = 0)
+fprintf('\n--- Running classic mode (Threshold = 0) ---\n');
+f_ISI_distance_adaptive_v1(spikes_trains, tmin, tmax, 0, showing, plotting);
+
+% Adaptive ISI-Distance (MRTS = 'auto')
+fprintf('\n--- Running adaptive mode (Threshold = ''auto'') ---\n');
+f_ISI_distance_adaptive_v1(spikes_trains, tmin, tmax, 'auto', showing, plotting);
+
+% Adaptive ISI-Distance (Manual MRTS based on threshold)
+fprintf('\n--- Running adaptive mode (Threshold = %.1f) ---\n', threshold);
+f_ISI_distance_adaptive_v1(spikes_trains, tmin, tmax, threshold, showing, plotting);
