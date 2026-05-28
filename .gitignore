@@ -31,3 +31,9 @@ credentials*.json
 .DS_Store
 Thumbs.db
 .vscode/
+
+# Local ongoing mission scripts (Do not push to GitHub yet)
+ISI-distance/ISI_distance.m
+ISI-distance/f_ISI_distance_adaptive.m
+test_discriminative_neuronal_subpopulation.m
+test_discriminative_neuronal_subpopulation_v1.m
