@@ -9,8 +9,8 @@ end
 
 
 % ==== Selection showing + plotting ====
-measures=8;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
-adaptive_measures=8;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
+measures=63;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
+adaptive_measures=15;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
 showing=14;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 plotting=14;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 sort_spike_trains=0;       % 0-no,1-yes
@@ -107,15 +107,17 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== SPIKE-Synchronization Profile ===');
                 disp(spike_synchro_profile);
             end
-            if mod(plotting,8)>3 && ~isempty(spike_synchro_profile)
-                figure;
+                if mod(plotting,8)>3 && ~isempty(spike_synchro_profile)
+                titleStr = sprintf('SPIKE-Synchronization C = %.4g', C_global);
+                figure('Name', titleStr, 'NumberTitle', 'off');
                 hold on;
                 grid on;
+                box on;
                 plot([tmin,tmax],[C_global,C_global], '-', 'Color', 'red', 'LineWidth', 1);
                 plot(spike_synchro_profile(:,1), spike_synchro_profile(:,2), '-o', 'Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
                 xlim([tmin,tmax]);
                 ylim([0,1]);
-                title(sprintf('SPIKE-Synchronization C = %.4g', C_global));
+                title(titleStr);
                 hold off;
             end
         end
@@ -124,8 +126,9 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Pairwise Coincidence Matrix ===');
                 disp(C_matrix);
             end
-            if mod(plotting,16)>7
-                figure;
+                if mod(plotting,16)>7
+                titleStr = sprintf('Pairwise Coincidence Matrix (C_{global} = %.4f)', C_global);
+                figure('Name', titleStr, 'NumberTitle', 'off');
                 n = length(spikes);
                 matrix_min = min(C_matrix(:));
                 matrix_max = max(C_matrix(:));
@@ -135,6 +138,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 imagesc(C_matrix, [matrix_min matrix_max]);
                 colormap(jet);
                 colorbar;
+                box on;
                 axis equal;
                 xlim([0.5 n+0.5]);
                 ylim([0.5 n+0.5]);
@@ -143,7 +147,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 set(gca, 'XTick', 1:n, 'YTick', 1:n);
                 xlabel('Spike trains');
                 ylabel('Spike trains');
-                title(sprintf('Pairwise Coincidence Matrix (C_{global} = %.4f)', C_global));
+                title(titleStr);
             end
         end
     end
@@ -162,15 +166,17 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Adaptive SPIKE-Synchronization Profile ===');
                 disp(spike_synchro_profile_adaptive);
             end
-            if mod(plotting,8)>3 && ~isempty(spike_synchro_profile_adaptive)
-                figure;
+                if mod(plotting,8)>3 && ~isempty(spike_synchro_profile_adaptive)
+                titleStr = sprintf('Adaptive SPIKE-Synchronization C = %.4g', C_global_adaptive);
+                figure('Name', titleStr, 'NumberTitle', 'off');
                 hold on;
                 grid on;
+                box on;
                 plot([tmin,tmax],[C_global_adaptive,C_global_adaptive], '-', 'Color', 'red', 'LineWidth', 1);
                 plot(spike_synchro_profile_adaptive(:,1), spike_synchro_profile_adaptive(:,2), '-o', 'Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
                 xlim([tmin,tmax]);
                 ylim([0,1]);
-                title(sprintf('Adaptive SPIKE-Synchronization C = %.4g', C_global_adaptive));
+                title(titleStr);
                 hold off;
             end
         end
@@ -179,8 +185,9 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Pairwise Adaptive Coincidence Matrix ===');
                 disp(C_matrix_adaptive);
             end
-            if mod(plotting,16)>7
-                figure;
+                if mod(plotting,16)>7
+                titleStr = sprintf('Pairwise Adaptive Coincidence Matrix (C_{global} = %.4f)', C_global_adaptive);
+                figure('Name', titleStr, 'NumberTitle', 'off');
                 n = length(spikes);
                 matrix_min = min(C_matrix_adaptive(:));
                 matrix_max = max(C_matrix_adaptive(:));
@@ -190,6 +197,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 imagesc(C_matrix_adaptive, [matrix_min matrix_max]);
                 colormap(jet);
                 colorbar;
+                box on;
                 axis equal;
                 xlim([0.5 n+0.5]);
                 ylim([0.5 n+0.5]);
@@ -198,7 +206,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 set(gca, 'XTick', 1:n, 'YTick', 1:n);
                 xlabel('Spike trains');
                 ylabel('Spike trains');
-                title(sprintf('Pairwise Adaptive Coincidence Matrix (C_{global} = %.4f)', C_global_adaptive));
+                title(titleStr);
             end
         end
     end
@@ -221,14 +229,16 @@ if mod(measures,32)>15
             disp(spike_order_profile);
         end
         if mod(plotting,8)>3 % plotting profile
-            figure;
+            titleStr = sprintf('Spike order D = %.4g', spike_order);
+            figure('Name', titleStr, 'NumberTitle', 'off');
             hold on;
             grid on;
+            box on;
             plot([tmin,tmax],[spike_order,spike_order], '-', 'Color', 'red', 'LineWidth', 1);
             plot(sortedTimes,sortedOrders,'-o','Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
             xlim([tmin,tmax]);
             ylim([-1.1,1.1]);
-            title(sprintf('Spike order D = %.4g', spike_order));
+            title(titleStr);
             yticks([-1,0,1]);
             hold off;
         end
@@ -240,9 +250,11 @@ if mod(measures,32)>15
         end
         if mod(plotting,16)>7 % plotting matrix
             n=length(spikes);
-            figure;
+            titleStr = sprintf('Spike order matrix D = %g', spike_order);
+            figure('Name', titleStr, 'NumberTitle', 'off');
             hold on;
             imagesc(SO_matrix, [-1 1]);
+            box on;
             colormap(jet);
             colorbar;
             axis equal;
@@ -253,7 +265,7 @@ if mod(measures,32)>15
             set(gca, 'XTick', 1:n, 'YTick', 1:n);
             xlabel('Spike trains');
             ylabel('Spike trains');
-            title(sprintf('Spike order matrix D = %g', spike_order));
+            title(titleStr);
             hold off;
         end
     end
@@ -275,14 +287,16 @@ if mod(measures,64)>31
             disp(spike_train_order_profile);
         end
         if mod(plotting,8)>3 % plotting profile
-            figure;
+            titleStr = sprintf('Spike train order F = %.4g', F);
+            figure('Name', titleStr, 'NumberTitle', 'off');
             hold on;
             grid on;
+            box on;
             plot([tmin,tmax],[F,F], '-', 'Color', 'red', 'LineWidth', 1);
             plot(sortedTimes,sortedOrders,'-o','Color', 'blue', 'LineWidth', 1.5, 'MarkerSize', 6);
             xlim([tmin,tmax]);
             ylim([-1.1,1.1]);
-            title(sprintf('Spike train order F = %.4g', F));
+            title(titleStr);
             yticks([-1,0,1]);
             hold off;
         end
@@ -294,11 +308,13 @@ if mod(measures,64)>31
         end
         if mod(plotting,16)>7 % plotting matrix
             n=length(spikes);
-            figure;
+            titleStr = sprintf('Spike train order F = %g', F);
+            figure('Name', titleStr, 'NumberTitle', 'off');
             hold on;
             matrix_min = min(order_matrix(:));
             matrix_max = max(order_matrix(:));
             imagesc(order_matrix, [matrix_min matrix_max]);
+            box on;
             colormap(jet);
             colorbar;
             axis equal;
@@ -309,7 +325,7 @@ if mod(measures,64)>31
             set(gca, 'XTick', 1:n, 'YTick', 1:n);
             xlabel('Spike trains');
             ylabel('Spike trains');
-            title(sprintf('Spike train order F = %g', F));
+            title(titleStr);
             hold off;
         end
     end
