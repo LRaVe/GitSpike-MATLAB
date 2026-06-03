@@ -3,14 +3,12 @@
 % Date: May 2026
 
 
-function SPIKE_distances_all(spikes,t_min,t_max,threshold,measures,adaptive_measures,showing,plotting,aux_begin,aux_end)
+%% =====================================================
+% DISPLAY
+% =====================================================
 
-    %% =====================================================
-    % DISPLAY
-    % =====================================================
 
-    threshold = autoMRTS(spikes, threshold);
-
+function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
 
     Distances = [0, 0, 0, 0];
 
@@ -20,15 +18,27 @@ function SPIKE_distances_all(spikes,t_min,t_max,threshold,measures,adaptive_meas
     if mod(measures,8)>3
         Distances(2) = 1;
     end
-    if mod(adaptive_measures,4)>1
+    if mod(adaptive_measures,4)>1 && ((threshold > 0) || (Distances(1) == 0))
         Distances(3) = 1;
     end
-    if mod(adaptive_measures,8)>3
+    if mod(adaptive_measures,8)>3 && ((threshold > 0) || (Distances(2) == 0))
         Distances(4) = 1;
     end
     if any(Distances ~= 0)
         [SPIKE_distance, SPIKE_distance_profile, SPIKE_distance_matrix, RI_SPIKE_distance, RI_SPIKE_distance_profile, RI_SPIKE_distance_matrix, A_SPIKE_distance, A_SPIKE_distance_profile, A_SPIKE_distance_matrix, RIA_SPIKE_distance, RIA_SPIKE_distance_profile, RIA_SPIKE_distance_matrix] = SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold);
-    end;
+    end
+
+    if mod(adaptive_measures,4)>1 && (Distances(3) == 0)
+        A_SPIKE_distance = SPIKE_distance;
+        A_SPIKE_distance_profile = SPIKE_distance_profile;
+        A_SPIKE_distance_matrix = SPIKE_distance_matrix;
+    end
+    if mod(adaptive_measures,8)>3 && (Distances(4) == 0)
+        RIA_SPIKE_distance = RI_SPIKE_distance;
+        RIA_SPIKE_distance_profile = RI_SPIKE_distance_profile;
+        RIA_SPIKE_distance_matrix = RI_SPIKE_distance_matrix;
+    end
+
 
     if mod(measures,4)>1                                                        % SPIKE-distance
         if mod(showing,4)>1
@@ -421,6 +431,9 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
     %% =====================================================
     % FINAL DISTANCE
     %% =====================================================
+    
+    SPIKE_distance_2x2 = zeros(1,4);
+
     for k=1:4
         if Distances(k)==1
     
@@ -429,67 +442,6 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_
     
             SPIKE_distance_2x2(k) = trapz(t,S)/(t_max-t_min);
         end
-    end
-end
-
-
-
-%% =========================================================
-% ADD AUXILIARY SPIKES (for edge correction)
-%% =========================================================
-function [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max)
-    % Add auxiliary spike times at the beginning and end of the observation window
-
-    % ===============================================
-    % ====== Handle cell array of spike trains ======
-    % ===============================================
-
-    if iscell(spikes)
-        aux_begin = zeros(1, length(spikes));
-        aux_end = zeros(1, length(spikes));
-        for i = 1:length(spikes)
-            [spikes{i}, aux_begin(i), aux_end(i)] = process_single_train(spikes{i}, t_min, t_max);
-        end
-        return;
-    end
-
-    % =======================================
-    % ====== Handle single spike train ======
-    % =======================================
-
-    [spikes, aux_begin, aux_end] = process_single_train(spikes, t_min, t_max);
-end
-
-function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
-    aux_begin = 0;
-    aux_end = 0;
-
-    train = sort(unique(train));
-
-    % Add auxiliary spike at the beginning if needed
-    if train(1) > t_min
-
-        if length(train) >= 2
-            aux = train(1) - max(train(1)-t_min, train(2)-train(1));
-        else
-            aux = t_min;
-        end
-
-        train = [aux train];
-        aux_begin = 1;
-    end
-
-    % Add auxiliary spike at the end if needed
-    if train(end) < t_max
-
-        if length(train) >= 2
-            aux = train(end) + max(t_max-train(end), train(end)-train(end-1));
-        else
-            aux = t_max;
-        end
-
-        train = [train aux];
-        aux_end = 1;
     end
 end
 
@@ -583,13 +535,21 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     % ALL TIME COORDINATES
     %% =====================================================
 
-    t_all = [];
+    %N = number_spikes*2*(factorial(num_trains)/(2*factorial(num_trains-2)));
+    
     base_profile_idx = find(Distances, 1, 'first');
+    t_all = zeros(sum(cellfun(@length,profiles{base_profile_idx})),1);
+
+    idx = 1;
 
     if ~isempty(base_profile_idx)
         for p = 1:length(profiles{base_profile_idx})
             if ~isempty(profiles{base_profile_idx}{p})
-                t_all = [t_all ; profiles{base_profile_idx}{p}(:,1)];
+                v = profiles{base_profile_idx}{p}(:,1);
+                n = length(v);
+    
+                t_all(idx:idx+n-1) = v;
+                idx = idx + n;
             end
         end
     end
@@ -600,11 +560,6 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     % GLOBAL PROFILE SPIKE-distance
     %% =====================================================
 
-    profile_global = [];
-    RI_profile_global = [];
-    A_profile_global = [];
-    RIA_profile_global = [];
-
     prof = cell(1,4);
     for i=1:4
         
@@ -612,8 +567,8 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     
             t = t_all(k);
     
-            vals_left  = [];
-            vals_right = [];
+            vals_left  = zeros(1,length(profiles{i}));
+            vals_right = zeros(1,length(profiles{i}));
     
             has_discontinuity = false;
     
@@ -639,17 +594,17 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     
                     has_discontinuity = true;
     
-                    vals_left(end+1)  = P(idx(1),2);
-                    vals_right(end+1) = P(idx(2),2);
+                    vals_left(p)  = P(idx(1),2);
+                    vals_right(p) = P(idx(2),2);
     
                 %% =============================================
                 % CASE 2 : single point
                 %% =============================================
     
-                elseif length(idx) == 1
+                elseif isscalar(idx) %faster than length(idx) == 1
     
-                    vals_left(end+1)  = P(idx,2);
-                    vals_right(end+1) = P(idx,2);
+                    vals_left(p)  = P(idx,2);
+                    vals_right(p) = P(idx,2);
     
                 %% =============================================
                 % CASE 3 : interpolation
@@ -675,13 +630,13 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
                             S_interp = S1;
                         end
     
-                        vals_left(end+1)  = S_interp;
-                        vals_right(end+1) = S_interp;
+                        vals_left(p)  = S_interp;
+                        vals_right(p) = S_interp;
     
                     end
                 end
             end
-    
+
             %% -------------------------------------------------
             % averaging
             %% -------------------------------------------------
@@ -700,26 +655,4 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     A_profile_global = sortrows(prof{3},1);
     RIA_profile_global = sortrows(prof{4},1);
 
-end
-
-
-
-
-%% =========================================================
-% Threshold (mean of the second moments of the ISIs)
-% =========================================================
-function [MRTS] = autoMRTS(spikes, threshold)
-    if ischar(threshold) && strcmpi(threshold, 'auto')
-        sum_isi_sqr = 0;
-        num_isi = 0;
-        for i=1:length(spikes)
-            for j=1:(length(spikes{i})-1)
-                sum_isi_sqr = sum_isi_sqr + (spikes{i}(j+1)-spikes{i}(j))^2;
-                num_isi = num_isi + 1;
-            end
-        end
-        MRTS = (sum_isi_sqr/num_isi)^0.5;
-    else
-        MRTS = threshold;
-    end
 end
