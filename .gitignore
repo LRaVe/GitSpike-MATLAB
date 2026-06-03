@@ -37,3 +37,6 @@ ISI-distance/ISI_distance.m
 ISI-distance/f_ISI_distance_adaptive.m
 test_discriminative_neuronal_subpopulation.m
 test_discriminative_neuronal_subpopulation_v1.m
+calculate_integrated_P_optimized.m
+f_bottom_up_discrimination.m
+test_algo.m
