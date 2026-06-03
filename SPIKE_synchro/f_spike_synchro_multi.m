@@ -56,12 +56,13 @@ function [C_matrix, C_global, sortedTimes, sortedValues, spike_synchro_data] = f
 
     % calculate global SPIKE-Synchronization index C_global as the mean of the upper triangle of C_matrix (excluding diagonal)
     C_global = mean(C_matrix(triu(true(size(C_matrix)), 1)));
-    if isempty(spike_synchro_profile)
+    nonempty_parts = profile_parts(~cellfun('isempty', profile_parts));
+    if isempty(nonempty_parts)
         sortedTimes = [];
         sortedValues = [];
     else
-        spike_synchro_profile = sortrows(spike_synchro_profile, 1);
-        sortedTimes = spike_synchro_profile(:, 1);
-        sortedValues = spike_synchro_profile(:, 2);
+        sortedProfile = sortrows(vertcat(nonempty_parts{:}), 1);
+        sortedTimes = sortedProfile(:, 1);
+        sortedValues = sortedProfile(:, 2);
     end
 end
