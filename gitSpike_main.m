@@ -11,8 +11,8 @@ end
 % ==== Selection showing + plotting ====
 measures=63;               % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro,+16:SPIKE-order,+32:Spike Train Order
 adaptive_measures=15;       % +1:ISI,+2:SPIKE,+4:RI-SPIKE,+8:SPIKE-Synchro     % Adaptive
-showing=14;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
-plotting=14;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+showing=1;                 % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
+plotting=1;               % +1:Spike Trains,+2:Distance,+4:Profile,+8:Matrix
 sort_spike_trains=0;       % 0-no,1-yes
 
 
@@ -68,8 +68,9 @@ if mod(showing,2)>0
     end
 end
 if mod(plotting,2)>0
-    figure;
+    figure('Name', 'Spike Trains', 'NumberTitle', 'off');
     hold on;
+    box on;
     set(gcf, 'Color','w');
     for i=1:num_trains
         y = num_trains - i + 1;
@@ -80,7 +81,8 @@ if mod(plotting,2)>0
     set(gca, 'Color', 'w');
     set(gca, 'XColor', 'k');
     set(gca, 'YColor', 'k');
-    set(gca, 'YTick', []);
+    set(gca, 'YTick', 1:num_trains);
+    set(gca, 'YTickLabel', arrayfun(@(i) sprintf('Spike train %d', i), num_trains:-1:1, 'UniformOutput', false));
     xMargin = 0.001;
     xlim([tmin - xMargin, tmax + xMargin]);
     ylim([0.5 num_trains+0.5]);
