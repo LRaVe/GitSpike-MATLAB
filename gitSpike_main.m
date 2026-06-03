@@ -107,7 +107,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== SPIKE-Synchronization Profile ===');
                 disp(spike_synchro_profile);
             end
-                if mod(plotting,8)>3 && ~isempty(spike_synchro_profile)
+            if mod(plotting,8)>3 && ~isempty(spike_synchro_profile)
                 titleStr = sprintf('SPIKE-Synchronization C = %.4g', C_global);
                 figure('Name', titleStr, 'NumberTitle', 'off');
                 hold on;
@@ -126,7 +126,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Pairwise Coincidence Matrix ===');
                 disp(C_matrix);
             end
-                if mod(plotting,16)>7
+            if mod(plotting,16)>7
                 titleStr = sprintf('Pairwise Coincidence Matrix (C_{global} = %.4f)', C_global);
                 figure('Name', titleStr, 'NumberTitle', 'off');
                 n = length(spikes);
@@ -166,7 +166,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Adaptive SPIKE-Synchronization Profile ===');
                 disp(spike_synchro_profile_adaptive);
             end
-                if mod(plotting,8)>3 && ~isempty(spike_synchro_profile_adaptive)
+            if mod(plotting,8)>3 && ~isempty(spike_synchro_profile_adaptive)
                 titleStr = sprintf('Adaptive SPIKE-Synchronization C = %.4g', C_global_adaptive);
                 figure('Name', titleStr, 'NumberTitle', 'off');
                 hold on;
@@ -185,7 +185,7 @@ if mod(measures,16)>7 || mod(adaptive_measures,16)>7
                 disp('=== Pairwise Adaptive Coincidence Matrix ===');
                 disp(C_matrix_adaptive);
             end
-                if mod(plotting,16)>7
+            if mod(plotting,16)>7
                 titleStr = sprintf('Pairwise Adaptive Coincidence Matrix (C_{global} = %.4f)', C_global_adaptive);
                 figure('Name', titleStr, 'NumberTitle', 'off');
                 n = length(spikes);
