@@ -10,8 +10,6 @@ function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
     if nargin < 5 | isempty(RMTS)
         [C, spike] = f_spike_synchro(train1, train2, t_min, t_max);
         return;
-    elseif ischar(RMTS) && strcmpi(RMTS, 'auto')
-        RMTS = autoMRTS({train1, train2}, RMTS);
     end
     train1_sliced = unique(sort(train1(train1 >= t_min & train1 <= t_max)));
     train2_sliced = unique(sort(train2(train2 >= t_min & train2 <= t_max)));
@@ -57,22 +55,6 @@ function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
 end
 
 
-
-function [MRTS] = autoMRTS(spikes, threshold)
-    if ischar(threshold) && strcmpi(threshold, 'auto')
-        sum_isi_sqr = 0;
-        num_isi = 0;
-        for i=1:length(spikes)
-            for j=1:(length(spikes{i})-1)
-                sum_isi_sqr = sum_isi_sqr + (spikes{i}(j+1)-spikes{i}(j))^2;
-                num_isi = num_isi + 1;
-            end
-        end
-        MRTS = (sum_isi_sqr/num_isi)^0.5;
-    else
-        MRTS = threshold;
-    end
-end
 
 function tau = f_interval(spike_train, spike, t_min, t_max)
     % Calculate tau for adaptive coincidence detection
