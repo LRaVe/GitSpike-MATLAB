@@ -47,6 +47,11 @@ plot_spikes = spikes;
 number_spikes=sum(cellfun(@length,spikes));
 [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, tmin, tmax);
 
+% ==== Calculates the threshold value if necessary ====
+if (adaptive_measures > 0) && not (isnumeric(threshold))
+    threshold = autoMRTS(spikes, threshold);
+end
+
 
 % ==== SPIKE trains ====
 if mod(showing,2)>0 
