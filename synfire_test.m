@@ -37,9 +37,9 @@ figure('name', 'Synfire Trains', 'NumberTitle', 'off');
                 order_val = 0; % Default to middle of colormap
             end
             % Convert order value to RGB color using jet colormap
-            % +1 should map to RED (high index), -1 should map to BLUE (low index)
+            % order_val ranges from -1 (BLUE) to +1 (RED)
             color = jet(256);
-            color_idx = max(1, min(256, round(((order_val + 1) / 2) * 255 + 1)));
+            color_idx = max(1, min(256, round((order_val + 1) * 127.5)));
             spike_color = color(color_idx, :);
             
             line([spike_time spike_time], [y-0.35 y+0.35], 'Color', spike_color, 'LineWidth', 1.5);
@@ -54,9 +54,10 @@ figure('name', 'Synfire Trains', 'NumberTitle', 'off');
     ylim([0.5 num_trains+0.5]);
     title('Synfire Trains', 'FontSize', 14, 'FontWeight', 'bold');
     
-    % Add colorbar to show order value scale
+    % Add colorbar to show order value scale from -1 to +1
+    caxis([-1 1]);
     cbar = colorbar;
-    cbar.Label.String = 'Spike Order Value';
+    cbar.Label.String = 'Spike Order Value (-1: lagging, +1: leading)';
     hold off;
 
     figure('name', 'SPIKE-Order Matrix', 'NumberTitle', 'off');
