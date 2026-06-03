@@ -1,4 +1,4 @@
-train_synfire = f_synfire(10, 5, 0, 100, 3, 0.2, 0.1); % Example usage: 10 trains, 5 spikes per train, time window 0-100 ms, jitter of 5 ms, shuffle 20% of trains
+train_synfire = f_synfire(10, 5, 0, 100, 1, 0.2, 0.1); % Example usage: 10 trains, 5 spikes per train, time window 0-100 ms, jitter of 5 ms, shuffle 20% of trains, and skip 10% of spikes
 disp('Generated Synfire Trains:');
 for i = 1:length(train_synfire)
     fprintf('Train %d: %s\n', i, mat2str(train_synfire{i}));
@@ -13,7 +13,7 @@ for i = 1:num_trains
 end
 % Plot the generated synfire trains and their jittered versions
 
-figure;
+figure('name', 'Synfire Trains', 'NumberTitle', 'off');
     hold on;
     set(gcf, 'Color','w');
     for i=1:num_trains
@@ -29,4 +29,5 @@ figure;
     xMargin = 0.001;
     xlim([tmin - xMargin, tmax + xMargin]);
     ylim([0.5 num_trains+0.5]);
+    title(figure_title, 'FontSize', 14, 'FontWeight', 'bold');
     hold off;
