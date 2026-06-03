@@ -22,7 +22,7 @@ tmax=10;
 threshold=1000;
 
 % ==== Dataset ====
-dataset=4;
+dataset=5;
 
 if dataset==3
     tmax=1;
@@ -39,6 +39,13 @@ elseif dataset==4
     spikes{2}=[0 2 7.1 9 10];
     spikes{3}=[0 2.1 4.1 6.9 10];
     %spikes{4}=[0 2.2 6.8 7.1 10];
+elseif dataset == 5 
+    tmax = 10;
+    num_trains = 3;
+    spikes = cell(1, num_trains);
+    spikes{1} = [1 2 4 7 10]; 
+    spikes{2} = [0 3 4 6 ];
+    spikes{3} = [2 5];
 end
 
 plot_spikes = spikes;
