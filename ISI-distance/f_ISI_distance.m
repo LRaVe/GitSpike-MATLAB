@@ -51,48 +51,84 @@ function f_ISI_distance(spikes, tmin, ...
             t_all = unique([spikes{i}, spikes{j}]);
             Iij = 0;
             It_list = zeros(1, length(t_all)-1); 
-            
+
             for k = 1 : length(t_all)-1
                 t_mid = (t_all(k) + t_all(k+1)) / 2;
                 
-                % %% Edge correction %%%%%%%%%%%%%%%%%%%%%%%%%%%
-                % % train i
-                % if isempty(spikes{i})
-                %     val_x = tmax - tmin; 
-                % elseif t_mid < spikes{i}(1)
-                %     val_x = spikes{i}(1) - tmin; 
-                % elseif t_mid > spikes{i}(end)
-                %     val_x = tmax - spikes{i}(end); 
-                % else
-                %     idx = find(spikes{i} <= t_mid, 1, 'last');
-                %     val_x = spikes{i}(idx+1) - spikes{i}(idx); 
-                % end
-                % 
-                % % train j
-                % if isempty(spikes{j})
-                %     val_y = tmax - tmin; 
-                % elseif t_mid < spikes{j}(1)
-                %     val_y = spikes{j}(1) - tmin;
-                % elseif t_mid > spikes{j}(end)
-                %     val_y = tmax - spikes{j}(end);
-                % else
-                %     idy = find(spikes{j} <= t_mid, 1, 'last');
-                %     val_y = spikes{j}(idy+1) - spikes{j}(idy);
-                % end
-                % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
                 % Train i
                 idx = find(spikes{i} <= t_mid, 1, 'last');
+                if isempty(idx), idx = 1; end
+                if idx >= length(spikes{i}), idx = length(spikes{i}) - 1; end
+                
                 val_x = spikes{i}(idx+1) - spikes{i}(idx); 
                 
                 % Train j
                 idy = find(spikes{j} <= t_mid, 1, 'last');
-                val_y = spikes{j}(idy+1) - spikes{j}(idy);
+                if isempty(idy), idy = 1; end
+                if idy >= length(spikes{j}), idy = length(spikes{j}) - 1; end
                 
-                I_t = abs(val_x - val_y) / max(val_x, val_y);
-                Iij = Iij + I_t * (t_all(k+1) - t_all(k));
+                val_y = spikes{j}(idy+1) - spikes{j}(idy);
+               
+                if isempty(val_x) || val_x < 0, val_x = 0; end
+                if isempty(val_y) || val_y < 0, val_y = 0; end
+                
+                % Calcul of the ISI distance (avoid the division by 0)
+                if max(val_x, val_y) > 0
+                    I_t = abs(val_x - val_y) / max(val_x, val_y);
+                else
+                    I_t = 0;
+                end
                 It_list(k) = I_t;
+                
+                % Integration between the realtime window
+                segment_tmin = max(t_all(k), tmin);
+                segment_tmax = min(t_all(k+1), tmax);
+                if segment_tmax > segment_tmin
+                    Iij = Iij + I_t * (segment_tmax - segment_tmin);
+                end
             end
+
+            % for k = 1 : length(t_all)-1
+            %     t_mid = (t_all(k) + t_all(k+1)) / 2;
+            % 
+            %     % %% Edge correction %%%%%%%%%%%%%%%%%%%%%%%%%%%
+            %     % % train i
+            %     % if isempty(spikes{i})
+            %     %     val_x = tmax - tmin; 
+            %     % elseif t_mid < spikes{i}(1)
+            %     %     val_x = spikes{i}(1) - tmin; 
+            %     % elseif t_mid > spikes{i}(end)
+            %     %     val_x = tmax - spikes{i}(end); 
+            %     % else
+            %     %     idx = find(spikes{i} <= t_mid, 1, 'last');
+            %     %     val_x = spikes{i}(idx+1) - spikes{i}(idx); 
+            %     % end
+            %     % 
+            %     % % train j
+            %     % if isempty(spikes{j})
+            %     %     val_y = tmax - tmin; 
+            %     % elseif t_mid < spikes{j}(1)
+            %     %     val_y = spikes{j}(1) - tmin;
+            %     % elseif t_mid > spikes{j}(end)
+            %     %     val_y = tmax - spikes{j}(end);
+            %     % else
+            %     %     idy = find(spikes{j} <= t_mid, 1, 'last');
+            %     %     val_y = spikes{j}(idy+1) - spikes{j}(idy);
+            %     % end
+            %     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            % 
+            %     % Train i
+            %     idx = find(spikes{i} <= t_mid, 1, 'last');
+            %     val_x = spikes{i}(idx+1) - spikes{i}(idx); 
+            % 
+            %     % Train j
+            %     idy = find(spikes{j} <= t_mid, 1, 'last');
+            %     val_y = spikes{j}(idy+1) - spikes{j}(idy);
+            % 
+            %     I_t = abs(val_x - val_y) / max(val_x, val_y);
+            %     Iij = Iij + I_t * (t_all(k+1) - t_all(k));
+            %     It_list(k) = I_t;
+            % end
             
             I_final_pair = Iij / (tmax - tmin);
             dist_matrix(i,j) = I_final_pair;
@@ -108,8 +144,10 @@ function f_ISI_distance(spikes, tmin, ...
                 stairs(t_all, I_plot, 'LineWidth', 1.5); 
                 title(['Pair ', num2str(i), ' & ', num2str(j)]);  
                 subtitle(['Dist: ', num2str(I_final_pair, '%.4f')]); 
-                xlabel('Time'); ylabel('I(t)'); 
-                xlim([0 tmax]); ylim([0 1]); 
+                xlabel('Time'); 
+                ylabel('I(t)'); 
+                xlim([tmin tmax]); 
+                ylim([0 1]); 
                 box on; grid on; 
             end
         end

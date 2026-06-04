@@ -16,7 +16,7 @@ tmin = 0;
 tmax = 10;
 threshold = 1000; % Manual test value for MRTS
 
-[spikes, ~, ~] = add_auxiliary_spikes(spikes_trains, tmin, tmax);
+[spikes, ~, ~] = add_auxiliary_spikes_bis(spikes_trains, tmin, tmax);
 
 showing = 15; 
 plotting = 15;

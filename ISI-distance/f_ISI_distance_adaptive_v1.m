@@ -1,4 +1,4 @@
- %% ISI-distance adaptive computationwith auxiliary boundary spikes and plotting 
+%% ISI-distance adaptive computationwith auxiliary boundary spikes and plotting 
 % Author: Laure WOLFF
 % Date: May 2026
 
@@ -67,63 +67,92 @@ function f_ISI_distance_adaptive_v1(spikes, ...
             compteur = compteur + 1;
             t_all = unique([spikes{i}, spikes{j}]);
             It_list = zeros(1, length(t_all)-1);
-            
+
             for k = 1 : length(t_all)-1
                 t_mid = (t_all(k) + t_all(k+1)) / 2;
                 
-                % % Train i
-                % if isempty(spikes{i})
-                %     vx = tmax - tmin;
-                % elseif t_mid < spikes{i}(1)
-                %     vx = spikes{i}(1) - tmin;
-                % elseif t_mid > spikes{i}(end)
-                %     vx = tmax - spikes{i}(end);
-                % else
-                %     idx = find(spikes{i} <= t_mid, 1, 'last');
-                %     vx = spikes{i}(idx+1) - spikes{i}(idx);
-                % end
-                % 
-                % % Train j
-                % if isempty(spikes{j})
-                %     vy = tmax - tmin;
-                % elseif t_mid < spikes{j}(1)
-                %     vy = spikes{j}(1) - tmin;
-                % elseif t_mid > spikes{j}(end)
-                %     vy = tmax - spikes{j}(end);
-                % else
-                %     idy = find(spikes{j} <= t_mid, 1, 'last');
-                %     vy = spikes{j}(idy+1) - spikes{j}(idy);
-                % end
-                
-                % Train i + Sécurité indices bornes
+                % Train i 
                 idx = find(spikes{i} <= t_mid, 1, 'last');
-                if isempty(idx)
-                    idx = 1;
-                end
-                % Sécurité pour ne pas dépasser la taille du vecteur avec idx+1
-                if idx >= length(spikes{i})
-                    idx = length(spikes{i}) - 1;
-                end
-                vx = spikes{i}(idx+1) - spikes{i}(idx);
+                if isempty(idx), idx = 1; end
+                if idx >= length(spikes{i}), idx = length(spikes{i}) - 1; end
                 
-                % Train j + Sécurité indices bornes
+                vx = spikes{i}(idx+1) - spikes{i}(idx); 
+                
+                % Train j 
                 idy = find(spikes{j} <= t_mid, 1, 'last');
-                if isempty(idy)
-                    idy = 1;
-                end
-                % Sécurité pour ne pas dépasser la taille du vecteur avec idy+1
-                if idy >= length(spikes{j})
-                    idy = length(spikes{j}) - 1;
-                end
+                if isempty(idy), idy = 1; end
+                if idy >= length(spikes{j}), idy = length(spikes{j}) - 1; end
+                
                 vy = spikes{j}(idy+1) - spikes{j}(idy);
                 
-                % Adaptive ISI distance
-                It_list(k) = abs(vx - vy) / max([vx, vy, MRTS]);
+                % Avoid nul values and division by 0
+                if isempty(vx) || vx < 0, vx = 0; end
+                if isempty(vy) || vy < 0, vy = 0; end
+                
+                denominateur = max([vx, vy, MRTS]);
+                if denominateur > 0
+                    It_list(k) = abs(vx - vy) / denominateur;
+                else
+                    It_list(k) = 0;
+                end
             end
             
+            % for k = 1 : length(t_all)-1
+            %     t_mid = (t_all(k) + t_all(k+1)) / 2;
+            % 
+            %     % % Train i
+            %     % if isempty(spikes{i})
+            %     %     vx = tmax - tmin;
+            %     % elseif t_mid < spikes{i}(1)
+            %     %     vx = spikes{i}(1) - tmin;
+            %     % elseif t_mid > spikes{i}(end)
+            %     %     vx = tmax - spikes{i}(end);
+            %     % else
+            %     %     idx = find(spikes{i} <= t_mid, 1, 'last');
+            %     %     vx = spikes{i}(idx+1) - spikes{i}(idx);
+            %     % end
+            %     % 
+            %     % % Train j
+            %     % if isempty(spikes{j})
+            %     %     vy = tmax - tmin;
+            %     % elseif t_mid < spikes{j}(1)
+            %     %     vy = spikes{j}(1) - tmin;
+            %     % elseif t_mid > spikes{j}(end)
+            %     %     vy = tmax - spikes{j}(end);
+            %     % else
+            %     %     idy = find(spikes{j} <= t_mid, 1, 'last');
+            %     %     vy = spikes{j}(idy+1) - spikes{j}(idy);
+            %     % end
+            % 
+            %     % Train i + Sécurité indices bornes
+            %     idx = find(spikes{i} <= t_mid, 1, 'last');
+            %     if isempty(idx)
+            %         idx = 1;
+            %     end
+            %     % Sécurité pour ne pas dépasser la taille du vecteur avec idx+1
+            %     if idx >= length(spikes{i})
+            %         idx = length(spikes{i}) - 1;
+            %     end
+            %     vx = spikes{i}(idx+1) - spikes{i}(idx);
+            % 
+            %     % Train j + Sécurité indices bornes
+            %     idy = find(spikes{j} <= t_mid, 1, 'last');
+            %     if isempty(idy)
+            %         idy = 1;
+            %     end
+            %     % Sécurité pour ne pas dépasser la taille du vecteur avec idy+1
+            %     if idy >= length(spikes{j})
+            %         idy = length(spikes{j}) - 1;
+            %     end
+            %     vy = spikes{j}(idy+1) - spikes{j}(idy);
+            % 
+            %     % Adaptive ISI distance
+            %     It_list(k) = abs(vx - vy) / max([vx, vy, MRTS]);
+            % end
+            % 
+
             Iij = 0;
             for k = 1:length(t_all)-1
-                % On intersecte l'intervalle avec les vraies bornes de l'expérience
                 segment_tmin = max(t_all(k), tmin);
                 segment_tmax = min(t_all(k+1), tmax);
                 
@@ -146,7 +175,7 @@ function f_ISI_distance_adaptive_v1(spikes, ...
                 subtitle(['Dist: ', num2str(Iij, '%.4f')]);
                 xlabel('Time'); 
                 ylabel('I(t)'); 
-                xlim([0 tmax]); 
+                xlim([tmin tmax]); 
                 ylim([0 1]); 
                 box on; 
                 grid on; 
