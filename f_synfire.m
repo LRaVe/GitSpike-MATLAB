@@ -1,45 +1,66 @@
-function [trains_synfire] = f_synfire(n_trains, n_spikes_per_train, t_min, t_max, jitter, shuffle, skip_probability)
-    % Generate synfire trains with perfect synchronization, without overlap
-    % n_trains: number of spike trains
-    % n_spikes_per_train: number of spikes in each train
-    % t_min, t_max: time window for spike generation
-    % jitter: standard deviation of Gaussian noise added to spike times (0 for no jitter)
-    % shuffle: proportion of trains to randomly shuffle (0 for no shuffling)
-    % skip_probability: probability of skipping a spike (0 for no skipping)
-    trains_synfire = cell(1, n_trains);
-    spike_times = linspace(t_min, t_max, n_spikes_per_train * n_trains); % Generate spike times evenly spaced between t_min and t_max
+function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inversed,overlap,step_in_cascade)
+    % Create synfire trains with specified parameters
+    % tmin: minimum time for spike generation
+    % tmax: maximum time for spike generation
+    % n_trains: number of spike trains to generate
+    % n_total_events: total number of events (spikes) across all trains
+    % n_correct: number of correctly ordered events (synchronized spikes)
+    % n_inversed: number of inversed events (anti-synchronized spikes)
+    % overlap: [0,1] indicating whether to allow overlapping spikes (<0.5 for no overlap)
+    % step_in_cascade: time difference between spikes in a cascade (for both correct and inversed events)
     
-    for i =1:n_spikes_per_train * n_trains
-        if jitter > 0
-            noisy_spike = spike_times(i) + jitter * randn(); % Add Gaussian noise to the spike time
-            spike_times(i) = max(t_min, min(t_max, noisy_spike)); % Ensure the noisy spike time is within bounds
-        end
-        trains_synfire{mod(i-1, n_trains)+1} = [trains_synfire{mod(i-1, n_trains)+1} spike_times(i)]; % Append the spike time
-    end
+    n_random = n_total_events - n_correct - n_inversed; % Number of random events
 
-    if shuffle > 0
-        n_shuffled = round(shuffle * n_trains); % Calculate the number of trains to shuffle
-        trains_to_shuffle = randperm(n_trains, n_shuffled); % Randomly select n_shuffled trains
+    trains = cell(1, n_trains); % Initialize cell array for spike trains
+    for i = 1:n_trains
+        trains{i} = zeros(1, n_total_events); % Preallocate spike times for each train
+    end
     
-    for train_idx = trains_to_shuffle
-        % Shuffle the spike times within the selected train
-        trains_synfire{train_idx} = trains_synfire{train_idx}(randperm(length(trains_synfire{train_idx})));
+    % Calculate cascade duration (time span from first to last spike in a cascade)
+    cascade_duration = (n_trains - 1) * step_in_cascade;
+    
+    % Available time for event spacing (subtract cascade duration so last spike stays within tmax)
+    available_time = (tmax - tmin) - cascade_duration;
+    
+    if overlap > 0
+        % calculate the distance between events
+        distance_between_events = available_time / (n_total_events - 1 + overlap); 
+    else
+        distance_between_events = available_time / (n_total_events - 1);
     end
-    end
-
-    if skip_probability > 0
-        % Calculate total number of spikes
-        total_spikes = sum(cellfun(@length, trains_synfire));
-        % Generate random numbers for all spikes at once
-        rand_vals = rand(1, total_spikes);
-        % Apply skipping with vectorized comparison
-        idx = 1;
-        for i = 1:n_trains
-            train_length = length(trains_synfire{i});
-            keep_mask = rand_vals(idx:idx+train_length-1) >= skip_probability;
-            trains_synfire{i} = trains_synfire{i}(keep_mask);
-            idx = idx + train_length;
+    % Correctly ordered events (synchronized spikes)
+    for event_id = 1:n_correct
+        event_time = tmin + (event_id-1) * distance_between_events; % Calculate event time based on distance
+        for train_id = 1:n_trains
+            spike_time = event_time + (train_id-1) * step_in_cascade;
+            trains{train_id}(event_id) = spike_time; % Add the synchronized spike to each train
         end
     end
 
+    % Random events
+    for event_id = 1:n_random
+        event_time = tmin + n_correct * distance_between_events + (event_id-1) * distance_between_events; % Calculate event time for random events
+        for train_id = 1:n_trains
+            % add jitter but around the event time, and ensure the random spike time is not overlapping with the synchronized spikes
+            random_spike_time = event_time + randn * 2; % Add Gaussian noise
+            while any(abs(random_spike_time - trains{train_id}(1:n_correct)) < 1) % Check for overlap with synchronized spikes
+                random_spike_time = event_time + randn * 2; % Regenerate if overlapping
+            end
+            % Clamp spike time within [tmin, tmax]
+            random_spike_time = max(tmin, min(tmax, random_spike_time));
+            trains{train_id}(event_id + n_correct) = random_spike_time; % Add the random spike to each train
+        end
+    end
+
+    % Inversed events (anti-synchronized spikes), the first spike of the event is in the last train and the last spike is in the first
+    for event_id = 1:n_inversed
+        event_time = tmin + (n_correct + n_random) * distance_between_events + (event_id-1) * distance_between_events; % Calculate event time for inversed events
+        for cascade_pos = 1:n_trains
+            % cascade_pos=1 fires first in the last train, cascade_pos=n_trains fires last in the first train
+            spike_time = event_time + (cascade_pos-1) * step_in_cascade;
+            train_id = n_trains - cascade_pos + 1;  % Map cascade position to train (inverse order)
+            trains{train_id}(event_id + n_correct + n_random) = spike_time; % Add the inversed spike to each train
+        end
+    end
+    
 end
