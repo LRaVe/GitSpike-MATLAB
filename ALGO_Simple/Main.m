@@ -4,7 +4,7 @@
 
 clear;
 close all;
-
+tic;
 % Make sure subfolders containing functions and order helpers are available
 thisFile = mfilename('fullpath');
 if ~isempty(thisFile)
@@ -21,7 +21,7 @@ ind_seed = 580633;  %good visual
 change_seed = 1;
 if change_seed
     ind_seed = randi([1 1000000],1,1);
-end;
+end
 rng(ind_seed);
 
 %% =====================================================
@@ -114,3 +114,24 @@ plot_distance_matrix(DNC,labels,'NC');
 subplot(3,1,3);
 plot_distance_matrix(DALL,labels,'All');
 
+
+
+%% =========================================
+%% TOP-DOWN
+%% =========================================
+
+result = top_down_gradient(spikes,params.Tmax,params.Distances,params.threshold);
+
+disp('Best population found :')
+
+disp(result.bestPopulation)
+
+disp(['Best P = ' num2str(result.bestP)])
+
+plot_top_down_gradient( ...
+    result,...
+    codingNeurons);
+
+
+
+toc;
