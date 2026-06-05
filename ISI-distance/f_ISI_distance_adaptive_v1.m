@@ -210,7 +210,8 @@ function f_ISI_distance_adaptive_v1(spikes, ...
         figure('Name', title_mat);
         set(gcf, 'Name', title_mat); 
         imagesc(dist_matrix); 
-        colorbar; 
+        colorbar;
+        colormap jet; 
         title('ISI Matrix');
         subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
         xlabel('Spike Train Index'); 

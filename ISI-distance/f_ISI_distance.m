@@ -185,6 +185,7 @@ function f_ISI_distance(spikes, tmin, ...
         set(gcf, 'Name', title_mat);
         imagesc(dist_matrix); 
         colorbar;
+        colormap jet;
         title(title_mat);
         xlabel('Spike Train Index'); ylabel('Spike Train Index');
         box on;
