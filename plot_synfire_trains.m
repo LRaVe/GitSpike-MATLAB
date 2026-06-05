@@ -1,3 +1,6 @@
+% Author : Lucas Raveloarinoro
+% Date : 2024-06-05
+
 function plot_synfire_trains(trains, title_str)
     % Plot synfire trains with train 1 at top and last train at bottom
     % trains: cell array where trains{i} contains spike times for train i

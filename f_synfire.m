@@ -1,3 +1,6 @@
+% Author : Lucas Raveloarinoro
+% Date : 2024-06-05
+
 function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inversed,overlap,step_in_cascade)
     % Create synfire trains with specified parameters
     % tmin: minimum time for spike generation
