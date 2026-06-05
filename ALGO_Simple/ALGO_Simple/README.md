@@ -1,0 +1,3 @@
+# GitSpike
+
+This folder contains the files used to implement the algorithm described in the document "Using spike train distances to identify the most discriminative neuronal subpopulation"
