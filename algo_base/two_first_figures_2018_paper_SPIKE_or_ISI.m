@@ -4,7 +4,7 @@
 
 clear; clc; close all;
 
-% Initialisation des paramètres
+% Parameters
 num_stimuli = 4;         % S : Nombre de stimuli
 num_repetitions = 5;     % R : Nombre de répétitions par stimulus 
 num_neurons = 7;         % N : Nombre global de neurones 
