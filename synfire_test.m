@@ -9,5 +9,7 @@ for i = 1:length(train_synfire)
     fprintf('Train %d: %s\n', i, mat2str(train_synfire{i}));
 end
 
+[sortedOrders, sortedTimes] = order_spikes(0, 100, train_synfire);
+
 % Plot the generated synfire trains
-plot_synfire_trains(train_synfire, 'Generated Synfire Trains');
+plot_synfire_trains(train_synfire, sortedOrders, sortedTimes, 'Generated Synfire Trains');

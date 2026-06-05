@@ -1,3 +1,8 @@
+%% Map sortedOrders to colors for spike times in spikes
+% Author: Agathe JULIEN
+% Date: June 2026
+
+
 function [spikeColors,flatRows] = values_to_colors(spikes, sortedOrders,num_trains)
     % This function maps sortedOrders to colors and returns the corresponding color for each spike time in spikes.
     % It also returns the corresponding row indices for each spike time for plotting. 
@@ -9,11 +14,8 @@ function [spikeColors,flatRows] = values_to_colors(spikes, sortedOrders,num_trai
 
     cmap = jet(256);
     sortedOrders = sortedOrders(:);
-    vmin = min(sortedOrders);
-    vmax = max(sortedOrders);
-    if vmin == vmax
-	    vmax = vmin + 1;
-    end
+    vmin = -1;
+    vmax = 1;
 
     spikeColors = repmat([0.7 0.7 0.7], length(sortedOrders), 1); % default for NaN / missing values of sortedOrders
 
