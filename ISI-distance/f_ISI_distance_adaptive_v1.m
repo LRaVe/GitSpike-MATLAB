@@ -53,14 +53,14 @@ function f_ISI_distance_adaptive_v1(spikes, ...
     pair_data = cell(1, num_pairs); 
     
     compteur = 0;
-    num_cols = 2; 
-    num_rows = ceil(num_pairs / num_cols);
+    %num_cols = 2; 
+    %num_rows = ceil(num_pairs / num_cols);
     
-    if bitand(plotting, 4)
-        title_pairs = ['Pairwise ISI Distances - ' mode_label];
-        figure('Name', title_pairs);
-        set(gcf, 'Name', title_pairs);
-    end
+    % if bitand(plotting, 4)
+    %     title_pairs = ['Pairwise ISI Distances - ' mode_label];
+    %     figure('Name', title_pairs);
+    %     set(gcf, 'Name', title_pairs);
+    % end
     
     for i = 1:num_trains
         for j = i+1:num_trains
@@ -168,18 +168,18 @@ function f_ISI_distance_adaptive_v1(spikes, ...
             pair_data{compteur}.t = t_all;
             pair_data{compteur}.It = It_list;
             
-            if bitand(plotting, 4)
-                subplot(num_rows, num_cols, compteur); 
-                stairs(t_all, [It_list, It_list(end)], 'LineWidth', 1.5); 
-                title(['Pair ', num2str(i), ' & ', num2str(j)]);  
-                subtitle(['Dist: ', num2str(Iij, '%.4f')]);
-                xlabel('Time'); 
-                ylabel('I(t)'); 
-                xlim([tmin tmax]); 
-                ylim([0 1]); 
-                box on; 
-                grid on; 
-            end
+            % if bitand(plotting, 4)
+            %     subplot(num_rows, num_cols, compteur); 
+            %     stairs(t_all, [It_list, It_list(end)], 'LineWidth', 1.5); 
+            %     title(['Pair ', num2str(i), ' & ', num2str(j)]);  
+            %     subtitle(['Dist: ', num2str(Iij, '%.4f')]);
+            %     xlabel('Time'); 
+            %     ylabel('I(t)'); 
+            %     xlim([tmin tmax]); 
+            %     ylim([0 1]); 
+            %     box on; 
+            %     grid on; 
+            % end
         end
     end   
     

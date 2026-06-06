@@ -36,14 +36,14 @@ function f_ISI_distance(spikes, tmin, ...
     % end
     
     compteur = 0;
-    num_cols = 2; 
-    num_rows = ceil(num_pairs / num_cols);
+    % num_cols = 2; 
+    % num_rows = ceil(num_pairs / num_cols);
     
-    % Set figure window name for pairwise plots
-    if bitand(plotting, 4)
-        figure('Name', 'Pairwise ISI Distances (Classic Mode)');
-        set(gcf, 'Name', 'Pairwise ISI Distances (Classic Mode)');
-    end
+    % % Set figure window name for pairwise plots
+    % if bitand(plotting, 4)
+    %     figure('Name', 'Pairwise ISI Distances (Classic Mode)');
+    %     set(gcf, 'Name', 'Pairwise ISI Distances (Classic Mode)');
+    % end
     
     for i = 1:num_trains
         for j = i+1:num_trains
@@ -138,18 +138,18 @@ function f_ISI_distance(spikes, tmin, ...
             pair_data{compteur}.t = t_all;
             pair_data{compteur}.It = It_list;
             
-            if bitand(plotting, 4) 
-                subplot(num_rows, num_cols, compteur); 
-                I_plot = [It_list, It_list(end)];
-                stairs(t_all, I_plot, 'LineWidth', 1.5); 
-                title(['Pair ', num2str(i), ' & ', num2str(j)]);  
-                subtitle(['Dist: ', num2str(I_final_pair, '%.4f')]); 
-                xlabel('Time'); 
-                ylabel('I(t)'); 
-                xlim([tmin tmax]); 
-                ylim([0 1]); 
-                box on; grid on; 
-            end
+            % if bitand(plotting, 4) 
+            %     subplot(num_rows, num_cols, compteur); 
+            %     I_plot = [It_list, It_list(end)];
+            %     stairs(t_all, I_plot, 'LineWidth', 1.5); 
+            %     title(['Pair ', num2str(i), ' & ', num2str(j)]);  
+            %     subtitle(['Dist: ', num2str(I_final_pair, '%.4f')]); 
+            %     xlabel('Time'); 
+            %     ylabel('I(t)'); 
+            %     xlim([tmin tmax]); 
+            %     ylim([0 1]); 
+            %     box on; grid on; 
+            % end
         end
     end   
     
@@ -186,8 +186,10 @@ function f_ISI_distance(spikes, tmin, ...
         imagesc(dist_matrix); 
         colorbar;
         colormap jet;
-        title(title_mat);
-        xlabel('Spike Train Index'); ylabel('Spike Train Index');
+        title('ISI Matrix');
+        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
+        xlabel('Spike Train Index'); 
+        ylabel('Spike Train Index');
         box on;
     end
     
@@ -200,13 +202,14 @@ function f_ISI_distance(spikes, tmin, ...
     if bitand(plotting, 4)
         title_pop = sprintf('Evolution of Population Average ISI distance - Global: %.4f', I_mean);
         figure('Name', title_pop);
-        set(gcf, 'Name', title_pop); 
+        set(gcf, 'Name', title_pop);
         stairs(t_global, [I_pop_mean, I_pop_mean(end)], 'LineWidth', 1.5);
         xlabel('Time'); 
         ylabel('Average I(t)');
         xlim([0 tmax]);   
         ylim([0 1]);
-        title(title_pop);
+        title('Population Average');
+        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
         box on; 
         grid on;
     end
