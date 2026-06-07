@@ -1,27 +1,29 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function plot_synfire_trains(trains, title_str)
+function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str)
     % Plot synfire trains with train 1 at top and last train at bottom
     % trains: cell array where trains{i} contains spike times for train i
     % title_str: (optional) title for the figure
     
-    figure;
+    figure('Name', 'Colored Synfire Trains', 'NumberTitle', 'off');
     hold on;
+    box on;
+    [spikeColors,flatRows]=values_to_colors(trains, sortedOrders, length(trains));
+    colormap(gca, jet(256));
+    caxis([-1 1]);
     
     % Plot each train
-    for i = 1:length(trains)
-        % Invert so train 1 is at top, last train at bottom
-        y_pos = length(trains) - i + 1;
-        
-        % Plot vertical line for each spike
-        for j = 1:length(trains{i})
-            plot([trains{i}(j), trains{i}(j)], [y_pos-0.5, y_pos+0.5], 'k');
-        end
+    for k=1:numel(sortedTimes)
+        line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
     end
     
+    set(gca, 'YTick', 1:length(trains));
+    set(gca, 'YTickLabel', arrayfun(@num2str, length(trains):-1:1, 'UniformOutput', false));
     xlabel('Time (ms)');
     ylabel('Train Index');
+    ylim([0.5 length(trains) + 0.5]);
+    colorbar;
     
     % Set title if provided, otherwise use default
     if nargin > 1
