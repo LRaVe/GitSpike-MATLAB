@@ -72,7 +72,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
             neuron_labels{k} = sprintf('N%d', best_order(k));
         end
         
-        figure('Name', 'Bottom-Up Optimization Results', 'Position', [200, 200, 700, 480]);
+        figure('Name', 'Bottom-Up optimization results', 'Position', [200, 200, 700, 480]);
         plot(1:num_neurons, history_perf, '-o', 'LineWidth', 2.5, 'Color', [0.30 0.58 0.20], ...
              'MarkerEdgeColor', [0.30 0.58 0.20], 'MarkerFaceColor', [0.93 0.69 0.13], 'MarkerSize', 8);
         hold on;
@@ -88,11 +88,11 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         set(gca, 'XTick', 1:num_neurons, 'XTickLabel', neuron_labels, 'FontSize', 10, 'FontWeight', 'bold');
         
         xlabel('Neurons integrated sequentially (Step k)', 'FontSize', 11, 'FontWeight', 'bold');
-        ylabel('Global Performance P', 'FontSize', 11, 'FontWeight', 'bold');
-        title('Evolution of Performance using Bottom-Up Selection', 'FontSize', 12, 'FontWeight', 'bold');
+        ylabel('Global performance P', 'FontSize', 11, 'FontWeight', 'bold');
+        title('Evolution of performance using Bottom-Up selection', 'FontSize', 12, 'FontWeight', 'bold');
         
         % Text box to have all information
-        text(idx_max + 0.15, max_P, sprintf('Optimal Subpopulation:\nNeurons: [%s]\nMax P = %.4f', ...
+        text(idx_max + 0.15, max_P, sprintf('Optimal subpopulation:\nNeurons: [%s]\nMax P = %.4f', ...
              num2str(best_subpop), max_P), 'FontSize', 9, 'FontWeight', 'bold', ...
              'BackgroundColor', [0.96 0.96 0.96], 'EdgeColor', [0.7 0.7 0.7]);
         legend({'Performance P(k)', 'Optimal size threshold'}, 'Location', 'southoutside', 'Orientation', 'horizontal');
@@ -100,7 +100,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         shg;
 
         %% 1. Matrix
-        figure('Name', 'Figure 7B - Bottom-Up Selection Matrix', 'Position', [250, 250, 600, 500]);
+        figure('Name', 'Bottom-Up selection matrix', 'Position', [250, 250, 600, 500]);
 
         % Plotting the perfomance matrix
         chosen_background_color = [1 1 1]; 
@@ -128,9 +128,9 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         
         xlabel('# Neuron', 'FontSize', 11, 'FontWeight', 'bold');
         ylabel('Number of neurons (Step k)', 'FontSize', 11, 'FontWeight', 'bold');
-        title('Figure 7B: Bottom-Up Selection Matrix', 'FontSize', 12, 'FontWeight', 'bold');
+        title('Bottom-Up selection matrix', 'FontSize', 12, 'FontWeight', 'bold');
         
-        legend({'Selected Neuron (\times)', 'Max Performance P'}, 'Location', 'southoutside', 'Orientation', 'horizontal');
+        legend({'Selected neuron (\times)', 'Max performance P'}, 'Location', 'southoutside', 'Orientation', 'horizontal');
         hold off;
         shg;
     end
