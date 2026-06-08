@@ -33,7 +33,6 @@ fprintf('\n==================================================\n');
 fprintf('     RUNNING ADAPTIVE ISI DISTANCE FUNCTION       \n');
 fprintf('==================================================\n');
 
-% Ta fonction adaptive prend déjà en charge spikes_trains en interne
 fprintf('\n--- Running classic mode (Threshold = 0) ---\n');
 f_ISI_distance_adaptive_v1(spikes, tmin, tmax, 0, showing, plotting);
 

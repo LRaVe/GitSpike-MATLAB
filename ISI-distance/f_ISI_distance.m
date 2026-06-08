@@ -15,7 +15,27 @@ function f_ISI_distance(spikes, tmin, ...
     if nargin < 4 || isempty(showing), showing = 15; end
     if nargin < 5 || isempty(plotting), plotting = 15; end
     num_trains = length(spikes);
+
+    %% Dynamic figure number allocation
+    fig_profile_id = 101;
+    fig_matrix_id = 102;
+    if bitand(plotting, 12)
+        all_figs = findall(0, 'Type', 'figure'); 
+        % Guarantees 'existing_ids' exists and is initialized as empty if 
+        % no valid figures exist
+        if ~isempty(all_figs)
+            existing_ids = [all_figs.Number];
+        else
+            existing_ids = [];
+        end
+        %display(existing_ids);
+        while any(existing_ids == fig_profile_id) || any(existing_ids == fig_matrix_id)
+                fig_profile_id = fig_profile_id + 2; 
+                fig_matrix_id = fig_matrix_id + 2;  
+        end
+    end
     
+
     if num_trains < 2
         if bitand(showing, 2)
             disp('Not enough spike trains to calculate a distance.');
@@ -177,31 +197,11 @@ function f_ISI_distance(spikes, tmin, ...
         end
     end
     I_pop_mean = mean(I_matrix, 1);
-    
-    % Matrix plot 
-    if bitand(plotting, 8)
-        title_mat = sprintf('Matrix of the ISI-distance - Population Mean: %.4f', I_mean);
-        figure('Name', title_mat);
-        set(gcf, 'Name', title_mat);
-        imagesc(dist_matrix); 
-        colorbar;
-        colormap jet;
-        title('ISI Matrix');
-        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
-        xlabel('Spike Train Index'); 
-        ylabel('Spike Train Index');
-        box on;
-    end
-    
-    if bitand(showing, 8)
-        disp('Final ISI-Distance matrix:');
-        disp(dist_matrix);
-    end
-    
+
     % Population Profile plot 
     if bitand(plotting, 4)
         title_pop = sprintf('Evolution of Population Average ISI distance - Global: %.4f', I_mean);
-        figure('Name', title_pop);
+        figure(fig_profile_id);
         set(gcf, 'Name', title_pop);
         stairs(t_global, [I_pop_mean, I_pop_mean(end)], 'LineWidth', 1.5);
         xlabel('Time'); 
@@ -222,5 +222,25 @@ function f_ISI_distance(spikes, tmin, ...
             fprintf('      %8.4f     |      %8.4f\n', t_global(idx_plot), ...
                 I_pop_extended(idx_plot));
         end
+    end
+    
+    % Matrix plot 
+    if bitand(plotting, 8)
+        title_mat = sprintf('Matrix of the ISI-distance - Population Mean: %.4f', I_mean);
+        figure(fig_matrix_id);
+        set(gcf, 'Name', title_mat);
+        imagesc(dist_matrix); 
+        colorbar;
+        colormap jet;
+        title('ISI Matrix');
+        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
+        xlabel('Spike Train Index'); 
+        ylabel('Spike Train Index');
+        box on;
+    end
+    
+    if bitand(showing, 8)
+        disp('Final ISI-Distance matrix:');
+        disp(dist_matrix);
     end
 end

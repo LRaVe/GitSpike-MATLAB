@@ -29,6 +29,25 @@ function f_ISI_distance_adaptive_v1(spikes, ...
     
     num_pairs = (num_trains * (num_trains - 1)) / 2;
     
+    %% Dynamic figure number allocation
+    fig_profile_id = 151;
+    fig_matrix_id = 152;
+    if bitand(plotting, 12)
+        all_figs = findall(0, 'Type', 'figure'); 
+        
+        if ~isempty(all_figs)
+           % Guarantees 'existing_ids' exists and is initialized as empty if 
+           % no valid figures exist
+            existing_ids = [all_figs.Number];
+        else
+            existing_ids = [];
+        end
+        while any(existing_ids == fig_profile_id) || any(existing_ids == fig_matrix_id)
+                fig_profile_id = fig_profile_id + 2; 
+                fig_matrix_id = fig_matrix_id + 2;  
+        end
+    end 
+
     % % Edge correction 
     % spikes = cell(1,num_trains);
     % for i = 1:num_trains
@@ -96,60 +115,6 @@ function f_ISI_distance_adaptive_v1(spikes, ...
                     It_list(k) = 0;
                 end
             end
-            
-            % for k = 1 : length(t_all)-1
-            %     t_mid = (t_all(k) + t_all(k+1)) / 2;
-            % 
-            %     % % Train i
-            %     % if isempty(spikes{i})
-            %     %     vx = tmax - tmin;
-            %     % elseif t_mid < spikes{i}(1)
-            %     %     vx = spikes{i}(1) - tmin;
-            %     % elseif t_mid > spikes{i}(end)
-            %     %     vx = tmax - spikes{i}(end);
-            %     % else
-            %     %     idx = find(spikes{i} <= t_mid, 1, 'last');
-            %     %     vx = spikes{i}(idx+1) - spikes{i}(idx);
-            %     % end
-            %     % 
-            %     % % Train j
-            %     % if isempty(spikes{j})
-            %     %     vy = tmax - tmin;
-            %     % elseif t_mid < spikes{j}(1)
-            %     %     vy = spikes{j}(1) - tmin;
-            %     % elseif t_mid > spikes{j}(end)
-            %     %     vy = tmax - spikes{j}(end);
-            %     % else
-            %     %     idy = find(spikes{j} <= t_mid, 1, 'last');
-            %     %     vy = spikes{j}(idy+1) - spikes{j}(idy);
-            %     % end
-            % 
-            %     % Train i + Sécurité indices bornes
-            %     idx = find(spikes{i} <= t_mid, 1, 'last');
-            %     if isempty(idx)
-            %         idx = 1;
-            %     end
-            %     % Sécurité pour ne pas dépasser la taille du vecteur avec idx+1
-            %     if idx >= length(spikes{i})
-            %         idx = length(spikes{i}) - 1;
-            %     end
-            %     vx = spikes{i}(idx+1) - spikes{i}(idx);
-            % 
-            %     % Train j + Sécurité indices bornes
-            %     idy = find(spikes{j} <= t_mid, 1, 'last');
-            %     if isempty(idy)
-            %         idy = 1;
-            %     end
-            %     % Sécurité pour ne pas dépasser la taille du vecteur avec idy+1
-            %     if idy >= length(spikes{j})
-            %         idy = length(spikes{j}) - 1;
-            %     end
-            %     vy = spikes{j}(idy+1) - spikes{j}(idy);
-            % 
-            %     % Adaptive ISI distance
-            %     It_list(k) = abs(vx - vy) / max([vx, vy, MRTS]);
-            % end
-            % 
 
             Iij = 0;
             for k = 1:length(t_all)-1
@@ -160,6 +125,7 @@ function f_ISI_distance_adaptive_v1(spikes, ...
                     Iij = Iij + It_list(k) * (segment_tmax - segment_tmin);
                 end
             end
+            
             Iij = Iij / (tmax - tmin);
             dist_matrix(i,j) = Iij;
             dist_matrix(j,i) = Iij;
@@ -167,19 +133,6 @@ function f_ISI_distance_adaptive_v1(spikes, ...
             
             pair_data{compteur}.t = t_all;
             pair_data{compteur}.It = It_list;
-            
-            % if bitand(plotting, 4)
-            %     subplot(num_rows, num_cols, compteur); 
-            %     stairs(t_all, [It_list, It_list(end)], 'LineWidth', 1.5); 
-            %     title(['Pair ', num2str(i), ' & ', num2str(j)]);  
-            %     subtitle(['Dist: ', num2str(Iij, '%.4f')]);
-            %     xlabel('Time'); 
-            %     ylabel('I(t)'); 
-            %     xlim([tmin tmax]); 
-            %     ylim([0 1]); 
-            %     box on; 
-            %     grid on; 
-            % end
         end
     end   
     
@@ -203,11 +156,36 @@ function f_ISI_distance_adaptive_v1(spikes, ...
         end
     end
     I_pop_mean = mean(I_matrix, 1);
+
+    if bitand(plotting, 4)
+        title_pop = ['Population Average - ' mode_label ' Population Mean: ' num2str(I_mean, '%.4f')];
+        figure(fig_profile_id);
+        set(gcf, 'Name', title_pop); 
+        stairs(t_global, [I_pop_mean, I_pop_mean(end)], 'LineWidth', 1.5);
+        title('Population Average');
+        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
+        xlabel('Time');
+        ylabel('Average I(t)'); 
+        xlim([0 tmax]); 
+        ylim([0 1]); 
+        box on; 
+        grid on;
+    end
+       
+    if bitand(showing, 4)
+        fprintf('\n=== Final ISI-Distance plot (%s) : ===\n', mode_label);
+        fprintf('  Time(t)  |  Average ISI Distance I(t)\n');
+        I_pop_extended = [I_pop_mean, I_pop_mean(end)];
+        for idx_plot = 1:length(t_global)
+            fprintf('      %8.4f     |      %8.4f\n', t_global(idx_plot), ...
+                I_pop_extended(idx_plot));
+        end
+    end
     
     % Global plots
     if bitand(plotting, 8)
-        title_mat = ['ISI Matrix - ' mode_label];
-        figure('Name', title_mat);
+        title_mat = ['ISI Matrix - ' mode_label ' Population Mean: ' num2str(I_mean, '%.4f')];
+        figure(fig_matrix_id);
         set(gcf, 'Name', title_mat); 
         imagesc(dist_matrix); 
         colorbar;
@@ -222,31 +200,6 @@ function f_ISI_distance_adaptive_v1(spikes, ...
     if bitand(showing, 8)
         disp('Final ISI-Distance matrix:');
         disp(dist_matrix);
-    end
-    
-    if bitand(plotting, 4)
-        title_pop = ['Population Average - ' mode_label];
-        figure('Name', title_pop);
-        set(gcf, 'Name', title_pop); 
-        stairs(t_global, [I_pop_mean, I_pop_mean(end)], 'LineWidth', 1.5);
-        title('Population Average');
-        subtitle(['Global ISI-distance: ', num2str(I_mean, '%.4f')]);
-        xlabel('Time');
-        ylabel('Average I(t)'); 
-        xlim([0 tmax]); 
-        ylim([0 1]); 
-        box on; 
-        grid on;
-    end
-    
-    if bitand(showing, 4)
-        fprintf('\n=== Final ISI-Distance plot (%s) : ===\n', mode_label);
-        fprintf('  Time(t)  |  Average ISI Distance I(t)\n');
-        I_pop_extended = [I_pop_mean, I_pop_mean(end)];
-        for idx_plot = 1:length(t_global)
-            fprintf('      %8.4f     |      %8.4f\n', t_global(idx_plot), ...
-                I_pop_extended(idx_plot));
-        end
     end
 end
 
