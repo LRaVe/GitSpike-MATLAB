@@ -8,6 +8,8 @@ function window=coincidence_window(tmin,tmax,spikes,spike_ind1,spike_ind2,ind1,i
 
     s1=spikes{spike_ind1};
     s2=spikes{spike_ind2};
+    s1 = s1(:)';  % force row vectors
+    s2 = s2(:)';
 
     if ind1>length(s1) || ind1<1
         error('Index out of bounds');
@@ -40,6 +42,26 @@ function window=coincidence_window(tmin,tmax,spikes,spike_ind1,spike_ind2,ind1,i
         next2=s2(ind2+1)-s2(ind2);
     end
 
-    % Coincidence window is half the minimum of all inter-spike distances
-    window=min([prev1,next1,prev2,next2])/2;
+    min_window = (tmax - tmin) * 1e-10;
+    % Coincidence window is half the minimum inter-spike distance
+    % Only use inter-spike distances (prev/next between spikes, not boundary distances)
+    distances = [];
+    if ind1 > 1
+        distances = [distances, prev1];
+    end
+    if ind1 < length(s1)
+        distances = [distances, next1];
+    end
+    if ind2 > 1
+        distances = [distances, prev2];
+    end
+    if ind2 < length(s2)
+        distances = [distances, next2];
+    end
+    
+    if isempty(distances)
+        window = min_window;
+    else
+        window = max(min(distances)/2, min_window);
+    end
 end
