@@ -3,7 +3,7 @@ addpath('SPIKE_order');
 addpath('SPIKE_synchro');
 addpath('spike_common');
 
-trains_synfire = f_synfire(0, 100, 6, 9, 2, 4, 0.1, 1); 
+trains_synfire = f_synfire(0, 100, 6, 5, 1, 1, 0.1, 1); 
 disp('Generated Synfire Trains:');
 for i = 1:length(trains_synfire)
     fprintf('Train %d: %s\n', i, mat2str(trains_synfire{i}));
