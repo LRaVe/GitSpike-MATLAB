@@ -53,8 +53,9 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             disp(SPIKE_distance_matrix);
         end
         if mod(plotting,8)>3
-            titleStr = ['SPIKE-distance = ', num2str(SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+            titleStr = ['SPIKE-distance profile = ', num2str(SPIKE_distance)];
+            figure(201);
+            set(gcf,'Name',titleStr);
             area(SPIKE_distance_profile(:,1), SPIKE_distance_profile(:,2));
             xlabel('Time');
             ylabel('SPIKE-distance');
@@ -65,9 +66,10 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             grid on;
             box on;
         end
-        if mod(plotting,16)>7
-            titleStr = ['SPIKE-distance = ', num2str(SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+        if mod(plotting,16)>7 
+            titleStr = ['SPIKE-distance matrix = ', num2str(SPIKE_distance)];
+            figure(202);
+            set(gcf,'Name',titleStr);
             imagesc(SPIKE_distance_matrix);
             colorbar;
             box on;
@@ -78,6 +80,49 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             title(titleStr);
         end
     end
+
+    
+    if mod(adaptive_measures,4)>1                                               % A-SPIKE-distance
+        if mod(showing,4)>1
+            fprintf('A-SPIKE-distance: %.4f\n', A_SPIKE_distance);
+        end
+        if mod(showing,8)>3
+            fprintf('A-SPIKE-distance profile: \n');
+            disp(A_SPIKE_distance_profile);
+        end
+        if mod(showing,16)>7
+            fprintf('A-SPIKE-distance matrix: \n');
+            disp(A_SPIKE_distance_matrix);
+        end
+        if mod(plotting,8)>3
+            titleStr = ['A-SPIKE-distance profile = ', num2str(A_SPIKE_distance)];
+            figure(251);
+            set(gcf,'Name',titleStr);
+            area(A_SPIKE_distance_profile(:,1), A_SPIKE_distance_profile(:,2));
+            xlabel('Time');
+            ylabel('A-SPIKE-distance');
+            title(titleStr);
+            xlim([t_min t_max]);
+            ylim([0 1]);
+            colororder([0.5 0.5 1]);
+            grid on;
+            box on;
+        end
+        if mod(plotting,16)>7
+            titleStr = ['A-SPIKE-distance matrix = ', num2str(A_SPIKE_distance)];
+            figure(252);
+            set(gcf,'Name',titleStr);
+            imagesc(A_SPIKE_distance_matrix);
+            colorbar;
+            box on;
+            colormap jet;
+            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
+            xlabel('Spike trains');
+            ylabel('Spike trains');
+            title(titleStr);
+        end
+    end
+
     
     if mod(measures,8)>3                                                        % RI-SPIKE-distance
         if mod(showing,4)>1
@@ -92,8 +137,9 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             disp(RI_SPIKE_distance_matrix);
         end
         if mod(plotting,8)>3
-            titleStr = ['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+            titleStr = ['RI-SPIKE-distance profile = ', num2str(RI_SPIKE_distance)];
+            figure(301);
+            set(gcf,'Name',titleStr);
             area(RI_SPIKE_distance_profile(:,1), RI_SPIKE_distance_profile(:,2));
             xlabel('Time');
             ylabel('RI-SPIKE-distance');
@@ -105,49 +151,10 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             box on;
         end
         if mod(plotting,16)>7
-            titleStr = ['RI-SPIKE-distance = ', num2str(RI_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+            titleStr = ['RI-SPIKE-distance matrix = ', num2str(RI_SPIKE_distance)];
+            figure(302);
+            set(gcf,'Name',titleStr);
             imagesc(RI_SPIKE_distance_matrix);
-            colorbar;
-            box on;
-            colormap jet;
-            set(gca,'XTick',1:length(spikes),'YTick',1:length(spikes));
-            xlabel('Spike trains');
-            ylabel('Spike trains');
-            title(titleStr);
-        end
-    end
-
-
-    if mod(adaptive_measures,4)>1                                               % A-SPIKE-distance
-        if mod(showing,4)>1
-            fprintf('A-SPIKE-distance: %.4f\n', A_SPIKE_distance);
-        end
-        if mod(showing,8)>3
-            fprintf('A-SPIKE-distance profile: \n');
-            disp(A_SPIKE_distance_profile);
-        end
-        if mod(showing,16)>7
-            fprintf('A-SPIKE-distance matrix: \n');
-            disp(A_SPIKE_distance_matrix);
-        end
-        if mod(plotting,8)>3
-            titleStr = ['A-SPIKE-distance = ', num2str(A_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
-            area(A_SPIKE_distance_profile(:,1), A_SPIKE_distance_profile(:,2));
-            xlabel('Time');
-            ylabel('A-SPIKE-distance');
-            title(titleStr);
-            xlim([t_min t_max]);
-            ylim([0 1]);
-            colororder([0.5 0.5 1]);
-            grid on;
-            box on;
-        end
-        if mod(plotting,16)>7
-            titleStr = ['A-SPIKE-distance = ', num2str(A_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
-            imagesc(A_SPIKE_distance_matrix);
             colorbar;
             box on;
             colormap jet;
@@ -172,8 +179,9 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             disp(RIA_SPIKE_distance_matrix);
         end
         if mod(plotting,8)>3
-            titleStr = ['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+            titleStr = ['RIA-SPIKE-distance profile = ', num2str(RIA_SPIKE_distance)];
+            figure(351);
+            set(gcf,'Name',titleStr);
             area(RIA_SPIKE_distance_profile(:,1), RIA_SPIKE_distance_profile(:,2));
             xlabel('Time');
             ylabel('RIA-SPIKE-distance');
@@ -185,8 +193,9 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
             box on;
         end
         if mod(plotting,16)>7
-            titleStr = ['RIA-SPIKE-distance = ', num2str(RIA_SPIKE_distance)];
-            figure('Name', titleStr, 'NumberTitle', 'off');
+            titleStr = ['RIA-SPIKE-distance matrix = ', num2str(RIA_SPIKE_distance)];
+            figure(352);
+            set(gcf,'Name',titleStr);
             imagesc(RIA_SPIKE_distance_matrix);
             colorbar;
             box on;
