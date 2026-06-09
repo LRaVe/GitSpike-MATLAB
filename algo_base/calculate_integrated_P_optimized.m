@@ -25,16 +25,15 @@ function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, 
                 t_all = [tmin, sort(unique([train_A, train_B])), tmax];
                 S_t_list = zeros(1, length(t_all)-1);
                 
-                % Si l'un des deux trains est complètement vide
                 if isempty(train_A) && isempty(train_B)
                     dval = 0;
                 elseif isempty(train_A) || isempty(train_B)
-                    dval = 1; % Distance maximale si un train est vide
+                    dval = 1;
                 else
                     for k = 1 : length(t_all)-1
                         t_mid = (t_all(k) + t_all(k+1)) / 2;
                         
-                        % TRAIN A 
+                        % Train A 
                         idx_a = find(train_A > t_mid, 1, 'first');
                         idx_p = find(train_A <= t_mid, 1, 'last');
                         
@@ -42,11 +41,11 @@ function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, 
                         if isempty(idx_a), x_a = tmax; else, x_a = train_A(idx_a); end
                         isi_x = x_a - x_p;
                         
-                        % Distances temporelles instantanées aux pics de A
+                        % time distance to the A spike
                         dt_x_p = t_mid - x_p;
                         dt_x_a = x_a - t_mid;
                         
-                        % TRAIN B 
+                        % Train B 
                         idy_a = find(train_B > t_mid, 1, 'first');
                         idy_p = find(train_B <= t_mid, 1, 'last');
                         
@@ -54,29 +53,28 @@ function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, 
                         if isempty(idy_a), y_a = tmax; else, y_a = train_B(idy_a); end
                         isi_y = y_a - y_p;
                         
-                        % Distances temporelles instantanées aux pics de B
+                        % time distance to the B spike
                         dt_y_p = t_mid - y_p;
                         dt_y_a = y_a - t_mid;
                         
-                        % --- CO-LOCALISATION ( Kreuz et al. ) ---
-                        % Pour le pic le plus proche de A, trouver sa distance au pic le plus proche dans B
+                        % For the nearest peak in A, find its distance to the nearest peak in B
                         [~, closest_A_idx] = min([dt_x_p, dt_x_a]);
                         if closest_A_idx == 1, target_x = x_p; else, target_x = x_a; end
                         [~, id_b_closest] = min(abs(train_B - target_x));
                         min_dxy = abs(target_x - train_B(id_b_closest));
                         
-                        % Pour le pic le plus proche de B, trouver sa distance au pic le plus proche dans A
+                        % For the nearest peak in B, find its distance to
+                        % the nearest peak in A
                         [~, closest_B_idx] = min([dt_y_p, dt_y_a]);
                         if closest_B_idx == 1, target_y = y_p; else, target_y = y_a; end
                         [~, id_a_closest] = min(abs(train_A - target_y));
                         min_dyx = abs(target_y - train_A(id_a_closest));
                         
-                        % --- CALCUL DES PROFILS TEMPORELS S_x ET S_y ---
+                        % Calcul time profile S_x and S_y
                         S_x = (dt_x_p * min_dyx + dt_x_a * min_dyx) / isi_x; 
                         S_y = (dt_y_p * min_dxy + dt_y_a * min_dxy) / isi_y;
                         
-                        % --- COMBINAISON ET NORMALISATION ---
-                        % Pondération par l'inter-pic local (ISI)
+                        % Local inter-spike interval (ISI) weighting
                         S_t_list(k) = (S_x * isi_y + S_y * isi_x) / ((isi_x + isi_y) * max([isi_x, isi_y]));
                     end
                     % Time integration

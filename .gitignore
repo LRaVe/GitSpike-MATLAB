@@ -37,3 +37,4 @@ ISI-distance/ISI_distance.m
 ISI-distance/f_ISI_distance_adaptive.m
 test_discriminative_neuronal_subpopulation.m
 algo_base/two_first_figures_2018_paper_SPIKE_or_ISI.m
+algo_base/calculate_labeled_line_P.m"
