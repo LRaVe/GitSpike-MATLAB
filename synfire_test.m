@@ -3,7 +3,7 @@ addpath('SPIKE_order');
 addpath('SPIKE_synchro');
 addpath('spike_common');
 
-trains_synfire = f_synfire(0, 100, 6, 5, 1, 1, 0.1, 1); 
+trains_synfire = f_synfire(0, 100, 6, 5, 5, 0, 0.1, 1); 
 disp('Generated Synfire Trains:');
 for i = 1:length(trains_synfire)
     fprintf('Train %d: %s\n', i, mat2str(trains_synfire{i}));
@@ -15,3 +15,12 @@ disp(sortedOrders);
 
 % Plot the generated synfire trains
 plot_synfire_trains(trains_synfire, sortedOrders, sortedTimes, 'Generated Synfire Trains');
+
+td_matrix = f_TD_matrix(trains_synfire);
+disp('Time Difference Matrix:');    
+disp(td_matrix);
+figure('Name', 'Time Difference Matrix', 'NumberTitle', 'off');
+imagesc(td_matrix, 'CDataMapping', 'scaled');
+colormap(gca, jet(256));
+colorbar;
+title('Time Difference Matrix');

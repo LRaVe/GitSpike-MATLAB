@@ -6,6 +6,10 @@
 function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
     % Adaptive SPIKE-synchronization between two spike trains
     % If RMTS is empty or not provided, use regular SPIKE synchronization
+    if nargin < 5 || isempty(RMTS)
+        f_spike_synchro(train1, train2, t_min, t_max);
+        return;
+    end
     
     train1_sliced = unique(sort(train1(train1 >= t_min & train1 <= t_max)));
     train2_sliced = unique(sort(train2(train2 >= t_min & train2 <= t_max)));
