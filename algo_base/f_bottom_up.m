@@ -2,7 +2,7 @@
 % Date: May-June 2026
 % Author : Laure WOLFF
 function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting,other_figs)
-    % Initialisation des variables
+    % Initialization variableq
     best_order = zeros(1, num_neurons);    % Any neuron in the list
     neurons_dispo = 1:num_neurons;        % All neurons before the beginning of the algorithm 
     history_perf = zeros(1, num_neurons);  % The performance of each neuron at the step k
@@ -49,11 +49,8 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
     % end
 
     % To find the best subpopulation
-    stop_idx = 1;
-    while stop_idx < num_neurons && history_perf(stop_idx + 1) > history_perf(stop_idx)
-        stop_idx = stop_idx + 1;
-    end
-    best_subpop = best_order(1:stop_idx);
+    [~, idx_max_absolu] = max(history_perf);
+    best_subpop = best_order(1:idx_max_absolu); 
     
     if showing == true 
         disp('History of performances P :');
@@ -74,7 +71,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
                 neuron_labels{k} = sprintf('N%d', best_order(k));
             end
             
-            figure('Name', 'Bottom-Up optimization results', 'Position', [200, 200, 700, 480]);
+            figure('Name', 'Bottom-Up optimization results');
             plot(1:num_neurons, history_perf, '-o', 'LineWidth', 2.5, 'Color', [0.30 0.58 0.20], ...
                  'MarkerEdgeColor', [0.30 0.58 0.20], 'MarkerFaceColor', [0.93 0.69 0.13], 'MarkerSize', 8);
             hold on;
@@ -99,7 +96,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
             shg;
             
             %% 2. Matrix
-            figure('Name', 'Bottom-Up selection matrix', 'Position', [250, 250, 600, 500]);
+            figure('Name', 'Bottom-Up selection matrix');
             chosen_background_color = [1 1 1]; 
             set(gca, 'Color', chosen_background_color); 
             imagesc(Matrix_Grid, 'AlphaData', ~isnan(Matrix_Grid)); 
@@ -130,7 +127,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         end
 
         %% 3. The paper figure
-        figure('Name', 'Bottom-Up selection figure', 'Position', [150, 150, 1050, 480], 'Color', [1 1 1]);
+        figure('Name', 'Bottom-Up selection figure');
         
         opt_size = length(best_subpop); 
         min_perf_val = min(history_perf) - 0.02; 

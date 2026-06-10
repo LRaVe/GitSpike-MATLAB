@@ -1,3 +1,7 @@
+%% Spike distance matrix for coding, uncoding and all script 
+% Date: May-June 2026
+% Author : Laure WOLFF
+
 function  plot_and_compute_distance_matrix(CellMatrix, num_neurons, num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice)
 % PLOT_AND_COMPUTE_MATRICES Computes and plots the distance matrices for 
 % Coding, Non-coding, and Full populations under the Summed Population hypothesis.
