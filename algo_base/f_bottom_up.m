@@ -52,13 +52,24 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
     [~, idx_max_absolu] = max(history_perf);
     best_subpop = best_order(1:idx_max_absolu); 
     
+    %% Block to improve the lisibility in the command windows
     if showing == true 
-        disp('History of performances P :');
-        disp(history_perf);
-        disp('Optimal neuron inclusion order');
-        disp(best_order);
-        disp('The best subpopulation are the neurons :');
-        disp(best_subpop);
+        for i = 1:10:length(history_perf)
+            last_idx = min(i+9, length(history_perf));
+            fprintf('   [%d-%d] : %s\n', i, last_idx, num2str(history_perf(i:last_idx), ' %.4f'));
+        end
+        
+        fprintf('\nOptimal neuron inclusion order:\n');
+        for i = 1:10:length(best_order)
+            last_idx = min(i+9, length(best_order));
+            fprintf('   %s\n', num2str(best_order(i:last_idx)));
+        end
+        
+        fprintf('\nThe best subpopulation found contains %d neurons:\n', length(best_subpop));
+        for i = 1:10:length(best_subpop)
+            last_idx = min(i+9, length(best_subpop));
+            fprintf('   %s\n', num2str(best_subpop(i:last_idx)));
+        end
     end
     
     if plotting == true 

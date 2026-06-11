@@ -5,7 +5,7 @@
 function [best_subpop, best_perf_overall] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting)
 %% 1. Initialization of the variables
 cooling_factor = 0.90;        
-alpha_threshold = 1e-4;       
+alpha_threshold = 1e-5;       
 iterations_per_temp = 5 * num_neurons; 
 N0 = 50;
 
@@ -171,7 +171,7 @@ if plotting == true && ~isempty(Matrix_Grid)
     
     % Plot's legends
     cb = colorbar;
-    set(cb, 'Ticks', [0.25, 0.75], 'TickLabels', {'Deactivated (0)', 'Active (1)'}, 'FontSize', 10);
+    set(cb, 'Ticks', [0.25, 0.75], 'TickLabels', {'Desactivated (0)', 'Activated (1)'}, 'FontSize', 10);
     
     % function plotting
     subplot(1, 4, 4);
