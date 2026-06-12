@@ -1,7 +1,6 @@
-%% Benchmark Script: Greedy vs Simulated Annealing Execution Time
+%% Benchmark Script: Brute Force vs Greedy vs Simulated Annealing Evaluation Count
 % Date: June 2026
 % Author: Laure WOLFF
-
 clear; clc; close all;
 
 % --- 1. Simulation Parameters ---
@@ -11,60 +10,76 @@ num_repetitions = 5;
 t1 = 0; t2 = 4; % Time window
 metric_choice = 'SPIKE_DISTANCE';
 
-% Pre-allocate time vectors
-time_greedy = zeros(size(neuron_counts));
-time_sa = zeros(size(neuron_counts));
+% Pre-allocate evaluation counters
+eval_greedy = zeros(size(neuron_counts));
+eval_sa     = zeros(size(neuron_counts));
+eval_brute  = NaN(size(neuron_counts)); % NaN for missing points at N >= 20
 
-fprintf('Starting Benchmark...\n');
+fprintf('Starting Evaluation Count Benchmark...\n');
 
 % --- 2. Benchmark Loop ---
 for idx = 1:length(neuron_counts)
     N = neuron_counts(idx);
+    fprintf('\n----------------------------------------\n');
     fprintf('Testing with %d neurons...\n', N);
     
-    % Generate dummy CellMatrix spike data for N neurons
+    % --- Generate Artificial Dataset (Satuvuori 2018 Style) ---
     FakeCellMatrix = cell(N, num_stimuli, num_repetitions);
     for n = 1:N
         for s = 1:num_stimuli
             for r = 1:num_repetitions
-                % Generate random spike times between t1 and t2
                 num_spikes = randi([5, 15]);
                 FakeCellMatrix{n,s,r} = sort(t1 + (t2 - t1) * rand(1, num_spikes));
             end
         end
     end
     
-    % --- Benchmark Algorithm 1: Iterative / Greedy ---
-    % Replace "f_greedy_algorithm" with your exact function name
-    tic;
-    f_bottom_up(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false,false);
-    % (Simulated placeholder for the test - remove the line below when un-commenting yours)
-    pause(0.02 * N); 
-    time_greedy(idx) = toc;
+    % --- Benchmark Algorithm 1: Bottom-Up ---
+    fprintf('Evaluating Bottom-Up...\n');
+    % Formule mathématique exacte du Bottom-Up codé dans f_bottom_up.m
+    eval_greedy(idx) = (N * (N + 1)) / 2;
     
     % --- Benchmark Algorithm 2: Simulated Annealing ---
-    % Showing and plotting set to false to avoid pop-ups during benchmark
-    tic;
-    f_simulated_annealing(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false);
-    time_sa(idx) = toc;
+    fprintf('Evaluating Simulated Annealing...\n');
+    % On exécute l'algorithme pour connaître son nombre précis de paliers convergés
+    [nb_iterations] = f_simulated_annealing(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false);
+    eval_sa(idx) = nb_iterations; 
+    
+    % --- Benchmark Algorithm 3: Brute Force) ---
+    fprintf('Evaluating Brute Force...\n');
+    % Nombre exact de masques binaires générés par dec2bin
+    eval_brute(idx) = (2^N) - 1;
+
 end
+fprintf('\nBenchmark completed successfully!\n');
 
-fprintf('Benchmark completed!\n');
+% --- 3. Plotting the Complexity Curves ---
+figure('Name', 'Algorithmic Complexity Benchmark', 'Color', [1 1 1], 'Position', [200, 200, 800, 550]);
 
-% --- 3. Plotting the Performance Curves ---
-figure('Name', 'Execution Time Benchmark', 'Color', [1 1 1], 'Position', [200, 200, 700, 500]);
-plot(neuron_counts, time_greedy, '-o', 'LineWidth', 2, 'MarkerSize', 6, 'MarkerFaceColor', [0 0.4470 0.7410], 'DisplayName', 'Iterative (Greedy) Algo');
+% Bottom-Up Curve (Blue Circle)
+plot(neuron_counts, eval_greedy, '-o', 'LineWidth', 2, 'MarkerSize', 6, ...
+     'MarkerFaceColor', [0 0.4470 0.7410], 'Color', [0 0.4470 0.7410], 'DisplayName', 'Bottom-Up/Top-Down (Polynomial: N(N+1)/2)');
 hold on;
-plot(neuron_counts, time_sa, '-s', 'LineWidth', 2, 'MarkerSize', 6, 'MarkerFaceColor', [0.8500 0.3250 0.0980], 'DisplayName', 'Simulated Annealing');
+
+% Simulated Annealing Curve (Orange Square)
+plot(neuron_counts, eval_sa, '-s', 'LineWidth', 2, 'MarkerSize', 6, ...
+     'MarkerFaceColor', [0.8500 0.3250 0.0980], 'Color', [0.8500 0.3250 0.0980], 'DisplayName', 'Simulated Annealing (Heuristic)');
+
+% Brute Force Curve (Purple Diamond - Stops at N=15)
+plot(neuron_counts, eval_brute, '-d', 'LineWidth', 2, 'MarkerSize', 6, ...
+     'MarkerFaceColor', [0.4940 0.1840 0.5560], 'Color', [0.4940 0.1840 0.5560], 'DisplayName', 'Brute Force (Exponential: 2^N-1)');
 
 grid on; box on;
 set(gca, 'TickDir', 'out', 'LineWidth', 1.2, 'FontSize', 11);
-xlabel('Number of Neurons in Pool', 'FontSize', 12, 'FontWeight', 'bold');
-ylabel('Execution Time (seconds)', 'FontSize', 12, 'FontWeight', 'bold');
-title('Computational Complexity Analysis', 'FontSize', 13, 'FontWeight', 'bold');
+set(gca, 'XTick', neuron_counts);
+
+xlabel('Number of Neurons in Pool (N)', 'FontSize', 12, 'FontWeight', 'bold');
+ylabel('Number of Evaluated Subpopulations', 'FontSize', 12, 'FontWeight', 'bold');
+title('Search Space Exploration Scale (Log Scale)', 'FontSize', 13, 'FontWeight', 'bold');
 legend('Location', 'NorthWest', 'FontSize', 11);
 
-% Optional: Use log-scale if Simulated Annealing takes way more time
-% set(gca, 'YScale', 'log'); 
+% Keeping the log scale is essential to show the explosive behavior of 2^N
+set(gca, 'YScale', 'log'); 
 
 hold off;
+shg;

@@ -2,9 +2,9 @@
 % Date: June 2026
 % Author : Laure WOLFF
 
-function [best_subpop, best_perf_overall] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting)
+function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting)
 %% 1. Initialization of the variables
-cooling_factor = 0.90;        
+cooling_factor = 0.9;        
 alpha_threshold = 1e-5;       
 iterations_per_temp = 5 * num_neurons; 
 N0 = 50;
@@ -62,6 +62,8 @@ if showing, fprintf('T_0 found: %.6f \n', T_0); end
 theta = T_0;            
 unchanged_temp_cycles = 0;
 palier_idx = 0;
+nb_iterations = 0;
+
 while theta > alpha_threshold
     palier_idx = palier_idx + 1;
     
@@ -76,6 +78,7 @@ while theta > alpha_threshold
     end
     
     for iter = 1:iterations_per_temp
+        nb_iterations= nb_iterations+1;
         active_count = sum(temp_mask);
         next_mask = temp_mask;
         
@@ -139,13 +142,14 @@ best_subpop = find(best_mask_overall == 1)';
 if showing
     fprintf('Optimal subpopulation found: [%s]\n', num2str(best_subpop));
     fprintf('Max performance P = %.4f\n', best_perf_overall);
+    fprintf('number of iteration %.4f\n', nb_iterations);
 end
 
 %% 5. Plotting 
 if plotting == true && ~isempty(Matrix_Grid)
     num_paliers_reals = size(Matrix_Grid, 1);
     
-    figure('Name', 'Paper Results - Simulated Annealing','Color', [1 1 1]);
+    figure('Name', 'Results - Simulated Annealing','Color', [1 1 1]);
     
     % Matrix which shox the several mask
     subplot(1, 4, 1:3);
@@ -153,7 +157,7 @@ if plotting == true && ~isempty(Matrix_Grid)
     mymap = [0.2 0.4 0.8; 0.9 0.2 0.2]; 
     colormap(gca, mymap); 
     clim([0, 1]);
-    
+    set(gca, 'YTick', 1:num_paliers_reals)
     set(gca, 'YDir', 'normal'); 
     hold on;
     
