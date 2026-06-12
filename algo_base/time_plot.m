@@ -13,6 +13,7 @@ metric_choice = 'SPIKE_DISTANCE';
 % Pre-allocate evaluation counters
 eval_greedy = zeros(size(neuron_counts));
 eval_sa     = zeros(size(neuron_counts));
+eval_sa_u     = zeros(size(neuron_counts));
 eval_brute  = NaN(size(neuron_counts)); % NaN for missing points at N >= 20
 
 fprintf('Starting Evaluation Count Benchmark...\n');
@@ -41,9 +42,18 @@ for idx = 1:length(neuron_counts)
     
     % --- Benchmark Algorithm 2: Simulated Annealing ---
     fprintf('Evaluating Simulated Annealing...\n');
-    % On exécute l'algorithme pour connaître son nombre précis de paliers convergés
-    [nb_iterations] = f_simulated_annealing(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false);
-    eval_sa(idx) = nb_iterations; 
+   nb_iterations_list = zeros(1, 10); 
+    for i = 1:10
+        [~, ~, nb_iter] = f_simulated_annealing(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false);
+        nb_iterations_list(i) = nb_iter;
+    end
+    eval_sa(idx) = mean(nb_iterations_list);
+
+    % --- Benchmark Algorithm 2.5: Simulated Annealing unique ---
+    fprintf('Evaluating Simulated Annealing Unique...\n');
+    [nb_iter] = f_simulated_annealing(FakeCellMatrix, N, num_stimuli, num_repetitions, t1, t2, metric_choice, false, false);
+    eval_sa_u(idx) = nb_iter;
+    
     
     % --- Benchmark Algorithm 3: Brute Force) ---
     fprintf('Evaluating Brute Force...\n');

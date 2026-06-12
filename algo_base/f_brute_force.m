@@ -1,6 +1,7 @@
 %% Brute force wrapper calling the native C MEX function
 % Date: June 2026
 % Author : Laure WOLFF
+
 function  f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting)
     
     total_combinations = (2^num_neurons) - 1;
@@ -54,3 +55,6 @@ function  f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t
         shg;
     end
 end
+
+
+

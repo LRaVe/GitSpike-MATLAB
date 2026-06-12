@@ -1,6 +1,7 @@
 %% Bottom-up algorithm script 
 % Date: May-June 2026
 % Author : Laure WOLFF
+
 function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting,other_figs)
     % Initialization variableq
     best_order = zeros(1, num_neurons);    % Any neuron in the list

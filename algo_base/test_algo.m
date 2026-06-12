@@ -2,13 +2,14 @@
 % Date: May-June 2026
 % Author : Laure WOLFF
 clear; clc; close all;
+
 setenv('MW_MINGW64_LOC', 'C:\mingw64') % Command to find the C++ compiler and link with MatLab
 
 %% Global parameters
 num_stimuli = 4;         % S
 num_repetitions = 5;     % R
-num_neurons = 10;         % N
-num_coding_neurons = 4;  % c
+num_neurons = 21;         % N
+num_coding_neurons = 12;  % c
 t1 = 0; t2 = 1;          % Time window
 
 refrac = 0.002;  % "an absolute refractory period of 2 ms" paper 2018
@@ -31,8 +32,10 @@ plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
     num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
 
 %% 3.5 Brute force algorithm (without MEX compiler)
-f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+if num_neurons < 20 
+    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
     t2, metric_choice, showing, plotting)
+end
 
 %% 4. Bottom-up algorithm
 f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
