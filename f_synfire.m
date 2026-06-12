@@ -1,7 +1,7 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inversed,overlap,step_in_cascade)
+function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inversed,overlap)
     % Create synfire trains with specified parameters
     % tmin: minimum time for spike generation
     % tmax: maximum time for spike generation
@@ -10,7 +10,6 @@ function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inve
     % n_correct: number of correctly ordered events (synchronized spikes)
     % n_inversed: number of inversed events (anti-synchronized spikes)
     % overlap: [0,1] indicating whether to allow overlapping spikes (<0.5 for no overlap)
-    % step_in_cascade: time difference between spikes in a cascade (for both correct and inversed events)
     
     n_random = n_total_events - n_correct - n_inversed; % Number of random events
 
@@ -18,19 +17,16 @@ function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inve
     for i = 1:n_trains
         trains{i} = zeros(1, n_total_events); % Preallocate spike times for each train
     end
-    
-    % Calculate cascade duration (time span from first to last spike in a cascade)
-    cascade_duration = (n_trains - 1) * step_in_cascade;
-    
-    % Available time for event spacing (subtract cascade duration so last spike stays within tmax)
-    available_time = (tmax - tmin) - cascade_duration;
-    
     if overlap > 0
         % calculate the distance between events
-        distance_between_events = available_time / (n_total_events - 1 + overlap); 
+        distance_between_events = (tmax - tmin)/ ((n_total_events - 1)/ overlap); 
     else
-        distance_between_events = available_time / (n_total_events - 1);
+        distance_between_events = (tmax - tmin) / (n_total_events - 1);
     end
+    
+    event_duration = distance_between_events * overlap; % Duration of each event based on overlap
+    step_in_cascade = event_duration / (n_trains-1); % Time step between spikes in the cascade
+    
     % Correctly ordered events (synchronized spikes)
     for event_id = 1:n_correct
         event_time = tmin + (event_id-1) * distance_between_events; % Calculate event time based on distance
