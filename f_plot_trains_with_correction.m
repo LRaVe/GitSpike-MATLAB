@@ -1,10 +1,14 @@
-function [figures] = f_plot_trains_with_correction(trains,row)
+function [figures] = f_plot_trains_with_correction(trains,row,mode)
     % Generate synfire trains and apply correction based on time difference matrix
     % trains: cell array where trains{i} contains spike times for train i
     % row: the row of the time difference matrix to use for correction (default is 1)
+    % mode: correction mode (default is 'row')
     
+    if nargin < 3
+        mode = 'row'; % Default to row-based correction
+    end
     if nargin < 2
-        row = 1; % Default to using the first row of the time difference matrix for correction
+        row = 1; % Default to using the first row for correction
     end
 
     % Compute sorted orders and times for original trains
@@ -15,7 +19,11 @@ function [figures] = f_plot_trains_with_correction(trains,row)
     [Cost_matrix, Cost_value] = f_Cost_matrix(trains);
     
     % Compute shifts based on first diagonal of time difference matrix
-    shifts = f_first_diagonal(td_matrix, row);
+    if strcmp(mode, 'row')
+        shifts = f_row(td_matrix, row);
+    elseif strcmp(mode, 'first_diagonal')
+        shifts = f_first_diagonal(td_matrix, row);
+    end
     
     % Apply correction to the original trains
     trains_corrected = cell(1, length(trains));
@@ -59,7 +67,8 @@ function [figures] = f_plot_trains_with_correction(trains,row)
     title(['Cost Matrix, Cost Value: ' num2str(Cost_value)]);
 
     axes(ax4);
-    plot_synfire_trains(trains_corrected, sortedOrders_corrected, sortedTimes_corrected, 'Corrected Synfire Trains');
+    %plot_synfire_trains(trains_corrected, sortedOrders_corrected, sortedTimes_corrected, 'Corrected Synfire Trains');
+    plot_shifts_row(trains,sortedOrders,shifts,sortedTimes);
     title('Corrected Synfire Trains');
 
     axes(ax5);
