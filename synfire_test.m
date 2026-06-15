@@ -13,8 +13,12 @@ end
 disp('Sorted Orders:');
 disp(sortedOrders);
 
+%% Plot the synfire trains
+
 % Plot the generated synfire trains
 plot_synfire_trains(trains_synfire, sortedOrders, sortedTimes, 'Generated Synfire Trains');
+
+%% Time Difference Matrix 
 
 td_matrix = f_TD_matrix(trains_synfire);
 disp('Time Difference Matrix:');    
@@ -24,6 +28,9 @@ imagesc(td_matrix, 'CDataMapping', 'scaled');
 colormap(gca, jet(256));
 colorbar;
 title('Time Difference Matrix');
+
+%% Cost Matrix
+
 [Cost_matrix,Cost_value] = f_Cost_matrix(trains_synfire);
 disp('Cost Matrix:');
 disp(Cost_matrix);
@@ -38,3 +45,20 @@ title('Cost Matrix, Cost Value: ' + string(Cost_value));
 shifts = f_first_diagonal(td_matrix, 2);
 disp('Shifts:');
 disp(shifts);
+%% Shifts with row method
+shifts=f_row(td_matrix,1);
+sortedShifts=zeros(1,length(sortedTimes));
+for i=1:length(sortedTimes)
+    j=1;
+    if j~=length(shifts)
+        sortedShifts(i)=sortedTimes(i)-shifts(j);
+        j=j+1;
+    else
+        j=1;
+    end
+end
+
+disp(shifts);
+disp(sortedTimes);
+disp(sortedShifts);
+plot_synfire_trains(trains_synfire,sortedOrders,sortedShifts,'Shifts with Row Method');
