@@ -2,7 +2,7 @@
 % Date: June 2026
 % Author : Laure WOLFF
 
-function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting )
+function [nb_iterations] = f_simulated_annealing_mex_m(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting )
 %% 1. Initialization of the variables
 cooling_factor = 0.9;        
 alpha_threshold = 1e-5;       
