@@ -6,12 +6,11 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str)
     % trains: cell array where trains{i} contains spike times for train i
     % title_str: (optional) title for the figure
     
-    figure('Name', 'Colored Synfire Trains', 'NumberTitle', 'off');
     hold on;
     box on;
     [spikeColors,flatRows]=values_to_colors(trains, sortedOrders, length(trains));
     colormap(gca, jet(256));
-    caxis([-1 1]);
+    clim([-1 1]);
     
     % Plot each train
     for k=1:numel(sortedTimes)

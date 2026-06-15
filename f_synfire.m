@@ -41,9 +41,9 @@ function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inve
         event_time = tmin + n_correct * distance_between_events + (event_id-1) * distance_between_events; % Calculate event time for random events
         for train_id = 1:n_trains
             % add jitter but around the event time, and ensure the random spike time is not overlapping with the synchronized spikes
-            random_spike_time = event_time + randn * 2; % Add Gaussian noise
+            random_spike_time = event_time + randn * (distance_between_events * 0.1); % Add Gaussian noise
             while any(abs(random_spike_time - trains{train_id}(1:n_correct)) < 1) % Check for overlap with synchronized spikes
-                random_spike_time = event_time + randn * 2; % Regenerate if overlapping
+                random_spike_time = event_time + randn * (distance_between_events * 0.1); % Regenerate if overlapping
             end
             % Clamp spike time within [tmin, tmax]
             random_spike_time = max(tmin, min(tmax, random_spike_time));
