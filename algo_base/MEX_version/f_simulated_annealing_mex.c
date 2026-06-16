@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-/* Function to call the function calculate_integrated_P_optimized_mex */
+/* Function to call the function calculate_integrated_P_optimized_mex_m */
 double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_neurons,
                         int num_stimuli, int num_repetitions, double t1, double t2, 
                         const mxArray *metric_choice) {
@@ -28,8 +28,8 @@ double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_n
     rhs[5] = mxCreateDoubleScalar(t2);
     rhs[6] = (mxArray *)metric_choice;
     
-    /* Call the performance function */
-    mexCallMATLAB(1, lhs, 7, rhs, "calculate_integrated_P_optimized_mex");
+    /* Call the performance function using the secure wrapper */
+    mexCallMATLAB(1, lhs, 7, rhs, "calculate_integrated_P_optimized_mex_m");
     
     p_val = mxGetScalar(lhs[0]);
     
@@ -74,7 +74,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     
     /* Dynamic arrays for log history */
     int current_max_paliers = 200;
-    double *matrix_grid_history; /* Stored flat (temporary Row-Major or linear) */
+    double *matrix_grid_history; 
     double *history_perf;
     
     int current_max_iter = 10000;
@@ -98,7 +98,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         mask_0[i] = (rand() % 2 == 0) ? 0.0 : 1.0;
         sum_mask += mask_0[i];
     }
-    /* Enforce boundary constraints (avoid empty or full population at start) */
     if (sum_mask == 0) mask_0[rand() % num_neurons] = 1.0;
     if (sum_mask == num_neurons) mask_0[rand() % num_neurons] = 0.0;
     
@@ -124,7 +123,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         
         next_perf = call_calculate_P(cellMatrix, next_mask, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
         
-        /* Track only deteriorating transitions */
         if (next_perf <= temp_perf) {
             delta_down[count] = fabs(next_perf - temp_perf);
             count++;
@@ -139,7 +137,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         for (int i = 0; i < count; i++) sum_delta += delta_down[i];
         mean_delta = sum_delta / count;
     }
-    /* Compute T_0 based on initial acceptance probability of 0.95 */
     T_0 = -mean_delta / log(0.95);
     mxFree(delta_down);
     
@@ -171,7 +168,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     
     while (theta > alpha_threshold) {
         
-        /* Safety boundary check for step steps (dynamic reallocation) */
         if (palier_idx >= current_max_paliers) {
             current_max_paliers += 50;
             matrix_grid_history = (double *)mxRealloc(matrix_grid_history, current_max_paliers * num_neurons * sizeof(double));
@@ -180,12 +176,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         
         if (showing) {
             mexPrintf("Temp: %.6f | Current P: %.4f\n", theta, temp_perf);
-            mexEvalString("drawnow;"); /* Force command window flushing in MATLAB */
+            mexEvalString("drawnow;"); 
         }
         
         for (iter = 0; iter < iterations_per_temp; iter++) {
             
-            /* Safety boundary check for inner iterations (dynamic reallocation) */
             if (nb_iterations >= current_max_iter) {
                 current_max_iter += 10000;
                 hist_iter_P = (double *)mxRealloc(hist_iter_P, current_max_iter * sizeof(double));
@@ -198,7 +193,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             for (int i = 0; i < num_neurons; i++) active_count += temp_mask[i];
             memcpy(next_mask, temp_mask, num_neurons * sizeof(double));
             
-            /* Handle neighborhood exploration constraints */
             if (active_count == 1) {
                 int *zero_indices = (int *)mxCalloc(num_neurons, sizeof(int));
                 int z_count = 0;
@@ -222,7 +216,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             
             next_perf = call_calculate_P(cellMatrix, next_mask, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
             
-            /* Metropolis criterion for neighborhood acceptance */
             if (next_perf > temp_perf) {
                 temp_perf = next_perf;
                 memcpy(temp_mask, next_mask, num_neurons * sizeof(double));
@@ -239,7 +232,6 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
                 memcpy(best_mask_overall, temp_mask, num_neurons * sizeof(double));
             }
             
-            /* Log performance metrics per individual iteration */
             hist_iter_P[nb_iterations] = temp_perf;
             hist_iter_bestP[nb_iterations] = best_perf_overall;
             
@@ -251,14 +243,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             nb_iterations++;
         }
         
-        /* Log step metrics per temperature cycle */
         for (int i = 0; i < num_neurons; i++) {
             matrix_grid_history[palier_idx * num_neurons + i] = temp_mask[i];
         }
         history_perf[palier_idx] = temp_perf;
         palier_idx++;
         
-        /* Early exit condition check for convergence stagnation */
         if (palier_idx >= 2 && fabs(history_perf[palier_idx - 1] - history_perf[palier_idx - 2]) < 1e-6) {
             unchanged_temp_cycles++;
             if (unchanged_temp_cycles >= 2) {
@@ -274,19 +264,21 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         theta *= cooling_factor;
     }
     
-    /* Outputs Map */
+    /* ========================================================================= */
+    /* OUTPUTS MAPPING (REORGANIZED TO MATCH THE MATLAB WRAPPER EXPECTATIONS)    */
+    /* ========================================================================= */
     
-    /* Out 0: best_mask_overall */
-    plhs[0] = mxCreateDoubleMatrix(1, num_neurons, mxREAL);
-    memcpy(mxGetPr(plhs[0]), best_mask_overall, num_neurons * sizeof(double));
+    /* Out 0: nb_iterations (Scalar) */
+    plhs[0] = mxCreateDoubleScalar((double)nb_iterations);
     
-    /* Out 1: best_perf_overall */
-    plhs[1] = mxCreateDoubleScalar(best_perf_overall);
+    /* Out 1: best_mask_overall (1 x num_neurons) */
+    plhs[1] = mxCreateDoubleMatrix(1, num_neurons, mxREAL);
+    memcpy(mxGetPr(plhs[1]), best_mask_overall, num_neurons * sizeof(double));
     
-    /* Out 2: nb_iterations */
-    plhs[2] = mxCreateDoubleScalar((double)nb_iterations);
+    /* Out 2: best_perf_overall (Scalar) */
+    plhs[2] = mxCreateDoubleScalar(best_perf_overall);
     
-    /* Out 3: Matrix_Grid (Reshaping to handle MATLAB's Column-Major memory layout) */
+    /* Out 3: Matrix_Grid (palier_idx x num_neurons) */
     plhs[3] = mxCreateDoubleMatrix(palier_idx, num_neurons, mxREAL);
     double *out_matrix_grid = mxGetPr(plhs[3]);
     for (int i = 0; i < palier_idx; i++) {
@@ -295,11 +287,11 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         }
     }
     
-    /* Out 4: history_perf */
+    /* Out 4: history_perf (1 x palier_idx) */
     plhs[4] = mxCreateDoubleMatrix(1, palier_idx, mxREAL);
     memcpy(mxGetPr(plhs[4]), history_perf, palier_idx * sizeof(double));
     
-    /* Out 5 to 8: Iteration-based tracking logs */
+    /* Out 5 to 8: Iteration logs */
     plhs[5] = mxCreateDoubleMatrix(1, nb_iterations, mxREAL);
     memcpy(mxGetPr(plhs[5]), hist_iter_P, nb_iterations * sizeof(double));
     
@@ -312,7 +304,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     plhs[8] = mxCreateDoubleMatrix(1, nb_iterations, mxREAL);
     memcpy(mxGetPr(plhs[8]), hist_iter_temp, nb_iterations * sizeof(double));
     
-    /* Free all allocated memory blocks */
+    /* Free memory */
     mxFree(mask_0);
     mxFree(temp_mask);
     mxFree(best_mask_overall);

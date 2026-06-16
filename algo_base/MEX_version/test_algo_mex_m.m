@@ -9,8 +9,8 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 %% Dataset configuration
 num_neurons = 20;          
-num_stimuli = 3;           
-num_repetitions = 4;       
+num_stimuli = 2;           
+num_repetitions = 2;       
 num_coding_neurons = 16;   
 
 
@@ -62,7 +62,7 @@ end
 fprintf('\n-> Simuated Annealing algorithm \n');
 tic;
 
-[nb_iterations] = f_simulated_annealing_mex_m(...
+[nb_iterations, best_mask_sa, best_perf_sa] = f_simulated_annealing_mex_m(...
     CellMatrix, ...
     double(num_neurons), ...
     double(num_stimuli), ...
@@ -74,23 +74,14 @@ tic;
     plotting);
 time_sa = toc;
 
-[best_mask_sa, best_perf_sa, ~, ~, ~, ~, ~, ~, ~] = f_simulated_annealing_mex(...
-    CellMatrix, ...
-    double(num_neurons), ...
-    double(num_stimuli), ...
-    double(num_repetitions), ...
-    double(t1), ...
-    double(t2), ...
-    metric_choice, ...
-    false);
-
+% On extrait proprement les IDs des neurones sélectionnés (ex: [1 2 3 4 5 6])
 best_subpop_sa = find(best_mask_sa == 1);
 
 %% Comparaison 
 fprintf('\n==================================================\n');
 fprintf('      Comparaison of the two algorithms             \n');
 fprintf('==================================================\n');
-fprintf('Paramètres : %d neurones | %d stimuli | %d rép\n\n', num_neurons, num_stimuli, num_repetitions);
+fprintf('Parameters : %d neurons | %d stimuli | %d rep\n\n', num_neurons, num_stimuli, num_repetitions);
 
 fprintf('1. FORCE BRUTE :\n');
 fprintf('   - Best subpopulation : [%s]\n', num2str(best_subpop_bf));
