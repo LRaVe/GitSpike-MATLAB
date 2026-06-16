@@ -4,13 +4,11 @@
 
 function [nb_iterations] = f_simulated_annealing_mex_m(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting )
 
-%% 1. Appel du binaire MEX compilé en C pur
-% Compilation préalable obligatoire : mex f_simulated_annealing_core_mex.c
 [best_mask_overall, best_perf_overall, nb_iterations, Matrix_Grid, history_perf, ...
  hist_iter_P, hist_iter_bestP, hist_iter_size, hist_iter_temp] = ...
     f_simulated_annealing_core_mex(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing);
 
-%% 2. Final Wrap-up
+%% Final Wrap-up
 best_subpop = find(best_mask_overall == 1)';
 if showing
     fprintf('Optimal subpopulation found: [%s]\n', num2str(best_subpop));
@@ -18,7 +16,7 @@ if showing
     fprintf('number of iteration %.4f\n', nb_iterations);
 end
 
-%% 3. Plotting (Conservé entièrement en MATLAB)
+%% Plotting 
 if plotting == true && ~isempty(Matrix_Grid)
     num_paliers_reals = size(Matrix_Grid, 1);
     

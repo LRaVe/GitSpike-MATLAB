@@ -14,7 +14,7 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64') % Command to find the C++ compiler and li
 %% Global parameters
 num_stimuli = 4;         % S
 num_repetitions = 5;     % R
-num_neurons = 15;         % N
+num_neurons = 10;         % N
 num_coding_neurons = 2;  % c
 t1 = 0; t2 = 1;          % Time window
 

@@ -4,7 +4,7 @@
 #include <string.h>
 #include <time.h>
 
-/* Fonction utilitaire pour appeler calculate_integrated_P_optimized */
+/* Function to call the function calculate_integrated_P_optimized_mex */
 double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_neurons,
                         int num_stimuli, int num_repetitions, double t1, double t2, 
                         const mxArray *metric_choice) {
@@ -15,7 +15,6 @@ double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_n
     double *mask_ptr;
     double p_val;
     
-    /* 1. Préparation des arguments d'entrée */
     rhs[0] = (mxArray *)cellMatrix;
     
     mask_array = mxCreateDoubleMatrix(num_neurons, 1, mxREAL);
@@ -29,10 +28,9 @@ double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_n
     rhs[5] = mxCreateDoubleScalar(t2);
     rhs[6] = (mxArray *)metric_choice;
     
-    /* 2. Appel de la fonction MATLAB */
-    mexCallMATLAB(1, lhs, 7, rhs, "calculate_integrated_P_optimized");
+    /* Call the performance function */
+    mexCallMATLAB(1, lhs, 7, rhs, "calculate_integrated_P_optimized_mex");
     
-    /* 3. Récupération du résultat et nettoyage */
     p_val = mxGetScalar(lhs[0]);
     
     mxDestroyArray(lhs[0]);
@@ -45,15 +43,14 @@ double call_calculate_P(const mxArray *cellMatrix, const double *mask, int num_n
     return p_val;
 }
 
-/* Générateur uniforme entre 0 et 1 */
+/* Pseudo-random uniform generator between 0 and 1 */
 double rand_uniform() {
     return (double)rand() / (double)RAND_MAX;
 }
 
-/* Cœur du fichier MEX */
 void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     
-    /* Entrées */
+    /* Inputs */
     const mxArray *cellMatrix = prhs[0];
     int num_neurons = (int)mxGetScalar(prhs[1]);
     int num_stimuli = (int)mxGetScalar(prhs[2]);
@@ -63,21 +60,21 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     const mxArray *metric_choice = prhs[6];
     bool showing = mxGetLogicals(prhs[7])[0];
     
-    /* Paramètres de l'algorithme */
+    /* Hyperparameters */
     double cooling_factor = 0.9;        
     double alpha_threshold = 1e-5;       
     int iterations_per_temp = 5 * num_neurons; 
     int N0 = 50;
     
-    /* Variables de boucle et d'état */
+    /* Loop control and state variables */
     double *mask_0, *temp_mask, *best_mask_overall, *next_mask;
     double p_0, best_perf_overall, temp_perf, next_perf;
     double sum_mask, theta, mean_delta, T_0;
     int count, n, iter, palier_idx, nb_iterations, unchanged_temp_cycles;
     
-    /* Tableaux dynamiques pour l'historique */
+    /* Dynamic arrays for log history */
     int current_max_paliers = 200;
-    double *matrix_grid_history; /* Stocké à plat (Row-Major temporaire ou linéaire) */
+    double *matrix_grid_history; /* Stored flat (temporary Row-Major or linear) */
     double *history_perf;
     
     int current_max_iter = 10000;
@@ -86,21 +83,22 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     double *hist_iter_size;
     double *hist_iter_temp;
     
-    /* Initialisation du générateur pseudo-aléatoire */
+    /* Initialize pseudo-random number generator seed */
     srand((unsigned int)time(NULL));
     
-    /* Allocation des masques */
+    /* Allocate memory for masks */
     mask_0 = (double *)mxCalloc(num_neurons, sizeof(double));
     temp_mask = (double *)mxCalloc(num_neurons, sizeof(double));
     best_mask_overall = (double *)mxCalloc(num_neurons, sizeof(double));
     next_mask = (double *)mxCalloc(num_neurons, sizeof(double));
     
-    /* Étape 1. Initialisation aléatoire du masque */
+    /* Step 1. Random mask initialization */
     sum_mask = 0;
     for (int i = 0; i < num_neurons; i++) {
         mask_0[i] = (rand() % 2 == 0) ? 0.0 : 1.0;
         sum_mask += mask_0[i];
     }
+    /* Enforce boundary constraints (avoid empty or full population at start) */
     if (sum_mask == 0) mask_0[rand() % num_neurons] = 1.0;
     if (sum_mask == num_neurons) mask_0[rand() % num_neurons] = 0.0;
     
@@ -111,7 +109,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     memcpy(temp_mask, mask_0, num_neurons * sizeof(double));
     temp_perf = p_0;
     
-    /* Étape 2. Recherche de T_0 */
+    /* Step 2. Estimate initial temperature T_0 */
     double *delta_down = (double *)mxCalloc(N0, sizeof(double));
     count = 0;
     
@@ -126,6 +124,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         
         next_perf = call_calculate_P(cellMatrix, next_mask, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
         
+        /* Track only deteriorating transitions */
         if (next_perf <= temp_perf) {
             delta_down[count] = fabs(next_perf - temp_perf);
             count++;
@@ -140,6 +139,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         for (int i = 0; i < count; i++) sum_delta += delta_down[i];
         mean_delta = sum_delta / count;
     }
+    /* Compute T_0 based on initial acceptance probability of 0.95 */
     T_0 = -mean_delta / log(0.95);
     mxFree(delta_down);
     
@@ -151,7 +151,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         mexPrintf("T_0 found: %.6f \n", T_0);
     }
     
-    /* Allocations initiales pour l'historique */
+    /* Initial memory allocation for tracking variables */
     matrix_grid_history = (double *)mxCalloc(current_max_paliers * num_neurons, sizeof(double));
     history_perf = (double *)mxCalloc(current_max_paliers, sizeof(double));
     
@@ -160,19 +160,18 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     hist_iter_size = (double *)mxCalloc(current_max_iter, sizeof(double));
     hist_iter_temp = (double *)mxCalloc(current_max_iter, sizeof(double));
     
-    /* Étape 3. Boucle du Recuit Simulé */
+    /* Step 3. Annealing loop */
     theta = T_0;
     unchanged_temp_cycles = 0;
     palier_idx = 0;
     nb_iterations = 0;
     
-    /* Reset à l'état initial après l'estimation */
     memcpy(temp_mask, mask_0, num_neurons * sizeof(double));
     temp_perf = p_0;
     
     while (theta > alpha_threshold) {
         
-        /* Sécurité allocation paliers (Agrandissement dynamique si nécessaire) */
+        /* Safety boundary check for step steps (dynamic reallocation) */
         if (palier_idx >= current_max_paliers) {
             current_max_paliers += 50;
             matrix_grid_history = (double *)mxRealloc(matrix_grid_history, current_max_paliers * num_neurons * sizeof(double));
@@ -181,12 +180,12 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         
         if (showing) {
             mexPrintf("Temp: %.6f | Current P: %.4f\n", theta, temp_perf);
-            mexEvalString("drawnow;"); /* Force l'affichage dans la console MATLAB */
+            mexEvalString("drawnow;"); /* Force command window flushing in MATLAB */
         }
         
         for (iter = 0; iter < iterations_per_temp; iter++) {
             
-            /* Sécurité allocation itérations (Agrandissement dynamique) */
+            /* Safety boundary check for inner iterations (dynamic reallocation) */
             if (nb_iterations >= current_max_iter) {
                 current_max_iter += 10000;
                 hist_iter_P = (double *)mxRealloc(hist_iter_P, current_max_iter * sizeof(double));
@@ -199,6 +198,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             for (int i = 0; i < num_neurons; i++) active_count += temp_mask[i];
             memcpy(next_mask, temp_mask, num_neurons * sizeof(double));
             
+            /* Handle neighborhood exploration constraints */
             if (active_count == 1) {
                 int *zero_indices = (int *)mxCalloc(num_neurons, sizeof(int));
                 int z_count = 0;
@@ -222,6 +222,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             
             next_perf = call_calculate_P(cellMatrix, next_mask, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
             
+            /* Metropolis criterion for neighborhood acceptance */
             if (next_perf > temp_perf) {
                 temp_perf = next_perf;
                 memcpy(temp_mask, next_mask, num_neurons * sizeof(double));
@@ -238,7 +239,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
                 memcpy(best_mask_overall, temp_mask, num_neurons * sizeof(double));
             }
             
-            /* Enregistrement de l'historique par itération */
+            /* Log performance metrics per individual iteration */
             hist_iter_P[nb_iterations] = temp_perf;
             hist_iter_bestP[nb_iterations] = best_perf_overall;
             
@@ -250,14 +251,14 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
             nb_iterations++;
         }
         
-        /* Enregistrement de l'historique par palier */
+        /* Log step metrics per temperature cycle */
         for (int i = 0; i < num_neurons; i++) {
             matrix_grid_history[palier_idx * num_neurons + i] = temp_mask[i];
         }
         history_perf[palier_idx] = temp_perf;
         palier_idx++;
         
-        /* Condition d'arrêt si stagnation */
+        /* Early exit condition check for convergence stagnation */
         if (palier_idx >= 2 && fabs(history_perf[palier_idx - 1] - history_perf[palier_idx - 2]) < 1e-6) {
             unchanged_temp_cycles++;
             if (unchanged_temp_cycles >= 2) {
@@ -273,7 +274,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
         theta *= cooling_factor;
     }
     
-    /* 4. Assignation des sorties vers MATLAB (Copie finale) */
+    /* Outputs Map */
     
     /* Out 0: best_mask_overall */
     plhs[0] = mxCreateDoubleMatrix(1, num_neurons, mxREAL);
@@ -285,7 +286,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     /* Out 2: nb_iterations */
     plhs[2] = mxCreateDoubleScalar((double)nb_iterations);
     
-    /* Out 3: Matrix_Grid (Attention au stockage Column-Major de MATLAB !) */
+    /* Out 3: Matrix_Grid (Reshaping to handle MATLAB's Column-Major memory layout) */
     plhs[3] = mxCreateDoubleMatrix(palier_idx, num_neurons, mxREAL);
     double *out_matrix_grid = mxGetPr(plhs[3]);
     for (int i = 0; i < palier_idx; i++) {
@@ -298,7 +299,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     plhs[4] = mxCreateDoubleMatrix(1, palier_idx, mxREAL);
     memcpy(mxGetPr(plhs[4]), history_perf, palier_idx * sizeof(double));
     
-    /* Out 5 à 8: Historiques par itération */
+    /* Out 5 to 8: Iteration-based tracking logs */
     plhs[5] = mxCreateDoubleMatrix(1, nb_iterations, mxREAL);
     memcpy(mxGetPr(plhs[5]), hist_iter_P, nb_iterations * sizeof(double));
     
@@ -311,7 +312,7 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     plhs[8] = mxCreateDoubleMatrix(1, nb_iterations, mxREAL);
     memcpy(mxGetPr(plhs[8]), hist_iter_temp, nb_iterations * sizeof(double));
     
-    /* Libération de la mémoire locale */
+    /* Free all allocated memory blocks */
     mxFree(mask_0);
     mxFree(temp_mask);
     mxFree(best_mask_overall);
