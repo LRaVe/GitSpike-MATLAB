@@ -1,17 +1,18 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inversed,overlap)
+function [trains] = f_synfire(tmin,tmax,n_trains,n_correct,n_random,n_inversed,overlap)
     % Create synfire trains with specified parameters
     % tmin: minimum time for spike generation
     % tmax: maximum time for spike generation
     % n_trains: number of spike trains to generate
-    % n_total_events: total number of events (spikes) across all trains
     % n_correct: number of correctly ordered events (synchronized spikes)
+    % n_random: number of random events
     % n_inversed: number of inversed events (anti-synchronized spikes)
     % overlap: [0,1] indicating whether to allow overlapping spikes (<0.5 for no overlap)
     
-    n_random = n_total_events - n_correct - n_inversed; % Number of random events
+
+    n_total_events = n_correct + n_random + n_inversed; % Total number of events to generate
 
     trains = cell(1, n_trains); % Initialize cell array for spike trains
     for i = 1:n_trains

@@ -32,8 +32,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     end
     
     % Compute sorted orders and times for corrected trains
-    [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(0, 100, trains_corrected);
-    
+    %[sortedOrders_corrected, sortedTimes_corrected] = order_spikes(0, 100, trains_corrected);
+    [~,~] = order_spikes(0, 100, trains_corrected);
     
     td_matrix_corrected = f_TD_matrix(trains_corrected);
     [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected);
