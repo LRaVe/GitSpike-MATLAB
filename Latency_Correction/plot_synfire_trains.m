@@ -18,18 +18,8 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corre
         line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
     end
 
-    if nargin>4 && correction
-        j=1;
-        for i=1:length(sortedTimes)
-            if j~=length(shifts)
-                quiver(sortedTimes(i)+shifts(j),flatRows(i),-shifts(j),0,0,'Color','k','LineWidth',1.5,'MaxHeadSize',1);
-                j=j+1;
-            else
-                quiver(sortedTimes(i)+shifts(j),flatRows(i),-shifts(j),0,0,'Color','k','LineWidth',1.5,'MaxHeadSize',1);
-                j=1;
-            end
-        end
-    end
+
+
     
     set(gca, 'YTick', 1:length(trains));
     set(gca, 'YTickLabel', arrayfun(@num2str, length(trains):-1:1, 'UniformOutput', false));
