@@ -2,7 +2,7 @@
 % Date: June 2026
 % Author : Laure WOLFF
 
-function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting )
+function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting, other_figs)
 %% 1. Initialization of the variables
 cooling_factor = 0.9;        
 alpha_threshold = 1e-5;       
@@ -209,6 +209,7 @@ if plotting == true && ~isempty(Matrix_Grid)
     title('P(temp)', 'FontSize', 13, 'FontWeight', 'bold');
     
     hold off; 
+    if other_figs == true
     figure('Name', 'Simulated Annealing - Convergence Diagnostics', 'Color', 'w', 'Position', [150, 150, 1000, 400]);
     tiledlayout(1, 3, 'TileSpacing', 'compact');
     
@@ -244,6 +245,7 @@ if plotting == true && ~isempty(Matrix_Grid)
     % Global title
     sgtitle(sprintf('Simulated Annealing Dynamics | Best P = %.4f | Best Population = [%s]',...
         best_perf_overall, num2str(sort(best_subpop))));
+    end
     shg;
 end
 end

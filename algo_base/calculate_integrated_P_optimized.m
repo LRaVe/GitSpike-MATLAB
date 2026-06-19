@@ -3,24 +3,22 @@
 % Author : Laure WOLFF
 
 function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, S, R, tmin, tmax, metric)
-
     idx_selected = find(selection == 1);
     num_trials = S * R;
     MatrixD = zeros(num_trials, num_trials);
    
     if isempty(idx_selected), P = -Inf; return; end
-
-    %% 1. Pré-extraction des trains pour la sous-population sélectionnée
-    % On fusionne (Summed Population) pour chaque essai à l'avance pour éviter de le refaire dans la boucle imbriquée
+    
+    %% 1. Pre-extraction and summation of spike trains per trial
     Precomputed_Trains = cell(1, num_trials);
-
     for t = 1:num_trials
         st = floor((t-1)/R) + 1;
         rp = mod(t-1, R) + 1;
+        % Population Pooling (Summed Population)
         Precomputed_Trains{t} = sort([CellMatrix{idx_selected, st, rp}]);
     end
-
-    %% 2. Distance's calcul
+    
+    %% 2. Pairwise Distance Calculation Matrix
     for t_a = 1:num_trials
         train_A = Precomputed_Trains{t_a};
         is_empty_A = isempty(train_A);
@@ -34,176 +32,103 @@ function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, 
             elseif is_empty_A || is_empty_B
                 dval = 1;
             else
-                %% Spike distance (trying to avoid a loops to optimized the complexity) 
+                t_all = [tmin, sort(unique([train_A, train_B])), tmax];
+                t_diff = diff(t_all);
+                t_mids = (t_all(1:end-1) + t_all(2:end)) / 2;
+                
+                % Shared pre-computation: find enclosing spikes for all interval midpoints
+                [~, ~, bin_A] = histcounts(t_mids, [-Inf, train_A, Inf]);
+                [~, ~, bin_B] = histcounts(t_mids, [-Inf, train_B, Inf]);
+                
+                %% =============================================================
+                %% OPTION 1: SPIKE DISTANCE (Fully Vectorized via histcounts)
+                %% =============================================================
                 if strcmpi(metric, 'SPIKE_DISTANCE')
-                    t_all = [tmin, sort(unique([train_A, train_B])), tmax];
-                    t_diff = diff(t_all);
-                    t_mids = (t_all(1:end-1) + t_all(2:end)) / 2;
-
-                    % 1. Find previous and next spikes for ALL t_mids simultaneously
-                    [~, ~, bin_A] = histcounts(t_mids, [-Inf, train_A, Inf]);
-                    [~, ~, bin_B] = histcounts(t_mids, [-Inf, train_B, Inf]);
-
-                    % Bound and extract indices for train A (handling boundary conditions)
-                    idx_p_A = bin_A - 1; idx_p_A(idx_p_A < 1) = 1;
-                    idx_n_A = bin_A;     idx_n_A(idx_n_A > length(train_A)) = length(train_A);
+                    % Handling boundaries for Train A
+                    idx_p_A = max(1, bin_A - 1);
+                    idx_n_A = min(length(train_A), bin_A);
                     x_p = train_A(idx_p_A); x_p(bin_A - 1 < 1) = tmin;
                     x_a = train_A(idx_n_A); x_a(bin_A > length(train_A)) = tmax;
-
-                    % Bound and extract indices for train B (handling boundary conditions)
-                    idx_p_B = bin_B - 1; idx_p_B(idx_p_B < 1) = 1;
-                    idx_n_B = bin_B;     idx_n_B(idx_n_B > length(train_B)) = length(train_B);
+                    
+                    % Handling boundaries for Train B
+                    idx_p_B = max(1, bin_B - 1);
+                    idx_n_B = min(length(train_B), bin_B);
                     y_p = train_B(idx_p_B); y_p(bin_B - 1 < 1) = tmin;
                     y_a = train_B(idx_n_B); y_a(bin_B > length(train_B)) = tmax;
-
-                    % Calculate the ISI distance
+                    
                     isi_x = x_a - x_p;
                     isi_y = y_a - y_p;
-
-                    % 2. Determine target_x and target_y for the entire vector
-                    dt_x_p = t_mids - x_p;
-                    dt_x_a = x_a - t_mids;
-                    target_x = x_a; 
-                    target_x(dt_x_p < dt_x_a) = x_p(dt_x_p < dt_x_a);
-
-                    dt_y_p = t_mids - y_p;
-                    dt_y_a = y_a - t_mids;
-                    target_y = y_a; 
-                    target_y(dt_y_p < dt_y_a) = y_p(dt_y_p < dt_y_a);
-
-                    % 3. Nearest neighbor interpolation
-                    % Find the closest spike in train_B to target_x using vectorized extrapolation
-                    % (On utilise une astuce d'indexation pour simuler le plus proche voisin de manière vectorisée)
-                    min_dxy = abs(target_x - interp1(train_B, train_B, target_x, 'nearest', 'extrap'));
-                    min_dyx = abs(target_y - interp1(train_A, train_A, target_y, 'nearest', 'extrap'));
-
-                    % 4. Compute vectorized distance profiles
+                    
+                    % Locate target spikes (closest spike in same train)
+                    dt_x_p = t_mids - x_p; dt_x_a = x_a - t_mids;
+                    target_x = x_a; target_x(dt_x_p < dt_x_a) = x_p(dt_x_p < dt_x_a);
+                    
+                    dt_y_p = t_mids - y_p; dt_y_a = y_a - t_mids;
+                    target_y = y_a; target_y(dt_y_p < dt_y_a) = y_p(dt_y_p < dt_y_a);
+                    
+                    % Vectorized Nearest Neighbor Search for min_dxy (Target X inside Train B)
+                    [~, ~, bin_tX] = histcounts(target_x, [-Inf, train_B, Inf]);
+                    idx_p_Bt = max(1, bin_tX - 1); idx_n_Bt = min(length(train_B), bin_tX);
+                    near_B = train_B(idx_n_Bt);
+                    use_p_B = (target_x - train_B(idx_p_Bt)) < (train_B(idx_n_Bt) - target_x) & (bin_tX - 1 >= 1);
+                    near_B(use_p_B) = train_B(idx_p_Bt(use_p_B));
+                    min_dxy = abs(target_x - near_B);
+                    
+                    % Vectorized Nearest Neighbor Search for min_dyx (Target Y inside Train A)
+                    [~, ~, bin_tY] = histcounts(target_y, [-Inf, train_A, Inf]);
+                    idx_p_At = max(1, bin_tY - 1); idx_n_At = min(length(train_A), bin_tY);
+                    near_A = train_A(idx_n_At);
+                    use_p_A = (target_y - train_A(idx_p_At)) < (train_A(idx_n_At) - target_y) & (bin_tY - 1 >= 1);
+                    near_A(use_p_A) = train_A(idx_p_At(use_p_A));
+                    min_dyx = abs(target_y - near_A);
+                    
+                    % Final profiles and integration
                     S_x = (dt_x_p .* min_dyx + dt_x_a .* min_dyx) ./ isi_x;
                     S_y = (dt_y_p .* min_dxy + dt_y_a .* min_dxy) ./ isi_y;
                     S_t_list = (S_x .* isi_y + S_y .* isi_x) ./ ((isi_x + isi_y) .* max(isi_x, isi_y));
-
-                    % Time integration 
+                    
                     dval = sum(S_t_list .* t_diff) / (tmax - tmin);
-                              
-                % %% Spike distance (Fully vectorized and optimized without interp1) 
-                % if strcmpi(metric, 'SPIKE_DISTANCE')
-                %     t_all = [tmin, sort(unique([train_A, train_B])), tmax];
-                %     t_diff = diff(t_all);
-                %     t_mids = (t_all(1:end-1) + t_all(2:end)) / 2;
-                % 
-                %     %% 1. Find previous and next spikes for ALL t_mids simultaneously
-                %     [~, ~, bin_A] = histcounts(t_mids, [-Inf, train_A, Inf]);
-                %     [~, ~, bin_B] = histcounts(t_mids, [-Inf, train_B, Inf]);
-                % 
-                %     % Bound and extract indices for train A (handling boundary conditions)
-                %     idx_p_A = bin_A - 1; idx_p_A(idx_p_A < 1) = 1;
-                %     idx_n_A = bin_A;     idx_n_A(idx_n_A > length(train_A)) = length(train_A);
-                %     x_p = train_A(idx_p_A); x_p(bin_A - 1 < 1) = tmin;
-                %     x_a = train_A(idx_n_A); x_a(bin_A > length(train_A)) = tmax;
-                % 
-                %     % Bound and extract indices for train B (handling boundary conditions)
-                %     idx_p_B = bin_B - 1; idx_p_B(idx_p_B < 1) = 1;
-                %     idx_n_B = bin_B;     idx_n_B(idx_n_B > length(train_B)) = length(train_B);
-                %     y_p = train_B(idx_p_B); y_p(bin_B - 1 < 1) = tmin;
-                %     y_a = train_B(idx_n_B); y_a(bin_B > length(train_B)) = tmax;
-                % 
-                %     % Calculate the ISI distance
-                %     isi_x = x_a - x_p;
-                %     isi_y = y_a - y_p;
-                % 
-                %     %% 2. Determine target_x and target_y for the entire vector
-                %     dt_x_p = t_mids - x_p;
-                %     dt_x_a = x_a - t_mids;
-                %     target_x = x_a; 
-                %     target_x(dt_x_p < dt_x_a) = x_p(dt_x_p < dt_x_a);
-                % 
-                %     dt_y_p = t_mids - y_p;
-                %     dt_y_a = y_a - t_mids;
-                %     target_y = y_a; 
-                %     target_y(dt_y_p < dt_y_a) = y_p(dt_y_p < dt_y_a);
-                % 
-                %     %% 3. Fast Nearest Neighbor Search (Optimized via histcounts)
-                %     % Find the closest spike in train_B to target_x
-                %     [~, ~, bin_target_x] = histcounts(target_x, [-Inf, train_B, Inf]);
-                %     idx_p_B_t = bin_target_x - 1; idx_p_B_t(idx_p_B_t < 1) = 1;
-                %     idx_n_B_t = bin_target_x;     idx_n_B_t(idx_n_B_t > length(train_B)) = length(train_B);
-                % 
-                %     near_B = train_B(idx_n_B_t);
-                %     use_p_B = (target_x - train_B(idx_p_B_t)) < (train_B(idx_n_B_t) - target_x) & (bin_target_x - 1 >= 1);
-                %     near_B(use_p_B) = train_B(idx_p_B_t(use_p_B));
-                %     min_dxy = abs(target_x - near_B);
-                % 
-                %     % Find the closest spike in train_A to target_y
-                %     [~, ~, bin_target_y] = histcounts(target_y, [-Inf, train_A, Inf]);
-                %     idx_p_A_t = bin_target_y - 1; idx_p_A_t(idx_p_A_t < 1) = 1;
-                %     idx_n_A_t = bin_target_y;     idx_n_A_t(idx_n_A_t > length(train_A)) = length(train_A);
-                % 
-                %     near_A = train_A(idx_n_A_t);
-                %     use_p_A = (target_y - train_A(idx_p_A_t)) < (train_A(idx_n_A_t) - target_y) & (bin_target_y - 1 >= 1);
-                %     near_A(use_p_A) = train_A(idx_p_A_t(use_p_A));
-                %     min_dyx = abs(target_y - near_A);
-                % 
-                %     %% 4. Compute vectorized distance profiles
-                %     S_x = (dt_x_p .* min_dyx + dt_x_a .* min_dyx) ./ isi_x;
-                %     S_y = (dt_y_p .* min_dxy + dt_y_a .* min_dxy) ./ isi_y;
-                %     S_t_list = (S_x .* isi_y + S_y .* isi_x) ./ ((isi_x + isi_y) .* max(isi_x, isi_y));
-                % 
-                %     % Time integration 
-                %     dval = sum(S_t_list .* t_diff) / (tmax - tmin);
-
-
-                %% ISI distance
+                    
+                %% =============================================================
+                %% OPTION 2: ISI ADAPTIVE DISTANCE (Fully Vectorized)
+                %% =============================================================
                 elseif strcmpi(metric, 'ISI_ADAPTIVE')
-                    t_all = [tmin, sort([train_A, train_B]), tmax]; 
-                    t_diff = diff(t_all);
-                    len_t = length(t_all) - 1;
-                    It_list = zeros(1, len_t);
-                    t_mids = (t_all(1:end-1) + t_all(2:end)) / 2;              
+                    % Compute Mean Absolute Interval Deviation (MRTS)
                     sum_sqr = 0; n_isi = 0;
-
                     if length(train_A) >= 2
                         sum_sqr = sum_sqr + sum(diff(train_A).^2);
                         n_isi = n_isi + length(train_A) - 1;
                     end
-
                     if length(train_B) >= 2
                         sum_sqr = sum_sqr + sum(diff(train_B).^2);
                         n_isi = n_isi + length(train_B) - 1;
                     end
-
-                    MRTS = 0; 
-
-                    if n_isi > 0 
-                        MRTS = sqrt(sum_sqr/n_isi); 
+                    MRTS = 0; if n_isi > 0, MRTS = sqrt(sum_sqr/n_isi); end
+                    
+                    % Vectorized instantaneous ISI extraction for Train A
+                    idx_v = bin_A - 1;
+                    vx = zeros(1, length(t_mids));
+                    vx(idx_v < 1) = train_A(1) - tmin;
+                    vx(idx_v >= length(train_A)) = tmax - train_A(end);
+                    valid_x = (idx_v >= 1) & (idx_v < length(train_A));
+                    if any(valid_x)
+                        vx(valid_x) = train_A(idx_v(valid_x) + 1) - train_A(idx_v(valid_x));
                     end
                     
-                    [~, ~, bin_A] = histcounts(t_mids, [-Inf, train_A, Inf]);
-                    [~, ~, bin_B] = histcounts(t_mids, [-Inf, train_B, Inf]);
-                
-                    for k = 1 : len_t
-                        % Train A
-                        idx_v = bin_A(k) - 1;
-                        if idx_v < 1
-                            vx = train_A(1) - tmin;
-                        elseif idx_v >= length(train_A)
-                            vx = tmax - train_A(end);
-                        else
-                            vx = train_A(idx_v+1) - train_A(idx_v); 
-                        end
-                       
-                        % Train B
-                        idy = bin_B(k) - 1;
-                        if idy < 1
-                            vy = train_B(1) - tmin;
-                        elseif idy >= length(train_B)
-                            vy = tmax - train_B(end);
-                        else
-                            vy = train_B(idy+1) - train_B(idy); 
-                        end
-                       
-                        It_list(k) = abs(vx - vy) / max([vx, vy, MRTS]);
+                    % Vectorized instantaneous ISI extraction for Train B
+                    idy = bin_B - 1;
+                    vy = zeros(1, length(t_mids));
+                    vy(idy < 1) = train_B(1) - tmin;
+                    vy(idy >= length(train_B)) = tmax - train_B(end);
+                    valid_y = (idy >= 1) & (idy < length(train_B));
+                    if any(valid_y)
+                        vy(valid_y) = train_B(idy(valid_y) + 1) - train_B(idy(valid_y));
                     end
-
+                    
+                    % Calculation of the adaptive profile without loops
+                    max_v = max([vx; vy; repmat(MRTS, 1, length(t_mids))], [], 1);
+                    It_list = abs(vx - vy) / max_v;
+                    
                     dval = sum(It_list .* t_diff) / (tmax - tmin);
                 else
                     dval = 0.5;
@@ -215,13 +140,16 @@ function [P, MatrixD] = calculate_integrated_P_optimized(CellMatrix, selection, 
         end
     end
  
-    %% 3. Calcul of the performance P
+    %% 3. Mathematical Global Performance Verification (P)
     stim_A = floor(((1:num_trials)-1)/R) + 1;
     [Grid_A, Grid_B] = meshgrid(stim_A, stim_A);
     
     tri_upper = triu(true(num_trials), 1);  
     is_intra = (Grid_A == Grid_B) & tri_upper;
     is_inter = (Grid_A ~= Grid_B) & tri_upper;
-
+    
     P = mean(MatrixD(is_inter)) - mean(MatrixD(is_intra));
+    
+    % Safeguard against extreme mathematical noise or empty outputs
+    if isnan(P), P = -Inf; end
 end

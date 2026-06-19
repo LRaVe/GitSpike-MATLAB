@@ -12,18 +12,18 @@ end
 setenv('MW_MINGW64_LOC', 'C:\mingw64') % Command to find the C++ compiler and link with MatLab
 
 %% Global parameters
-num_stimuli = 2;         % S
-num_repetitions = 2;     % R
-num_neurons = 20;        % N
-num_coll = 10;            % coding neurons initial (the information is in the sum of these neurons)
-num_indi= 0;            % individually coding neurons (they have some information each)
-                         % --> crash the algorithms writtsen for SP
-                         % hypothesis
+num_stimuli = 2;        % S
+num_repetitions = 3;    % R
+num_neurons = 10;        % N
+num_coll = 4;           % coding neurons initial (the information is in the sum of these neurons)
+num_indi= 3;            % individually coding neurons (they have some information each)
+                         % --> crash the algorithms written for SP
+                         % hypothesis if there are any num_coll
 
 t1 = 0; t2 = 1;          % Time window
 
 refrac = 0.002;  % "an absolute refractory period of 2 ms" paper 2018
-base_rate= 30;   % Frequency of the coding neurons (Hz)
+base_rate= 20;   % Frequency of the coding neurons (Hz)
 %metric_choice = 'ISI_ADAPTIVE'
 metric_choice = 'SPIKE_DISTANCE';
 
@@ -31,23 +31,65 @@ num_coding_neurons = num_indi + num_coll;
 
 showing = true;
 plotting = true; % Boolean to plotting or not the graphics
-other_figs = true; % Boolean to plotting or not other figures
+other_figs = false; % Boolean to plotting or not other figures
 
-rng(50); % To reproduce the script witout new values
+rng(25); % To reproduce the script witout new values
 
 %% 2. Creation of the dataset with summed population hypothesis
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
+% To try to fail the BU algorithms
+% CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
+%     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+
+
 %% 3. Plooting the 3 matrix
 plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
     num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
+
+%% 3.25 Plooting the indivitual performance for classic dataset(Panneau C de la Fig. 7)
+P_individuelles = zeros(1, num_neurons);
+
+for nc = 1:num_neurons
+    % On crée un vecteur de sélection "one-hot" (ex: [0, 0, 1, 0, 0...])
+    selection_solo = zeros(1, num_neurons);
+    selection_solo(nc) = 1;
+    
+    [P_solo, ~] = calculate_integrated_P_optimized(CellMatrix, selection_solo, ...
+                    num_stimuli, num_repetitions, t1, t2, 'SPIKE_DISTANCE');
+                
+    P_individuelles(nc) = P_solo;
+end
+
+figure('Name', 'Fig 7C - Individual Performances', 'Color', 'w');
+hBar = bar(P_individuelles, 'FaceColor', [0.30, 0.75, 0.93], 'EdgeColor', [0 0 0]);
+hold on;
+
+% Lines to separate the several groups (Coll | Indi | NC)
+line([num_coll + 0.5, num_coll + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
+line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
+
+grid on; box on;
+xlim([0.5, num_neurons + 0.5]);
+ylim([0, max(P_individuelles)*1.2]);
+set(gca, 'XTick', 1:num_neurons);
+
+% Labels
+xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');
+ylabel('Individual Performance', 'FontSize', 11, 'FontWeight', 'bold');
+title('Individual Performance Profile (Fig 7C)', 'FontSize', 12, 'FontWeight', 'bold');
+
+text(num_coll/2, max(P_individuelles)*1.1, 'Coll', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+text(num_coll + num_indi/2, max(P_individuelles)*1.1, 'Indi', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+text(num_coll + num_indi + (num_neurons - num_coll - num_indi)/2, max(P_individuelles)*1.1, 'NC', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+hold off;
 
 %% 3.5 Brute force algorithm 
 if num_neurons < 21 
     t_start = tic;
     f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting);
+    t2, metric_choice, showing, other_figs);
     fprintf ("Spent time is : %.4f \n", toc(t_start));
 end
 
@@ -60,5 +102,5 @@ fprintf ("Spent time is : %.4f \n", toc(t_start));
 %% 5. Annealing
 t_start = tic;
 f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting);
+    t2, metric_choice, showing, plotting,other_figs);
 fprintf ("Spent time is : %.4f", toc(t_start));

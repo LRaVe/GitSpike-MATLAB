@@ -36,7 +36,7 @@ CellMatrix = generate_and_plot_raster_mex_m(num_stimuli, num_repetitions, ...
 
 fprintf(' Dataset was corretly generated \n');
 
-%% Algorithm 1 : Force Brute (Brute Force)
+%% Algorithm 1 : Brute Force
 fprintf('-> Force Brute algorithms (%d combinaisons)...\n', (2^num_neurons)-1);
 tic;
 

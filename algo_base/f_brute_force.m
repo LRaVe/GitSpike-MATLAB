@@ -1,7 +1,7 @@
 %% Brute Force (Exhaustive Search) Algorithm by Binary Incrementation
 % Date: June 2026
 % Author : Laure WOLFF
-function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting)
+function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, other_figs)
     
     % Total number of possible combinations (2^N - 1, ignoring the all-zero mask)
     total_combinations = (2^num_neurons) - 1;
@@ -57,7 +57,7 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
     end
 
     %% Plotting the performance evolution
-    if plotting == true && ~isempty(history_perf_brute)
+    if other_figs == true && ~isempty(history_perf_brute)
         figure('Name', 'Brute Force - Combinatorial Search History', 'Color', [1 1 1]);
         
         % Plot every tested combination's performance
