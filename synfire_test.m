@@ -7,7 +7,4 @@ for i = 1:length(trains_synfire)
 end
 
 
-f_plot_trains_with_correction(trains_synfire,2,'first_diagonal');
-
-
-
+f_plot_trains_with_correction(trains_synfire,2,'row');

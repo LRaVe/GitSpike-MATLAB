@@ -15,5 +15,6 @@ function plot_shifts_row(trains,sortedOrders,shifts,sortedTimes)
             j=1;
         end
     end
-    plot_synfire_trains(trains,sortedOrders,sortedShifts,'Shifts with Row Method');
+    plot_synfire_trains(trains,sortedOrders,sortedShifts,'Shifts with Row Method',true,shifts);
+
 end
