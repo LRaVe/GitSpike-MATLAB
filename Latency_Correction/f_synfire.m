@@ -20,14 +20,18 @@ function [trains] = f_synfire(tmin,tmax,n_trains,n_correct,n_random,n_inversed,o
     end
     if overlap > 0
         % calculate the distance between events
-        if n_total_events <= 1
+        if n_total_events == 1
             distance_between_events = tmax - tmin; % If only one event, the distance is the entire range
+        elseif n_total_events == 0
+            distance_between_events = 0; % No events, no distance
         else
             distance_between_events = (tmax - tmin)/ ((n_total_events - 1)/ overlap); 
         end
     else
-        if n_total_events <= 1
+        if n_total_events == 1
             distance_between_events = tmax - tmin; % If only one event, the distance is the entire range
+        elseif n_total_events == 0
+            distance_between_events = 0; % No events, no distance
         else
             distance_between_events = (tmax - tmin) / (n_total_events - 1); % Evenly spaced events
         end

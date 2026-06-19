@@ -57,6 +57,11 @@ function min_interval = f_interval(spike_train, spike, t_min, t_max)
         min_interval = 0;
         return;
     end
+
+    if length(spike_train) == 1
+        min_interval = (t_max - t_min) / 2;  % If only one spike, use half the time window
+        return;
+    end
     
     % Distance to previous spike
     if spike_index > 1

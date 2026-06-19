@@ -15,8 +15,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     [sortedOrders, sortedTimes] = order_spikes(0, 100, trains);
     
     % Compute time difference matrix and cost matrix
-    td_matrix = f_TD_matrix(trains);
-    [Cost_matrix, Cost_value] = f_Cost_matrix(trains);
+    td_matrix = f_TD_matrix(trains, 0, 100);
+    [Cost_matrix, Cost_value] = f_Cost_matrix(trains, 0, 100);
     
     % Compute shifts based on first diagonal of time difference matrix
     if strcmp(mode, 'row')
@@ -32,11 +32,11 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     end
     
     % Compute sorted orders and times for corrected trains
-    %[sortedOrders_corrected, sortedTimes_corrected] = order_spikes(0, 100, trains_corrected);
-    [~,~] = order_spikes(0, 100, trains_corrected);
+    [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(0, 100, trains_corrected);
+    %[~,~] = order_spikes(0, 100, trains_corrected);
     
-    td_matrix_corrected = f_TD_matrix(trains_corrected);
-    [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected);
+    td_matrix_corrected = f_TD_matrix(trains_corrected, 0, 100);
+    [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, 0, 100);
 
 
 
@@ -68,8 +68,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     title(['Cost Matrix, Cost Value: ' num2str(Cost_value)]);
 
     axes(ax4);
-    %plot_synfire_trains(trains_corrected, sortedOrders_corrected, sortedTimes_corrected, 'Corrected Synfire Trains');
-    plot_shifts_row(trains,sortedOrders,shifts,sortedTimes);
+    plot_synfire_trains(trains_corrected, sortedOrders_corrected, sortedTimes_corrected, 'Corrected Synfire Trains');
+    %plot_shifts_row(trains,sortedOrders,shifts,sortedTimes);
     title('Corrected Synfire Trains');
 
     axes(ax5);

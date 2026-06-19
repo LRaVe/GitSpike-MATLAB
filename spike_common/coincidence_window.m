@@ -58,9 +58,8 @@ function window=coincidence_window(tmin,tmax,spikes,spike_ind1,spike_ind2,ind1,i
     if ind2 < length(s2)
         distances = [distances, next2];
     end
-    
     if isempty(distances)
-        window = min_window;
+        window = max(min([prev1, next1, prev2, next2]) / 2, min_window);
     else
         window = max(min(distances)/2, min_window);
     end
