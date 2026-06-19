@@ -19,9 +19,17 @@ function [trains] = f_synfire(tmin,tmax,n_trains,n_total_events,n_correct,n_inve
     end
     if overlap > 0
         % calculate the distance between events
-        distance_between_events = (tmax - tmin)/ ((n_total_events - 1)/ overlap); 
+        if n_total_events <= 1
+            distance_between_events = tmax - tmin; % If only one event, the distance is the entire range
+        else
+            distance_between_events = (tmax - tmin)/ ((n_total_events - 1)/ overlap); 
+        end
     else
-        distance_between_events = (tmax - tmin) / (n_total_events - 1);
+        if n_total_events <= 1
+            distance_between_events = tmax - tmin; % If only one event, the distance is the entire range
+        else
+            distance_between_events = (tmax - tmin) / (n_total_events - 1); % Evenly spaced events
+        end
     end
     
     event_duration = distance_between_events * overlap; % Duration of each event based on overlap

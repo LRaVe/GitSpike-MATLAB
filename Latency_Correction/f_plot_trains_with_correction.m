@@ -40,7 +40,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
 
 
 
-    figures = figure('Name', 'Synfire Trains with Correction', 'NumberTitle', 'off');
+    figures = figure(1);
+    set(gcf, 'Name', 'Synfire Trains and Corrections');
     tl = tiledlayout(2,3,'TileSpacing','Compact','Padding','Compact'); %#ok<*NASGU>
 
     ax1 = nexttile(1);

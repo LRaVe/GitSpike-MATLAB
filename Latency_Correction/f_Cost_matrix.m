@@ -6,8 +6,6 @@ function [Cost_matrix,Cost_value] = f_Cost_matrix(trains)
     % Calculate the time difference matrix for a set of spike trains
     % trains: cell array where trains{i} contains spike times for train i
     % n_events: number of events to consider
-    addpath('SPIKE_synchro');
-    addpath('spike_common');
 
     n_trains = length(trains);
     Cost_matrix = zeros(n_trains,n_trains); % Initialize numeric matrix for time differences
