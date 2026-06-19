@@ -7,8 +7,8 @@ function  f_brute_force_mex_m(CellMatrix, num_neurons, num_stimuli, num_repetiti
     total_combinations = (2^num_neurons) - 1;
     
     % Safety cap to prevent hardware lock
-    if num_neurons > 22
-        error('Brute Force aborted: N is too large (%d). Reduce N between 1 and 21.', num_neurons);
+    if num_neurons > 20
+        error('Brute Force aborted: N is too large (%d). Reduce N between 1 and 20.', num_neurons);
     end
     
     if showing

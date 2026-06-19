@@ -8,10 +8,10 @@ clear; clc; close all;
 setenv('MW_MINGW64_LOC', 'C:\mingw64') 
 
 %% Dataset configuration
-num_neurons = 20;          
+num_neurons = 22;          
 num_stimuli = 2;           
 num_repetitions = 2;       
-num_coding_neurons = 16;   
+num_coding_neurons = 13;   
 
 
 t1 = 0;                    

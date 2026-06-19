@@ -12,8 +12,8 @@ void mexFunction(int nlhs, mxArray *plhs[], int nrhs, const mxArray *prhs[]) {
     /* 2. Retrieve basic parameters from MATLAB */
     int num_neurons = (int)mxGetScalar(prhs[1]);
     
-    if (num_neurons > 22) {
-        mexErrMsgIdAndTxt("f_brute_force_mex:largeN", "N is too large. Keep N <= 22.");
+    if (num_neurons > 20) {
+        mexErrMsgIdAndTxt("f_brute_force_mex:largeN", "N is too large. Keep N <= 20.");
     }
     
     /* 3. Compute the total number of combinations (2^N - 1) */

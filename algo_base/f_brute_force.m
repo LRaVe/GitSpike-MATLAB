@@ -8,7 +8,7 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
     
     % Safety check to prevent computer freezing if N is set to 125
     if num_neurons > 20
-        error('Brute Force aborted: N is too large (%d). Reduce N between 10 and 15 in your main script.', num_neurons);
+        error('Brute Force aborted: N is too large (%d). Reduce N between 10 and 20 in your main script.', num_neurons);
     end
     
     if showing
