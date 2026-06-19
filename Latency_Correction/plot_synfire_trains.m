@@ -1,7 +1,7 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str)
+function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,correction,shifts)
     % Plot synfire trains with train 1 at top and last train at bottom
     % trains: cell array where trains{i} contains spike times for train i
     % title_str: (optional) title for the figure
@@ -15,6 +15,19 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str)
     % Plot each train
     for k=1:numel(sortedTimes)
         line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
+    end
+
+    if nargin>4 && correction
+        j=1;
+        for i=1:length(sortedTimes)
+            if j~=length(shifts)
+                quiver(sortedTimes(i)+shifts(j),flatRows(i),-shifts(j),0,0,'Color','k','LineWidth',1.5,'MaxHeadSize',1);
+                j=j+1;
+            else
+                quiver(sortedTimes(i)+shifts(j),flatRows(i),-shifts(j),0,0,'Color','k','LineWidth',1.5,'MaxHeadSize',1);
+                j=1;
+            end
+        end
     end
     
     set(gca, 'YTick', 1:length(trains));
