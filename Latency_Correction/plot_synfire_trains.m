@@ -1,7 +1,7 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corrected,shifts)
+function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corrected,shifts,trains_corrected,sortedOrders_corrected,sortedTimes_corrected)
     % Plot synfire trains with train 1 at top and last train at bottom
     % trains: cell array where trains{i} contains spike times for train i
     % title_str: (optional) title for the figure
@@ -9,16 +9,29 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corre
     % shifts: (optional) vector of shifts applied to each train, used for plotting arrows if is_corrected is true
     hold on;
     box on;
-    [spikeColors,flatRows]=values_to_colors(trains, sortedOrders, length(trains));
     colormap(gca, jet(256));
     clim([-1 1]);
     
     % Plot each train
-    for k=1:numel(sortedTimes)
-        line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
+
+    if nargin < 5 || ~is_corrected
+        [spikeColors,flatRows]=values_to_colors(trains, sortedOrders, length(trains));
+        for k=1:numel(sortedTimes)
+            line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
+        end
+    else
+        [spikeColors_corrected,flatRows_corrected]=values_to_colors(trains_corrected, sortedOrders_corrected, length(trains));
+        for l=1:numel(sortedTimes_corrected)
+            for k=1:numel(sortedTimes_corrected)
+                if is_corrected
+                    line([sortedTimes_corrected(k)  sortedTimes_corrected(k)],[flatRows_corrected(k)-0.5 flatRows_corrected(k)+0.5],'Color',spikeColors_corrected(k,:),'LineWidth',1.5);
+                else
+                    line([sortedTimes_corrected(k) sortedTimes_corrected(k)],[flatRows_corrected(k)-0.5 flatRows_corrected(k)+0.5],'Color',spikeColors(k,:),'LineWidth',1.5);
+                end
+            end
+        end
     end
-
-
+    
 
     
     set(gca, 'YTick', 1:length(trains));
