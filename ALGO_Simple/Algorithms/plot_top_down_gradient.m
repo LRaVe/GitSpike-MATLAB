@@ -40,6 +40,8 @@ function plot_top_down_gradient(result,codingNeurons)
 
     set(gca,'YDir','normal')
 
+    set(gca,'TickLength',[0 0]);
+
     ax = gca;
 
     drawnow
@@ -67,8 +69,6 @@ function plot_top_down_gradient(result,codingNeurons)
     xlabel('Neuron Index')
     ylabel('Size of population')
 
-    xticks(1:N)
-    yticks(1:N)
 
     %% --------------------------
     %% Deleted neurons
@@ -96,11 +96,7 @@ function plot_top_down_gradient(result,codingNeurons)
 
     bestSize = length(result.bestPopulation);
 
-    rectangle('Position',[0.5 bestSize-0.5 length(codingNeurons) 1],'EdgeColor',[0 1 0],'LineWidth',lineWidth)
-
-    %% magenta cross
-
-    for n = codingNeurons
+    for n = result.bestPopulation
 
         plot(n,bestSize,'mx','MarkerSize',1.2*markerSize,'LineWidth',lineWidth)
 
@@ -133,6 +129,8 @@ function plot_top_down_gradient(result,codingNeurons)
     ylim([0.5 N+0.5])
 
     grid on
+
+    set(gca,'TickLength',[0 0]);
 
 end
 

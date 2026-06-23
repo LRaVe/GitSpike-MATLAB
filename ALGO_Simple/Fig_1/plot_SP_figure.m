@@ -8,6 +8,7 @@ function plot_SP_figure(spikes,params,plotParams)
     [N,~,~] = size(spikes);
     
     codingNeurons = 1:params.c;
+    indiNeurons = params.c+1:params.c+params.nIndi;
     nonCoding = params.c+1:N;
     
     stimuli = plotParams.stimuli;
@@ -59,6 +60,8 @@ function plot_SP_figure(spikes,params,plotParams)
     
                 if ismember(n,codingNeurons)
                     col = [1 0 0];
+                elseif ismember(n,indiNeurons)
+                    col = [1 0 1];
                 else
                     col = [0 0 1];
                 end
@@ -78,12 +81,17 @@ function plot_SP_figure(spikes,params,plotParams)
     
             %% =====================================
             %% DASHED LINE
-            %% separation coding / non-coding
+            %% separation coding / indi / non-coding
             %% =====================================
     
             separationY = N - params.c + 0.5;
     
             yline(separationY,'--', 'Color',[0.4 0.4 0.4], 'LineWidth',1.2);
+
+            separationY2 = N - (params.c + params.nIndi) + 0.5;
+    
+            yline(separationY2,'--', 'Color',[0.4 0.4 0.4], 'LineWidth',1.2);
+
     
             %% =====================================
             %% POOLING
@@ -95,8 +103,7 @@ function plot_SP_figure(spikes,params,plotParams)
                 %% C
                 %% -----------------
     
-                pooledC = ...
-                    pool_neurons(spikes,codingNeurons,s,r);
+                pooledC = pool_neurons(spikes,codingNeurons,s,r);
     
                 for k = 1:length(pooledC)
     
@@ -144,9 +151,9 @@ function plot_SP_figure(spikes,params,plotParams)
                 %% TICKS
                 %% =====================================
     
-                yticks([yAll yNC yC neuronY(end) neuronY(1)]);
+                yticks([yAll yNC yC neuronY(end) neuronY(params.c+1) neuronY(1)]);
                 
-                yticklabels({'All', 'NC', 'C', sprintf('N%d',N), 'N1'});
+                yticklabels({'All', 'NC', 'C', sprintf('N%d',N),sprintf('N%d',params.c+1), 'N1'});
                     
             else
     
@@ -155,6 +162,12 @@ function plot_SP_figure(spikes,params,plotParams)
                 yticklabels({'1', num2str(N)});
     
             end
+
+            %% =====================================
+            %% remove tick marks
+            %% =====================================
+        
+            set(gca,'TickLength',[0 0]);
     
             %% =====================================
             %% LIMITS

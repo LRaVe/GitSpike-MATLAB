@@ -6,35 +6,32 @@
 function spikes = generate_SP_dataset(params)
 
     N    = params.N;
-    c    = params.c;
+
+    c    = params.c;      % neurones Coll
+    nIndi = params.nIndi; % neurones Indi
 
     S    = params.S;
     R    = params.R;
 
     Tmax = params.Tmax;
     rate = params.rate;
+    indiJitter = params.indiJitter;
 
     spikes = cell(N,S,R);
 
-    pooledRate = c * rate;
+    %% =====================================================
+    %% COLL neurons
+    %% =====================================================
+
+    pooledRate = c*rate;
 
     for s = 1:S
-
-        %% train poolé du stimulus
 
         nSpikes = poissrnd(pooledRate*Tmax);
 
         pooledTrain = sort(rand(1,nSpikes)*Tmax);
 
         for r = 1:R
-
-            %% reset neurones codants
-
-            for n = 1:c
-                spikes{n,s,r} = [];
-            end
-
-            %% distribution aléatoire
 
             assignment = randi(c,1,nSpikes);
 
@@ -43,10 +40,53 @@ function spikes = generate_SP_dataset(params)
                 spikes{n,s,r} = pooledTrain(assignment==n);
 
             end
+        end
+    end
 
-            %% neurones non codants
+    %% =====================================================
+    %% INDI neurons
+    %% =====================================================
 
-            for n = c+1:N
+    for n = c+1:c+nIndi
+
+        template = cell(1,S);
+    
+        for s = 1:S
+    
+            nSpikes = poissrnd(rate*Tmax);
+    
+            template{s} = sort(rand(1,nSpikes)*Tmax);
+    
+        end
+    
+        for s = 1:S
+    
+            for r = 1:R
+    
+                train = template{s};
+    
+                train = train + indiJitter*randn(size(train));
+    
+                train(train<0) = 0;
+                train(train>Tmax) = Tmax;
+    
+                spikes{n,s,r} = sort(train);
+    
+            end
+    
+        end
+    
+    end
+
+    %% =====================================================
+    %% NON CODING
+    %% =====================================================
+
+    for n = c+nIndi+1:N
+
+        for s = 1:S
+
+            for r = 1:R
 
                 nNoise = poissrnd(rate*Tmax);
 
@@ -59,5 +99,6 @@ function spikes = generate_SP_dataset(params)
     end
 
 end
+
 
 

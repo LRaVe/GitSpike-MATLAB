@@ -10,7 +10,7 @@ function candidate = random_neighbor(population,N)
     nPop = length(population);
 
     %% ---------------------------------
-    %% population complète
+    %% full population
     %% ---------------------------------
 
     if nPop == N
@@ -23,7 +23,7 @@ function candidate = random_neighbor(population,N)
     end
 
     %% ---------------------------------
-    %% population taille 1
+    %% population size 1
     %% ---------------------------------
 
     if nPop == 1

@@ -43,6 +43,7 @@ function P = compute_discrimination_performance(D,labels)
     %% =====================================
     
     P = mean(inter) - mean(intra);
+
     
 end
 
