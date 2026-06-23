@@ -16,7 +16,7 @@ num_stimuli = 2;        % S
 num_repetitions = 3;    % R
 num_neurons = 10;        % N
 num_coll = 4;           % coding neurons initial (the information is in the sum of these neurons)
-num_indi= 3;            % individually coding neurons (they have some information each)
+num_indi=1;            % individually coding neurons (they have some information each)
                          % --> crash the algorithms written for SP
                          % hypothesis if there are any num_coll
 
@@ -33,13 +33,13 @@ showing = true;
 plotting = true; % Boolean to plotting or not the graphics
 other_figs = false; % Boolean to plotting or not other figures
 
-rng(25); % To reproduce the script witout new values
+rng(50); % To reproduce the script witout new values
 
 %% 2. Creation of the dataset with summed population hypothesis
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
-% To try to fail the BU algorithms
+% To try to fail the BU algorithms (parameters : num_neurons = 10; num_coll = 4; num_indi= 3;)
 % CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
 %     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
@@ -52,7 +52,6 @@ plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
 P_individuelles = zeros(1, num_neurons);
 
 for nc = 1:num_neurons
-    % On crée un vecteur de sélection "one-hot" (ex: [0, 0, 1, 0, 0...])
     selection_solo = zeros(1, num_neurons);
     selection_solo(nc) = 1;
     
@@ -62,7 +61,7 @@ for nc = 1:num_neurons
     P_individuelles(nc) = P_solo;
 end
 
-figure('Name', 'Fig 7C - Individual Performances', 'Color', 'w');
+figure('Name', 'Individual performances of the dataset', 'Color', 'w');
 hBar = bar(P_individuelles, 'FaceColor', [0.30, 0.75, 0.93], 'EdgeColor', [0 0 0]);
 hold on;
 

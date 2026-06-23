@@ -140,48 +140,48 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
 
         %% 3. The paper figure
         figure('Name', 'Bottom-Up selection figure');
-        
+
         opt_size = length(best_subpop); 
         min_perf_val = min(history_perf) - 0.02; 
-        
+
         Matrix_Paper = Matrix_Grid;
         for k = 1:num_neurons
             past_neurons = best_order(1:k-1);
             Matrix_Paper(k, past_neurons) = min_perf_val;
             Matrix_Paper(k, best_order(k)) = history_perf(k);
         end
-        
+
         subplot(1, 5, 1:3); 
         imagesc(1:num_neurons, 1:num_neurons, Matrix_Paper);
         colormap(jet);
         clim([min_perf_val, max(history_perf)+0.02]); 
         set(gca, 'YDir', 'normal'); 
         hold on;
-        
+
         for i = 0.5 : 1 : num_neurons+0.5
             line([0.5, num_neurons+0.5], [i, i], 'Color', [1 1 1 0.2], 'LineWidth', 0.5);
             line([i, i], [0.5, num_neurons+0.5], 'Color', [1 1 1 0.2], 'LineWidth', 0.5);
         end
-        
+
         for k = 1:num_neurons
             n_id = best_order(k);
             text(n_id, k, char(10003), 'FontSize', 11, ...
                  'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
                  'FontWeight', 'bold', 'Color', [0 0 0]);
-            
+
             if k < num_neurons
                 plot(repmat(n_id, 1, num_neurons-k), (k+1):num_neurons, '.', 'Color', [0.3 0.3 0.3], 'MarkerSize', 5);
             end
         end
-        
+
         for k_sub = 1:opt_size
             curr_n = best_order(k_sub);
             plot(curr_n, opt_size, 'rx', 'MarkerSize', 12, 'LineWidth', 2);
         end
-        
+
         rectangle('Position', [0.53, opt_size-0.45, num_neurons-0.06, 0.9], ...
                   'EdgeColor', [0.15 0.62 0.15], 'LineWidth', 2);
-        
+
         box on;
         set(gca, 'TickDir', 'out', 'LineWidth', 1.1);
         set(gca, 'XTick', 1:num_neurons, 'YTick', 1:num_neurons);
@@ -189,20 +189,20 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         xlabel('Neuron ID', 'FontSize', 11, 'FontWeight', 'bold');
         ylabel('Size of population (k)', 'FontSize', 11, 'FontWeight', 'bold');
         title('Bottom-Up algorithm matrix', 'FontSize', 12, 'FontWeight', 'bold');
-        
+
         pos_mat = get(gca, 'Position');
         cb = colorbar('Position', [pos_mat(1) + pos_mat(3) + 0.02, pos_mat(2), 0.015, pos_mat(4)]);
         set(cb, 'LineWidth', 1.1, 'FontWeight', 'bold');
         ylabel(cb, 'Global Performance P', 'FontSize', 11, 'FontWeight', 'bold');
-        
+
         subplot(1, 5, 4:5); 
         plot(history_perf, 1:num_neurons, '-ko', 'LineWidth', 2, ...
              'MarkerFaceColor', [0 0 0], 'MarkerSize', 5);
         hold on;
-        
+
         plot(history_perf(opt_size), opt_size, 'ro', 'MarkerSize', 11, 'LineWidth', 2, 'MarkerFaceColor', [1 1 1]);
         plot(history_perf(opt_size), opt_size, 'rx', 'MarkerSize', 7, 'LineWidth', 1.5);
-        
+
         box on; grid on;
         set(gca, 'YDir', 'normal', 'TickDir', 'out', 'LineWidth', 1.1);
         set(gca, 'YTick', 1:num_neurons, 'YTickLabel', []); 
@@ -211,8 +211,96 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
         xlim([min_perf_val+0.02, max(history_perf)+0.03]);
         xlabel('Best performance P', 'FontSize', 11, 'FontWeight', 'bold');
         title('Performance function', 'FontSize', 12, 'FontWeight', 'bold');
-        
+
         hold off; 
         shg;
+
+        % %% 3. The paper figure with the rectangle and the call of the BF also using with very high moderation (very high complexity)
+        % figure('Name', 'Bottom-Up selection figure', 'Color', 'w', 'Position', [100, 100, 850, 500]);
+        % 
+        % opt_size = length(best_subpop);
+        % min_perf_val = min(history_perf);
+        % max_perf_val = max(history_perf);
+        % 
+        % % The matrix
+        % Matrix_Paper = Matrix_Grid;
+        % 
+        % ax_matrix = subplot(1, 5, 1:3);
+        % imagesc(1:num_neurons, 1:num_neurons, Matrix_Paper);
+        % colormap(ax_matrix, jet(256));
+        % clim(ax_matrix, [min_perf_val - 0.01, max_perf_val + 0.01]); 
+        % set(gca, 'YDir', 'normal');
+        % hold on;
+        % 
+        % for i = 0.5 : 1 : num_neurons+0.5
+        %     line([0.5, num_neurons+0.5], [i, i], 'Color', [1 1 1 0.2], 'LineWidth', 0.5);
+        %     line([i, i], [0.5, num_neurons+0.5], 'Color', [1 1 1 0.2], 'LineWidth', 0.5);
+        % end
+        % 
+        % for k = 1:num_neurons
+        %     n_id = best_order(k);
+        %     text(n_id, k, char(10003), 'FontSize', 11, ...
+        %          'HorizontalAlignment', 'center', 'VerticalAlignment', 'middle', ...
+        %          'FontWeight', 'bold', 'Color', [0 0 0]);
+        % 
+        %     if k < num_neurons
+        %         plot(repmat(n_id, 1, num_neurons-k), (k+1):num_neurons, '.', 'Color', [0.3 0.3 0.3], 'MarkerSize', 5);
+        %     end
+        % end
+        % 
+        % % Red cross for the subpopulations found by the bottom-up
+        % % algorithms
+        % for idx = 1:length(best_subpop)
+        %     neuron_id = best_subpop(idx);
+        %     plot(ax_matrix, neuron_id, opt_size, 'rx', 'MarkerSize', 12, 'LineWidth', 2.5);
+        % end
+        % 
+        % % The rectagle which shox the real best subpopulation found by the
+        % % BF algorithms
+        % [idx_bf_neurons,~] = f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, false,false); 
+        % opt_bf_size = length(idx_bf_neurons); 
+        % 
+        % x_start = min(idx_bf_neurons) - 0.45; 
+        % y_start = opt_bf_size - 0.45;
+        % width_rect = length(idx_bf_neurons) - 0.1;
+        % height_rect = 0.9;
+        % 
+        % rectangle(ax_matrix, 'Position', [x_start, y_start, width_rect, height_rect], ...
+        %           'EdgeColor', [0.15 0.65 0.15], 'LineWidth', 2.5, 'Curvature', [0 0]);
+        % 
+        % 
+        % box on;
+        % set(gca, 'TickDir', 'out', 'LineWidth', 1.1);
+        % set(gca, 'XTick', 1:num_neurons, 'YTick', 1:num_neurons);
+        % set(gca, 'FontSize', 10, 'FontWeight', 'bold');
+        % xlabel('Neuron ID', 'FontSize', 11, 'FontWeight', 'bold');
+        % ylabel('Size of population (k)', 'FontSize', 11, 'FontWeight', 'bold');
+        % title('Bottom-Up algorithm matrix', 'FontSize', 12, 'FontWeight', 'bold');
+        % 
+        % pos_mat = get(gca, 'Position');
+        % cb = colorbar('Position', [pos_mat(1) + pos_mat(3) + 0.015, pos_mat(2), 0.015, pos_mat(4)]);
+        % set(cb, 'LineWidth', 1.1, 'FontWeight', 'bold');
+        % ylabel(cb, 'Global Performance P', 'FontSize', 11, 'FontWeight', 'bold');
+        % 
+        % % the perfomance function
+        % subplot(1, 5, 4:5);
+        % plot(history_perf, 1:num_neurons, '-ko', 'LineWidth', 2, ...
+        %      'MarkerFaceColor', [0 0 0], 'MarkerSize', 5);
+        % hold on;
+        % 
+        % plot(history_perf(opt_size), opt_size, 'ro', 'MarkerSize', 11, 'LineWidth', 2, 'MarkerFaceColor', [1 1 1]);
+        % plot(history_perf(opt_size), opt_size, 'rx', 'MarkerSize', 7, 'LineWidth', 1.5);
+        % 
+        % box on; grid on;
+        % set(gca, 'YDir', 'normal', 'TickDir', 'out', 'LineWidth', 1.1);
+        % set(gca, 'YTick', 1:num_neurons, 'YTickLabel', []);
+        % set(gca, 'FontSize', 10, 'FontWeight', 'bold');
+        % ylim([0.5, num_neurons + 0.5]);
+        % xlim([min_perf_val-0.01, max(history_perf)+0.02]);
+        % xlabel('Best performance P', 'FontSize', 11, 'FontWeight', 'bold');
+        % title('Performance function', 'FontSize', 12, 'FontWeight', 'bold');
+        % 
+        % hold off;
+        % shg;
     end
 end
