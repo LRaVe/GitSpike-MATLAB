@@ -32,7 +32,16 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corre
         end
     end
     
-
+    if nargin > 4 && is_corrected
+        chosen_event = round(length(trains_corrected{1})/2); % choose the middle train as the reference for arrows
+        for k=1:length(trains_corrected)
+            y_start = length(trains_corrected) - k + 1; % y position for the current train
+            x_start = trains{k}(chosen_event); % x position for the current train's chosen event
+            dx = - shifts(k); % shift for the current train
+            quiver(x_start, y_start, dx, 0, 0, 'MaxHeadSize', 0.5, 'Color', 'k', 'LineWidth', 1.2);
+        end
+    end
+            
     
     set(gca, 'YTick', 1:length(trains));
     set(gca, 'YTickLabel', arrayfun(@num2str, length(trains):-1:1, 'UniformOutput', false));

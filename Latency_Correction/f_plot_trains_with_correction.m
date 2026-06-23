@@ -11,6 +11,18 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
         row = 1; % Default to using the first row for correction
     end
 
+    if nargin < 1
+        error('Please provide a cell array of trains as input.');
+    end
+
+    if row < 1 || row > length(trains)
+        error('Row index must be between 1 and the number of trains.');
+    end
+
+    if nargin == 3 && ~ismember(mode, {'row', 'first_diagonal'})
+        error('Mode must be either "row" or "first_diagonal".');
+    end
+
     % Compute sorted orders and times for original trains
     [sortedOrders, sortedTimes] = order_spikes(0, 100, trains);
     
