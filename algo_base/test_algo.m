@@ -14,9 +14,9 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64') % Command to find the C++ compiler and li
 %% Global parameters
 num_stimuli = 2;        % S
 num_repetitions = 3;    % R
-num_neurons = 10;        % N
-num_coll = 4;           % coding neurons initial (the information is in the sum of these neurons)
-num_indi=1;            % individually coding neurons (they have some information each)
+num_neurons = 100;        % N
+num_coll = 40;           % coding neurons initial (the information is in the sum of these neurons)
+num_indi=10;            % individually coding neurons (they have some information each)
                          % --> crash the algorithms written for SP
                          % hypothesis if there are any num_coll
 
@@ -31,9 +31,9 @@ num_coding_neurons = num_indi + num_coll;
 
 showing = true;
 plotting = true; % Boolean to plotting or not the graphics
-other_figs = false; % Boolean to plotting or not other figures
+other_figs = true; % Boolean to plotting or not other figures
 
-rng(50); % To reproduce the script witout new values
+rng(12); % To reproduce the script witout new values
 
 %% 2. Creation of the dataset with summed population hypothesis
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
@@ -72,7 +72,14 @@ line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individue
 grid on; box on;
 xlim([0.5, num_neurons + 0.5]);
 ylim([0, max(P_individuelles)*1.2]);
-set(gca, 'XTick', 1:num_neurons);
+if num_neurons <= 15
+    tick_step = 1;      
+elseif num_neurons <= 40
+    tick_step = 5;     
+else
+    tick_step = 10;    
+end
+ set(gca, 'XTick', 1:tick_step:num_neurons);
 
 % Labels
 xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');

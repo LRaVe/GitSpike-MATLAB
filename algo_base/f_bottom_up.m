@@ -74,6 +74,13 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
     end
     
     if plotting == true 
+        if num_neurons <= 15
+            tick_step = 1;      
+        elseif num_neurons <= 40
+            tick_step = 5;      
+        else
+            tick_step = 10;     
+        end
         if other_figs == true
             %% 1. The plot
             [max_P, idx_max] = max(history_perf);
@@ -94,8 +101,8 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
             grid on; box on;
             xlim([0.5, num_neurons + 0.5]);
             ylim([min(history_perf) - 0.02, max(history_perf) + 0.04]);
-            set(gca, 'XTick', 1:num_neurons, 'XTickLabel', neuron_labels, 'FontSize', 10, 'FontWeight', 'bold');
-            
+            set(gca, 'XTick', 1:tick_step:num_neurons, 'YTick', 1:tick_step:num_neurons);
+             
             xlabel('Neurons integrated sequentially (Step k)', 'FontSize', 11, 'FontWeight', 'bold');
             ylabel('Global performance P', 'FontSize', 11, 'FontWeight', 'bold');
             title('Evolution of performance using Bottom-Up selection', 'FontSize', 12, 'FontWeight', 'bold');
@@ -127,8 +134,8 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
             
             box on;
             set(gca, 'XAxisLocation', 'bottom', 'YDir', 'reverse'); 
-            set(gca, 'XTick', 1:num_neurons, 'YTick', 1:num_neurons);
-            
+            set(gca, 'XTick', 1:tick_step:num_neurons, 'YTick', 1:tick_step:num_neurons);
+              
             xlabel('# Neuron', 'FontSize', 11, 'FontWeight', 'bold');
             ylabel('Number of neurons (Step k)', 'FontSize', 11, 'FontWeight', 'bold');
             title('Bottom-Up selection matrix', 'FontSize', 12, 'FontWeight', 'bold');
@@ -184,7 +191,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
 
         box on;
         set(gca, 'TickDir', 'out', 'LineWidth', 1.1);
-        set(gca, 'XTick', 1:num_neurons, 'YTick', 1:num_neurons);
+        set(gca, 'XTick', 1:tick_step:num_neurons, 'YTick', 1:tick_step:num_neurons);
         set(gca, 'FontSize', 10, 'FontWeight', 'bold');
         xlabel('Neuron ID', 'FontSize', 11, 'FontWeight', 'bold');
         ylabel('Size of population (k)', 'FontSize', 11, 'FontWeight', 'bold');
@@ -205,7 +212,7 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
 
         box on; grid on;
         set(gca, 'YDir', 'normal', 'TickDir', 'out', 'LineWidth', 1.1);
-        set(gca, 'YTick', 1:num_neurons, 'YTickLabel', []); 
+        set(gca, 'YTick', 1:tick_step:num_neurons, 'YTickLabel', []); 
         set(gca, 'FontSize', 10, 'FontWeight', 'bold');
         ylim([0.5, num_neurons + 0.5]);
         xlim([min_perf_val+0.02, max(history_perf)+0.03]);

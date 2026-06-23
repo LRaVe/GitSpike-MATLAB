@@ -6,7 +6,7 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
     % Total number of possible combinations (2^N - 1, ignoring the all-zero mask)
     total_combinations = (2^num_neurons) - 1;
     
-    % Safety check to prevent computer freezing if N is set to 125
+    % Safety check to prevent computer freezing if N is set too high
     if num_neurons > 20
         error('Brute Force aborted: N is too large (%d). Reduce N between 10 and 20 in your main script.', num_neurons);
     end
@@ -14,23 +14,20 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
     if showing
         fprintf('-> Launching Brute Force by binary incrementation (%d masks to evaluate...)\n', total_combinations);
     end
-
+    
     % Variables initialization
     best_perf_overall = -Inf;
     best_mask_overall = zeros(num_neurons, 1);
     
     % Array to store the evaluation history for plotting
     history_perf_brute = zeros(1, total_combinations);
-
-    % Main execution loop
+    
+    % =====================================================================
+    % STANDARD SEQUENTIAL LOOP WITH FAST BINARY EXTRACTION
+    % =====================================================================
     for i = 1:total_combinations
-        
-        % Generate the binary string corresponding to the current iteration counter (+1 addition)
-        % Example for i = 3 and N = 4: '0011'
-        binary_string = dec2bin(i, num_neurons);
-        
-        % Convert the character string into a numeric vector of 0s and 1s
-        current_mask = (binary_string - '0')'; % Column vector [0; 0; 1; 1]
+        % FAST BITWISE EXTRACTION: Direct numeric vector creation via bitget
+        current_mask = bitget(i, 1:num_neurons)'; % Column vector [0; 0; 1; 1]
         
         % Compute classification performance P for this specific subpopulation mask
         [perf, ~] = calculate_integrated_P_optimized(CellMatrix, current_mask, ...
@@ -45,17 +42,18 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
             best_mask_overall = current_mask;
         end
     end
-
+    % =====================================================================
+    
     % Convert the winning binary mask into neuron IDs (e.g., [1, 2, 5])
     best_subpop = find(best_mask_overall == 1)';
-
+    
     if showing
         fprintf('\n================ BRUTE FORCE CONVERGED ================\n');
         fprintf('Best binary combination found: [%s]\n', num2str(best_subpop));
         fprintf('Absolute maximum performance P = %.4f\n', best_perf_overall);
         fprintf('=======================================================\n');
     end
-
+    
     %% Plotting the performance evolution
     if other_figs == true && ~isempty(history_perf_brute)
         figure('Name', 'Brute Force - Combinatorial Search History', 'Color', [1 1 1]);
@@ -74,7 +72,8 @@ function [best_subpop, best_perf_overall] = f_brute_force(CellMatrix, num_neuron
         
         box on; grid on;
         xlim([1, total_combinations]);
-        % Adjust Y limits based on data
+        
+        % Adjust Y limits based on data dynamically
         min_p = max(0, min(history_perf_brute));
         max_p = max(history_perf_brute);
         ylim([min_p, max(max_p * 1.1, 0.1)]);
