@@ -6,7 +6,7 @@
 
 function res=pairwise_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
     % Compute pairwise spike ordering between two spike trains
-    addpath('spike_common');
+
     n=length(spikes);
     if spike_ind1>n || spike_ind2>n || spike_ind1<1 || spike_ind2<1
         error('Index out of bounds');

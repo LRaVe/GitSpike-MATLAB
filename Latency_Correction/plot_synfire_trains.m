@@ -18,7 +18,7 @@ function plot_synfire_trains(trains, sortedOrders,sortedTimes,title_str,is_corre
         line([sortedTimes(k) sortedTimes(k)],[flatRows(k)-0.5 flatRows(k)+0.5], 'Color', spikeColors(k,:),'LineWidth',1.5);
     end
 
-    if nargin>4 && correction
+    if nargin>4 && is_corrected
         j=1;
         for i=1:length(sortedTimes)
             if j~=length(shifts)
