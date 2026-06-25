@@ -9,55 +9,56 @@ if ~isempty(thisFile)
     addpath(genpath(repoRoot));
 end
 
-setenv('MW_MINGW64_LOC', 'C:\mingw64') % Command to find the C++ compiler and link with MatLab
+% Command to find the C++ compiler and link with MATLAB
+setenv('MW_MINGW64_LOC', 'C:\mingw64') 
 
-%% Global parameters
-num_stimuli = 2;        % S
-num_repetitions = 3;    % R
-num_neurons = 100;        % N
-num_coll = 40;           % coding neurons initial (the information is in the sum of these neurons)
-num_indi=10;            % individually coding neurons (they have some information each)
-                         % --> crash the algorithms written for SP
-                         % hypothesis if there are any num_coll
+%% 1. Global parameters
 
+num_stimuli = 2;         % S
+num_repetitions = 3;     % R
+num_neurons = 10;        % N
+num_coll = 4;           % Coding neurons initial (the information is in the sum of these neurons)
+num_indi = 1;            % Individually coding neurons (they have some information each)
+                         % --> crashes the algorithms written for SP hypothesis if there are any num_coll
 t1 = 0; t2 = 1;          % Time window
+refrac = 0.002;          % "an absolute refractory period of 2 ms" paper 2018
+base_rate = 20;          % Frequency of the coding neurons (Hz)
 
-refrac = 0.002;  % "an absolute refractory period of 2 ms" paper 2018
-base_rate= 20;   % Frequency of the coding neurons (Hz)
-%metric_choice = 'ISI_ADAPTIVE'
+% Metric selection
+% metric_choice = 'ISI_ADAPTIVE';
 metric_choice = 'SPIKE_DISTANCE';
 
 num_coding_neurons = num_indi + num_coll;
-
 showing = true;
-plotting = true; % Boolean to plotting or not the graphics
-other_figs = true; % Boolean to plotting or not other figures
+plotting = true;         % Boolean to plot or not the main graphics
+other_figs = true;       % Boolean to plot or not auxiliary figures
+rng(12);                 % To reproduce the script without new random values
 
-rng(12); % To reproduce the script witout new values
+%% 2. Dataset creation (Summed Population Hypothesis)
 
-%% 2. Creation of the dataset with summed population hypothesis
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
+% Created file to understand the structure of the data
+%f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
+
+% Alternative: Fail-case dataset for Bottom-Up testing
 % To try to fail the BU algorithms (parameters : num_neurons = 10; num_coll = 4; num_indi= 3;)
 % CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
 %     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
-
-%% 3. Plooting the 3 matrix
+%% 3. Distance matrix visualization
 plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
     num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
 
-%% 3.25 Plooting the indivitual performance for classic dataset(Panneau C de la Fig. 7)
+% 3.25 Individual performance matrix (Figure 7C)
 P_individuelles = zeros(1, num_neurons);
-
 for nc = 1:num_neurons
     selection_solo = zeros(1, num_neurons);
     selection_solo(nc) = 1;
-    
     [P_solo, ~] = calculate_integrated_P_optimized(CellMatrix, selection_solo, ...
-                    num_stimuli, num_repetitions, t1, t2, 'SPIKE_DISTANCE');
-                
+                    num_stimuli, num_repetitions, t1, t2, metric_choice);
+
     P_individuelles(nc) = P_solo;
 end
 
@@ -65,13 +66,14 @@ figure('Name', 'Individual performances of the dataset', 'Color', 'w');
 hBar = bar(P_individuelles, 'FaceColor', [0.30, 0.75, 0.93], 'EdgeColor', [0 0 0]);
 hold on;
 
-% Lines to separate the several groups (Coll | Indi | NC)
+% Demarcation lines to separate the groups (Coll | Indi | NC)
 line([num_coll + 0.5, num_coll + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
 line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
-
 grid on; box on;
 xlim([0.5, num_neurons + 0.5]);
 ylim([0, max(P_individuelles)*1.2]);
+
+% Adaptive tick spacing for the x-axis
 if num_neurons <= 15
     tick_step = 1;      
 elseif num_neurons <= 40
@@ -79,9 +81,9 @@ elseif num_neurons <= 40
 else
     tick_step = 10;    
 end
- set(gca, 'XTick', 1:tick_step:num_neurons);
+set(gca, 'XTick', 1:tick_step:num_neurons);
 
-% Labels
+% Subpopulation Labels
 xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');
 ylabel('Individual Performance', 'FontSize', 11, 'FontWeight', 'bold');
 title('Individual Performance Profile (Fig 7C)', 'FontSize', 12, 'FontWeight', 'bold');
@@ -91,22 +93,52 @@ text(num_coll + num_indi/2, max(P_individuelles)*1.1, 'Indi', 'HorizontalAlignme
 text(num_coll + num_indi + (num_neurons - num_coll - num_indi)/2, max(P_individuelles)*1.1, 'NC', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
 hold off;
 
-%% 3.5 Brute force algorithm 
+%%  4. Algorithms and performance profiling
+profile('-historysize', 2000000000);
+profile on;
+
+% 4.1 Brute Force Algorithm 
 if num_neurons < 21 
-    t_start = tic;
+    fprintf('\n--- Running Brute Force Optimization ---\n');
     f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, other_figs);
-    fprintf ("Spent time is : %.4f \n", toc(t_start));
+        t2, metric_choice, showing, other_figs);
 end
 
-%% 4. Bottom-up algorithm
-t_start = tic;
+% 4.2 Bottom-Up Algorithm
+fprintf('\n--- Running Bottom-Up Optimization ---\n');
 f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
     t2, metric_choice, showing, plotting, other_figs);
-fprintf ("Spent time is : %.4f \n", toc(t_start));
 
-%% 5. Annealing
-t_start = tic;
+% 4.3 Simulated Annealing Algorithm
+fprintf('\n--- Running Simulated Annealing Optimization ---\n');
 f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting,other_figs);
-fprintf ("Spent time is : %.4f", toc(t_start));
+    t2, metric_choice, showing, plotting, other_figs);
+
+profile off;
+profile viewer;
+
+% %% Generation o fthe CellMatriw since a user data
+% [CellMatrix1, num_neurons1] = f_import_data_secure('Simulated_data.txt', 3, 2);
+% 
+% % Regardons la taille de la matrice globale et le nombre de neurones
+% disp(['Calculated Neurons: ', num2cell(num_neurons1)]);
+% disp(['Size of CellMatrix: ', num2str(size(CellMatrix1, 1)), 'x', num2str(size(CellMatrix1, 2))]);
+% 
+% % Vérifions le premier essai du Stimulus 2
+% disp('First neuron spikes for Stimulus 2, Repetition 1 (Line 21 of TXT file):');
+% disp(CellMatrix1{2, 1}{1});
+% 
+% [CellMatrix2, num_neurons2] = f_import_data_secure('Simulated_data.txt', 2, 3);
+% 
+% % Regardons la structure de cette nouvelle matrice
+% disp(['Size of CellMatrix: ', num2str(size(CellMatrix2, 1)), 'x', num2str(size(CellMatrix2, 2))]);
+% 
+% % Vérifions où est passée notre ligne 21 (anciennement Stim 2, Rep 1)
+% disp('First neuron spikes for Stimulus 1, Repetition 3 (Line 21 of TXT file):');
+% disp(CellMatrix2{1, 3}{1});
+% try
+%     [CellMatrix3, num_neurons3] = f_import_data_secure('Simulated_data.txt', 4, 4);
+% catch ME
+%     warning('SECURITY CHECK PASSED!');
+%     disp(ME.message);
+% end
