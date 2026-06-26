@@ -1,0 +1,75 @@
+[33m91fe96a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mDev_Latency[m[33m, [m[1;31morigin/Dev_Latency[m[33m)[m Merge branch 'Dev_Latency' of https://github.com/LRaVe/GitSpike-MATLAB into Dev_Latency
+[33md076782[m Add a first version of simulated annealing (based on an existing function)
+[33m153c8f7[m Fixed colors, added arrows for corrected spike trains
+[33mf64a110[m Added error cases handling
+[33mafdb361[m Merge branch 'Dev_Latency' of https://github.com/LRaVe/GitSpike-MATLAB into Dev_Latency
+[33m1743d19[m fix last addpath
+[33m9a9e00d[m Minor fix colors spike trains corrected
+[33me04aacd[m without arrows
+[33mcf820f9[m Merge branch 'Dev_Latency' of https://github.com/LRaVe/GitSpike-MATLAB into Dev_Latency
+[33m693d488[m Fix the 1-event case (still have issues with colors, matrices ok)
+[33m2a3efd2[m Add arrows
+[33m324706d[m Fixed the parameters n_correct, n_random, n_inversed in the f_synfire function
+[33m3b60225[m Deleted the useless addpath ; fixed the f_synfire with the 1-event case
+[33m91d8b2d[m Refactor latency correction
+[33m73b2b73[m Add modes of correction for the shifts
+[33m0a98d1b[m Merge branch 'Dev_Latency' of https://github.com/LRaVe/GitSpike-MATLAB into Dev_Latency
+[33m570016f[m Add the plot function for the 6 subplots
+[33m4e0f612[m Add plot_shifts_row + update synfire_test
+[33m93fb8ca[m work not finished
+[33m21d37d7[m Fixed the overlap ; Add the First_diagonal function
+[33m047d29c[m Finished version of the time difference and cost matrix
+[33m1127e1b[m Time difference matrix added
+[33m5e2d484[m Case without overlap
+[33m0797167[m Tried to fix the overlap issue
+[33mf64f94a[m Merge branch 'Dev_Latency' of https://github.com/LRaVe/GitSpike-MATLAB into Dev_Latency
+[33mde8f359[m First test of the time difference matrix
+[33mf75df35[m Add colored synfire trains
+[33m8f75b74[m Color function
+[33m349d69b[m Minors changes
+[33m3d89007[m Completely changed the f_synfire ; add a plotting function ; modified the spike_synchro function as the main version
+[33maf8034b[m color updated
+[33mc2145b7[m first tests of the color of the spikes trains according to the order
+[33m4e9e9c1[m more complete test
+[33meaca7b3[m First full version of the synfire function ; add a test file
+[33mb1c640b[m Add the necessary folders
+[33mc677c36[m Delete unused files on this project
+[33m36ecefe[m Add synfire train generation with jitter and shuffle
+[33mdf0ac52[m[33m ([m[1;32mDev_Algo[m[33m)[m Merge branch 'main' of https://github.com/LRaVe/GitSpike-MATLAB
+[33mde85015[m Add adaptive Spike synchronization
+[33m69f8d79[m Merge branch 'main' of https://github.com/LRaVe/GitSpike-MATLAB
+[33m7634ccc[m adaptive ISI distance
+[33m9d837af[m Refactor spike_order and spike_train_order functions to improve output display
+[33mf52fe96[m Update path handling and improve display messages in spike_order and spike_train_order functions
+[33m41ec7f6[m Add SPIKE_order matrix
+[33ma40773a[m[33m ([m[1;32magents/function-verification-check[m[33m)[m Add files via upload
+[33m58ebe85[m Delete SPIKE_distances_tobecleaned.m
+[33md879ef8[m Add files via upload
+[33mc85c5d4[m Issue with the MRTS parameter
+[33mde9b995[m Merge branch 'main' of https://github.com/LRaVe/GitSpike
+[33m03633f2[m adaptive ISI-distance
+[33md5a095c[m Add files via upload
+[33mb3c5c40[m Add files via upload
+[33ma44b213[m Delete SPIKE-distance/SPIKE_distance.m
+[33m0e0a018[m ISI-distance adjustements
+[33me96ab4c[m Merge pull request #1 from LRaVe/refactor-spike-order
+[33md88dbbf[m Add SPIKE_train_order package
+[33m8259881[m Add SPIKE_order package
+[33mc5a7c04[m Add shared spike_common functions
+[33m8c70c06[m Merge branch 'main' of https://github.com/LRaVe/GitSpike-MATLAB
+[33m2c1ae40[m Cleaning the functions about synchronization
+[33mc11592d[m Merge branch 'main' of https://github.com/LRaVe/GitSpike
+[33me2a382c[m edge correction ISI distance file
+[33m7db231f[m Delete SPIKE-distance/Draft
+[33m63cf6b5[m Add plotting function and update test with visualization
+[33m659ac76[m Delete SPIKE-distance/SPIKE_distance.py
+[33m30f75e2[m Delete SPIKE-distance/SPIKE_distance.m.txt
+[33m4526c66[m Add files via upload
+[33m11b73bb[m Delete SPIKE-distance/SPIKE_distance (1).py
+[33meac0386[m Delete SPIKE-Order directory
+[33md25e73f[m Delete SPIKE-Synchronisation directory
+[33m1b7360b[m Add spike synchronization functions and tests
+[33m9cd6e00[m Files about SPIKE-distance
+[33m57eb0c1[m files about ISI-distance
+[33mbb7db65[m add the readme and the different subprojects
+[33ma4b96fb[m Initial commit
