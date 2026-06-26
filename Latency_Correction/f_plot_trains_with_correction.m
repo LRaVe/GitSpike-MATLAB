@@ -94,7 +94,7 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     title(['Cost Matrix, Cost Value: ' num2str(Cost_value)]);
 
     axes(ax4);
-    plot_synfire_trains(trains, sortedOrders, sortedTimes, 'Corrected Synfire Trains',true,shifts,trains_corrected,sortedOrders_corrected,sortedTimes_corrected);
+    plot_synfire_trains(trains, sortedOrders, sortedTimes, 'Corrected Synfire Trains',true,shifts,trains_corrected,sortedOrders_corrected,sortedTimes_corrected,Cost_value_corrected);
     %plot_shifts_row(trains,sortedOrders,shifts,sortedTimes);
     title('Corrected Synfire Trains');
 
