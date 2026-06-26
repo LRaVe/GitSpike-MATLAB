@@ -19,8 +19,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
         error('Row index must be between 1 and the number of trains.');
     end
 
-    if nargin == 3 && ~ismember(mode, {'row', 'first_diagonal'})
-        error('Mode must be either "row" or "first_diagonal".');
+    if nargin == 3 && ~ismember(mode, {'row', 'first_diagonal', 'sim_ann'})
+        error('Mode must be either "row", "first_diagonal", or "sim_ann".');
     end
 
     % Compute sorted orders and times for original trains
@@ -35,6 +35,10 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
         shifts = f_row(td_matrix, row);
     elseif strcmp(mode, 'first_diagonal')
         shifts = f_first_diagonal(td_matrix, row);
+    elseif strcmp(mode, 'sim_ann')
+        [shifts, sa_costs] = f_latency_correction_sim_ann(trains, 0, 100);
+    else
+        error('Invalid mode. Use "row", "first_diagonal", or "sim_ann".');
     end
     
     disp('Shifts');
@@ -57,7 +61,11 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
 
     figures = figure(1);
     set(gcf, 'Name', 'Synfire Trains and Corrections');
-    tl = tiledlayout(2,3,'TileSpacing','Compact','Padding','Compact'); %#ok<*NASGU>
+    if strcmp(mode, 'sim_ann')
+        tl = tiledlayout(3,3,'TileSpacing','Compact','Padding','Compact');
+    else
+        tl = tiledlayout(2,3,'TileSpacing','Compact','Padding','Compact');%#ok<*NASGU>
+    end
 
     ax1 = nexttile(1);
     ax2 = nexttile(2);
@@ -65,6 +73,9 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     ax4 = nexttile(4);
     ax5 = nexttile(5);
     ax6 = nexttile(6);
+    if strcmp(mode, 'sim_ann')
+        ax7 = nexttile(7,[1 3]);
+    end
 
     axes(ax1);
     plot_synfire_trains(trains, sortedOrders, sortedTimes, 'Original Synfire Trains');
@@ -99,4 +110,11 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     colorbar;
     title(['New Cost Matrix, Cost Value: ' num2str(Cost_value_corrected)]);
     
+    if strcmp(mode, 'sim_ann')
+        axes(ax7);
+        plot(sa_costs);
+        title('Simulated Annealing Cost Over Iterations');
+        xlabel('Iteration');
+        ylabel('Cost');
+    end
 end
