@@ -2,19 +2,19 @@
 % Date: June 2026
 % Author : Laure WOLFF
 
-function [CellMatrix, num_neurons] = f_import_data_secure(filename, num_stimuli, num_repetitions)
-% f_import_data_secure - Dynamic data loading that resolves mathematical ambiguity.
+function CellMatrix = f_import_data_secure(filename, num_stimuli, num_repetitions, num_neurons)
+% f_import_data_secure - Dynamic data loading from text file to 3D Cell Matrix.
 %
 % Inputs:
-%   filename        : Text file name (e.g., 'Donnees_Simulees.txt')
+%   filename        : Text file name (e.g., 'Simulated_data.txt')
 %   num_stimuli     : Exact number of Stimuli (S)
 %   num_repetitions : Exact number of Repetitions (R)
+%   num_neurons     : Exact number of neurons (N)
 %
 % Outputs:
-%   CellMatrix      : Cell matrix of size {S, R} ready for algorithms
-%   num_neurons     : Calculated and verified number of neurons
+%   CellMatrix      : Cell matrix of size {N, S, R} ready for algorithms
 
-    % 1. Read all lines from the file and count the total
+    % 1. Read all lines from the file
     fid = fopen(filename, 'r');
     if fid == -1
         error('Could not open file: %s', filename);
@@ -28,59 +28,51 @@ function [CellMatrix, num_neurons] = f_import_data_secure(filename, num_stimuli,
         if ischar(tline) && ~isempty(strtrim(tline))
             total_lines = total_lines + 1;
             cleaned_line = strtrim(tline); 
-            parsed_nums = str2num(cleaned_line); %#ok<ST2NM> , str2num deberately used 
+            parsed_nums = str2num(cleaned_line); %#ok<ST2NM> Deliberatly using rather str2double
+            
             if isempty(parsed_nums)
                 raw_lines{total_lines} = []; 
             else
-                raw_lines{total_lines} = parsed_nums(:)'; % On force une ligne horizontale
+                raw_lines{total_lines} = parsed_nums(:)'; % Force horizontal row vector
             end 
         end
     end
     fclose(fid);
     raw_lines = raw_lines(1:total_lines); % Adjust to true size
-
-    % 2. Mathematical safety check: calculate trials needed per neuron
-    trials_per_neuron = num_stimuli * num_repetitions;
-    
-    if rem(total_lines, trials_per_neuron) ~= 0
-        error(['Fatal dimension mismatch error!\nThe file contains %d lines.\n' ...
-               'With your protocol (%d Stimuli x %d Reps = %d trials), ' ...
-               'the result would be %.2f neurons, which is biologically impossible.'], ...
-               total_lines, num_stimuli, num_repetitions, trials_per_neuron, total_lines / trials_per_neuron);
+       
+    % 3. Protocol Validation Check (Sécurité dimensions)
+    expected_lines = num_stimuli * num_repetitions * num_neurons;
+    if total_lines ~= expected_lines
+        error(['Fatal dimension mismatch error!\n' ...
+               'According to your inputs (%d Stimuli x %d Reps x %d Neurons), the file should have %d lines.\n' ...
+               'However, the file contains %d lines.'], ...
+               num_stimuli, num_repetitions, num_neurons, expected_lines, total_lines);
     end
-    
-    % Determine the exact number of neurons
-    num_neurons = total_lines / trials_per_neuron;
-    
-    fprintf('=== EXPERIMENTAL PROTOCOL DETECTED ===\n');
-    fprintf('-> Number of stimuli (S)    : %d\n', num_stimuli);
-    fprintf('-> Number of repetitions (R): %d\n', num_repetitions);
-    fprintf('-> Number of neurones (N)   : %d\n\n', num_neurons);
-
-    % 3. Structured distribution into CellMatrix {Stimulus, Repetition}
-    CellMatrix = cell(num_stimuli, num_repetitions);
-    
-    % Use a pointer to track which line of the text file is being read
+        
+    % 4. Structured distribution into a temporary 2D CellMatrix {Stimulus, Repetition}
+    CellMatrix_2D = cell(num_stimuli, num_repetitions);
     line_pointer = 1;
     
     for s = 1:num_stimuli
         for r = 1:num_repetitions
-            
-            % For each cell {s, r}, store the spike trains of our N neurons
             trial_neurons_block = cell(num_neurons, 1);
-            
             for n = 1:num_neurons
-                % Extract the current line of the file for neuron n
                 trial_neurons_block{n} = raw_lines{line_pointer};
-                
-                % Advance by one line in the text file
                 line_pointer = line_pointer + 1;
             end
-            
-            % Assign this block of N neurons to the correct experimental condition
-            CellMatrix{s, r} = trial_neurons_block;
+            CellMatrix_2D{s, r} = trial_neurons_block;
         end
     end
     
-    fprintf('CellMatrix {%dx%d} successfully generated for %d neurons.\n', num_stimuli, num_repetitions, num_neurons);
+    % 5. CONVERSION BLOCK: Re-shaping into the definitive 3D matrix {N, S, R}
+    CellMatrix = cell(num_neurons, num_stimuli, num_repetitions);
+    for s = 1:num_stimuli
+        for r = 1:num_repetitions
+            for n = 1:num_neurons
+                CellMatrix{n, s, r} = CellMatrix_2D{s, r}{n};
+            end
+        end
+    end
+    
+    fprintf('CellMatrix {%dx%dx%d} successfully generated for algorithms.\n', num_neurons, num_stimuli, num_repetitions);
 end

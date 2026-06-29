@@ -1,7 +1,15 @@
-%% Script to test my functions (using as a main script)
+%% Script to test my functions in the LL hypothesis (using as a main script)
 % Date: May-June 2026
 % Author : Laure WOLFF
 clear; clc; close all;
+
+
+name_diary = 'simulation_results_LL.txt';
+diary(name_diary); 
+diary on; 
+
+profile off;
+profile('-historysize', 2000000000);
 
 thisFile = mfilename('fullpath');
 if ~isempty(thisFile)
@@ -14,15 +22,15 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 %% 1. Global parameters
 
-num_stimuli = 2;         % S
-num_repetitions = 3;     % R
-num_neurons = 10;        % N
-num_coll = 4;           % Coding neurons initial (the information is in the sum of these neurons)
-num_indi = 1;            % Individually coding neurons (they have some information each)
-                         % --> crashes the algorithms written for SP hypothesis if there are any num_coll
-t1 = 0; t2 = 1;          % Time window
-refrac = 0.002;          % "an absolute refractory period of 2 ms" paper 2018
-base_rate = 20;          % Frequency of the coding neurons (Hz)
+num_stimuli = 4;        % S
+num_repetitions = 5;    % R
+num_neurons = 7;        % N
+num_coll = 3;           % Coding neurons initial (the information is in the sum of these neurons)
+num_indi = 0;           % Individually coding neurons (they have some information each)
+                          % --> crashes the algorithms written for SP hypothesis if there are any num_coll
+t1 = 0; t2 = 1;         % Time window
+refrac = 0.002;         % "an absolute refractory period of 2 ms" paper 2018
+base_rate = 20;         % Frequency of the coding neurons (Hz)
 
 % Metric selection
 % metric_choice = 'ISI_ADAPTIVE';
@@ -34,18 +42,10 @@ plotting = true;         % Boolean to plot or not the main graphics
 other_figs = true;       % Boolean to plot or not auxiliary figures
 rng(12);                 % To reproduce the script without new random values
 
-%% 2. Dataset creation (Summed Population Hypothesis)
+%% 2. Dataset creation (Labeled line hypothesis)
 
-CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
-    num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
-
-% Created file to understand the structure of the data
-%f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
-
-% Alternative: Fail-case dataset for Bottom-Up testing
-% To try to fail the BU algorithms (parameters : num_neurons = 10; num_coll = 4; num_indi= 3;)
-% CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
-%     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+    num_indi, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
 %% 3. Distance matrix visualization
 plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
@@ -67,34 +67,33 @@ hBar = bar(P_individuelles, 'FaceColor', [0.30, 0.75, 0.93], 'EdgeColor', [0 0 0
 hold on;
 
 % Demarcation lines to separate the groups (Coll | Indi | NC)
-line([num_coll + 0.5, num_coll + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
-line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
-grid on; box on;
-xlim([0.5, num_neurons + 0.5]);
-ylim([0, max(P_individuelles)*1.2]);
+ line([num_coll + 0.5, num_coll + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
+ line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
+ grid on; box on;
+ xlim([0.5, num_neurons + 0.5]);
+ ylim([0, max(P_individuelles)*1.2]);
 
 % Adaptive tick spacing for the x-axis
-if num_neurons <= 15
-    tick_step = 1;      
-elseif num_neurons <= 40
-    tick_step = 5;     
-else
-    tick_step = 10;    
-end
-set(gca, 'XTick', 1:tick_step:num_neurons);
+ if num_neurons <= 15
+     tick_step = 1;      
+ elseif num_neurons <= 40
+     tick_step = 5;     
+ else
+     tick_step = 10;    
+ end
+ set(gca, 'XTick', 1:tick_step:num_neurons);
 
 % Subpopulation Labels
-xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');
-ylabel('Individual Performance', 'FontSize', 11, 'FontWeight', 'bold');
-title('Individual Performance Profile (Fig 7C)', 'FontSize', 12, 'FontWeight', 'bold');
+ xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');
+ ylabel('Individual Performance', 'FontSize', 11, 'FontWeight', 'bold');
+ title('Individual Performance Profile (Fig 7C)', 'FontSize', 12, 'FontWeight', 'bold');
 
-text(num_coll/2, max(P_individuelles)*1.1, 'Coll', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
-text(num_coll + num_indi/2, max(P_individuelles)*1.1, 'Indi', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
-text(num_coll + num_indi + (num_neurons - num_coll - num_indi)/2, max(P_individuelles)*1.1, 'NC', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
-hold off;
+ text(num_coll/2, max(P_individuelles)*1.1, 'Coll', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+ text(num_coll + num_indi/2, max(P_individuelles)*1.1, 'Indi', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+ text(num_coll + num_indi + (num_neurons - num_coll - num_indi)/2, max(P_individuelles)*1.1, 'NC', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
+ hold off;
 
 %%  4. Algorithms and performance profiling
-profile('-historysize', 2000000000);
 profile on;
 
 % 4.1 Brute Force Algorithm 
@@ -115,7 +114,9 @@ f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1,
     t2, metric_choice, showing, plotting, other_figs);
 
 profile off;
+diary off;
 profile viewer;
+ 
 
 % %% Generation o fthe CellMatriw since a user data
 % [CellMatrix1, num_neurons1] = f_import_data_secure('Simulated_data.txt', 3, 2);

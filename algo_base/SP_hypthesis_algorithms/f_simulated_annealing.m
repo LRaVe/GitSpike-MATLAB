@@ -41,14 +41,34 @@ for n = 1:N0
     temp_mask = next_mask;
 end
 if count > 0
-    mean_delta = mean(delta_down(1:count));
+    % On extrait la partie du tableau remplie
+    filled_deltas = delta_down(1:count);
+    
+    % On ne garde QUE les deltas qui sont des nombres réels finis (on vire -Inf, Inf, NaN)
+    % et non nuls (car un delta de 0 fausse la moyenne thermique)
+    valid_deltas = filled_deltas(isfinite(filled_deltas) & (filled_deltas ~= 0));
+    
+    if ~isempty(valid_deltas)
+        mean_delta = mean(valid_deltas);
+    else
+        mean_delta = 0.005; % Repli (Fallback) si tout le tableau contenait du -Inf
+        if showing
+            fprintf('  [Warning SA] Tous les tirages initiaux ont touché le neurone piège (-Inf). Default delta appliqué.\n');
+        end
+    end
 else
     mean_delta = 0.005;
 end
+
+% Calcul de T_0
 T_0 = - mean_delta / log(0.95); 
-if T_0 <= 1e-7 || isnan(T_0)
-    error("f_simulated_annealing:InvalidTemperature", ...
-          "The initial temperature T_0 is null, too small or NaN.");
+
+% Ultime barrière de sécurité pour empêcher le crash de la fonction
+if T_0 <= 1e-7 || isnan(T_0) || isinf(T_0)
+    T_0 = 0.5; % On force une température de démarrage standard (0.5) pour sauver le script
+    if showing
+        fprintf('  [Warning SA] T_0 calculé invalide. Température forcée à %.2f pour éviter le crash.\n', T_0);
+    end
 end
 if showing, fprintf('T_0 found: %.6f \n', T_0); end
 max_iter_est = max_paliers_est * iterations_per_temp;

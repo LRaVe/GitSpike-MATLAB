@@ -1,54 +1,45 @@
 function f_export_simulation_to_txt(CellMatrix, filename)
-% f_export_simulation_to_txt - Exports the simulated CellMatrix to a flat text file.
-% Each line in the file will correspond to a single trial, containing all sorted spikes.
-%
-% Author: Laure WOLFF - June 2026
+% f_export_simulation_to_txt - Version compatible 3D {N, S, R} pour ton script
+% Chaque ligne du fichier correspondra STRICTEMENT au train de spikes d'un neurone pour un essai donné.
 
     fid = fopen(filename, 'w');
     if fid == -1
         error('Could not create or open file: %s', filename);
     end
     
-    [num_stimuli, num_repetitions] = size(CellMatrix);
+    % On récupère les dimensions depuis ta matrice 3D d'origine
+    [num_neurons, num_stimuli, num_repetitions] = size(CellMatrix);
     
-    fprintf('=== EXPORTING SIMULATION DATA ===\n');
+    fprintf('=== EXPORTING SIMULATION DATA (COMPATIBLE FORMAT) ===\n');
     
-    % Iterate through the CellMatrix trial by trial (translating to line by line in the file)
+    % On parcourt dans l'ordre exact : Stimuli -> Repetitions -> Neurones
     for s = 1:num_stimuli
         for r = 1:num_repetitions
-            
-            % 1. Retrieve the data for the current trial
-            trial_data = CellMatrix{s, r};
-            all_spikes = [];
-            
-            % 2. Gather spikes from ALL neurons for this specific trial
-            if iscell(trial_data)
-                % If the CellMatrix contains a cell array of neurons {N, 1}
-                for n = 1:length(trial_data)
-                    all_spikes = [all_spikes; trial_data{n}(:)];
+            for n = 1:num_neurons
+                
+                spikes = CellMatrix{n, s, r};
+
+                if isempty(spikes)
+                    spikes_sorted = [];
+                else
+                    spikes_col = spikes(:); 
+                    spikes_sorted = sort(spikes_col);
                 end
-            else
-                % If it is a standard numeric array
-                all_spikes = trial_data(:);
-            end
-            
-            % 3. Crucial step: Sort all gathered spikes in chronological order
-            all_spikes_sorted = sort(all_spikes);
-            
-            % 4. Write these values onto a single line, separated by a space
-            if ~isempty(all_spikes_sorted)
-                for i = 1:length(all_spikes_sorted)-1
-                    fprintf(fid, '%.3f ', all_spikes_sorted(i));
+                
+                if ~isempty(spikes_sorted)
+                    for i = 1:length(spikes_sorted)-1
+                        fprintf(fid, '%.17e ', spikes_sorted(i));
+                    end
+                    fprintf(fid, '%.17e \n', spikes_sorted(end));
+                else
+                    fprintf(fid, '\n'); 
                 end
-                % For the last element, append the newline character (\n)
-                fprintf(fid, '%.3f\n', all_spikes_sorted(end));
-            else
-                % If the trial contains no spikes, still append a newline to keep file structure
-                fprintf(fid, '\n');
+                
             end
         end
     end
     
     fclose(fid);
-    fprintf('File "%s" successfully created! Wrote %d lines.\n', filename, num_stimuli * num_repetitions);
+    total_lines = num_stimuli * num_repetitions * num_neurons;
+    fprintf('File "%s" successfully created! Wrote %d lines.\n', filename, total_lines);
 end
