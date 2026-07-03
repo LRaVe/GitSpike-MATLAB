@@ -25,6 +25,7 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
 
     % Compute sorted orders and times for original trains
     [sortedOrders, sortedTimes] = order_spikes(t_min, t_max, trains);
+    disp(sortedOrders);
     
     % Compute time difference matrix and cost matrix
     td_matrix = f_TD_matrix(trains, t_min, t_max);
@@ -51,6 +52,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     % Compute sorted orders and times for corrected trains
     [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(t_min, t_max, trains_corrected);
     %[~,~] = order_spikes(t_min, t_max, trains_corrected);
+
+    disp(sortedOrders_corrected);
     
     td_matrix_corrected = f_TD_matrix(trains_corrected, t_min, t_max);
     [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, t_min, t_max);
@@ -118,5 +121,11 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
         ylabel('Cost');
         title('Simulated Annealing Cost over Iterations');
     end
-    
+
+    fprintf('trains_corrected:\n');
+    for i = 1:length(trains_corrected)
+        fprintf('Train %d: %s\n', i, mat2str(trains_corrected{i}));
+    end
+
+
 end

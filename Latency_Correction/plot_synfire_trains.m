@@ -1,7 +1,7 @@
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
-function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_corrected, shifts, trains_corrected, sortedOrders_corrected, sortedTimes_corrected, cost_value)
+function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_corrected, shifts, trains_corrected, sortedOrders_corrected, sortedTimes_corrected, ~)
     % Plot synfire trains with train 1 at top and last train at bottom
     
     hold on;
@@ -10,29 +10,9 @@ function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_co
     clim([-1 1]);
     
     num_trains = length(trains);
-    cmap = jet(256);
     
     % Color mapping for original trains
-    [~, flatRows] = values_to_colors(trains, sortedOrders, num_trains);
-    spikeColors = zeros(numel(sortedTimes), 3);
-    
-    total_spikes = numel(sortedTimes);
-    num_events = ceil(total_spikes / num_trains);
-    
-    for event = 1:num_events
-        idx_start = (event - 1) * num_trains + 1;
-        idx_end = min(event * num_trains, total_spikes);
-        current_block_size = idx_end - idx_start + 1;
-        
-        if current_block_size > 1
-            val_norm = -1 + 2 * (current_block_size - 1:-1:0) / (current_block_size - 1 + eps);
-            id_color = 1 + round((val_norm - (-1)) * 255 / 2);
-            id_color = max(1, min(256, id_color));
-            spikeColors(idx_start:idx_end, :) = cmap(id_color, :);
-        else
-            spikeColors(idx_start:idx_end, :) = cmap(128, :); 
-        end
-    end
+    [spikeColors, flatRows] = values_to_colors(trains, sortedOrders, num_trains);
     
     if nargin < 5 || ~is_corrected
         % Plotting original spikes
@@ -41,32 +21,7 @@ function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_co
         end
     else
         % Color mapping for corrected trains
-        [~, flatRows_corrected] = values_to_colors(trains_corrected, sortedOrders_corrected, num_trains);
-        spikeColors_corrected = zeros(numel(sortedTimes_corrected), 3);
-        
-        total_spikes_corr = numel(sortedTimes_corrected);
-        num_events_corr = ceil(total_spikes_corr / num_trains);
-        
-        for event = 1:num_events_corr
-            idx_start = (event - 1) * num_trains + 1;
-            idx_end = min(event * num_trains, total_spikes_corr);
-            current_block_size = idx_end - idx_start + 1;
-            
-            if current_block_size > 1
-                val_norm_corr = -1 + 2 * (current_block_size - 1:-1:0) / (current_block_size - 1 + eps);
-                id_color_corr = 1 + round((val_norm_corr - (-1)) * 255 / 2);
-                id_color_corr = max(1, min(256, id_color_corr));
-                spikeColors_corrected(idx_start:idx_end, :) = cmap(id_color_corr, :);
-            else
-                spikeColors_corrected(idx_start:idx_end, :) = cmap(128, :);
-            end
-        end
-    
-        if nargin < 10 || isempty(cost_value)
-            aligned = false;
-        else
-            aligned = (cost_value == 0);
-        end
+        [spikeColors_corrected, flatRows_corrected] = values_to_colors(trains_corrected, sortedOrders_corrected, num_trains);
         
         alignedRows = zeros(size(flatRows_corrected)); 
         alignedColors = zeros(numel(sortedTimes_corrected), 3); 
@@ -87,12 +42,7 @@ function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_co
                 already_associated_spikes(original_index) = true;
                 alignedRows(k) = flatRows(original_index);
                 alignedXStart(k) = sortedTimes(original_index);
-            
-                if aligned
-                    alignedColors(k, :) = spikeColors(original_index, :);
-                else
-                    alignedColors(k, :) = spikeColors_corrected(k, :);
-                end
+                alignedColors(k, :) = spikeColors_corrected(k, :);
             else
                 alignedRows(k) = flatRows_corrected(k);
                 alignedColors(k, :) = spikeColors_corrected(k, :);

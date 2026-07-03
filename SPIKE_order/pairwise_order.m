@@ -6,6 +6,7 @@
 
 function res=pairwise_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
     % Compute pairwise spike ordering between two spike trains
+    tol = 1e-10;
 
     n=length(spikes);
     if spike_ind1>n || spike_ind2>n || spike_ind1<1 || spike_ind2<1
@@ -24,7 +25,9 @@ function res=pairwise_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
         % fprintf('i=%d, s1(i)=%.2f, best_j=%d, s2(best_j)=%.2f, dist=%.4f, win=%.4f\n', i, s1(i), closest_j, s2(closest_j), min_dist, window);
         % Determine order: within window = 0, otherwise compare spike times
         if min_dist <= window
-            if s2(closest_j) > s1(i)
+            if abs(s2(closest_j) - s1(i)) <= tol
+                res(i) = 0;
+            elseif s2(closest_j) > s1(i)
                 res(i) = 1;       % s1 leads → +1
             elseif s2(closest_j) < s1(i)
                 res(i) = -1;      % s1 trails → -1
