@@ -21,6 +21,7 @@ function [C, spike_times, coincidence_times] = f_spike_synchro(Spike_train1, Spi
     if n1 == 0 && n2 == 0
         C = [];
         spike_times = [];
+        coincidence_times = [];
         return;
     end
     % Go through the spikes in train1 and find the closest spike in train2, using the adaptive tau for coincidence detection 

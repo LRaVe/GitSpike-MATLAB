@@ -1,4 +1,4 @@
-function [figures] = f_plot_trains_with_correction(trains,row,mode)
+function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     % Generate synfire trains and apply correction based on time difference matrix
     % trains: cell array where trains{i} contains spike times for train i
     % row: the row of the time difference matrix to use for correction (default is 1)
@@ -19,22 +19,24 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
         error('Row index must be between 1 and the number of trains.');
     end
 
-    if nargin == 3 && ~ismember(mode, {'row', 'first_diagonal'})
-        error('Mode must be either "row" or "first_diagonal".');
+    if nargin == 3 && ~ismember(mode, {'row', 'first_diagonal','sim_ann'})
+        error('Mode must be either "row" or "first_diagonal" or "sim_ann".');
     end
 
     % Compute sorted orders and times for original trains
-    [sortedOrders, sortedTimes] = order_spikes(0, 100, trains);
+    [sortedOrders, sortedTimes] = order_spikes(t_min, t_max, trains);
     
     % Compute time difference matrix and cost matrix
-    td_matrix = f_TD_matrix(trains, 0, 100);
-    [Cost_matrix, Cost_value] = f_Cost_matrix(trains, 0, 100);
+    td_matrix = f_TD_matrix(trains, t_min, t_max);
+    [Cost_matrix, Cost_value] = f_Cost_matrix(trains, t_min, t_max);
     
     % Compute shifts based on first diagonal of time difference matrix
     if strcmp(mode, 'row')
         shifts = f_row(td_matrix, row);
     elseif strcmp(mode, 'first_diagonal')
         shifts = f_first_diagonal(td_matrix, row);
+    elseif strcmp(mode, 'sim_ann')
+        [shifts, costs] = f_lc_simulated_annealing(trains, t_min, t_max);
     end
     
     disp('Shifts');
@@ -47,17 +49,22 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     end
     
     % Compute sorted orders and times for corrected trains
-    [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(0, 100, trains_corrected);
-    %[~,~] = order_spikes(0, 100, trains_corrected);
+    [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(t_min, t_max, trains_corrected);
+    %[~,~] = order_spikes(t_min, t_max, trains_corrected);
     
-    td_matrix_corrected = f_TD_matrix(trains_corrected, 0, 100);
-    [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, 0, 100);
+    td_matrix_corrected = f_TD_matrix(trains_corrected, t_min, t_max);
+    [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, t_min, t_max);
 
 
 
     figures = figure(1);
     set(gcf, 'Name', 'Synfire Trains and Corrections');
-    tl = tiledlayout(2,3,'TileSpacing','Compact','Padding','Compact'); %#ok<*NASGU>
+
+    if strcmp(mode, 'sim_ann')
+        tl= tiledlayout(3,3,'TileSpacing','Compact','Padding','Compact'); %#ok<*NASGU>
+    else
+        tl = tiledlayout(2,3,'TileSpacing','Compact','Padding','Compact'); %#ok<*NASGU>
+    end
 
     ax1 = nexttile(1);
     ax2 = nexttile(2);
@@ -65,6 +72,11 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     ax4 = nexttile(4);
     ax5 = nexttile(5);
     ax6 = nexttile(6);
+
+    if strcmp(mode, 'sim_ann')
+        ax7 = nexttile(7,[1 3]);
+    end
+
 
     axes(ax1);
     plot_synfire_trains(trains, sortedOrders, sortedTimes, 'Original Synfire Trains');
@@ -98,5 +110,13 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode)
     colormap(gca,jet(256));
     colorbar;
     title(['New Cost Matrix, Cost Value: ' num2str(Cost_value_corrected)]);
+
+    if strcmp(mode, 'sim_ann')
+        axes(ax7);
+        plot(costs);
+        xlabel('Iteration');
+        ylabel('Cost');
+        title('Simulated Annealing Cost over Iterations');
+    end
     
 end
