@@ -24,19 +24,17 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 num_stimuli = 4;        % S
 num_repetitions = 5;    % R
-num_neurons = 7;        % N
-num_coll = 3;           % Coding neurons initial (the information is in the sum of these neurons)
-num_indi = 0;           % Individually coding neurons (they have some information each)
-                          % --> crashes the algorithms written for SP hypothesis if there are any num_coll
+num_neurons = 4;        % N
+num_indi = 4;           % Individually coding neurons (they have some information each)
+                       
 t1 = 0; t2 = 1;         % Time window
 refrac = 0.002;         % "an absolute refractory period of 2 ms" paper 2018
-base_rate = 20;         % Frequency of the coding neurons (Hz)
+base_rate = 35;         % Frequency of the coding neurons (Hz) 
 
 % Metric selection
 % metric_choice = 'ISI_ADAPTIVE';
 metric_choice = 'SPIKE_DISTANCE';
 
-num_coding_neurons = num_indi + num_coll;
 showing = true;
 plotting = true;         % Boolean to plot or not the main graphics
 other_figs = true;       % Boolean to plot or not auxiliary figures
@@ -45,101 +43,13 @@ rng(12);                 % To reproduce the script without new random values
 %% 2. Dataset creation (Labeled line hypothesis)
 
 CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
-    num_indi, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+    num_indi, num_neurons, t1, t2, base_rate, refrac, showing, plotting, other_figs);
 
 %% 3. Distance matrix visualization
-plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
-    num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
+All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting);
 
-% 3.25 Individual performance matrix (Figure 7C)
-P_individuelles = zeros(1, num_neurons);
-for nc = 1:num_neurons
-    selection_solo = zeros(1, num_neurons);
-    selection_solo(nc) = 1;
-    [P_solo, ~] = calculate_integrated_P_optimized(CellMatrix, selection_solo, ...
-                    num_stimuli, num_repetitions, t1, t2, metric_choice);
+All_Matrices_M = calculate_plot_matrix_M(All_Matrix_D, num_neurons,num_stimuli, num_repetitions,plotting);
 
-    P_individuelles(nc) = P_solo;
-end
-
-figure('Name', 'Individual performances of the dataset', 'Color', 'w');
-hBar = bar(P_individuelles, 'FaceColor', [0.30, 0.75, 0.93], 'EdgeColor', [0 0 0]);
-hold on;
-
-% Demarcation lines to separate the groups (Coll | Indi | NC)
- line([num_coll + 0.5, num_coll + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
- line([num_coll + num_indi + 0.5, num_coll + num_indi + 0.5], [0, max(P_individuelles)*1.2], 'Color', 'k', 'LineWidth', 1.5);
- grid on; box on;
- xlim([0.5, num_neurons + 0.5]);
- ylim([0, max(P_individuelles)*1.2]);
-
-% Adaptive tick spacing for the x-axis
- if num_neurons <= 15
-     tick_step = 1;      
- elseif num_neurons <= 40
-     tick_step = 5;     
- else
-     tick_step = 10;    
- end
- set(gca, 'XTick', 1:tick_step:num_neurons);
-
-% Subpopulation Labels
- xlabel('Neuron Index', 'FontSize', 11, 'FontWeight', 'bold');
- ylabel('Individual Performance', 'FontSize', 11, 'FontWeight', 'bold');
- title('Individual Performance Profile (Fig 7C)', 'FontSize', 12, 'FontWeight', 'bold');
-
- text(num_coll/2, max(P_individuelles)*1.1, 'Coll', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
- text(num_coll + num_indi/2, max(P_individuelles)*1.1, 'Indi', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
- text(num_coll + num_indi + (num_neurons - num_coll - num_indi)/2, max(P_individuelles)*1.1, 'NC', 'HorizontalAlignment', 'center', 'FontWeight', 'bold');
- hold off;
-
-%%  4. Algorithms and performance profiling
-profile on;
-
-% 4.1 Brute Force Algorithm 
-if num_neurons < 21 
-    fprintf('\n--- Running Brute Force Optimization ---\n');
-    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-        t2, metric_choice, showing, other_figs);
-end
-
-% 4.2 Bottom-Up Algorithm
-fprintf('\n--- Running Bottom-Up Optimization ---\n');
-f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting, other_figs);
-
-% 4.3 Simulated Annealing Algorithm
-fprintf('\n--- Running Simulated Annealing Optimization ---\n');
-f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting, other_figs);
-
-profile off;
+% profile off;
 diary off;
-profile viewer;
- 
-
-% %% Generation o fthe CellMatriw since a user data
-% [CellMatrix1, num_neurons1] = f_import_data_secure('Simulated_data.txt', 3, 2);
-% 
-% % Regardons la taille de la matrice globale et le nombre de neurones
-% disp(['Calculated Neurons: ', num2cell(num_neurons1)]);
-% disp(['Size of CellMatrix: ', num2str(size(CellMatrix1, 1)), 'x', num2str(size(CellMatrix1, 2))]);
-% 
-% % Vérifions le premier essai du Stimulus 2
-% disp('First neuron spikes for Stimulus 2, Repetition 1 (Line 21 of TXT file):');
-% disp(CellMatrix1{2, 1}{1});
-% 
-% [CellMatrix2, num_neurons2] = f_import_data_secure('Simulated_data.txt', 2, 3);
-% 
-% % Regardons la structure de cette nouvelle matrice
-% disp(['Size of CellMatrix: ', num2str(size(CellMatrix2, 1)), 'x', num2str(size(CellMatrix2, 2))]);
-% 
-% % Vérifions où est passée notre ligne 21 (anciennement Stim 2, Rep 1)
-% disp('First neuron spikes for Stimulus 1, Repetition 3 (Line 21 of TXT file):');
-% disp(CellMatrix2{1, 3}{1});
-% try
-%     [CellMatrix3, num_neurons3] = f_import_data_secure('Simulated_data.txt', 4, 4);
-% catch ME
-%     warning('SECURITY CHECK PASSED!');
-%     disp(ME.message);
-% end
+% profile viewer;

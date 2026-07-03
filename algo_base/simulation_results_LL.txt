@@ -1,69 +1,5 @@
-{Unrecognized function or variable 'num_coll'.
 
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\test_algo_ll.m', 38)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\test_algo_ll.m',38,0)">line 38</a>)
-num_coding_neurons = num_indi + num_coll;
-                                ^^^^^^^^
-} 
-test_algo_ll
-{Unrecognized function or variable 'num_coll'.
-
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 39)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',39,0)">line 39</a>)
-            for c_idx = (num_coll + num_indi + 1):num_neurons
-                         ^^^^^^^^
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\test_algo_ll.m', 45)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\test_algo_ll.m',45,0)">line 45</a>)
-CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-} 
-test_algo_ll
-test_algo_ll
-{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix_ll')" style="font-weight:bold">plot_and_compute_distance_matrix_ll</a>
-Too many input arguments.
-
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\test_algo_ll.m', 49)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\test_algo_ll.m',49,0)">line 49</a>)
-plot_and_compute_distance_matrix_ll(CellMatrix, num_neurons, num_indi, num_stimuli, num_repetitions, t1, t2)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-} 
-test_algo_ll
-generate_and_plot_raster_ll
-{Not enough input arguments.
-
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\generate_and_plot_raster_ll.m', 10)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\generate_and_plot_raster_ll.m',10,0)">line 10</a>)
-    if num_indi > num_neurons
-       ^^^^^^^^
-} 
-test_algo_ll
-{Unrecognized function or variable 'showing'.
-
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\generate_and_plot_raster_ll.m', 23)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\generate_and_plot_raster_ll.m',23,0)">line 23</a>)
-    if showing == true
-       ^^^^^^^
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\test_algo_ll.m', 45)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\test_algo_ll.m',45,0)">line 45</a>)
-CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-} 
-test_algo_ll
-{Unrecognized function or variable 'showing'.
-
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\generate_and_plot_raster_ll.m', 23)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\generate_and_plot_raster_ll.m',23,0)">line 23</a>)
-    if showing == true
-       ^^^^^^^
-Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\test_algo_ll.m', 45)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\test_algo_ll.m',45,0)">line 45</a>)
-CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
-             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-} 
-test_algo_ll
-
---- Labeled Line Preference Matrix (Neurons x Stimuli) ---
-     0     0     1     1
-     1     1     0     1
-     0     1     0     0
-     1     0     1     1
-
-----------------------------------------------------------
-
-test_algo_ll
-
---- Labeled Line Preference Matrix (Neurons x Stimuli) ---
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
      1     1     0     0
      0     0     1     1
      1     0     1     0
@@ -71,9 +7,22 @@ test_algo_ll
 
 ----------------------------------------------------------
 
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('zeros')" style="font-weight:bold">zeros</a>
+Size inputs must be scalar.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_labeled_line_P', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_labeled_line_P.m', 9)" style="font-weight:bold">calculate_labeled_line_P</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_labeled_line_P.m',9,0)">line 9</a>)
+    Matrix = zeros(num_trials, num_trials, num_neurons);
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\plot_and_compute_distance_matrix_ll.m', 22)" style="font-weight:bold">plot_and_compute_distance_matrix_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\plot_and_compute_distance_matrix_ll.m',22,0)">line 22</a>)
+        [perf_n, Matrix_Dn] = calculate_labeled_line_P(CellMatrix, single_neuron_selection, num_stimuli, num_repetitions, t1, t2);
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 49)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',49,0)">line 49</a>)
+plot_and_compute_distance_matrix_ll(CellMatrix, num_indi, num_stimuli, num_repetitions, t1, t2, plotting)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
 test_algo_ll
 
---- Labeled Line Preference Matrix (Neurons x Stimuli) ---
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
      1     1     0     0
      0     0     1     1
      1     0     1     0
@@ -81,9 +30,15 @@ test_algo_ll
 
 ----------------------------------------------------------
 
+{Unrecognized function or variable 'S'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 49)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',49,0)">line 49</a>)
+[Pn, Matrix] = calculate_labeled_line_P(CellMatrix, num_neurons, S, R, tmin, tmax, metric, plotting);
+                                                                 ^
+} 
 test_algo_ll
 
---- Labeled Line Preference Matrix (Neurons x Stimuli) ---
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
      1     1     0     0
      0     0     1     1
      1     0     1     0
@@ -91,9 +46,128 @@ test_algo_ll
 
 ----------------------------------------------------------
 
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Operands to the logical AND (&&) and OR (||) operators must be convertible to
+logical scalar values. Use the ANY or ALL functions to reduce operands to logical
+scalar values.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_labeled_line_P', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_labeled_line_P.m', 126)" style="font-weight:bold">calculate_labeled_line_P</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_labeled_line_P.m',126,0)">line 126</a>)
+        if any(is_intra) && any(is_inter)
+           ^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 49)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',49,0)">line 49</a>)
+[Pn, Matrix] = calculate_labeled_line_P(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, plotting);
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
 test_algo_ll
 
---- Labeled Line Preference Matrix (Neurons x Stimuli) ---
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
      1     1     0     0
      0     0     1     1
      1     0     1     0
