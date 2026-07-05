@@ -37,11 +37,11 @@ MODE = 'SP';               % Choose SP or LL dataset
 %% SUMMED POPULATION PARAMETERS
 %% =====================================================
 
-params.N = 10;              % Number of neurons (codant/Indi/non-codant)
+params.N = 7;              % Number of neurons (codant/Indi/non-codant)
 
 params.c = 3;               % Coll (codant neurons)
 
-params.nIndi = 3;           % Indi 
+params.nIndi = 0;           % Indi 
 params.indiJitter = 0;
 
 params.S = 4;               % Number of stimuli
