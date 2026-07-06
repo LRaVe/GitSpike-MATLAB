@@ -60,6 +60,16 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     td_matrix_corrected = f_TD_matrix(trains_corrected, t_min, t_max);
     [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, t_min, t_max);
 
+    td_common_limits = [min([td_matrix(:); td_matrix_corrected(:)]), max([td_matrix(:); td_matrix_corrected(:)])];
+    if td_common_limits(1) == td_common_limits(2)
+        td_common_limits(2) = td_common_limits(2) + eps(td_common_limits(2) + 1);
+    end
+
+    cost_common_limits = [min([Cost_matrix(:); Cost_matrix_corrected(:)]), max([Cost_matrix(:); Cost_matrix_corrected(:)])];
+    if cost_common_limits(1) == cost_common_limits(2)
+        cost_common_limits(2) = cost_common_limits(2) + eps(cost_common_limits(2) + 1);
+    end
+
 
     % Plotting the original and corrected trains, time difference matrices, and cost matrices, and if needed, the cost over iterations for simulated annealing
     figures = figure(1);
@@ -90,12 +100,14 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     axes(ax2);
     imagesc(td_matrix, 'CDataMapping', 'scaled');
     colormap(gca, jet(256));
+    caxis(td_common_limits);
     colorbar;
     title('Time Difference Matrix');
 
     axes(ax3);
     imagesc(Cost_matrix, 'CDataMapping', 'scaled');
     colormap(gca, jet(256));
+    caxis(cost_common_limits);
     colorbar;
     title(['Cost Matrix, Cost Value: ' num2str(Cost_value)]);
 
@@ -107,12 +119,14 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     axes(ax5);
     imagesc(td_matrix_corrected, 'CDataMapping', 'scaled');
     colormap(gca,jet(256));
+    caxis(td_common_limits);
     colorbar;
     title('New Time Difference Matrix');
 
     axes(ax6);
     imagesc(Cost_matrix_corrected, 'CDataMapping', 'scaled');
     colormap(gca,jet(256));
+    caxis(cost_common_limits);
     colorbar;
     title(['New Cost Matrix, Cost Value: ' num2str(Cost_value_corrected)]);
 
