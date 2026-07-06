@@ -19,4 +19,4 @@ end
 
 
 
-f_plot_trains_with_correction(trains_synfire,reference_train_idx,'sim_ann',tmin,tmax);
+f_plot_trains_with_correction(trains_synfire,reference_train_idx,'row',tmin,tmax);
