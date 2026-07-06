@@ -17,6 +17,6 @@ end
 %f_plot_trains_with_correction(trains_synfire,3,'sim_ann',0,100);
 
 reference_train_idx = 3; % Use the third train as the reference
-mode = 'row'
+mode = 'row';
 
 f_plot_trains_with_correction(trains_synfire,3,mode,tmin,tmax);
