@@ -42,8 +42,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
         [shifts, costs] = f_lc_simulated_annealing(trains, t_min, t_max);
     end
     
-    disp('Shifts values:');
-    disp(shifts);
+    fprintf('(Debugging) Shifts values:\n');
+    fprintf('%s\n', mat2str(shifts));
 
     % Apply correction to the original trains
     trains_corrected = cell(1, length(trains));
@@ -61,7 +61,7 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     [Cost_matrix_corrected, Cost_value_corrected] = f_Cost_matrix(trains_corrected, t_min, t_max);
 
 
-
+    % Plotting the original and corrected trains, time difference matrices, and cost matrices, and if needed, the cost over iterations for simulated annealing
     figures = figure(1);
     set(gcf, 'Name', 'Synfire Trains and Corrections');
 

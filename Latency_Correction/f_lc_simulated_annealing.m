@@ -106,7 +106,7 @@ function [all_shifts, costs] = f_lc_simulated_annealing(trains, tmin, tmax, cost
         end
     end
  
-    % Normalize the best solution once more so train 1 has zero net shift.
+    % Normalize the best solution once more so train 1 has zero net shift, to reduce global shift.
     min_shifts = min_shifts - min_shifts(1);
 
     % f_plot_trains_with_correction applies: trains_corrected{i} = trains{i} - shifts(i)
