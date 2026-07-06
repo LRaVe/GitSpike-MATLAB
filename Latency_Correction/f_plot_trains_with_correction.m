@@ -25,6 +25,8 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
 
     % Compute sorted orders and times for original trains
     [sortedOrders, sortedTimes] = order_spikes(t_min, t_max, trains);
+
+    fprintf('(Debugging) Initial Sorted Orders:\n');
     disp(sortedOrders);
     
     % Compute time difference matrix and cost matrix
@@ -40,7 +42,7 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
         [shifts, costs] = f_lc_simulated_annealing(trains, t_min, t_max);
     end
     
-    disp('Shifts');
+    disp('Shifts values:');
     disp(shifts);
 
     % Apply correction to the original trains
@@ -52,7 +54,7 @@ function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     % Compute sorted orders and times for corrected trains
     [sortedOrders_corrected, sortedTimes_corrected] = order_spikes(t_min, t_max, trains_corrected);
     %[~,~] = order_spikes(t_min, t_max, trains_corrected);
-
+    fprintf('(Debugging) Sorted Orders Corrected:\n');
     disp(sortedOrders_corrected);
     
     td_matrix_corrected = f_TD_matrix(trains_corrected, t_min, t_max);
