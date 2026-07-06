@@ -6,7 +6,7 @@ n_correct_events = 3;
 n_random_events = 0;
 n_inversed_events = 0;
 overlap = 0.1; % 10% overlap between events
-reference_train_idx = 3; % Use the third train as the reference (not used in simulated annealing)
+reference_train_idx = 3; % Use the third train as the reference (won't be used in simulated annealing, but still needed for the function signature)
 mode = {'row','first_diagonal','sim_ann'}; % Modes to test
 
 
