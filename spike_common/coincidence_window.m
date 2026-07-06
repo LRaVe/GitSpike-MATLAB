@@ -11,6 +11,11 @@ function window=coincidence_window(tmin,tmax,spikes,spike_ind1,spike_ind2,ind1,i
     s1 = s1(:)';  % force row vectors
     s2 = s2(:)';
 
+    if length(s1) == 1 || length(s2) == 1
+        window = tmax - tmin;
+        return;
+    end
+
     if ind1>length(s1) || ind1<1
         error('Index out of bounds');
     end

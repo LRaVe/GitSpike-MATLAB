@@ -1,12 +1,13 @@
 addpath(genpath('.'))
 tmin = 0;
 tmax = 100;
-n_trains = 6;
-n_correct_events = 3;
-n_random_events = 0;
-n_inversed_events = 0;
-overlap = 0.1; % 10% overlap between events
-reference_train_idx = 3; % Use the third train as the reference (won't be used in simulated annealing, but still needed for the function signature)
+n_trains = 6; % Number of spike trains
+% Choose the number of events for each type: correct, random, and inversed 
+n_correct_events = 2; % Number of correctly ordered events (synfire spikes)
+n_random_events = 3;  % Number of random events with jitter
+n_inversed_events = 4; % Number of inverse-ordered events (reversed synfire spikes)
+overlap = 0.1; % Overlap between events
+reference_train_idx = 3; % Choose the train for the reference (won't be used in simulated annealing, but still needed for the function signature)
 mode = {'row','first_diagonal','sim_ann'}; % Modes to test
 
 
