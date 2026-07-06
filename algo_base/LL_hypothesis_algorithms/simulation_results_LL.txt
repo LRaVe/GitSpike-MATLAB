@@ -1199,3 +1199,826 @@ test_algo_ll
 
 ----------------------------------------------------------
 
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_Distance_matrix')" style="font-weight:bold">SPIKE_Distance_matrix</a>
+Too many input arguments.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 49)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',49,0)">line 49</a>)
+All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting);
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'tmax'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 50)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',50,0)">line 50</a>)
+        intervals = exprnd(1 / base_rate, 1, round(base_rate * (tmax - tmin) * 2));
+                                                                ^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+generate_and_plot_raster_ll
+{Not enough input arguments.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 9)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',9,0)">line 9</a>)
+    if num_indi > num_neurons
+       ^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'tmin'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 51)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',51,0)">line 51</a>)
+        baseline_spikes = tmin + cumsum(intervals);
+                          ^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'tmin'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 51)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',51,0)">line 51</a>)
+        baseline_spikes = tmin + cumsum(intervals);
+                          ^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'y'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 56)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',56,0)">line 56</a>)
+        y
+        ^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'local_rate'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 77)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',77,0)">line 77</a>)
+                    approx_spikes = round((t2 - t1) * local_rate * 3) + 10;
+                                                      ^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'local_rate'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m', 77)" style="font-weight:bold">generate_and_plot_raster_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',77,0)">line 77</a>)
+                    approx_spikes = round((t2 - t1) * local_rate * 3) + 10;
+                                                      ^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\generate_and_plot_raster_ll.m',72,77)">File: generate_and_plot_raster_ll.m Line: 72 Column: 77</a>
+Invalid use of operator.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 46)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',46,0)">line 46</a>)
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'All_MatrixD'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)
+[P_pop, M_max, opt_LL, PLL_total] = calculate_and_plot_performance_matrix(All_MatrixD, num_neurons, num_stimuli, num_repetitions);
+                                                                          ^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Brace indexing is not supported for variables of this type.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 26)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',26,0)">line 26</a>)
+        D_matrix = All_MatrixD{n};
+                   ^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)
+[P_pop, M_max, opt_LL, PLL_total] = calculate_and_plot_performance_matrix(All_Matrix_D, num_neurons, num_stimuli, num_repetitions);
+                                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+================== ANALYSIS COMPLETE ==================
+Optimized LL Population (Eq. 14) : 1  2  3  4
+Overall LL Performance (Eq. 15)  : 0.3167
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Unrecognized function or variable 'All_MatrixD'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)
+P_all_neurons = calculate_and_plot_performance_matrix(All_MatrixD, num_neurons, num_stimuli, num_repetitions);
+                                                      ^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+================== ANALYSIS SUMMARY ==================
+Optimized LL Population (Eq. 14) : 2  3
+Overall LL Performance (Eq. 15)  : 0.3280
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+[Warning: Escaped character '\h' is not valid. See 'doc sprintf' for supported special characters.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 72)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',72,0)">line 72</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)] 
+[Warning: Escaped character '\h' is not valid. See 'doc sprintf' for supported special characters.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 72)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',72,0)">line 72</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)] 
+[Warning: Escaped character '\h' is not valid. See 'doc sprintf' for supported special characters.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 72)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',72,0)">line 72</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)] 
+[Warning: Escaped character '\h' is not valid. See 'doc sprintf' for supported special characters.] 
+[> In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 72)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',72,0)">line 72</a>)
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)] 
+
+================== ANALYSIS SUMMARY ==================
+Optimized LL Population (Eq. 14) : 2  3
+Overall LL Performance (Eq. 15)  : 0.3280
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('subtitle', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\graphics\graphics\axis\subtitle.m', 20)" style="font-weight:bold">subtitle</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\graphics\graphics\axis\subtitle.m',20,0)">line 20</a>)
+Incorrect number of inputs for property-value pairs.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 117)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',117,0)">line 117</a>)
+        subtitle('Globla LL performance : %d', opt_LL)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)
+[P_all_neurons, P_pop, M_max, opt_LL, PLL_total] = calculate_and_plot_performance_matrix(All_Matrix_D, num_neurons, num_stimuli, num_repetitions, plotting);
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+================== ANALYSIS SUMMARY ==================
+Optimized LL Population (Eq. 14) : 2  3
+Overall LL Performance (Eq. 15)  : 0.3280
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+================== ANALYSIS SUMMARY ==================
+Optimized LL Population (Eq. 14) : 2  3
+Overall LL Performance (Eq. 15)  : 0.3280
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+================== ANALYSIS SUMMARY ==================
+Optimized LL Population : 2  3
+Overall LL Performance  : 0.3280
+=======================================================
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 6x4 Stimuli) ---
+     1     1     0     0
+     0     1     1     0
+     0     0     1     1
+     1     0     0     1
+     1     1     0     0
+     0     1     1     0
+
+----------------------------------------------------------
+
+{Index in position 1 exceeds array bounds. Index must not exceed 5.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_and_plot_performance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m', 133)" style="font-weight:bold">calculate_and_plot_performance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\calculate_and_plot_performance_matrix.m',133,0)">line 133</a>)
+        colormap(gca, custom_colors(1:num_neurons + 1, :));
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 54)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',54,0)">line 54</a>)
+[P_all_neurons, P_pop, M_max, opt_LL, PLL_total] = calculate_and_plot_performance_matrix(All_Matrices_M, All_Matrix_D, num_neurons, num_stimuli, num_repetitions, plotting);
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+--- Labeled Line Preference Matrix (Neurons 6x4 Stimuli) ---
+     1     1     0     0
+     0     1     1     0
+     0     0     1     1
+     1     0     0     1
+     1     1     0     0
+     0     1     1     0
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 6x4 Stimuli) ---
+     1     1     0     0
+     0     1     1     0
+     0     0     1     1
+     1     0     0     1
+     1     1     0     0
+     0     1     1     0
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 6x4 Stimuli) ---
+     1     1     0     0
+     0     1     1     0
+     0     0     1     1
+     1     0     0     1
+     1     1     0     0
+     0     1     1     0
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 4x4 Stimuli) ---
+     1     1     0     0
+     0     0     1     1
+     1     0     1     0
+     0     1     0     1
+
+----------------------------------------------------------
+
+
+--- Labeled Line Preference Matrix (Neurons 10x8 Stimuli) ---
+     1     1     0     0     0     0     0     0
+     0     1     1     0     0     0     0     0
+     0     0     1     1     0     0     0     0
+     0     0     0     1     1     0     0     0
+     0     0     0     0     1     1     0     0
+     0     0     0     0     0     1     1     0
+     0     0     0     0     0     0     1     1
+     1     0     0     0     0     0     0     1
+     1     1     0     0     0     0     0     0
+     0     1     1     0     0     0     0     0
+
+----------------------------------------------------------
+

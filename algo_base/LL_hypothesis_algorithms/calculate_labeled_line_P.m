@@ -144,7 +144,7 @@ function [Pn, Matrix] = calculate_labeled_line_P(CellMatrix, num_neurons, S, R, 
             end
         end
         
-        figure('Name', 'LL Pairwise Distance Matrices Dn per Neuron', 'Color', 'w', 'Position', [50, 50, 1400, 900]);
+        figure('Name', 'LL Pairwise Distance Matrices Dn per Neuron', 'Color', 'w');
         
         cols = ceil(sqrt(num_neurons * 1.25)); 
         rows = ceil(num_neurons / cols);

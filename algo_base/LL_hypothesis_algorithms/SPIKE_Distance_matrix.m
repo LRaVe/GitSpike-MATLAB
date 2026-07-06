@@ -2,10 +2,9 @@
 % Date: July 2026
 % Author: Laure WOLFF 
 
-function All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, S, R, tmin, tmax, metric, showing, plotting)
+function All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, S, R, tmin, tmax, metric, plotting)
     
     num_trials = S * R;
-    % Preallocate the 3D distance matrix (Trials x Trials x Neurons)
     All_Matrix_D = zeros(num_trials, num_trials, num_neurons);
     
    
@@ -39,6 +38,7 @@ function All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, S, R, tmi
                     dval = 0; 
                 elseif isempty(train_A) || isempty(train_B)
                     dval = NaN; % Marked as NaN for clean background masking
+                    %dval = 1; 
                 else
                     % --- SPIKE-DISTANCE Core Formulation ---
                     t_all = [tmin, sort(unique([train_A, train_B])), tmax];
@@ -122,7 +122,7 @@ function All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, S, R, tmi
             end
         end
         
-        figure('Name', 'Pairwise SPIKE Distance Matrices per Neuron', 'Color', 'w', 'Position', [100, 100, 1200, 800]);
+        figure('Name', 'Pairwise SPIKE Distance Matrices per Neuron', 'Color', 'w');
         
         cols = ceil(sqrt(num_neurons * 1.25)); 
         rows = ceil(num_neurons / cols);
