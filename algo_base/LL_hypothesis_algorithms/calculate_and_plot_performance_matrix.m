@@ -51,7 +51,7 @@ function [P_all_neurons, P_pop, M_max, opt_LL, PLL_total] = calculate_and_plot_p
     % --- BLOCK 3: BEST NEURON MAPPING  ---
     M_max = zeros(num_stimuli, num_stimuli);
     
-    % Global selectivity count (total active pairs in Wilcoxon mask)
+    % Global selectivity count (total active neurons in Wilcoxon mask)
     global_selectivity = zeros(num_neurons, 1);
     for n = 1:num_neurons
         global_selectivity(n) = sum(sum(All_Matrices_M(:, :, n)));

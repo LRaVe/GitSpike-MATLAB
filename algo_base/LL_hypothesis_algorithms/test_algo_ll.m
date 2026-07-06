@@ -22,15 +22,15 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 %% 1. Global parameters
 
-num_stimuli = 8;        % S
+num_stimuli = 4;        % S
 num_repetitions = 5;    % R
-num_neurons = 10;        % N
-num_indi = 10;           % Individually coding neurons (they have some information each)
+num_neurons = 4;        % N
+num_indi = 4;           % Individually coding neurons (they have some information each)
                        
 t1 = 0; t2 = 1;         % Time window
 refrac = 0.02;         % "an absolute refractory period of 2 ms" paper 2018
 base_rate = 35;         % Frequency of the coding neurons (Hz) 
-jitter_std = 0.00005;   % Force du mouvement (Écart-type: 5 ms)
+jitter_std = 0.0005;   % Force du mouvement (Écart-type: 5 ms)
 
 % Metric selection
 % metric_choice = 'ISI_ADAPTIVE';
