@@ -6,6 +6,9 @@ n_correct_events = 3;
 n_random_events = 0;
 n_inversed_events = 0;
 overlap = 0.1; % 10% overlap between events
+reference_train_idx = 3; % Use the third train as the reference (not used in simulated annealing)
+mode = {'row','first_diagonal','sim_ann'}; % Modes to test
+
 
 trains_synfire = f_synfire(tmin, tmax, n_trains, n_correct_events, n_random_events, n_inversed_events, overlap); 
 
@@ -14,9 +17,5 @@ for i = 1:length(trains_synfire)
 end
 
 
-%f_plot_trains_with_correction(trains_synfire,3,'sim_ann',0,100);
 
-reference_train_idx = 3; % Use the third train as the reference
-mode = 'row';
-
-f_plot_trains_with_correction(trains_synfire,3,mode,tmin,tmax);
+f_plot_trains_with_correction(trains_synfire,3,'sim_ann',tmin,tmax);
