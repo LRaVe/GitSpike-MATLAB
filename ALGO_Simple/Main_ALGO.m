@@ -34,6 +34,12 @@ MODE = 'SP';               % Choose SP or LL dataset
 global useMex
 useMex = true;             % a must have if you have a mex compiler
 
+if useMex
+    if exist('SPIKE_dist_2x2_mex','file')~=3
+        warning('MEX not found, switching to MATLAB implementation.')
+        useMex = false;
+    end
+end
 
 %% =====================================================
 %% SUMMED POPULATION PARAMETERS
