@@ -1,6 +1,6 @@
 # GitSpike-ALGO
 
-This folder contains the files used to implement the algorithm described in the document "Using spike train distances to identify the most discriminative neuronal subpopulation" that you can find on https://www.thomaskreuz.org/
+These folders contains the files used to implement the algorithm described in the document "Using spike train distances to identify the most discriminative neuronal subpopulation" that you can find on https://www.thomaskreuz.org/
 
 This project contains two folders, each created by a different person. The work from both folders has been combined into the ALGO_Simple folder. That is why we recommend that you use the ALGO_Simple folder. The other folder is available if you’re curious.
 
