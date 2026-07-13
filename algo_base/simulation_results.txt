@@ -1,0 +1,18 @@
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.1543
+=======================================================
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('shg', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\graphics\graphics\shg.m', 7)" style="font-weight:bold">shg</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\graphics\graphics\shg.m',7,0)">line 7</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_brute_force', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m', 88)" style="font-weight:bold">f_brute_force</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m',88,0)">line 88</a>)
+        shg;
+        ^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 121)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',121,0)">line 121</a>)
+    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 

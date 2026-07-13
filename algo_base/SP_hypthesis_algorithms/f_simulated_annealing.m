@@ -1,6 +1,7 @@
 %% Simulated Annealing algorithm script (for SP hypothesis) 
 % Date: June 2026
 % Author : Laure WOLFF
+
 function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting, other_figs)
 %% 1. Initialization of the variables
 cooling_factor = 0.9;        

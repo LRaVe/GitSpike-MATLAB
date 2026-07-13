@@ -47,7 +47,10 @@ function  All_Matrices_M = calculate_plot_matrix_M(All_MatrixD, num_neurons, S, 
                 % Paper Criterion Eq. 10: Discriminated if at least one test passes
                 if (h1 == 1) || (h2 == 1) || (h3 == 1)
                     MatrixM(st1, st2) = 1;
-                    MatrixM(st2, st1) = 1;
+                    MatrixM(st2, st1) = 1; 
+                else
+                    MatrixM(st1, st2) = 0;
+                    MatrixM(st2, st1) = 0;
                 end
             end
         end
@@ -105,4 +108,5 @@ function  All_Matrices_M = calculate_plot_matrix_M(All_MatrixD, num_neurons, S, 
         shg;
     end
 end
+
 

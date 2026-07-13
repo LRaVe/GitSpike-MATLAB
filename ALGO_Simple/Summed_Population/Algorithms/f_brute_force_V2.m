@@ -1,9 +1,9 @@
 %% Brute Force (Exhaustive Search) Algorithm by Binary Incrementation
 % Date: June 2026
 % Author : Laure WOLFF
-function [best_subpop, best_perf_overall] = f_brute_force_V(spikes,Tmax,Distances,threshold,showing,other_figs)
-    
-    [num_neurons,~,~] = size(spikes);
+function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distances,threshold, metric_choice, showing,other_figs, useMex)
+       
+    [num_neurons,num_stimuli, num_repetitions] = size(spikes);
 
     % Total number of possible combinations (2^N - 1, ignoring the all-zero mask)
     total_combinations = (2^num_neurons) - 1;
@@ -23,44 +23,61 @@ function [best_subpop, best_perf_overall] = f_brute_force_V(spikes,Tmax,Distance
     
     % Array to store the evaluation history for plotting
     history_perf_brute = zeros(1, total_combinations);
-    
     % =====================================================================
-    % STANDARD SEQUENTIAL LOOP WITH FAST BINARY EXTRACTION
+    %  Mex version if mex_variable is true
     % =====================================================================
-    for i = 1:total_combinations
-        % FAST BITWISE EXTRACTION: Direct numeric vector creation via bitget
-        population = find(bitget(i,1:num_neurons));
+    if useMex 
 
-        % if showing
-        %     fprintf('Population : ');
-        %     fprintf('%5d',population);
-        %     fprintf('\n');
-        % end
-        
-        % Compute classification performance P for this specific subpopulation mask
-        perf = evaluate_population( ...
-                    spikes,...
-                    population,...
-                    Tmax,...
-                    Distances,...
-                    threshold);
+        t1 = 0; 
+        t2 = Tmax;
 
-        % Store the performance in the history array
-        history_perf_brute(i) = perf;
-        
-        % Check if this binary mask yields the best performance found so far
-        if perf > best_perf_overall
-            best_perf_overall = perf;
-            best_subpop = population;
+        [best_subpop, best_perf_overall, history_perf_brute] = f_brute_force_mex(spikes, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
+
+        if showing
+            fprintf('\n================ BRUTE FORCE (MEX) CONVERGED ================\n');
+            fprintf('Best binary combination found: [%s]\n', num2str(best_subpop));
+            fprintf('Absolute maximum performance P = %.4f\n', best_perf_overall);
+            fprintf('=============================================================\n');
         end
-    end
-    % =====================================================================
+    else
+        % =====================================================================
+        % STANDARD SEQUENTIAL LOOP WITH FAST BINARY EXTRACTION
+        % =====================================================================
+        for i = 1:total_combinations
+            % FAST BITWISE EXTRACTION: Direct numeric vector creation via bitget
+            population = find(bitget(i,1:num_neurons));
     
-    if showing
-        fprintf('\n================ BRUTE FORCE CONVERGED ================\n');
-        fprintf('Best binary combination found: [%s]\n', num2str(best_subpop));
-        fprintf('Absolute maximum performance P = %.4f\n', best_perf_overall);
-        fprintf('=======================================================\n');
+            % if showing
+            %     fprintf('Population : ');
+            %     fprintf('%5d',population);
+            %     fprintf('\n');
+            % end
+            
+            % Compute classification performance P for this specific subpopulation mask
+            perf = evaluate_population( ...
+                        spikes,...
+                        population,...
+                        Tmax,...
+                        Distances,...
+                        threshold);
+    
+            % Store the performance in the history array
+            history_perf_brute(i) = perf;
+            
+            % Check if this binary mask yields the best performance found so far
+            if perf > best_perf_overall
+                best_perf_overall = perf;
+                best_subpop = population;
+            end
+        end
+        % =====================================================================
+        
+        if showing
+            fprintf('\n================ BRUTE FORCE CONVERGED ================\n');
+            fprintf('Best binary combination found: [%s]\n', num2str(best_subpop));
+            fprintf('Absolute maximum performance P = %.4f\n', best_perf_overall);
+            fprintf('=======================================================\n');
+        end
     end
     
     %% Plotting the performance evolution

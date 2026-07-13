@@ -29,6 +29,11 @@ rng(ind_seed);
 %% PARAMETERS
 %% =====================================================
 
+% Metric selection (useless but kept because variable used in the first codes)
+% metric_choice = 'ISI_ADAPTIVE';
+metric_choice = 'SPIKE_DISTANCE';
+
+
 MODE = 'SP';               % Choose SP or LL dataset
 
 global useMex
@@ -272,24 +277,30 @@ if strcmp(MODE,'SP')
     %% =========================================
     
     if (params.N<8 && ~useMex) || (params.N<14 && useMex)  % variable security
-        fprintf('Starting Brute Force...\n');
-        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,true,true);
+        %fprintf('Starting Brute Force...\n');
+        %[bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,true,true);
+
+        fprintf('Starting Brute Force with MEX-compiler...\n');
+        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,metric_choice,true,true,true);
+        fprintf('Starting Brute Force without MEX-compiler...\n');
+        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,metric_choice, true,true,false);
+        
     end
     
-    
+
     %% =========================================
     %% BOTTOM-UP
     %% =========================================
-    
+
     fprintf('Starting Bottom-Up...\n');
 
     f_bottom_up_V2(spikes,params.Tmax,params.Distances,params.threshold,true,true,false);
 
-    
+
     %% =========================================
     %% TOP-DOWN
     %% =========================================
-    
+
     fprintf('Starting Top-Down...\n');
 
     result = top_down_gradient(spikes,params.Tmax,params.Distances,params.threshold);
@@ -302,30 +313,30 @@ if strcmp(MODE,'SP')
 
     plot_top_down_gradient(result,codingNeurons);
 
-    
+
     %% =========================================
     %% PARAMETERS FOR SIMULATED ANNEALING
     %% =========================================
-    
+
     paramsSA.N0 = 50;
     paramsSA.steps = 5 * params.N;              % number of tests per plateau
     paramsSA.coolingFactor = 0.9;               
     paramsSA.codingNeurons = codingNeurons;
-    
-    
+
+
     %% =========================================
     %% SIMULATED ANNEALING
     %% =========================================
-    
+
     fprintf('Starting Simulated Annealing...\n');
-    
+
     SA = simulated_annealing(spikes,params.Tmax,params.Distances,params.threshold,paramsSA);
-    
+
     disp('SA best population :')
     disp(SA.bestPopulation)
-    
+
     disp(['SA best P = ' num2str(SA.bestP)])
-    
+
     plot_simulated_annealing(SA, codingNeurons);
 
 end
@@ -336,9 +347,9 @@ if strcmp(MODE,'LL');
     %% =====================================================
     %% FIGURE 4 AND 9 DISPLAY
     %% =====================================================
-    
+
     result_LL = evaluate_LL_population(spikes,paramsLL.Tmax,paramsLL.Distances,paramsLL.threshold);
-    
+
     if paramsLL.N ~= 4
         plot_LL_results(spikes,result_LL);
     end

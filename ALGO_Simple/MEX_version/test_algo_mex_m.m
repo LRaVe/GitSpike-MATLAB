@@ -5,7 +5,9 @@
 
 clear; clc; close all;
 
-setenv('MW_MINGW64_LOC', 'C:\mingw64') 
+setenv('MW_MINGW64_LOC', 'C:\mingw64')
+addpath(genpath('C:\gitSpike'));
+savepath;
 
 %% Dataset configuration
 num_neurons = 10;          
@@ -41,21 +43,11 @@ fprintf('-> Force Brute algorithms (%d combinaisons)...\n', (2^num_neurons)-1);
 tic;
 
 % Call the MEX function
-[best_subpop_bf, best_perf_bf, history_perf_brute] = f_brute_force_mex(...
-    CellMatrix, ...
-    double(num_neurons), ...
-    double(num_stimuli), ...
-    double(num_repetitions), ...
-    double(t1), ...
-    double(t2), ...
-    metric_choice);
+f_brute_force_mex_m(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting);
 time_brute_force = toc;
 
 if showing
     fprintf('\n================ BRUTE FORCE CONVERGED ================\n');
-    fprintf('Best subpopulation : [%s]\n', num2str(best_subpop_bf));
-    fprintf('Best performance P     = %.4f\n', best_perf_bf);
-    fprintf('=======================================================\n');
 end
 
 %% Algorithm 2 : Simulated Annealing

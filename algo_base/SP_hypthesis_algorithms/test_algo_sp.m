@@ -44,8 +44,8 @@ rng(12);                 % To reproduce the script without new random values
 
 %% 2. Dataset creation (Summed Population Hypothesis)
 
-% CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
-%     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
+    num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 % 
 % % Created file to understand the structure of the data and use the txt
 % % format
@@ -60,8 +60,8 @@ rng(12);                 % To reproduce the script without new random values
 % CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
 %     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
-% Test using a "simulated data" since a document file
-CellMatrix = f_import_data_secure('Simulated_data.txt', num_stimuli, num_repetitions, num_neurons);
+% % Test using a "simulated data" since a document file
+% CellMatrix = f_import_data_secure('Simulated_data.txt', num_stimuli, num_repetitions, num_neurons);
 
 % % Test using a "simulated data" since a MATLAB file
 % load ("Simulated_data.mat");
