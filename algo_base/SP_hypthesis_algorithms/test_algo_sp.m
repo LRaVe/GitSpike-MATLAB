@@ -34,7 +34,7 @@ base_rate = 20;         % Frequency of the coding neurons (Hz)
 
 % Metric selection
 % metric_choice = 'ISI_ADAPTIVE';
-metric_choice = 'SPIKE_DISTANCE';
+%metric_choice = 'SPIKE_DISTANCE';
 
 num_coding_neurons = num_indi + num_coll;
 showing = true;
@@ -68,7 +68,7 @@ CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
 
 %% 3. Distance matrix visualization
 plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
-    num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
+    num_coding_neurons, num_stimuli, num_repetitions, t1, t2);
 
 % 3.25 Individual performance matrix (Figure 7C)
 P_individuelles = zeros(1, num_neurons);
@@ -76,7 +76,7 @@ for nc = 1:num_neurons
     selection_solo = zeros(1, num_neurons);
     selection_solo(nc) = 1;
     [P_solo, ~] = calculate_integrated_P_optimized(CellMatrix, selection_solo, ...
-                    num_stimuli, num_repetitions, t1, t2, metric_choice);
+                    num_stimuli, num_repetitions, t1, t2);
 
     P_individuelles(nc) = P_solo;
 end
@@ -119,18 +119,18 @@ profile on;
 if num_neurons < 21 
     fprintf('\n--- Running Brute Force Optimization ---\n');
     f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-        t2, metric_choice, showing, other_figs);
+        t2, showing, other_figs);
 end
 
 % 4.2 Bottom-Up Algorithm
 fprintf('\n--- Running Bottom-Up Optimization ---\n');
 f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting, other_figs);
+    t2,showing, plotting, other_figs);
 
 % 4.3 Simulated Annealing Algorithm
 fprintf('\n--- Running Simulated Annealing Optimization ---\n');
 f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
-    t2, metric_choice, showing, plotting, other_figs);
+    t2,showing, plotting, other_figs);
 
 profile off;
 diary off;

@@ -2,7 +2,7 @@
 % Date: May-June 2026
 % Author : Laure WOLFF
 
-function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting,other_figs)
+function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, showing, plotting,other_figs)
     % Initialization variableq
     best_order = zeros(1, num_neurons);    % Any neuron in the list
     neurons_dispo = 1:num_neurons;        % All neurons before the beginning of the algorithm 
@@ -25,7 +25,8 @@ function f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, 
             local_selection = selection;
             local_selection(neuron_test) = 1;
             
-            [perf, ~] = calculate_integrated_P_optimized(CellMatrix, local_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+            %[perf, ~] = calculate_integrated_P_optimized(CellMatrix, local_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+            [perf, ~] = calculate_integrated_P_optimized(CellMatrix, local_selection, num_stimuli, num_repetitions, t1, t2);
             current_step_perf(i) = perf;
         end
         

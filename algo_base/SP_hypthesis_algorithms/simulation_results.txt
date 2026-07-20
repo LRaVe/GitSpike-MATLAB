@@ -1847,3 +1847,64 @@ Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('te
 fprintf('   - Best subpopulation : [%s]\n', num2str(best_subpop_bf));
                                                     ^^^^^^^^^^^^^^
 } 
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Temp: 0.044856 | Current P: 0.2901
+Temp: 0.040371 | Current P: 0.0561
+Temp: 0.036334 | Current P: 0.1779
+Temp: 0.032700 | Current P: 0.2901
+Temp: 0.029430 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 1050.0000

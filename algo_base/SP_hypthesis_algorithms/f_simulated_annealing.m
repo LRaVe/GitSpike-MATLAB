@@ -2,7 +2,7 @@
 % Date: June 2026
 % Author : Laure WOLFF
 
-function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice, showing, plotting, other_figs)
+function [nb_iterations] = f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, showing, plotting, other_figs)
 %% 1. Initialization of the variables
 cooling_factor = 0.9;        
 alpha_threshold = 1e-5;       
@@ -14,8 +14,10 @@ history_perf = zeros(1, max_paliers_est);
 mask_0 = randi([0, 1], num_neurons, 1);
 if sum(mask_0) == 0, mask_0(randi(num_neurons)) = 1; end
 if sum(mask_0) == num_neurons, mask_0(randi(num_neurons)) = 0; end
+% [P_0,~] = calculate_integrated_P_optimized(CellMatrix, mask_0, ...
+%     num_stimuli, num_repetitions, t1, t2, metric_choice);
 [P_0,~] = calculate_integrated_P_optimized(CellMatrix, mask_0, ...
-    num_stimuli, num_repetitions, t1, t2, metric_choice);
+    num_stimuli, num_repetitions, t1, t2);
 best_perf_overall = P_0;
 best_mask_overall = mask_0;
 temp_mask = mask_0;
@@ -31,8 +33,10 @@ for n = 1:N0
     
     if sum(next_mask) == 0 || sum(next_mask) == num_neurons, continue; end
     
-    [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
-        num_stimuli, num_repetitions, t1, t2, metric_choice);
+    % [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+    %     num_stimuli, num_repetitions, t1, t2, metric_choice);
+     [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+        num_stimuli, num_repetitions, t1, t2);
         
     if next_perf <= temp_perf
         count = count + 1;
@@ -123,8 +127,10 @@ while theta > alpha_threshold
             next_mask(idx_explore) = 1 - temp_mask(idx_explore);
         end
         
+        % [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+        %     num_stimuli, num_repetitions, t1, t2, metric_choice);
         [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
-            num_stimuli, num_repetitions, t1, t2, metric_choice);
+            num_stimuli, num_repetitions, t1, t2);
         
         if next_perf > temp_perf
             temp_mask = next_mask;

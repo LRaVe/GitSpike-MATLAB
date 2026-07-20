@@ -2,7 +2,7 @@
 % Date: May-June 2026
 % Author : Laure WOLFF
 
-function  plot_and_compute_distance_matrix(CellMatrix, num_neurons, num_coding_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice)
+function  plot_and_compute_distance_matrix(CellMatrix, num_neurons, num_coding_neurons, num_stimuli, num_repetitions, t1, t2)
 % PLOT_AND_COMPUTE_MATRICES Computes and plots the distance matrices for 
 % Coding, Non-coding, and Full populations under the Summed Population hypothesis.
 
@@ -24,9 +24,14 @@ function  plot_and_compute_distance_matrix(CellMatrix, num_neurons, num_coding_n
     full_selection   = ones(num_neurons, 1);
 
     %% 3. Efficient calculation of the 3 Matrices
-    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
-    [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
-    [perf_C, Matrix_C] = calculate_integrated_P_optimized(CellMatrix, full_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+    % [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+    % [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+    % [perf_C, Matrix_C] = calculate_integrated_P_optimized(CellMatrix, full_selection, num_stimuli, num_repetitions, t1, t2, metric_choice);
+
+    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2);
+    [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2);
+    [perf_C, Matrix_C] = calculate_integrated_P_optimized(CellMatrix, full_selection, num_stimuli, num_repetitions, t1, t2);
+
 
     %% 4. Plotting the three distance matrices
     figure('Name', 'SP Distances matrix', 'Position', [25, 150, 1500, 450]);
