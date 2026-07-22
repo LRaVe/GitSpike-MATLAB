@@ -9,7 +9,7 @@ diary(name_diary);
 diary on; 
 
 profile off;
-profile('-historysize', 2000000000);
+profile('-historysize', 200000000000);
 
 thisFile = mfilename('fullpath');
 if ~isempty(thisFile)
@@ -24,8 +24,8 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 num_stimuli = 4;        % S
 num_repetitions = 5;    % R
-num_neurons = 7;        % N
-num_coll = 3;           % Coding neurons initial (the information is in the sum of these neurons)
+num_neurons = 70;        % N
+num_coll = 30;           % Coding neurons initial (the information is in the sum of these neurons)
 num_indi = 0;           % Individually coding neurons (they have some information each)
                           % --> crashes the algorithms written for SP hypothesis if there are any num_coll
 t1 = 0; t2 = 1;         % Time window
@@ -46,7 +46,7 @@ rng(12);                 % To reproduce the script without new random values
 
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
-% 
+
 % % Created file to understand the structure of the data and use the txt
 % % format
 % f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
@@ -65,6 +65,9 @@ CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
 
 % % Test using a "simulated data" since a MATLAB file
 % load ("Simulated_data.mat");
+
+% data = load("SP_python_data.mat");
+% CellMatrix = data.SP_python_data;
 
 %% 3. Distance matrix visualization
 plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
@@ -134,7 +137,10 @@ f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1,
 
 profile off;
 diary off;
-profile viewer;
+%profile viewer;
+p = profile('info');
+profsave(p, 'profile_results_html');
+disp('Profiling completed successfully. Results saved in ./profile_results_html');
  
 
 % %% Generation o fthe CellMatriw since a user data

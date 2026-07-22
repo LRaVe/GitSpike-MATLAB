@@ -62,7 +62,7 @@ for n = 1:num_neurons
     for st = 1:num_stimuli
         for rp = 1:num_repetitions
             spikes = CELL{n, st, rp};
-            
+
             % Si MATLAB a converti l'objet en structure ou s'il a des propriétés cachées
             if isstruct(spikes) || isobject(spikes)
                 if isfield(spikes, 'times') || isprop(spikes, 'times')
@@ -71,22 +71,15 @@ for n = 1:num_neurons
                     spikes = spikes.spikes;
                 end
             end
-            
+
             % Force la conversion en double (Assurez-vous que ce ne sont pas des uint32)
             CellMatrix{n, st, rp} = double(spikes(:)');
         end
     end
 end
 
-% 1. Affiche le premier train de spikes que tu as chargé
-spikes_exemple = CellMatrix{1, 1, 1}; 
-disp('Exemple de spikes :');
-disp(spikes_exemple);
-
-% 2. Vérifie la valeur maximale dans tes spikes
-max_val = max(spikes_exemple);
-disp('Valeur maximale dans ce train :');
-disp(max_val);
+% data = load("LL_python_data.mat");
+% CellMatrix = data.LL_python_data;
 
 %% 3. Distance matrix visualization
 All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, plotting);
@@ -94,29 +87,29 @@ All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_r
 % data = load('distances_python.mat');         
 % All_Matrix_D = data.All_Matrix_D_py;
 
-% --- DIAGNOSTIC DE DIVERGENCE MATLAB vs PYTHON ---
-data_py = load('distances_python.mat');
-D_py = data_py.All_Matrix_D_py;
-
-% 1. Calcul de la différence absolue
-diff_matrix = abs(All_Matrix_D - D_py);
-max_diff = max(diff_matrix(:));
-mean_diff = mean(diff_matrix(:));
-
-fprintf('\n=== DIAGNOSTIC DE COMPARAISON ===\n');
-fprintf('Différence maximale sur une cellule : %f\n', max_diff);
-fprintf('Différence moyenne : %f\n', mean_diff);
-
-% 2. Trouver où se trouve la plus grosse erreur
-[row, col] = find(diff_matrix == max_diff, 1);
-if ~isempty(row)
-    fprintf('Plus grand écart trouvé à l''indice global : (%d, %d)\n', row, col);
-    fprintf('Valeur MATLAB : %f | Valeur Python : %f\n', All_Matrix_D(row,col), D_py(row,col));
-end
-fprintf('=================================\n\n');
-
-fprintf('Somme : %f\n', sum(All_Matrix_D, 'all'));
-fprintf('Moyenne : %f\n', mean(All_Matrix_D, 'all'));
+% %% Comparason between MATLAB and Python
+% data_py = load('distances_python.mat');
+% D_py = data_py.All_Matrix_D_py;
+% 
+% % 1. Calcul de la différence absolue
+% diff_matrix = abs(All_Matrix_D - D_py);
+% max_diff = max(diff_matrix(:));
+% mean_diff = mean(diff_matrix(:));
+% 
+% fprintf('\n=== DIAGNOSTIC DE COMPARAISON ===\n');
+% fprintf('Différence maximale sur une cellule : %f\n', max_diff);
+% fprintf('Différence moyenne : %f\n', mean_diff);
+% 
+% % 2. Trouver où se trouve la plus grosse erreur
+% [row, col] = find(diff_matrix == max_diff, 1);
+% if ~isempty(row)
+%     fprintf('Plus grand écart trouvé à l''indice global : (%d, %d)\n', row, col);
+%     fprintf('Valeur MATLAB : %f | Valeur Python : %f\n', All_Matrix_D(row,col), D_py(row,col));
+% end
+% fprintf('=================================\n\n');
+% 
+% fprintf('Somme : %f\n', sum(All_Matrix_D, 'all'));
+% fprintf('Moyenne : %f\n', mean(All_Matrix_D, 'all'));
 
 All_Matrices_M = calculate_plot_matrix_M(All_Matrix_D, num_neurons,num_stimuli, num_repetitions,plotting);
 

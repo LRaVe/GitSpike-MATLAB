@@ -1908,3 +1908,1383 @@ Exit: Performance remained unchanged for 2 consecutive temperature cycles.
 Optimal subpopulation found: [1  2  3]
 Max performance P = 0.2901
 number of iteration 1050.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Temp: 0.044856 | Current P: 0.2901
+Temp: 0.040371 | Current P: 0.0561
+Temp: 0.036334 | Current P: 0.1779
+Temp: 0.032700 | Current P: 0.2901
+Temp: 0.029430 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 1050.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Temp: 0.044856 | Current P: 0.2901
+Temp: 0.040371 | Current P: 0.0561
+Temp: 0.036334 | Current P: 0.1779
+Temp: 0.032700 | Current P: 0.2901
+Temp: 0.029430 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 1050.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mean', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m', 122)" style="font-weight:bold">mean</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m',122,0)">line 122</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_dist_2x2_matlab', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m', 76)" style="font-weight:bold">SPIKE_dist_2x2_matlab</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m',76,0)">line 76</a>)
+                S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*(mean([ISI_dist_1 ISI_dist_2])^2));
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 238)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',238,0)">line 238</a>)
+            [dist_vec, ~] = SPIKE_dist_2x2_matlab(...
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_simulated_annealing', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m', 132)" style="font-weight:bold">f_simulated_annealing</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m',132,0)">line 132</a>)
+        [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 132)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',132,0)">line 132</a>)
+fprintf('\n--- Running Simulated Annealing Optimization ---\n');
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mean', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m', 122)" style="font-weight:bold">mean</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m',122,0)">line 122</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_dist_2x2_matlab', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m', 126)" style="font-weight:bold">SPIKE_dist_2x2_matlab</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m',126,0)">line 126</a>)
+                S = ((S_1*ISI_dist_2) + (S_2*ISI_dist_1)) / (2*(mean([ISI_dist_1 ISI_dist_2])^2));
+                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 238)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',238,0)">line 238</a>)
+            [dist_vec, ~] = SPIKE_dist_2x2_matlab(...
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_brute_force', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m', 35)" style="font-weight:bold">f_brute_force</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m',35,0)">line 35</a>)
+        [perf, ~] = calculate_integrated_P_optimized(CellMatrix, current_mask, ...
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 122)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',122,0)">line 122</a>)
+    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Undefined variable 'CellMatrix'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 83)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',83,0)">line 83</a>)
+spikes_exemple = CellMatrix{1, 1, 1};
+                 ^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Unrecognized function or variable 'LL_python_data'.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 81)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',81,0)">line 81</a>)
+CellMatrix = LL_python_data;
+             ^^^^^^^^^^^^^^
+} 
+test_algo_ll
+Exemple de spikes :
+     spikes: [0.0114 0.0778 0.0957 0.1349 0.1375 0.2638 0.3851 0.3852 0.5450 0.5567 0.5826 0.6261 0.7692 0.8657 … ] (1×18 double)
+    t_start: 0
+      t_end: 1
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('max')" style="font-weight:bold">max</a>
+First input array is an invalid data type.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 89)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',89,0)">line 89</a>)
+max_val = max(spikes_exemple);
+          ^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort')" style="font-weight:bold">sort</a>
+Incorrect number or types of inputs or outputs for function sort.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('unique>uniqueR2012a', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m', 208)" style="font-weight:bold">unique>uniqueR2012a</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m',208,0)">line 208</a>)
+            sortA = sort(a);
+            ^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('unique', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m', 103)" style="font-weight:bold">unique</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m',103,0)">line 103</a>)
+    [varargout{1:nlhs}] = uniqueR2012a(varargin{:},true,true,false);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('add_auxiliary_spikes>process_single_train', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m', 43)" style="font-weight:bold">add_auxiliary_spikes>process_single_train</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m',43,0)">line 43</a>)
+    train = sort(unique(train));
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('add_auxiliary_spikes', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m', 24)" style="font-weight:bold">add_auxiliary_spikes</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m',24,0)">line 24</a>)
+            [spikes{i}, aux_begin(i), aux_end(i)] = process_single_train(spikes{i}, t_min, t_max);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_Distance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\SPIKE_Distance_matrix.m', 23)" style="font-weight:bold">SPIKE_Distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\SPIKE_Distance_matrix.m',23,0)">line 23</a>)
+        [prep_trains, aux_beg, aux_end] = add_auxiliary_spikes(raw_trains, tmin, tmax);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 94)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',94,0)">line 94</a>)
+All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, plotting);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('sort')" style="font-weight:bold">sort</a>
+Incorrect number or types of inputs or outputs for function sort.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('unique>uniqueR2012a', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m', 208)" style="font-weight:bold">unique>uniqueR2012a</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m',208,0)">line 208</a>)
+            sortA = sort(a);
+            ^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('unique', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m', 103)" style="font-weight:bold">unique</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\ops\unique.m',103,0)">line 103</a>)
+    [varargout{1:nlhs}] = uniqueR2012a(varargin{:},true,true,false);
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('add_auxiliary_spikes>process_single_train', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m', 43)" style="font-weight:bold">add_auxiliary_spikes>process_single_train</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m',43,0)">line 43</a>)
+    train = sort(unique(train));
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('add_auxiliary_spikes', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m', 24)" style="font-weight:bold">add_auxiliary_spikes</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\add_auxiliary_spikes.m',24,0)">line 24</a>)
+            [spikes{i}, aux_begin(i), aux_end(i)] = process_single_train(spikes{i}, t_min, t_max);
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_Distance_matrix', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\SPIKE_Distance_matrix.m', 23)" style="font-weight:bold">SPIKE_Distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\SPIKE_Distance_matrix.m',23,0)">line 23</a>)
+        [prep_trains, aux_beg, aux_end] = add_auxiliary_spikes(raw_trains, tmin, tmax);
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 103)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',103,0)">line 103</a>)
+All_Matrix_D = SPIKE_Distance_matrix(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, t2, plotting);
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 97)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',97,0)">line 97</a>)
+        CellMatrix{k} = double(CellMatrix{k}(:)');
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_ll', 'C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m', 97)" style="font-weight:bold">test_algo_ll</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\LL_hypothesis_algorithms\test_algo_ll.m',97,0)">line 97</a>)
+        CellMatrix{k} = double(CellMatrix{k}(:)');
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_ll
+
+=== DIAGNOSTIC DE COMPARAISON ===
+Différence maximale sur une cellule : 0.135203
+Différence moyenne : 0.036540
+Plus grand écart trouvé à l'indice global : (5, 24)
+Valeur MATLAB : 0.334287 | Valeur Python : 0.199084
+=================================
+
+Somme : 390.122040
+Moyenne : 0.243826
+
+##################################################
+!!! OPTIMISATION LABELED LINE : FORMULE BRUTE & MOYENNE CORRIGÉE !!!
+##################################################
+
+
+============================================================
+              LABELED LINE PERFORMANCE RESULTS             
+============================================================
+ Global Labeled Line Performance (P_LL): 0.1406 (Attendu: ~0.148)
+ Optimized Subpopulation (opt_LL)     : [1  3] (Attendu: [1, 2, 4])
+
+ Matrix M_max (Best Neuron Mapping per pair):
+     0     3     1     3
+     3     0     3     1
+     1     3     0     3
+     3     1     3     0
+
+============================================================
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Temp: 0.072248 | Current P: 0.2856
+Temp: 0.065024 | Current P: 0.0964
+Temp: 0.058521 | Current P: 0.1261
+Temp: 0.052669 | Current P: 0.1916
+Temp: 0.047402 | Current P: 0.1439
+Temp: 0.042662 | Current P: 0.0612
+Temp: 0.038396 | Current P: 0.1701
+Temp: 0.034556 | Current P: 0.2856
+Temp: 0.031101 | Current P: 0.1005
+Temp: 0.027991 | Current P: 0.2856
+Temp: 0.025191 | Current P: 0.2856
+Temp: 0.022672 | Current P: 0.1701
+Temp: 0.020405 | Current P: 0.1245
+Temp: 0.018365 | Current P: 0.2856
+Temp: 0.016528 | Current P: 0.2856
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+number of iteration 1225.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Temp: 0.072248 | Current P: 0.2856
+Temp: 0.065024 | Current P: 0.0964
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_dist_2x2_matlab', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m', 54)" style="font-weight:bold">SPIKE_dist_2x2_matlab</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m',54,0)">line 54</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 238)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',238,0)">line 238</a>)
+            [dist_vec, ~] = SPIKE_dist_2x2_matlab(...
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_simulated_annealing', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m', 132)" style="font-weight:bold">f_simulated_annealing</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m',132,0)">line 132</a>)
+        [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 135)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',135,0)">line 135</a>)
+f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+{Operation terminated by user during matlab.graphics.controls.internal.ToolbarButtonRegistry/getButton
+
+
+In matlab.graphics.controls.ToolbarController.createToolbarButton
+
+In matlab.graphics.controls.ToolbarController.createToolbarButton
+
+In matlab.graphics.controls.ToolbarController.getDefaultToolbar
+
+In matlab.graphics.controls.ToolbarController/handleMouseMotion
+
+In matlab.graphics.controls.DesktopToolbarController/handleMouseMotion
+
+In matlab.graphics.controls.ToolbarController>@(e,d)obj.handleMouseMotion(e,d)
+} 
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Temp: 0.072248 | Current P: 0.2856
+Temp: 0.065024 | Current P: 0.0964
+Temp: 0.058521 | Current P: 0.1261
+Temp: 0.052669 | Current P: 0.1916
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_dist_2x2_matlab', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m', 38)" style="font-weight:bold">SPIKE_dist_2x2_matlab</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m',38,0)">line 38</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 238)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',238,0)">line 238</a>)
+            [dist_vec, ~] = SPIKE_dist_2x2_matlab(...
+                            ^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_simulated_annealing', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m', 132)" style="font-weight:bold">f_simulated_annealing</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m',132,0)">line 132</a>)
+        [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 135)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',135,0)">line 135</a>)
+f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+{Operation terminated by user during matlab.graphics.controls.internal.PostUpdatePlugin.doCacheLoad
+
+
+In matlab.graphics.controls.internal.PostUpdatePlugin>@()matlab.graphics.controls.internal.PostUpdatePlugin.doCacheLoad(canvasParent)
+} 
+test_algo_ll
+
+##################################################
+!!! OPTIMISATION LABELED LINE : FORMULE BRUTE & MOYENNE CORRIGÉE !!!
+##################################################
+
+
+============================================================
+              LABELED LINE PERFORMANCE RESULTS             
+============================================================
+ Global Labeled Line Performance (P_LL): 0.0813 (Attendu: ~0.148)
+ Optimized Subpopulation (opt_LL)     : [1] (Attendu: [1, 2, 4])
+
+ Matrix M_max (Best Neuron Mapping per pair):
+     0     0     1     1
+     0     0     1     1
+     1     1     0     0
+     1     1     0     0
+
+============================================================
+test_algo_ll
+
+##################################################
+!!! OPTIMISATION LABELED LINE : FORMULE BRUTE & MOYENNE CORRIGÉE !!!
+##################################################
+
+
+============================================================
+              LABELED LINE PERFORMANCE RESULTS             
+============================================================
+ Global Labeled Line Performance (P_LL): 0.1480 (Attendu: ~0.148)
+ Optimized Subpopulation (opt_LL)     : [1  2  4] (Attendu: [1, 2, 4])
+
+ Matrix M_max (Best Neuron Mapping per pair):
+     0     4     2     2
+     4     0     4     1
+     2     4     0     4
+     2     1     4     0
+
+============================================================
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('SPIKE_dist_2x2_matlab', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m', 38)" style="font-weight:bold">SPIKE_dist_2x2_matlab</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\SPIKE_dist_2x2_matlab.m',38,0)">line 38</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 238)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',238,0)">line 238</a>)
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_simulated_annealing', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m', 132)" style="font-weight:bold">f_simulated_annealing</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_simulated_annealing.m',132,0)">line 132</a>)
+        [next_perf,~] = calculate_integrated_P_optimized(CellMatrix, next_mask, ...
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 135)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',135,0)">line 135</a>)
+f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('generate_and_plot_raster', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\generate_and_plot_raster.m', 228)" style="font-weight:bold">generate_and_plot_raster</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\generate_and_plot_raster.m',228,0)">line 228</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 47)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',47,0)">line 47</a>)
+CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 875.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 875.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 875.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mean>mysize', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m', 302)" style="font-weight:bold">mean>mysize</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m',302,0)">line 302</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mean', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m', 122)" style="font-weight:bold">mean</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m',122,0)">line 122</a>)
+            y = sum(x, dim, flag) ./ mysize(x,dim);
+                                     ^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized>spike_distance_ultra_fast', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 460)" style="font-weight:bold">calculate_integrated_P_optimized>spike_distance_ultra_fast</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',460,0)">line 460</a>)
+        S_vals(k) = (s1*isi2 + s2*isi1) / (2 * mean([isi1, isi2])^2);
+                                               ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 365)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',365,0)">line 365</a>)
+            dval = spike_distance_ultra_fast(st1, st2, tmin, tmax, ...
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_brute_force', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m', 35)" style="font-weight:bold">f_brute_force</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m',35,0)">line 35</a>)
+        [perf, ~] = calculate_integrated_P_optimized(CellMatrix, current_mask, ...
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 124)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',124,0)">line 124</a>)
+    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+{Operation terminated by user during <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('mean', 'C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m', 77)" style="font-weight:bold">mean</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2024b\toolbox\matlab\datafun\mean.m',77,0)">line 77</a>)
+
+
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized>spike_distance_ultra_fast', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 460)" style="font-weight:bold">calculate_integrated_P_optimized>spike_distance_ultra_fast</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',460,0)">line 460</a>)
+        S_vals(k) = (s1*isi2 + s2*isi1) / (2 * mean([isi1, isi2])^2);
+                                               ^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 365)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',365,0)">line 365</a>)
+            dval = spike_distance_ultra_fast(st1, st2, tmin, tmax, ...
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('f_brute_force', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m', 35)" style="font-weight:bold">f_brute_force</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\f_brute_force.m',35,0)">line 35</a>)
+        [perf, ~] = calculate_integrated_P_optimized(CellMatrix, current_mask, ...
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 124)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',124,0)">line 124</a>)
+    f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.1029
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0172
+Step k = 2 | Adding neuron : 1 | Performance P = 0.0477
+Step k = 3 | Adding neuron : 2 | Performance P = 0.1029
+Step k = 4 | Adding neuron : 5 | Performance P = 0.0554
+Step k = 5 | Adding neuron : 4 | Performance P = 0.0343
+Step k = 6 | Adding neuron : 6 | Performance P = 0.0237
+Step k = 7 | Adding neuron : 7 | Performance P = 0.0177
+   [1-7] : 0.0172 0.0477 0.1029 0.0554 0.0343 0.0237 0.0177
+
+Optimal neuron inclusion order:
+   3  1  2  5  4  6  7
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.146684 
+Temp: 0.146684 | Current P: -0.0011
+Temp: 0.132016 | Current P: 0.0372
+Temp: 0.118814 | Current P: 0.0024
+Temp: 0.106933 | Current P: 0.0089
+Temp: 0.096240 | Current P: 0.0017
+Temp: 0.086616 | Current P: 0.0068
+Temp: 0.077954 | Current P: 0.0148
+Temp: 0.070159 | Current P: 0.0138
+Temp: 0.063143 | Current P: 0.0068
+Temp: 0.056829 | Current P: 0.0032
+Temp: 0.051146 | Current P: 0.0010
+Temp: 0.046031 | Current P: 0.0554
+Temp: 0.041428 | Current P: 0.0045
+Temp: 0.037285 | Current P: 0.0062
+Temp: 0.033557 | Current P: 0.0042
+Temp: 0.030201 | Current P: 0.0236
+Temp: 0.027181 | Current P: 0.1029
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.1029
+number of iteration 595.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.3112
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0751
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1663
+Step k = 3 | Adding neuron : 1 | Performance P = 0.3112
+Step k = 4 | Adding neuron : 5 | Performance P = 0.2054
+Step k = 5 | Adding neuron : 4 | Performance P = 0.1438
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1078
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0829
+   [1-7] : 0.0751 0.1663 0.3112 0.2054 0.1438 0.1078 0.0829
+
+Optimal neuron inclusion order:
+   3  2  1  5  4  7  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.622019 
+Temp: 0.622019 | Current P: -0.0034
+Temp: 0.559817 | Current P: 0.0140
+Temp: 0.503836 | Current P: 0.0135
+Temp: 0.453452 | Current P: 0.0464
+Temp: 0.408107 | Current P: -0.0040
+Temp: 0.367296 | Current P: 0.0018
+Temp: 0.330567 | Current P: 0.1315
+Temp: 0.297510 | Current P: 0.0067
+Temp: 0.267759 | Current P: -0.0049
+Temp: 0.240983 | Current P: 0.1354
+Temp: 0.216885 | Current P: 0.0075
+Temp: 0.195196 | Current P: 0.1850
+Temp: 0.175677 | Current P: 0.0498
+Temp: 0.158109 | Current P: 0.0159
+Temp: 0.142298 | Current P: 0.1328
+Temp: 0.128068 | Current P: 0.0056
+Temp: 0.115261 | Current P: 0.1921
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.3112
+number of iteration 595.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+number of iteration 700.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 875.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.3047
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0796
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1691
+Step k = 3 | Adding neuron : 2 | Performance P = 0.3047
+Step k = 4 | Adding neuron : 5 | Performance P = 0.2015
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1485
+Step k = 6 | Adding neuron : 6 | Performance P = 0.1191
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0978
+   [1-7] : 0.0796 0.1691 0.3047 0.2015 0.1485 0.1191 0.0978
+
+Optimal neuron inclusion order:
+   3  1  2  5  7  6  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.657197 
+Temp: 0.657197 | Current P: 0.0184
+Temp: 0.591477 | Current P: 0.0634
+Temp: 0.532330 | Current P: 0.0653
+Temp: 0.479097 | Current P: 0.0894
+Temp: 0.431187 | Current P: 0.0692
+Temp: 0.388068 | Current P: 0.0136
+Temp: 0.349262 | Current P: 0.0249
+Temp: 0.314335 | Current P: 0.1933
+Temp: 0.282902 | Current P: 0.1458
+Temp: 0.254612 | Current P: 0.0894
+Temp: 0.229150 | Current P: 0.0665
+Temp: 0.206235 | Current P: 0.0726
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.3047
+number of iteration 420.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.3047
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0796
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1691
+Step k = 3 | Adding neuron : 2 | Performance P = 0.3047
+Step k = 4 | Adding neuron : 5 | Performance P = 0.2015
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1485
+Step k = 6 | Adding neuron : 6 | Performance P = 0.1191
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0978
+   [1-7] : 0.0796 0.1691 0.3047 0.2015 0.1485 0.1191 0.0978
+
+Optimal neuron inclusion order:
+   3  1  2  5  7  6  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.657197 
+Temp: 0.657197 | Current P: 0.0184
+Temp: 0.591477 | Current P: 0.0634
+Temp: 0.532330 | Current P: 0.0653
+Temp: 0.479097 | Current P: 0.0894
+Temp: 0.431187 | Current P: 0.0692
+Temp: 0.388068 | Current P: 0.0136
+Temp: 0.349262 | Current P: 0.0249
+Temp: 0.314335 | Current P: 0.1933
+Temp: 0.282902 | Current P: 0.1458
+Temp: 0.254612 | Current P: 0.0894
+Temp: 0.229150 | Current P: 0.0665
+Temp: 0.206235 | Current P: 0.0726
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.3047
+number of iteration 420.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2901
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0726
+Step k = 2 | Adding neuron : 1 | Performance P = 0.1588
+Step k = 3 | Adding neuron : 2 | Performance P = 0.2901
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1908
+Step k = 5 | Adding neuron : 6 | Performance P = 0.1401
+Step k = 6 | Adding neuron : 7 | Performance P = 0.1125
+Step k = 7 | Adding neuron : 4 | Performance P = 0.0928
+   [1-7] : 0.0726 0.1588 0.2901 0.1908 0.1401 0.1125 0.0928
+
+Optimal neuron inclusion order:
+   3  1  2  5  6  7  4
+
+The best subpopulation found contains 3 neurons:
+   3  1  2
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.624831 
+Temp: 0.624831 | Current P: 0.0178
+Temp: 0.562348 | Current P: 0.0901
+Temp: 0.506113 | Current P: 0.0697
+Temp: 0.455502 | Current P: 0.1284
+Temp: 0.409952 | Current P: 0.0697
+Temp: 0.368956 | Current P: 0.0136
+Temp: 0.332061 | Current P: 0.1860
+Temp: 0.298855 | Current P: 0.1394
+Temp: 0.268969 | Current P: 0.0847
+Temp: 0.242072 | Current P: 0.1779
+Temp: 0.217865 | Current P: 0.0575
+Temp: 0.196079 | Current P: 0.0678
+Temp: 0.176471 | Current P: -0.0070
+Temp: 0.158824 | Current P: 0.1588
+Temp: 0.142941 | Current P: 0.0446
+Temp: 0.128647 | Current P: 0.1588
+Temp: 0.115782 | Current P: 0.0146
+Temp: 0.104204 | Current P: 0.0637
+Temp: 0.093784 | Current P: 0.1563
+Temp: 0.084405 | Current P: 0.0511
+Temp: 0.075965 | Current P: 0.1284
+Temp: 0.068368 | Current P: 0.0574
+Temp: 0.061532 | Current P: 0.1908
+Temp: 0.055378 | Current P: 0.1782
+Temp: 0.049841 | Current P: 0.2901
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2901
+number of iteration 875.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+number of iteration 700.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016 | Cache Hits: 20
+Temp: 0.534837 | Current P: 0.0141 | Cache Hits: 33
+Temp: 0.481353 | Current P: 0.0114 | Cache Hits: 62
+Temp: 0.433218 | Current P: 0.0439 | Cache Hits: 77
+Temp: 0.389896 | Current P: -0.0030 | Cache Hits: 99
+Temp: 0.350906 | Current P: 0.0023 | Cache Hits: 129
+Temp: 0.315816 | Current P: 0.1217 | Cache Hits: 156
+Temp: 0.284234 | Current P: 0.0074 | Cache Hits: 187
+Temp: 0.255811 | Current P: -0.0029 | Cache Hits: 220
+Temp: 0.230230 | Current P: 0.1273 | Cache Hits: 251
+Temp: 0.207207 | Current P: 0.0064 | Cache Hits: 284
+Temp: 0.186486 | Current P: 0.1701 | Cache Hits: 316
+Temp: 0.167837 | Current P: 0.0468 | Cache Hits: 349
+Temp: 0.151054 | Current P: 0.0152 | Cache Hits: 382
+Temp: 0.135948 | Current P: 0.0541 | Cache Hits: 417
+Temp: 0.122353 | Current P: 0.0135 | Cache Hits: 451
+Temp: 0.110118 | Current P: 0.1245 | Cache Hits: 485
+Temp: 0.099106 | Current P: 0.1764 | Cache Hits: 520
+Temp: 0.089196 | Current P: 0.0435 | Cache Hits: 555
+Temp: 0.080276 | Current P: 0.2856 | Cache Hits: 590
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+
+--- SIMULATED ANNEALING SUMMARY ---
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+Total iterations: 700
+Unique masks evaluated: 126
+Cache hits (Calculations saved!): 624 (83.1% saved)
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 2 | Performance P = 0.0229
+Step k = 2 | Adding neuron : 30 | Performance P = 0.0267
+Step k = 3 | Adding neuron : 5 | Performance P = 0.0218
+Step k = 4 | Adding neuron : 13 | Performance P = 0.0292
+Step k = 5 | Adding neuron : 28 | Performance P = 0.0275
+Step k = 6 | Adding neuron : 16 | Performance P = 0.0307
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0336
+Step k = 8 | Adding neuron : 26 | Performance P = 0.0373
+Step k = 9 | Adding neuron : 1 | Performance P = 0.0419
+Step k = 10 | Adding neuron : 19 | Performance P = 0.0466
+Step k = 11 | Adding neuron : 7 | Performance P = 0.0510
+Step k = 12 | Adding neuron : 18 | Performance P = 0.0568
+Step k = 13 | Adding neuron : 22 | Performance P = 0.0626
+Step k = 14 | Adding neuron : 12 | Performance P = 0.0691
+Step k = 15 | Adding neuron : 27 | Performance P = 0.0767
+Step k = 16 | Adding neuron : 10 | Performance P = 0.0848
+Step k = 17 | Adding neuron : 23 | Performance P = 0.0931
+Step k = 18 | Adding neuron : 11 | Performance P = 0.1024
+Step k = 19 | Adding neuron : 15 | Performance P = 0.1124
+Step k = 20 | Adding neuron : 9 | Performance P = 0.1235
+Step k = 21 | Adding neuron : 8 | Performance P = 0.1344
+Step k = 22 | Adding neuron : 17 | Performance P = 0.1461
+Step k = 23 | Adding neuron : 20 | Performance P = 0.1590
+Step k = 24 | Adding neuron : 25 | Performance P = 0.1727
+Step k = 25 | Adding neuron : 4 | Performance P = 0.1879
+Step k = 26 | Adding neuron : 21 | Performance P = 0.2026
+Step k = 27 | Adding neuron : 3 | Performance P = 0.2188
+Step k = 28 | Adding neuron : 29 | Performance P = 0.2357
+Step k = 29 | Adding neuron : 14 | Performance P = 0.2536
+Step k = 30 | Adding neuron : 24 | Performance P = 0.2715
+Step k = 31 | Adding neuron : 52 | Performance P = 0.2590
+Step k = 32 | Adding neuron : 67 | Performance P = 0.2460
+Step k = 33 | Adding neuron : 48 | Performance P = 0.2338
+Step k = 34 | Adding neuron : 59 | Performance P = 0.2216
+Step k = 35 | Adding neuron : 51 | Performance P = 0.2105
+Step k = 36 | Adding neuron : 38 | Performance P = 0.2002
+Step k = 37 | Adding neuron : 63 | Performance P = 0.1906
+Step k = 38 | Adding neuron : 49 | Performance P = 0.1820
+Step k = 39 | Adding neuron : 44 | Performance P = 0.1743
+Step k = 40 | Adding neuron : 40 | Performance P = 0.1671
+Step k = 41 | Adding neuron : 69 | Performance P = 0.1601
+Step k = 42 | Adding neuron : 58 | Performance P = 0.1533
+Step k = 43 | Adding neuron : 53 | Performance P = 0.1472
+Step k = 44 | Adding neuron : 61 | Performance P = 0.1414
+Step k = 45 | Adding neuron : 43 | Performance P = 0.1360
+Step k = 46 | Adding neuron : 50 | Performance P = 0.1310
+Step k = 47 | Adding neuron : 37 | Performance P = 0.1263
+Step k = 48 | Adding neuron : 68 | Performance P = 0.1219
+Step k = 49 | Adding neuron : 39 | Performance P = 0.1177
+Step k = 50 | Adding neuron : 33 | Performance P = 0.1138
+Step k = 51 | Adding neuron : 64 | Performance P = 0.1104
+Step k = 52 | Adding neuron : 47 | Performance P = 0.1071
+Step k = 53 | Adding neuron : 54 | Performance P = 0.1038
+Step k = 54 | Adding neuron : 56 | Performance P = 0.1007
+Step k = 55 | Adding neuron : 57 | Performance P = 0.0978
+Step k = 56 | Adding neuron : 62 | Performance P = 0.0948
+Step k = 57 | Adding neuron : 70 | Performance P = 0.0919
+Step k = 58 | Adding neuron : 42 | Performance P = 0.0893
+Step k = 59 | Adding neuron : 36 | Performance P = 0.0866
+Step k = 60 | Adding neuron : 31 | Performance P = 0.0842
+Step k = 61 | Adding neuron : 34 | Performance P = 0.0818
+Step k = 62 | Adding neuron : 41 | Performance P = 0.0795
+Step k = 63 | Adding neuron : 35 | Performance P = 0.0773
+Step k = 64 | Adding neuron : 55 | Performance P = 0.0753
+Step k = 65 | Adding neuron : 65 | Performance P = 0.0733
+Step k = 66 | Adding neuron : 66 | Performance P = 0.0715
+Step k = 67 | Adding neuron : 60 | Performance P = 0.0696
+Step k = 68 | Adding neuron : 45 | Performance P = 0.0677
+Step k = 69 | Adding neuron : 32 | Performance P = 0.0659
+Step k = 70 | Adding neuron : 46 | Performance P = 0.0637
+   [1-10] : 0.0229 0.0267 0.0218 0.0292 0.0275 0.0307 0.0336 0.0373 0.0419 0.0466
+   [11-20] : 0.0510 0.0568 0.0626 0.0691 0.0767 0.0848 0.0931 0.1024 0.1124 0.1235
+   [21-30] : 0.1344 0.1461 0.1590 0.1727 0.1879 0.2026 0.2188 0.2357 0.2536 0.2715
+   [31-40] : 0.2590 0.2460 0.2338 0.2216 0.2105 0.2002 0.1906 0.1820 0.1743 0.1671
+   [41-50] : 0.1601 0.1533 0.1472 0.1414 0.1360 0.1310 0.1263 0.1219 0.1177 0.1138
+   [51-60] : 0.1104 0.1071 0.1038 0.1007 0.0978 0.0948 0.0919 0.0893 0.0866 0.0842
+   [61-70] : 0.0818 0.0795 0.0773 0.0753 0.0733 0.0715 0.0696 0.0677 0.0659 0.0637
+
+Optimal neuron inclusion order:
+   2  30   5  13  28  16   6  26   1  19
+   7  18  22  12  27  10  23  11  15   9
+   8  17  20  25   4  21   3  29  14  24
+   52  67  48  59  51  38  63  49  44  40
+   69  58  53  61  43  50  37  68  39  33
+   64  47  54  56  57  62  70  42  36  31
+   34  41  35  55  65  66  60  45  32  46
+
+The best subpopulation found contains 30 neurons:
+   2  30   5  13  28  16   6  26   1  19
+   7  18  22  12  27  10  23  11  15   9
+   8  17  20  25   4  21   3  29  14  24
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.031553 
+Temp: 0.031553 | Current P: 0.0242 | Cache Hits: 0

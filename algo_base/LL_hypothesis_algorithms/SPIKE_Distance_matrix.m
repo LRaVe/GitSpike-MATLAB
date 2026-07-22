@@ -94,95 +94,201 @@ end
 % 
 %     for n = 1:num_neurons
 %         %% 1. Extraction des trains dans le BON ORDRE (S1-R1...S1-R5, S2-R1...)
-%         Precomputed_Trains = cell(1, num_trials);
+%         raw_trains = cell(1, num_trials);
 %         counter = 1;
 %         for st = 1:S
 %             for rp = 1:R
-%                 spikes = double(CellMatrix{n, st, rp});
-%                 spikes = sort(spikes(:)');
-%                 spikes = spikes(spikes >= tmin & spikes <= tmax);
-%                 Precomputed_Trains{counter} = spikes;
+%                 raw_trains{counter} = sort(double(CellMatrix{n, st, rp}(:)'));
 %                 counter = counter + 1;
 %             end
 %         end
 % 
+%         %% 2. Fenêtrage + spikes auxiliaires (Eq. A.1) pour chaque essai
+%         prep_trains = cell(1, num_trials);
+%         aux_begin   = zeros(1, num_trials);
+%         aux_end     = zeros(1, num_trials);
+% 
+%         for i = 1:num_trials
+%             train = raw_trains{i};
+% 
+%             if isempty(train)
+%                 prep_trains{i} = [tmin, tmax];
+%                 aux_begin(i) = 1;
+%                 aux_end(i)   = 1;
+%                 continue;
+%             end
+% 
+%             ab = 0; ae = 0;
+% 
+%             if train(1) > tmin
+%                 if length(train) >= 2
+%                     aux1 = train(1) - max(train(1) - tmin, train(2) - train(1));
+%                 else
+%                     aux1 = tmin;
+%                 end
+%                 train = [aux1, train];
+%                 ab = 1;
+%             end
+% 
+%             if train(end) < tmax
+%                 if length(train) >= 2
+%                     aux2 = train(end) + max(tmax - train(end), train(end) - train(end-1));
+%                 else
+%                     aux2 = tmax;
+%                 end
+%                 train = [train, aux2];
+%                 ae = 1;
+%             end
+% 
+%             prep_trains{i} = train;
+%             aux_begin(i) = ab;
+%             aux_end(i)   = ae;
+%         end
+% 
 %         MatrixD = zeros(num_trials, num_trials);
 % 
-%         %% 2. Boucle pairwise
+%         %% 3. Boucle pairwise (Eq. 16-22)
 %         for t_a = 1:num_trials
-%             train_A = Precomputed_Trains{t_a};
+%             spikes1 = prep_trains{t_a};
+%             aux1_begin = aux_begin(t_a);
+%             aux1_end   = aux_end(t_a);
 % 
 %             for t_b = (t_a + 1):num_trials
-%                 train_B = Precomputed_Trains{t_b};
+%                 spikes2 = prep_trains{t_b};
+%                 aux2_begin = aux_begin(t_b);
+%                 aux2_end   = aux_end(t_b);
 % 
-%                 % --- Cas limites ---
-%                 if isempty(train_A) && isempty(train_B)
-%                     dval = 0;
-%                 elseif isempty(train_A) || isempty(train_B)
-%                     dval = 1;
-%                 else
-%                     %% --- Construction du train A étendu (spikes auxiliaires, Eq. A.1/A.3) ---
-%                     Ma = length(train_A);
-%                     if Ma == 1
-%                         tA_saux = tmin; tA_eaux = tmax;
+%                 profile = zeros(0, 2); % [temps, valeur S]
+% 
+%                 %% --- Contribution des spikes du train 1 ---
+%                 for idx_1 = 1:length(spikes1)
+%                     if spikes2(1) > spikes1(idx_1)
+%                         idx_2 = 1;
+%                     elseif spikes2(end) <= spikes1(idx_1)
+%                         idx_2 = length(spikes2) - 1;
 %                     else
-%                         tA_saux = train_A(1)   - max(train_A(1) - tmin, train_A(2) - train_A(1));
-%                         tA_eaux = train_A(end) + max(tmax - train_A(end), train_A(end) - train_A(end-1));
-%                     end
-%                     dA_real = zeros(1, Ma);
-%                     for i = 1:Ma
-%                         dA_real(i) = min(abs(train_A(i) - train_B));
-%                     end
-%                     extA_t = [tA_saux, train_A, tA_eaux];
-%                     extA_d = [dA_real(1), dA_real, dA_real(end)];
-% 
-%                     %% --- Construction du train B étendu ---
-%                     Mb = length(train_B);
-%                     if Mb == 1
-%                         tB_saux = tmin; tB_eaux = tmax;
-%                     else
-%                         tB_saux = train_B(1)   - max(train_B(1) - tmin, train_B(2) - train_B(1));
-%                         tB_eaux = train_B(end) + max(tmax - train_B(end), train_B(end) - train_B(end-1));
-%                     end
-%                     dB_real = zeros(1, Mb);
-%                     for i = 1:Mb
-%                         dB_real(i) = min(abs(train_B(i) - train_A));
-%                     end
-%                     extB_t = [tB_saux, train_B, tB_eaux];
-%                     extB_d = [dB_real(1), dB_real, dB_real(end)];
-% 
-%                     %% --- Points d'évaluation et profils S_x(t), S_y(t) (Eq. 19) ---
-%                     t_all = unique([tmin, train_A, train_B, tmax]);
-%                     Nt = length(t_all);
-% 
-%                     Sx = zeros(1, Nt);
-%                     Sy = zeros(1, Nt);
-%                     isix = zeros(1, Nt);
-%                     isiy = zeros(1, Nt);
-% 
-%                     for i = 1:Nt
-%                         t = t_all(i);
-% 
-%                         j = find(extA_t <= t, 1, 'last');
-%                         if j >= length(extA_t), j = length(extA_t) - 1; end
-%                         xp = extA_t(j);   xa = extA_t(j + 1);
-%                         dp = extA_d(j);   da = extA_d(j + 1);
-%                         isix(i) = xa - xp;
-%                         Sx(i) = ((t - xp) * da + (xa - t) * dp) / isix(i);
-% 
-%                         k = find(extB_t <= t, 1, 'last');
-%                         if k >= length(extB_t), k = length(extB_t) - 1; end
-%                         yp = extB_t(k);   ya = extB_t(k + 1);
-%                         dpB = extB_d(k);  daB = extB_d(k + 1);
-%                         isiy(i) = ya - yp;
-%                         Sy(i) = ((t - yp) * daB + (ya - t) * dpB) / isiy(i);
+%                         idx_2 = find(spikes2 <= spikes1(idx_1), 1, 'last');
 %                     end
 % 
-%                     %% --- Combinaison bivariée (Eq. 20) et intégration (Eq. 22) ---
-%                     denom = 0.5 * (isix + isiy) .^ 2;
-%                     S_t = (Sx .* isiy + Sy .* isix) ./ denom;
-%                     dval = trapz(t_all, S_t) / (tmax - tmin);
+%                     ISI_dist_2 = spikes2(idx_2 + 1) - spikes2(idx_2);
+% 
+%                     % --- delta_tp_2 : distance NN de spikes2(idx_2) ---
+%                     delta_tp_2 = min(abs(spikes2(idx_2) - spikes1));
+%                     if (idx_2 == 1) && aux2_begin
+%                         delta_tp_2 = min(abs(spikes2(2) - spikes1));
+%                     end
+%                     if (idx_2 == length(spikes2)) && aux2_begin
+%                         delta_tp_2 = min(abs(spikes2(end-1) - spikes1));
+%                     end
+% 
+%                     % --- delta_tf_2 : distance NN de spikes2(idx_2+1) ---
+%                     delta_tf_2 = min(abs(spikes2(idx_2 + 1) - spikes1));
+%                     if (idx_2 + 1 == 1) && aux2_end
+%                         delta_tf_2 = min(abs(spikes2(2) - spikes1));
+%                     end
+%                     if (idx_2 + 1 == length(spikes2)) && aux2_end
+%                         delta_tf_2 = min(abs(spikes2(end-1) - spikes1));
+%                     end
+% 
+%                     xp_2 = spikes1(idx_1) - spikes2(idx_2);
+%                     xf_2 = spikes2(idx_2 + 1) - spikes1(idx_1);
+%                     S_2 = (delta_tp_2 * xf_2 + delta_tf_2 * xp_2) / ISI_dist_2;
+% 
+%                     if idx_1 > 1
+%                         ISI_dist_1 = spikes1(idx_1) - spikes1(idx_1 - 1);
+%                         S_1 = min(abs(spikes1(idx_1) - spikes2));
+%                         if (idx_1 == length(spikes1)) && aux1_end
+%                             S_1 = min(abs(spikes1(idx_1 - 1) - spikes2));
+%                         end
+%                         S = (S_1 * ISI_dist_2 + S_2 * ISI_dist_1) / (2 * (mean([ISI_dist_1, ISI_dist_2])^2));
+%                         profile(end+1, :) = [spikes1(idx_1), S]; %#ok<AGROW>
+%                     end
+% 
+%                     if idx_1 < length(spikes1)
+%                         ISI_dist_1 = spikes1(idx_1 + 1) - spikes1(idx_1);
+%                         S_1 = min(abs(spikes1(idx_1) - spikes2));
+%                         if (idx_1 == 1) && aux1_begin
+%                             S_1 = min(abs(spikes1(idx_1 + 1) - spikes2));
+%                         end
+%                         S = (S_1 * ISI_dist_2 + S_2 * ISI_dist_1) / (2 * (mean([ISI_dist_1, ISI_dist_2])^2));
+%                         profile(end+1, :) = [spikes1(idx_1), S]; %#ok<AGROW>
+%                     end
 %                 end
+% 
+%                 %% --- Contribution des spikes du train 2 (symétrique) ---
+%                 for idx_2 = 1:length(spikes2)
+%                     if spikes1(1) > spikes2(idx_2)
+%                         idx_1 = 1;
+%                     elseif spikes1(end) <= spikes2(idx_2)
+%                         idx_1 = length(spikes1) - 1;
+%                     else
+%                         idx_1 = find(spikes1 <= spikes2(idx_2), 1, 'last');
+%                     end
+% 
+%                     ISI_dist_1 = spikes1(idx_1 + 1) - spikes1(idx_1);
+% 
+%                     delta_tp_1 = min(abs(spikes1(idx_1) - spikes2));
+%                     if (idx_1 == 1) && aux1_begin
+%                         delta_tp_1 = min(abs(spikes1(2) - spikes2));
+%                     end
+%                     if (idx_1 == length(spikes1)) && aux1_begin
+%                         delta_tp_1 = min(abs(spikes1(end-1) - spikes2));
+%                     end
+% 
+%                     delta_tf_1 = min(abs(spikes1(idx_1 + 1) - spikes2));
+%                     if (idx_1 + 1 == 1) && aux1_end
+%                         delta_tf_1 = min(abs(spikes1(2) - spikes2));
+%                     end
+%                     if (idx_1 + 1 == length(spikes1)) && aux1_end
+%                         delta_tf_1 = min(abs(spikes1(end-1) - spikes2));
+%                     end
+% 
+%                     xp_1 = spikes2(idx_2) - spikes1(idx_1);
+%                     xf_1 = spikes1(idx_1 + 1) - spikes2(idx_2);
+%                     S_1 = (delta_tp_1 * xf_1 + delta_tf_1 * xp_1) / ISI_dist_1;
+% 
+%                     if idx_2 > 1
+%                         ISI_dist_2 = spikes2(idx_2) - spikes2(idx_2 - 1);
+%                         S_2 = min(abs(spikes2(idx_2) - spikes1));
+%                         if (idx_2 == length(spikes2)) && aux2_end
+%                             S_2 = min(abs(spikes2(idx_2 - 1) - spikes1));
+%                         end
+%                         S = (S_1 * ISI_dist_2 + S_2 * ISI_dist_1) / (2 * (mean([ISI_dist_1, ISI_dist_2])^2));
+%                         profile(end+1, :) = [spikes2(idx_2), S]; %#ok<AGROW>
+%                     end
+% 
+%                     if idx_2 < length(spikes2)
+%                         ISI_dist_2 = spikes2(idx_2 + 1) - spikes2(idx_2);
+%                         S_2 = min(abs(spikes2(idx_2) - spikes1));
+%                         if (idx_2 == 1) && aux2_begin
+%                             S_2 = min(abs(spikes2(idx_2 + 1) - spikes1));
+%                         end
+%                         S = (S_1 * ISI_dist_2 + S_2 * ISI_dist_1) / (2 * (mean([ISI_dist_1, ISI_dist_2])^2));
+%                         profile(end+1, :) = [spikes2(idx_2), S]; %#ok<AGROW>
+%                     end
+%                 end
+% 
+%                 %% --- Nettoyage : tri, clipping aux bornes avec interpolation, dédoublonnage ---
+%                 profile = sortrows(profile, 1);
+% 
+%                 for i = 1:size(profile, 1)
+%                     if profile(i, 1) < tmin
+%                         idx = find(profile(:, 1) >= tmin, 1, 'first');
+%                         profile(i, 2) = profile(i, 2) + ((profile(idx, 2) - profile(i, 2)) / (profile(idx, 1) - profile(i, 1))) * (tmin - profile(i, 1));
+%                         profile(i, 1) = tmin;
+%                     elseif profile(i, 1) > tmax
+%                         idx = find(profile(:, 1) <= tmax, 1, 'last');
+%                         profile(i, 2) = profile(idx, 2) + ((profile(i, 2) - profile(idx, 2)) / (profile(i, 1) - profile(idx, 1))) * (tmax - profile(idx, 1));
+%                         profile(i, 1) = tmax;
+%                     end
+%                 end
+% 
+%                 [~, uidx] = unique(profile, 'rows', 'stable');
+%                 profile = profile(uidx, :);
+%                 profile = sortrows(profile, 1);
+% 
+%                 %% --- Intégration finale (Eq. 22) ---
+%                 dval = trapz(profile(:,1), profile(:,2)) / (tmax - tmin);
 % 
 %                 MatrixD(t_a, t_b) = dval;
 %                 MatrixD(t_b, t_a) = dval;
@@ -192,7 +298,7 @@ end
 %         All_Matrix_D(:, :, n) = MatrixD;
 %     end
 % 
-%     %% 3. PLOTTING SECTION
+%     %% 4. PLOTTING SECTION
 %     if plotting == true
 %         trial_labels = cell(1, num_trials);
 %         counter = 1;
