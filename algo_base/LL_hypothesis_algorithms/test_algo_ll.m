@@ -35,7 +35,7 @@ jitter_std = 0.005;   % Force du mouvement (Écart-type: 0.5 ms)
 
 % Metric selection
 % metric_choice = 'ISI_ADAPTIVE';
-metric_choice = 'SPIKE_DISTANCE';
+% metric_choice = 'SPIKE_DISTANCE';
 
 showing = true;
 plotting = true;         % Boolean to plot or not the main graphics
@@ -44,8 +44,9 @@ rng(12);                 % To reproduce the script without new random values
 
 %% 2. Dataset creation (Labeled line hypothesis)
 
-% CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
-%     num_indi, num_neurons, t1, t2, base_rate, refrac, jitter_std,showing, plotting, other_figs);
+CellMatrix = generate_and_plot_raster_ll(num_stimuli, num_repetitions, ...
+    num_indi, num_neurons, t1, t2, base_rate, refrac, jitter_std,showing, plotting, other_figs);
+save('LL_matlab_data.mat', 'CellMatrix', '-v7');
 
 % load ("LL.mat")
 % CellMatrix = CELL;
@@ -53,30 +54,29 @@ rng(12);                 % To reproduce the script without new random values
 % test_spike = CellMatrix{1, 1, 1}(1);
 % disp(test_spike);
 
-load("LL.mat"); % On suppose que la variable s'appelle CELL
-[num_neurons, num_stimuli, num_repetitions] = size(CELL); 
-
-% 2. Nettoyage sécurisé et robuste
-CellMatrix = cell(num_neurons, num_stimuli, num_repetitions);
-for n = 1:num_neurons
-    for st = 1:num_stimuli
-        for rp = 1:num_repetitions
-            spikes = CELL{n, st, rp};
-
-            % Si MATLAB a converti l'objet en structure ou s'il a des propriétés cachées
-            if isstruct(spikes) || isobject(spikes)
-                if isfield(spikes, 'times') || isprop(spikes, 'times')
-                    spikes = spikes.times;
-                elseif isfield(spikes, 'spikes') || isprop(spikes, 'spikes')
-                    spikes = spikes.spikes;
-                end
-            end
-
-            % Force la conversion en double (Assurez-vous que ce ne sont pas des uint32)
-            CellMatrix{n, st, rp} = double(spikes(:)');
-        end
-    end
-end
+% load("LL.mat"); 
+% [num_neurons, num_stimuli, num_repetitions] = size(CELL); 
+% 
+% % Cleaning of the dataset 
+% CellMatrix = cell(num_neurons, num_stimuli, num_repetitions);
+% for n = 1:num_neurons
+%     for st = 1:num_stimuli
+%         for rp = 1:num_repetitions
+%             spikes = CELL{n, st, rp};
+% 
+%             if isstruct(spikes) || isobject(spikes)
+%                 if isfield(spikes, 'times') || isprop(spikes, 'times')
+%                     spikes = spikes.times;
+%                 elseif isfield(spikes, 'spikes') || isprop(spikes, 'spikes')
+%                     spikes = spikes.spikes;
+%                 end
+%             end
+% 
+%             % Using double type and not uint32
+%             CellMatrix{n, st, rp} = double(spikes(:)');
+%         end
+%     end
+% end
 
 % data = load("LL_python_data.mat");
 % CellMatrix = data.LL_python_data;

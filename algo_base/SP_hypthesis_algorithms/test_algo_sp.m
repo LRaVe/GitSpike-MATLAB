@@ -24,8 +24,8 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 num_stimuli = 4;        % S
 num_repetitions = 5;    % R
-num_neurons = 70;        % N
-num_coll = 30;           % Coding neurons initial (the information is in the sum of these neurons)
+num_neurons = 7;        % N
+num_coll = 3;           % Coding neurons initial (the information is in the sum of these neurons)
 num_indi = 0;           % Individually coding neurons (they have some information each)
                           % --> crashes the algorithms written for SP hypothesis if there are any num_coll
 t1 = 0; t2 = 1;         % Time window
@@ -47,12 +47,11 @@ rng(12);                 % To reproduce the script without new random values
 CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
-% % Created file to understand the structure of the data and use the txt
-% % format
-% f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
+% Created file to understand the structure of the data and use the txt
+% format
+f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
 
-% % Created file to understand the structure of the data and use the txt
-% % format
+% % Created file ith the mat file
 % save('Simulated_data.mat', 'CellMatrix');
 
 % Alternative: Fail-case dataset for Bottom-Up testing
@@ -141,30 +140,3 @@ diary off;
 p = profile('info');
 profsave(p, 'profile_results_html');
 disp('Profiling completed successfully. Results saved in ./profile_results_html');
- 
-
-% %% Generation o fthe CellMatriw since a user data
-% [CellMatrix1, num_neurons1] = f_import_data_secure('Simulated_data.txt', 3, 2);
-% 
-% % Regardons la taille de la matrice globale et le nombre de neurones
-% disp(['Calculated Neurons: ', num2cell(num_neurons1)]);
-% disp(['Size of CellMatrix: ', num2str(size(CellMatrix1, 1)), 'x', num2str(size(CellMatrix1, 2))]);
-% 
-% % Vérifions le premier essai du Stimulus 2
-% disp('First neuron spikes for Stimulus 2, Repetition 1 (Line 21 of TXT file):');
-% disp(CellMatrix1{2, 1}{1});
-% 
-% [CellMatrix2, num_neurons2] = f_import_data_secure('Simulated_data.txt', 2, 3);
-% 
-% % Regardons la structure de cette nouvelle matrice
-% disp(['Size of CellMatrix: ', num2str(size(CellMatrix2, 1)), 'x', num2str(size(CellMatrix2, 2))]);
-% 
-% % Vérifions où est passée notre ligne 21 (anciennement Stim 2, Rep 1)
-% disp('First neuron spikes for Stimulus 1, Repetition 3 (Line 21 of TXT file):');
-% disp(CellMatrix2{1, 3}{1});
-% try
-%     [CellMatrix3, num_neurons3] = f_import_data_secure('Simulated_data.txt', 4, 4);
-% catch ME
-%     warning('SECURITY CHECK PASSED!');
-%     disp(ME.message);
-% end
