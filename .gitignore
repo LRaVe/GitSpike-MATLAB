@@ -31,6 +31,7 @@ credentials*.json
 .DS_Store
 Thumbs.db
 .vscode/
+draft.m
 
 # Local ongoing mission scripts (Do not push to GitHub yet)
 ISI-distance/ISI_distance.m

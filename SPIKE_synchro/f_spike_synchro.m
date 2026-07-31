@@ -3,7 +3,11 @@
 % Date: May 2026
 
 
+<<<<<<< HEAD
 function [C, spike_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t_max)
+=======
+function [C, spike_times, coincidence_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t_max)
+>>>>>>> Dev_Latency
     % Given two spike trains, this function calculates the coincidence of spikes between them.
     % Uses a greedy matching algorithm to pair spikes based on minimum distance.
     % Returns C: coincidence array (1 if matched and within tau, 0 otherwise)
@@ -21,12 +25,14 @@ function [C, spike_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t
     if n1 == 0 && n2 == 0
         C = [];
         spike_times = [];
+        coincidence_times = [];
         return;
     end
     % Go through the spikes in train1 and find the closest spike in train2, using the adaptive tau for coincidence detection 
     % With the use of f_interval, and f_in_interval functions to determine if spikes are coincident
     C = zeros(n1, 1);  % Initialize coincidence vector
     spike_times = spike_train1_sliced;  % Corresponding spike times for C
+    coincidence_times = zeros(n1, 1);  % To store times of coincident spikes for plotting
     for i = 1:n1
         spike1 = spike_train1_sliced(i);
         tau1 = f_interval(spike_train1_sliced, spike1, t_min, t_max);
@@ -35,9 +41,12 @@ function [C, spike_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t
             tau2 = f_interval(spike_train2_sliced, spike2, t_min, t_max);
             if f_in_interval(spike1, spike2, tau1, tau2)
                 C(i) = 1;  % Mark as coincident
+                coincidence_times(i) = spike2;  % Store the time of the coincident spike
+
                 break;  % Move to next spike in train1 after finding a match
             else
                 C(i) = 0;  % Not coincident
+
             end
         end
     end
@@ -51,6 +60,11 @@ function min_interval = f_interval(spike_train, spike, t_min, t_max)
     
     if isempty(spike_index)
         min_interval = 0;
+        return;
+    end
+
+    if length(spike_train) == 1
+        min_interval = (t_max - t_min) / 2;  % If only one spike, use half the time window
         return;
     end
     

@@ -6,6 +6,7 @@
 function [res1,res2]=pairwise_train_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
     % Compute bidirectional pairwise spike-train ordering
     % For each coincidence, both trains receive the same ordering value
+    tol = 1e-10;
 
     n=length(spikes);
     if spike_ind1>n || spike_ind2>n || spike_ind1<1 || spike_ind2<1
@@ -21,7 +22,9 @@ function [res1,res2]=pairwise_train_order(tmin,tmax,spikes,spike_ind1,spike_ind2
         for j=1:length(s2)
             if abs(s1(i)-s2(j))<coincidence_window(tmin,tmax,spikes,spike_ind1,spike_ind2,i,j)
                 % Both trains get the same ordering sign based on relative timing
-                if s1(i)<s2(j)
+                if abs(s1(i)-s2(j)) <= tol
+                    signValue=0;
+                elseif s1(i)<s2(j)
                     signValue=1;
                 elseif s1(i)>s2(j)
                     signValue=-1;

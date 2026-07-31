@@ -6,11 +6,11 @@
 function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
     % Adaptive SPIKE-synchronization between two spike trains
     % If RMTS is empty or not provided, use regular SPIKE synchronization
-    
-    if nargin < 5 | isempty(RMTS)
-        [C, spike] = f_spike_synchro(train1, train2, t_min, t_max);
+    if nargin < 5 || isempty(RMTS)
+        f_spike_synchro(train1, train2, t_min, t_max);
         return;
     end
+    
     train1_sliced = unique(sort(train1(train1 >= t_min & train1 <= t_max)));
     train2_sliced = unique(sort(train2(train2 >= t_min & train2 <= t_max)));
 
@@ -55,7 +55,10 @@ function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
 end
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> Dev_Latency
 function tau = f_interval(spike_train, spike, t_min, t_max)
     % Calculate tau for adaptive coincidence detection
     % tau = min(forward_ISI, backward_ISI) / 2
@@ -64,6 +67,11 @@ function tau = f_interval(spike_train, spike, t_min, t_max)
     
     if isempty(spike_index)
         tau = 0;
+        return;
+    end
+
+    if length(spike_train) == 1
+        tau = (t_max - t_min) / 2;  % If only one spike, use half the time window
         return;
     end
     
