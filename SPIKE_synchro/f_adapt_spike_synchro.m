@@ -55,10 +55,6 @@ function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
 end
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> Dev_Latency
 function tau = f_interval(spike_train, spike, t_min, t_max)
     % Calculate tau for adaptive coincidence detection
     % tau = min(forward_ISI, backward_ISI) / 2
