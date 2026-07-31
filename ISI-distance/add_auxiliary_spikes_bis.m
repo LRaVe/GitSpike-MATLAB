@@ -3,7 +3,7 @@
 % =========================================================
 
 
-function [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max)
+function [spikes, aux_begin, aux_end] = add_auxiliary_spikes_bis(spikes, t_min, t_max)
     % Window spike trains and add auxiliary spike times at the
     % beginning and end of the observation window when needed.
 
@@ -82,7 +82,8 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
     if train(1) > t_min
 
         if length(train) >= 2
-            aux = train(1) - max(train(1)-t_min, train(2)-train(1));
+            aux = train(1) - ...
+                max(train(1)-t_min, train(2)-train(1));
         else
             aux = t_min;
         end
@@ -98,7 +99,8 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
     if train(end) < t_max
 
         if length(train) >= 2
-            aux = train(end) + max(t_max-train(end), train(end)-train(end-1));
+            aux = train(end) + ...
+                max(t_max-train(end), train(end)-train(end-1));
         else
             aux = t_max;
         end
