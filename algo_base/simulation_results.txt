@@ -16,3 +16,132 @@ In <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_alg
     f_brute_force(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 } 
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.3044
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 4 | Performance P = 0.2286
+Step k = 2 | Adding neuron : 6 | Performance P = 0.1742
+Step k = 3 | Adding neuron : 5 | Performance P = 0.1400
+Step k = 4 | Adding neuron : 2 | Performance P = 0.1058
+Step k = 5 | Adding neuron : 3 | Performance P = 0.1199
+Step k = 6 | Adding neuron : 1 | Performance P = 0.1675
+Step k = 7 | Adding neuron : 7 | Performance P = 0.1259
+   [1-7] : 0.2286 0.1742 0.1400 0.1058 0.1199 0.1675 0.1259
+
+Optimal neuron inclusion order:
+   4  6  5  2  3  1  7
+
+The best subpopulation found contains 1 neurons:
+   4
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.540409 
+Temp: 0.540409 | Current P: 0.0675 | Cache Hits: 14
+Temp: 0.486368 | Current P: 0.0325 | Cache Hits: 27
+Temp: 0.437731 | Current P: 0.0704 | Cache Hits: 49
+Temp: 0.393958 | Current P: 0.0894 | Cache Hits: 72
+Temp: 0.354562 | Current P: 0.1380 | Cache Hits: 100
+Temp: 0.319106 | Current P: 0.1438 | Cache Hits: 125
+Temp: 0.287195 | Current P: 0.1096 | Cache Hits: 158
+Temp: 0.258476 | Current P: 0.1349 | Cache Hits: 186
+Temp: 0.232628 | Current P: 0.1216 | Cache Hits: 219
+Temp: 0.209365 | Current P: 0.0814 | Cache Hits: 249
+Temp: 0.188429 | Current P: 0.1216 | Cache Hits: 279
+Temp: 0.169586 | Current P: 0.1991 | Cache Hits: 314
+Temp: 0.152627 | Current P: 0.1723 | Cache Hits: 347
+Temp: 0.137365 | Current P: 0.1991 | Cache Hits: 382
+Temp: 0.123628 | Current P: 0.0880 | Cache Hits: 417
+Temp: 0.111265 | Current P: 0.1643 | Cache Hits: 450
+Temp: 0.100139 | Current P: 0.1202 | Cache Hits: 485
+Temp: 0.090125 | Current P: 0.2323 | Cache Hits: 520
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+
+--- SIMULATED ANNEALING SUMMARY ---
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.3044
+Total iterations: 630
+Unique masks evaluated: 126
+Cache hits (Calculations saved!): 554 (81.4% saved)
+Elapsed time is 92.307808 seconds.
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (1023 masks to evaluate...)
+<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',231,1)">231 </a>    n1 = length(spikes1);
+if system_dependent('IsDebugMode')==1, dbquit; end
+test_algo_sp
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (1023 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3  4]
+Absolute maximum performance P = 0.3085
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 5 | Performance P = 0.2101
+Step k = 2 | Adding neuron : 6 | Performance P = 0.1698
+Step k = 3 | Adding neuron : 7 | Performance P = 0.1206
+Step k = 4 | Adding neuron : 4 | Performance P = 0.0871
+Step k = 5 | Adding neuron : 1 | Performance P = 0.0957
+Step k = 6 | Adding neuron : 2 | Performance P = 0.1259
+Step k = 7 | Adding neuron : 3 | Performance P = 0.1771
+Step k = 8 | Adding neuron : 10 | Performance P = 0.1486
+Step k = 9 | Adding neuron : 9 | Performance P = 0.1258
+Step k = 10 | Adding neuron : 8 | Performance P = 0.1032
+   [1-10] : 0.2101 0.1698 0.1206 0.0871 0.0957 0.1259 0.1771 0.1486 0.1258 0.1032
+
+Optimal neuron inclusion order:
+   5   6   7   4   1   2   3  10   9   8
+
+The best subpopulation found contains 1 neurons:
+   5
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.376135 
+Temp: 0.376135 | Current P: 0.1110 | Cache Hits: 12
+Temp: 0.338522 | Current P: 0.1167 | Cache Hits: 19
+Temp: 0.304670 | Current P: 0.1258 | Cache Hits: 35
+Temp: 0.274203 | Current P: 0.0542 | Cache Hits: 50
+Temp: 0.246782 | Current P: 0.1381 | Cache Hits: 63
+Temp: 0.222104 | Current P: 0.0349 | Cache Hits: 84
+Temp: 0.199894 | Current P: 0.2144 | Cache Hits: 97
+Temp: 0.179904 | Current P: 0.0561 | Cache Hits: 122
+Temp: 0.161914 | Current P: 0.0845 | Cache Hits: 142
+Temp: 0.145723 | Current P: 0.1424 | Cache Hits: 156
+Temp: 0.131150 | Current P: 0.0705 | Cache Hits: 175
+Temp: 0.118035 | Current P: 0.0608 | Cache Hits: 208
+Temp: 0.106232 | Current P: 0.1388 | Cache Hits: 241
+Temp: 0.095609 | Current P: 0.0744 | Cache Hits: 268
+Temp: 0.086048 | Current P: 0.0454 | Cache Hits: 301
+Temp: 0.077443 | Current P: 0.0595 | Cache Hits: 325
+Temp: 0.069699 | Current P: 0.1008 | Cache Hits: 354
+Temp: 0.062729 | Current P: 0.0797 | Cache Hits: 378
+Temp: 0.056456 | Current P: 0.1969 | Cache Hits: 407
+Temp: 0.050810 | Current P: 0.0623 | Cache Hits: 434
+Temp: 0.045729 | Current P: 0.3085 | Cache Hits: 475
+Temp: 0.041156 | Current P: 0.1496 | Cache Hits: 514
+Temp: 0.037041 | Current P: 0.0616 | Cache Hits: 543
+Temp: 0.033337 | Current P: 0.1238 | Cache Hits: 581
+Temp: 0.030003 | Current P: 0.1965 | Cache Hits: 622
+Temp: 0.027003 | Current P: 0.3085 | Cache Hits: 670
+Temp: 0.024302 | Current P: 0.2508 | Cache Hits: 720
+Temp: 0.021872 | Current P: 0.3085 | Cache Hits: 769
+Temp: 0.019685 | Current P: 0.2508 | Cache Hits: 817
+Temp: 0.017716 | Current P: 0.3085 | Cache Hits: 867
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+
+--- SIMULATED ANNEALING SUMMARY ---
+Optimal subpopulation found: [1  2  3  4]
+Max performance P = 0.3085
+Total iterations: 1500
+Unique masks evaluated: 634
+Cache hits (Calculations saved!): 917 (59.1% saved)
+Elapsed time is 652.350077 seconds.

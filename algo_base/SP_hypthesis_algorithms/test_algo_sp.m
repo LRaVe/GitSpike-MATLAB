@@ -24,9 +24,9 @@ setenv('MW_MINGW64_LOC', 'C:\mingw64')
 
 num_stimuli = 4;        % S
 num_repetitions = 5;    % R
-num_neurons = 7;        % N
-num_coll = 3;           % Coding neurons initial (the information is in the sum of these neurons)
-num_indi = 0;           % Individually coding neurons (they have some information each)
+num_neurons = 10;        % N
+num_coll = 4;           % Coding neurons initial (the information is in the sum of these neurons)
+num_indi = 3;           % Individually coding neurons (they have some information each)
                           % --> crashes the algorithms written for SP hypothesis if there are any num_coll
 t1 = 0; t2 = 1;         % Time window
 refrac = 0.002;         % "an absolute refractory period of 2 ms" paper 2018
@@ -43,21 +43,21 @@ other_figs = true;       % Boolean to plot or not auxiliary figures
 rng(12);                 % To reproduce the script without new random values
 
 %% 2. Dataset creation (Summed Population Hypothesis)
-
-CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
-    num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+tic;
+% CellMatrix = generate_and_plot_raster(num_stimuli, num_repetitions, ...
+%     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
 % Created file to understand the structure of the data and use the txt
 % format
-f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
+%f_export_simulation_to_txt(CellMatrix, 'Simulated_data.txt');
 
 % % Created file ith the mat file
 % save('Simulated_data.mat', 'CellMatrix');
 
 % Alternative: Fail-case dataset for Bottom-Up testing
 % To try to fail the BU algorithms (parameters : num_neurons = 10; num_coll = 4; num_indi= 3;)
-% CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
-%     num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
+CellMatrix = generate_and_plot_raster_fail_BU(num_stimuli, num_repetitions, ...
+    num_indi, num_coll, num_neurons, t1, t2, base_rate, refrac, plotting, other_figs);
 
 % % Test using a "simulated data" since a document file
 % CellMatrix = f_import_data_secure('Simulated_data.txt', num_stimuli, num_repetitions, num_neurons);
@@ -133,10 +133,11 @@ f_bottom_up(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
 fprintf('\n--- Running Simulated Annealing Optimization ---\n');
 f_simulated_annealing(CellMatrix, num_neurons, num_stimuli, num_repetitions, t1, ...
     t2,showing, plotting, other_figs);
+toc; 
 
 profile off;
 diary off;
-%profile viewer;
-p = profile('info');
-profsave(p, 'profile_results_html');
-disp('Profiling completed successfully. Results saved in ./profile_results_html');
+profile viewer;
+% p = profile('info');
+% profsave(p, 'profile_results_html');
+% disp('Profiling completed successfully. Results saved in ./profile_results_html');
