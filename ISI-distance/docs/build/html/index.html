@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ISI Distance Documentation &mdash; ISI distance documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            ISI distance documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"><ul>
+<li><a class="reference internal" href="#">ISI Distance Documentation</a></li>
+</ul>
+</div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ISI distance documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ISI Distance Documentation</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="isi-distance-documentation">
+<h1>ISI Distance Documentation<a class="headerlink" href="#isi-distance-documentation" title="Link to this heading"></a></h1>
+<dl class="mat function" id="module-.">
+<dt class="sig sig-object mat" id="f_ISI_distance">
+<span class="sig-name descname"><span class="pre">f_ISI_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f_ISI_distance" title="Link to this definition"></a></dt>
+<dd><p>F_ISI_DISTANCE Computes the bivariate and multivariate ISI-distance between spike trains.</p>
+<p>Calculates the instantaneous and overall Inter-Spike Interval (ISI) distance 
+between multiple spike trains within a given temporal window.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Based on the ISI-distance algorithm proposed by Kreuz et al.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Kreuz T, et al. <em>Measuring spike train synchrony.</em> J Neurosci Methods, 2007.</p>
+</div>
+<p>The instantaneous bivariate ISI-distance profile <span class="math notranslate nohighlight">\(I(t)\)</span> between two spike trains is defined as:</p>
+<div class="math notranslate nohighlight">
+\[I(t) = \frac{|x_1(t) - x_2(t)|}{\max(x_1(t), x_2(t))}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_1(t)\)</span> and <span class="math notranslate nohighlight">\(x_2(t)\)</span> are the instantaneous inter-spike intervals 
+for each spike train at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>The overall bivariate ISI-distance <span class="math notranslate nohighlight">\(D_I\)</span> is the time average over the window <span class="math notranslate nohighlight">\([T_0, T_1]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[D_I = \frac{1}{T_1 - T_0} \int_{T_0}^{T_1} I(t) \, dt\]</div>
+<p>In the multivariate case, the population profile <span class="math notranslate nohighlight">\(I_{multi}(t)\)</span> is averaged over all <span class="math notranslate nohighlight">\(N(N-1)/2\)</span> pairs:</p>
+<div class="math notranslate nohighlight">
+\[I_{multi}(t) = \frac{2}{N(N-1)} \sum_{&lt;i,j&gt;} I^{i,j}(t)\]</div>
+<p>Valid call structures:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Basic call with default output flags (showing=15, plotting=15)</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">);</span>
+
+<span class="c">% Suppress all plots and console outputs</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c">% Display only the population profile (console and plot)</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array where each element is a vector containing spike timestamps for a train.</p></li>
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower temporal boundary of the window of interest.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the window of interest.</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling console output verbosity (default: 15).
+* +2: Print pairwise ISI distance summary
+* +4: Print population profile array
+* +8: Print final pairwise distance matrix</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling figure generation (default: 15).
+* +2: (Reserved for pairwise plots)
+* +4: Plot population profile over time
+* +8: Plot final ISI distance matrix heatmap</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function requires at least two spike trains (<cite>length(spikes) &gt;= 2</cite>) 
+to compute pairwise distances.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Laure WOLFF</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>May 2026</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="f_ISI_distance_adaptive_v1">
+<span class="sig-name descname"><span class="pre">f_ISI_distance_adaptive_v1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#f_ISI_distance_adaptive_v1" title="Link to this definition"></a></dt>
+<dd><p>F_ISI_DISTANCE_ADAPTIVE_V1 Computes the adaptive ISI-distance between spike trains.</p>
+<p>Calculates the adaptive Inter-Spike Interval (ISI) distance between 
+multiple spike trains using a Minimum Resolvable Time Scale (MRTS) parameter. 
+The MRTS threshold prevents division-by-zero artifacts and stabilizes the distance 
+measure during high firing rate periods or silent intervals.</p>
+<p>The instantaneous adaptive ISI-distance profile <span class="math notranslate nohighlight">\(I_{adapt}(t)\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[I_{adapt}(t) = \frac{|x_1(t) - x_2(t)|}{\max\left(x_1(t), x_2(t), \tau_{MRTS}\right)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_1(t)\)</span> and <span class="math notranslate nohighlight">\(x_2(t)\)</span> are the instantaneous ISIs of the two spike trains 
+at time <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(\tau_{MRTS}\)</span> is the user-defined or automated threshold parameter.</p>
+<p>The overall adaptive distance <span class="math notranslate nohighlight">\(D_I\)</span> is obtained by time-averaging over <span class="math notranslate nohighlight">\([T_0, T_1]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[D_I = \frac{1}{T_1 - T_0} \int_{T_0}^{T_1} I_{adapt}(t) \, dt\]</div>
+<p>Valid call structures:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Classic mode (MRTS = 0)</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">);</span>
+
+<span class="c">% Automatic threshold selection based on RMS of ISIs</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+
+<span class="c">% Manual MRTS threshold set to 0.05 seconds</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mf">0.05</span><span class="p">);</span>
+
+<span class="c">% Custom threshold with console/plot display bitmasks</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array where each element is a vector containing spike timestamps for a train.</p></li>
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower temporal boundary of the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the analysis window.</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">or</span> <span class="pre">char,</span> <span class="pre">optional</span></code></span>) – MRTS threshold parameter (default: 0).
+* <code class="docutils literal notranslate"><span class="pre">0</span></code>: Classic ISI-distance mode.
+* <code class="docutils literal notranslate"><span class="pre">&gt;0</span></code>: Manual MRTS scalar value.
+* <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>: Automated calculation based on the Root Mean Square (RMS) of all ISIs.</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling console output verbosity (default: 15).
+* +2: Print global ISI distance summary
+* +4: Print population profile array
+* +8: Print final distance matrix</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling figure visualization (default: 15).
+* +2: (Reserved for pairwise plots)
+* +4: Plot population profile over time
+* +8: Plot distance matrix heatmap</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <cite>threshold</cite> is set to <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, the function internally calculates 
+the Root Mean Square (RMS) of all inter-spike intervals:</p>
+<div class="math notranslate nohighlight">
+\[\tau_{MRTS} = \sqrt{\frac{1}{N_{isi}} \sum_{k=1}^{N_{isi}} (\Delta t_k)^2}\]</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Laure WOLFF</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>May 2026</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="mat function">
+<dt class="sig sig-object mat" id="autoMRTS">
+<span class="sig-name descname"><span class="pre">autoMRTS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#autoMRTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2026, Laure WOLFF.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
