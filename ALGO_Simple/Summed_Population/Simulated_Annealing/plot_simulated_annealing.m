@@ -4,6 +4,31 @@
 
 
 function plot_simulated_annealing(result,codingNeurons)
+% PLOT_SIMULATED_ANNEALING Generates a multi-panel diagnostic figure for Simulated Annealing optimization.
+%
+%   Displays execution trajectories and convergence metrics across iterations using a 3x2 tiled layout:
+%   
+%   1. **Population size:** Tracks subpopulation size evolution against ground truth coding neurons.
+%   2. **Discrimination performance:** Compares instantaneous performance :math:`P` with the running best score.
+%   3. **Population composition:** Monitors the counts of coding vs. non-coding neurons over time.
+%   4. **Cooling schedule:** Displays exponential temperature decay on a logarithmic scale.
+%   5. **Subpopulation purity:** Plots the proportion of true coding neurons in the subpopulation.
+%
+%   :param result: Structure produced by the Simulated Annealing solver containing fields:
+%
+%                  * **history** (*struct*): Iteration logs for `size`, `P`, `bestP`, `nCoding`, `nNonCoding`, and `temperature`.
+%                  * **bestP** (*double*): Overall maximum discrimination performance score achieved.
+%                  * **bestPopulation** (*vector*): Indices of neurons comprising the optimal subpopulation.
+%   :type result: struct
+%   :param codingNeurons: Vector of 1-based indices identifying ground-truth coding neurons for reference lines.
+%   :type codingNeurons: vector of integers
+%
+%   .. note::
+%      The figure includes a overall title (`sgtitle`) summarizing the best performance :math:`P_{\text{best}}` 
+%      and listing the optimal neuron subset.
+%
+%   :Author: Maxime BELTOISE
+%   :Date: June 2026
     
     figure('Color','w');
     

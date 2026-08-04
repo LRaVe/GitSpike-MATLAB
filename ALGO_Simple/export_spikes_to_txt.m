@@ -1,16 +1,26 @@
 function export_spikes_to_txt(spikes,filename)
-% EXPORT_SPIKES_TO_TXT
+% EXPORT_SPIKES_TO_TXT Export a spike dataset to a formatted text file.
 %
-% Export a spike dataset stored as a cell array {Neuron,Stimulus,Repetition}
-% into a text file.
+%   EXPORT_SPIKES_TO_TXT(spikes, filename) takes a 3D cell array 
+%   {Neuron, Stimulus, Repetition} containing spike timestamps and exports 
+%   them into a structured text file.
 %
-% Each line of the text file corresponds to one neuron's spike train
-% for one trial.
+%   INPUTS:
+%       - spikes   : 3D cell array of dimensions [num_neurons x num_stimuli x num_repetitions] 
+%                    holding the spike timestamp vectors for each trial.
+%       - filename : Character vector or string specifying the destination file path.
 %
-% Order:
-%   Stimulus -> Repetition -> Neuron
+%   FILE FORMAT:
+%       - Each line in the generated text file corresponds to the spike train 
+%         of a single neuron for a single trial.
+%       - Timestamps are formatted with high precision ('%.17e') and separated by spaces.
+%       - Loop nesting order: Stimulus -> Repetition -> Neuron.
 %
-% This file is fully compatible with import_spikes_from_txt.m
+%   COMPATIBILITY:
+%       - Fully compatible with the complementary function import_spikes_from_txt.m.
+%
+%   Author: Maxime BELTOISE
+%   Date: June 2026
 
     fid = fopen(filename,'w');
 

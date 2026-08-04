@@ -4,6 +4,13 @@
 
 
 function plot_top_down_gradient(result,codingNeurons)
+%   PLOT_TOP_DOWN_GRADIENT
+%   The algorithm generates a dual-panel publication figure combining the **Top-Down Selection Matrix** 
+%   (showing sequential neuron inclusions with ticks and color-coded performances) 
+%   and the **Performance Function** curve indicating the global optimum size :math:`k_{opt}`.
+%
+%   :Author: Maxime BELTOISE
+%   :Date: June 2026
 
     N = length(result.populations{1});
 

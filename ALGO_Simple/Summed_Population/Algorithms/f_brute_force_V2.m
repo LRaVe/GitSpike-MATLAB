@@ -1,7 +1,58 @@
 %% Brute Force (Exhaustive Search) Algorithm by Binary Incrementation
 % Date: June 2026
 % Author : Laure WOLFF
+
 function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distances,threshold, showing,other_figs, useMex)
+% F_BRUTE_FORCE_V2 Evaluates all :math:`2^N - 1` subpopulation combinations to find optimal neuronal subsets.
+%
+%   Performs an exhaustive search (Brute Force) over the entire combinatorial space 
+%   of neuron subpopulations using binary incrementation. For each candidate subset, 
+%   it calculates the classification performance :math:`P` using spike train distances.
+%
+%   The total number of tested combinations is defined as:
+%
+%   .. math::
+%
+%      N_{comb} = 2^{N_{neurons}} - 1
+%
+%   Valid call structures:
+%
+%   .. code-block:: matlab
+%
+%      % Standard execution without MEX acceleration or figures
+%      [best_subpop, best_perf] = f_brute_force_V2(spikes, Tmax, Distances, 0, 1, 0, false);
+%
+%      % Fast execution using C/MEX compilation with plotting enabled
+%      [best_subpop, best_perf] = f_brute_force_V2(spikes, Tmax, Distances, 0.05, 1, 1, true);
+%
+%   :param spikes: 3D cell array or matrix of dimensions `[num_neurons x num_stimuli x num_repetitions]` containing spike times.
+%   :type spikes: cell or double
+%   :param Tmax: Upper temporal bound of the analysis window.
+%   :type Tmax: double
+%   :param Distances: Distance metric type (e.g., `'SPIKE'`, `'RI-SPIKE'`, `'SPIKE_adaptive'`, `'RI-SPIKE adaptative'`).
+%   :type Distances: 0 or 1 array  (e.g [1 0 0 0] for the SPIKE distance)
+%   :param threshold: MRTS threshold value for adaptive distances (set `0` for classic mode or `'auto'`).
+%   :type threshold: double or char
+%   :param showing: Flag to enable/disable console output messages (`1` = active, `0` = quiet).
+%   :type showing: logical or integer
+%   :param other_figs: Flag to control generation of the combinatorial search history figure (`true`/`false`).
+%   :type other_figs: logical
+%   :param useMex: Flag to delegate processing to C/MEX compiled function (`f_brute_force_mex`) for high speed.
+%   :type useMex: logical
+%
+%   :returns: 
+%             * **best_subpop** (*vector*) -- Indices of the neurons forming the optimal subpopulation.
+%             * **best_perf_overall** (*double*) -- Highest classification performance :math:`P` achieved across all combinations.
+%
+%   .. note::
+%      A safety check aborts execution if :math:`N_{neurons} > 20` to prevent memory allocation failure 
+%      and exponential execution slowdowns (:math:`2^{20} = 1\,048\,575` iterations).
+%
+%   .. note::
+%      This algorithms has a MEX version
+%
+%   :Author: Laure WOLFF
+%   :Date: June 2026
        
     [num_neurons,num_stimuli, num_repetitions] = size(spikes);
 

@@ -3,6 +3,54 @@
 % Author : Laure WOLFF
 
 function f_bottom_up_V2(spikes,Tmax,Distances,threshold,showing,plotting,other_figs)
+% F_BOTTOM_UP_V2 Sequential greedy inclusion algorithm for optimal neuronal subpopulation selection.
+%
+%   Performs a iterative Bottom-Up (forward selection) search to identify 
+%   the subpopulation of neurons that maximizes the classification performance :math:P. 
+%   Starting from an empty set, at each step :math:`k`, the algorithm evaluates all available 
+%   candidate neurons and permanently includes the one that yields the highest incremental performance.
+%
+%   The computational complexity of this forward selection process is polynomial:
+%
+%   .. math::
+%
+%      \mathcal{O}\left(\frac{N(N+1)}{2}\right)
+%
+%   which drastically reduces the evaluation space compared to the :math:`2^N - 1` exhaustive search.
+%
+%   Valid call structures:
+%
+%   .. code-block:: matlab
+%
+%      % Run Bottom-Up selection with console display and paper figure generation
+%      f_bottom_up_V2(spikes, Tmax, Distances, 0, true, true, false);
+%
+%      % Quiet execution without figure generation
+%      f_bottom_up_V2(spikes, Tmax, Distances, 'auto', false, false, false);
+%
+%   :param spikes: 3D cell array or matrix of dimensions `[num_neurons x num_stimuli x num_repetitions]` containing spike timestamps.
+%   :type spikes: cell or double
+%   :param Tmax: Upper temporal boundary of the analysis window.
+%   :type Tmax: double
+%   :param Distances: Distance metric type (e.g., `'SPIKE'`, `'RI-SPIKE'`, `'SPIKE_adaptive'`, `'RI-SPIKE adaptative'`).
+%   :type Distances: 0 or 1 array  (e.g [1 0 0 0] for the SPIKE distance)
+%   :param threshold: MRTS threshold value for adaptive distances (set `0` for classic mode or `'auto'`).
+%   :type threshold: double or char
+%   :param showing: Flag to enable/disable detailed console output and progression logs.
+%   :type showing: logical
+%   :param plotting: Master flag to enable figure generation.
+%   :type plotting: logical
+%   :param other_figs: Secondary flag to plot intermediate step-by-step exploration figures.
+%   :type other_figs: logical
+%
+%   .. note::
+%      The algorithm generates a dual-panel publication figure combining the **Bottom-Up Selection Matrix** 
+%      (showing sequential neuron inclusions with ticks and color-coded performances) 
+%      and the **Performance Function** curve indicating the global optimum size :math:`k_{opt}`.
+%
+%   :Author: Laure WOLFF
+%   :Date: May-June 2026
+
     % Initialization variableq
     [num_neurons,~,~] = size(spikes);
     best_order = zeros(1, num_neurons);    % Any neuron in the list

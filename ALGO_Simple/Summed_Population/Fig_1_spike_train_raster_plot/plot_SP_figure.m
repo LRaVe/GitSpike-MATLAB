@@ -4,6 +4,49 @@
 
 
 function plot_SP_figure(spikes,params,plotParams)
+% PLOT_SP_FIGURE Plots raster graphs for individual and pooled spike trains.
+%
+%   Generates a multi-panel figure displaying raster plots of individual neuron 
+%   spike trains alongside pooled spike trains (Coding, Non-Coding, and All neurons). 
+%   Spikes are color-coded based on neuron type (Coding in red, Individual/Noise in magenta, 
+%   and Non-Coding in blue). Dashed separation lines visually divide the different functional groups.
+%
+%   Valid call structures:
+%
+%   .. code-block:: matlab
+%
+%      % Plot raster with pooled spike trains enabled
+%      plotParams.stimuli = [1, 2];
+%      plotParams.repetitions = [1];
+%      plotParams.showPooling = true;
+%      plot_SP_figure(spikes, params, plotParams);
+%
+%      % Basic plot showing only individual raster lines
+%      plotParams.showPooling = false;
+%      plot_SP_figure(spikes, params, plotParams);
+%
+%   :param spikes: 3D cell array or matrix of dimensions `[num_neurons x num_stimuli x num_repetitions]` containing spike timestamps.
+%   :type spikes: cell or double
+%   :param params: Structure containing simulation parameters with fields:
+%
+%                  * **c** (*integer*): Number of coding neurons.
+%                  * **nIndi** (*integer*): Number of individual/noise-contributing neurons.
+%                  * **Tmax** (*double*): Upper temporal boundary of the window.
+%   :type params: struct
+%   :param plotParams: Structure containing figure configuration parameters with fields:
+%
+%                      * **stimuli** (*vector*): Indices of stimuli to plot (e.g., `[1, 2]`).
+%                      * **repetitions** (*vector*): Indices of repetitions to plot (e.g., `[1]`).
+%                      * **showPooling** (*logical*): Flag to toggle displaying pooled spike trains (`C`, `NC`, `All`).
+%   :type plotParams: struct
+%
+%   .. note::
+%      When `showPooling` is set to `true`, the figure adds three extra rows at the bottom 
+%      representing pooled spike trains: **C** (Coding neurons), **NC** (Non-Coding neurons), 
+%      and **All** (Entire population).
+%
+%   :Author: Maxime BELTOISE
+%   :Date: May 2026
     
     [N,~,~] = size(spikes);
     

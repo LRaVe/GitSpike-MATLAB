@@ -3,18 +3,28 @@
 % Author : Laure WOLFF
 
 function spikes = import_spikes_from_txt(filename, num_stimuli, num_repetitions, num_neurons)
-% f_import_data_secure - Dynamic data loading from text file to 3D Cell Matrix.
+% IMPORT_SPIKES_FROM_TXT Dynamic data loading from text file to a 3D Cell Matrix.
 %
-% spikes = import_data(filename,S,R,N)
+%   spikes = IMPORT_SPIKES_FROM_TXT(filename, num_stimuli, num_repetitions, num_neurons) 
+%   reads a structured text file line by line and reconstructs the multi-neuron 
+%   spike train dataset.
 %
-% Inputs:
-%   filename        : Text file name (e.g., 'Simulated_data.txt')
-%   num_stimuli     : Exact number of Stimuli (S)
-%   num_repetitions : Exact number of Repetitions (R)
-%   num_neurons     : Exact number of neurons (N)
+%   INPUTS:
+%       data/file parameters:
+%       - filename        : Character vector or string specifying the path to the text file.
+%       - num_stimuli     : Exact number of stimuli (S).
+%       - num_repetitions : Exact number of repetitions/trials per stimulus (R).
+%       - num_neurons     : Exact number of recorded neurons (N).
 %
-% Outputs:
-%   spikes      : Cell matrix of size {N, S, R} ready for algorithms
+%   OUTPUTS:
+%       - spikes          : 3D cell array of size {num_neurons x num_stimuli x num_repetitions} 
+%                           formatted and ready for downstream analysis algorithms.
+%
+%   COMPATIBILITY:
+%       - Perfectly mirrors the writing format produced by export_spikes_to_txt.m.
+%
+%   Author: Laure WOLFF
+%   Date: June 2026
 
     % 1. Read all lines from the file
     fid = fopen(filename, 'r');
