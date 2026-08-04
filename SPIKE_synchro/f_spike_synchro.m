@@ -6,8 +6,9 @@
 function [C, spike_times, coincidence_times] = f_spike_synchro(Spike_train1, Spike_train2, t_min, t_max)
     % Given two spike trains, this function calculates the coincidence of spikes between them.
     % Uses a greedy matching algorithm to pair spikes based on minimum distance.
-    % Returns C: coincidence array (1 if matched and within tau, 0 otherwise)
-    %        spike_times: corresponding spike times for each coincidence value
+    % Returns:
+    % C: coincidence array (1 if matched and within tau, 0 otherwise)
+    % spike_times: corresponding spike times for each coincidence value
     
     % Ensure time spikes are sorted and unique
     Spike_train1 = unique(sort(Spike_train1(:)));
