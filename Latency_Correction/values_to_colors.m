@@ -2,12 +2,21 @@
 % Author: Agathe JULIEN
 % Date: June 2026
 
-
 function [spikeColors,flatRows] = values_to_colors(spikes, sortedOrders,num_trains)
     % This function maps sortedOrders to colors and returns the corresponding color for each spike time in spikes.
+    %
     % It also returns the corresponding row indices for each spike time for plotting. 
-    
-    % Flatten spike times once and build the matching train rows vectorized
+    % 
+    % Args:
+    %     spikes (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     sortedOrders (array): An array of all spike orders sorted according to the sorted spike times.
+    %     num_trains (int): The total number of spike trains.
+    %
+    % Returns:
+    %     spikeColors (array): An array where each row corresponds to the RGB color for the corresponding spike time in spikes. 
+    %     flatRows (array): An array where each element corresponds to the train index of the corresponding spike time in spikes. 
+
+
     flatRows = repelem(num_trains:-1:1, cellfun(@numel, spikes));
     [~, sortIdx] = sort([spikes{:}]);
     flatRows = flatRows(sortIdx);

@@ -51,7 +51,7 @@ function D = compute_population_distance_matrix(trials,Tmax,Distances,threshold)
     %% =====================================
     
     if not (isnumeric(threshold))
-        threshold = autoMRTS(trials_aux);
+        threshold = autoMRTS(trials_aux,threshold);
     end
 
     for i = 1:T

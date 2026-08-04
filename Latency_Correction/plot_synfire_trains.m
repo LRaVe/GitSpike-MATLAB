@@ -1,8 +1,21 @@
+%% Function to plot synfire spike trains with optional latency correction
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
 function plot_synfire_trains(trains, sortedOrders, sortedTimes, title_str, is_corrected, shifts, trains_corrected, sortedOrders_corrected, sortedTimes_corrected, ~)
-    % Plot synfire trains with train 1 at top and last train at bottom
+    % This function plots the synfire spike trains. It can also plot the corrected spike trains if latency correction is applied. 
+    %
+    % Args:
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train. 
+    %     sortedOrders (array): An array of all spike orders sorted according to the sorted spike times.
+    %     sortedTimes (array): An array of all spike times sorted in ascending order.
+    %     title_str (str): The title for the plot. If not provided, a default title will be used.
+    %     is_corrected (bool): A boolean indicating whether the spike trains have been corrected for latency. If true, the corrected spike trains will be plotted.
+    %     shifts (array): An array where each element represents the shift for the corresponding spike train. 
+    %     trains_corrected (cell array): A cell array where each cell contains the corrected spike times for a specific spike train. 
+    %     sortedOrders_corrected (array): An array of all spike orders for the corrected spike trains sorted according to the sorted corrected spike times.
+    %     sortedTimes_corrected (array): An array of all corrected spike times sorted in ascending order.
+
     
     hold on;
     box on;

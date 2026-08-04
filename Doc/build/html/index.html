@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>GitSpike-MATLAB documentation &#8212; GitSpike-MATLAB 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5ecbeea2" />
+    <link rel="stylesheet" type="text/css" href="_static/basic.css?v=b08954a9" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css?v=27fed22d" />
+    <script src="_static/documentation_options.js?v=01f34227"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+
+  
+  
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="gitspike-matlab-documentation">
+<h1>GitSpike-MATLAB documentation<a class="headerlink" href="#gitspike-matlab-documentation" title="Link to this heading">¶</a></h1>
+</section>
+<section id="common-utilities">
+<h1>Common Utilities<a class="headerlink" href="#common-utilities" title="Link to this heading">¶</a></h1>
+<section id="add-auxiliary-spikes">
+<span id="module-spike_common"></span><h2>add_auxiliary_spikes<a class="headerlink" href="#add-auxiliary-spikes" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="spike_common.add_auxiliary_spikes">
+<span class="sig-prename descclassname"><span class="pre">spike_common.</span></span><span class="sig-name descname"><span class="pre">add_auxiliary_spikes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spike_common.add_auxiliary_spikes" title="Link to this definition">¶</a></dt>
+<dd><p>Window spike trains and add auxiliary spike times at the
+beginning and end of the observation window when needed.</p>
+</dd></dl>
+
+</section>
+<section id="automrts">
+<h2>autoMRTS<a class="headerlink" href="#automrts" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="spike_common.autoMRTS">
+<span class="sig-prename descclassname"><span class="pre">spike_common.</span></span><span class="sig-name descname"><span class="pre">autoMRTS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spike_common.autoMRTS" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="coincidence-window">
+<h2>coincidence_window<a class="headerlink" href="#coincidence-window" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="spike_common.coincidence_window">
+<span class="sig-prename descclassname"><span class="pre">spike_common.</span></span><span class="sig-name descname"><span class="pre">coincidence_window</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em>, <em class="sig-param"><span class="pre">ind1</span></em>, <em class="sig-param"><span class="pre">ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#spike_common.coincidence_window" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the coincidence window for two specific spikes</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="isi-distance">
+<h1>ISI Distance<a class="headerlink" href="#isi-distance" title="Link to this heading">¶</a></h1>
+<section id="add-auxiliary-spikes-bis">
+<span id="module-ISI-distance"></span><h2>add_auxiliary_spikes_bis<a class="headerlink" href="#add-auxiliary-spikes-bis" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="ISI-distance.add_auxiliary_spikes_bis">
+<span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">add_auxiliary_spikes_bis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ISI-distance.add_auxiliary_spikes_bis" title="Link to this definition">¶</a></dt>
+<dd><p>Window spike trains and add auxiliary spike times at the
+beginning and end of the observation window when needed.</p>
+</dd></dl>
+
+</section>
+<section id="f-isi-distance">
+<h2>f_ISI_distance<a class="headerlink" href="#f-isi-distance" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="ISI-distance.f_ISI_distance">
+<span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">f_ISI_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ISI-distance.f_ISI_distance" title="Link to this definition">¶</a></dt>
+<dd><p>F_ISI_DISTANCE Calculates the ISI-distance between multiple spike trains</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><p>spikes_trains : cell array containing spike timing vectors
+tmin, tmax    : time boundaries (minimum and maximum)
+showing       : Control console output (+2: Pairs, +4: Pop Profile, +8: Matrix)
+plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="f-isi-distance-adaptive-v1">
+<h2>f_ISI_distance_adaptive_v1<a class="headerlink" href="#f-isi-distance-adaptive-v1" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="ISI-distance.f_ISI_distance_adaptive_v1">
+<span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">f_ISI_distance_adaptive_v1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ISI-distance.f_ISI_distance_adaptive_v1" title="Link to this definition">¶</a></dt>
+<dd><p>COMPUTE_ADAPTIVE_ISI Calculates the Adaptive ISI-distance between spike trains</p>
+<dl class="simple">
+<dt>Inputs:</dt><dd><p>spikes_trains : cell array containing spike timing vectors
+tmin, tmax    : time boundaries (minimum and maximum)
+threshold     : 0 for classic, &gt;0 for manual MRTS, ‘auto’ for automated MRTS
+showing       : Control console output (+2: Pairs, +4: Pop Profile, +8: Matrix)
+plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="main-isi-test">
+<h2>main_ISI_test<a class="headerlink" href="#main-isi-test" title="Link to this heading">¶</a></h2>
+<dl class="mat script">
+<dt class="sig sig-object mat" id="ISI-distance.main_ISI_test">
+<span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">main_ISI_test</span></span><a class="headerlink" href="#ISI-distance.main_ISI_test" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="latency-correction">
+<h1>Latency Correction<a class="headerlink" href="#latency-correction" title="Link to this heading">¶</a></h1>
+<section id="f-cost-matrix">
+<span id="module-Latency_Correction"></span><h2>f_Cost_matrix<a class="headerlink" href="#f-cost-matrix" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_Cost_matrix">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_Cost_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_Cost_matrix" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the time difference matrix for a set of spike trains
+trains: cell array where trains{i} contains spike times for train i
+t_min: minimum time
+t_max: maximum time</p>
+</dd></dl>
+
+</section>
+<section id="f-first-diagonal">
+<h2>f_first_diagonal<a class="headerlink" href="#f-first-diagonal" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_first_diagonal">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_first_diagonal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">time_difference_matrix</span></em>, <em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_first_diagonal" title="Link to this definition">¶</a></dt>
+<dd><p>Align every train to the anchor row by accumulating upper-diagonal offsets.
+Trains before the anchor get negative shifts, trains after the anchor get positive shifts.</p>
+</dd></dl>
+
+</section>
+<section id="f-lc-simulated-annealing">
+<h2>f_lc_simulated_annealing<a class="headerlink" href="#f-lc-simulated-annealing" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_lc_simulated_annealing">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_lc_simulated_annealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">cost_threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_lc_simulated_annealing" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="f-plot-trains-with-correction">
+<h2>f_plot_trains_with_correction<a class="headerlink" href="#f-plot-trains-with-correction" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_plot_trains_with_correction">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_plot_trains_with_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">mode</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_plot_trains_with_correction" title="Link to this definition">¶</a></dt>
+<dd><p>Generate synfire trains and apply correction based on time difference matrix
+trains: cell array where trains{i} contains spike times for train i
+row: the row of the time difference matrix to use for correction (default is 1)
+mode: correction mode (default is ‘row’)</p>
+</dd></dl>
+
+</section>
+<section id="f-row">
+<h2>f_row<a class="headerlink" href="#f-row" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_row">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">td_matrix</span></em>, <em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_row" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the shifts for a given row in the time difference matrix</p>
+</dd></dl>
+
+</section>
+<section id="f-synfire">
+<h2>f_synfire<a class="headerlink" href="#f-synfire" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_synfire">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_synfire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">n_trains</span></em>, <em class="sig-param"><span class="pre">n_correct</span></em>, <em class="sig-param"><span class="pre">n_random</span></em>, <em class="sig-param"><span class="pre">n_inversed</span></em>, <em class="sig-param"><span class="pre">overlap</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_synfire" title="Link to this definition">¶</a></dt>
+<dd><p>Create synfire trains with specified parameters
+tmin: minimum time for spike generation
+tmax: maximum time for spike generation
+n_trains: number of spike trains to generate
+n_correct: number of correctly ordered events (synchronized spikes)
+n_random: number of random events
+n_inversed: number of inversed events (anti-synchronized spikes)
+overlap: [0,1] indicating whether to allow overlapping spikes (&lt;0.5 for no overlap)</p>
+</dd></dl>
+
+</section>
+<section id="f-td-matrix">
+<h2>f_TD_matrix<a class="headerlink" href="#f-td-matrix" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.f_TD_matrix">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_TD_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_TD_matrix" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the time difference matrix for a set of spike trains
+trains: cell array where trains{i} contains spike times for train i
+t_min: minimum time
+t_max: maximum time</p>
+</dd></dl>
+
+</section>
+<section id="plot-shifts-row">
+<h2>plot_shifts_row<a class="headerlink" href="#plot-shifts-row" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.plot_shifts_row">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">plot_shifts_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">shifts</span></em>, <em class="sig-param"><span class="pre">sortedTimes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.plot_shifts_row" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="plot-synfire-trains">
+<h2>plot_synfire_trains<a class="headerlink" href="#plot-synfire-trains" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.plot_synfire_trains">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">plot_synfire_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">sortedTimes</span></em>, <em class="sig-param"><span class="pre">title_str</span></em>, <em class="sig-param"><span class="pre">is_corrected</span></em>, <em class="sig-param"><span class="pre">shifts</span></em>, <em class="sig-param"><span class="pre">trains_corrected</span></em>, <em class="sig-param"><span class="pre">sortedOrders_corrected</span></em>, <em class="sig-param"><span class="pre">sortedTimes_corrected</span></em>, <em class="sig-param"><span class="pre">~</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.plot_synfire_trains" title="Link to this definition">¶</a></dt>
+<dd><p>Plot synfire trains with train 1 at top and last train at bottom</p>
+</dd></dl>
+
+</section>
+<section id="values-to-colors">
+<h2>values_to_colors<a class="headerlink" href="#values-to-colors" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="Latency_Correction.values_to_colors">
+<span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">values_to_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">num_trains</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.values_to_colors" title="Link to this definition">¶</a></dt>
+<dd><p>This function maps sortedOrders to colors and returns the corresponding color for each spike time in spikes.
+It also returns the corresponding row indices for each spike time for plotting.</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="spike-distance">
+<h1>SPIKE Distance<a class="headerlink" href="#spike-distance" title="Link to this heading">¶</a></h1>
+<section id="spike-distances-all">
+<span id="module-SPIKE_distance"></span><h2>SPIKE_distances_all<a class="headerlink" href="#spike-distances-all" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_all">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">measures</span></em>, <em class="sig-param"><span class="pre">adaptive_measures</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em>, <em class="sig-param"><span class="pre">aux_begin</span></em>, <em class="sig-param"><span class="pre">aux_end</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="spike-order">
+<h1>SPIKE Order<a class="headerlink" href="#spike-order" title="Link to this heading">¶</a></h1>
+<section id="order-spikes">
+<span id="module-SPIKE_order"></span><h2>order_spikes<a class="headerlink" href="#order-spikes" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_order.order_spikes">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">order_spikes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.order_spikes" title="Link to this definition">¶</a></dt>
+<dd><p>Aggregate pairwise order vectors for all spike trains.</p>
+</dd></dl>
+
+</section>
+<section id="pairwise-order">
+<h2>pairwise_order<a class="headerlink" href="#pairwise-order" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_order.pairwise_order">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.pairwise_order" title="Link to this definition">¶</a></dt>
+<dd><p>Compute pairwise spike ordering between two spike trains</p>
+</dd></dl>
+
+</section>
+</section>
+<section id="spike-synchronization">
+<h1>SPIKE Synchronization<a class="headerlink" href="#spike-synchronization" title="Link to this heading">¶</a></h1>
+<section id="f-adapt-spike-synchro">
+<span id="module-SPIKE_synchro"></span><h2>f_adapt_spike_synchro<a class="headerlink" href="#f-adapt-spike-synchro" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_adapt_spike_synchro">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_adapt_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">train1</span></em>, <em class="sig-param"><span class="pre">train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_adapt_spike_synchro" title="Link to this definition">¶</a></dt>
+<dd><p>Adaptive SPIKE-synchronization between two spike trains
+If RMTS is empty or not provided, use regular SPIKE synchronization</p>
+</dd></dl>
+
+</section>
+<section id="f-spike-synchro">
+<h2>f_spike_synchro<a class="headerlink" href="#f-spike-synchro" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Spike_train1</span></em>, <em class="sig-param"><span class="pre">Spike_train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro" title="Link to this definition">¶</a></dt>
+<dd><p>Given two spike trains, this function calculates the coincidence of spikes between them.
+Uses a greedy matching algorithm to pair spikes based on minimum distance.
+Returns:
+C: coincidence array (1 if matched and within tau, 0 otherwise)
+spike_times: corresponding spike times for each coincidence value</p>
+</dd></dl>
+
+</section>
+<section id="f-spike-synchro-multi">
+<h2>f_spike_synchro_multi<a class="headerlink" href="#f-spike-synchro-multi" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro_multi">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">st</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro_multi" title="Link to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="spike-train-order">
+<h1>SPIKE Train Order<a class="headerlink" href="#spike-train-order" title="Link to this heading">¶</a></h1>
+<section id="compute-spike-train-order-value">
+<span id="module-SPIKE_train_order"></span><h2>compute_spike_train_order_value<a class="headerlink" href="#compute-spike-train-order-value" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.compute_spike_train_order_value">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">compute_spike_train_order_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">orders</span></em>, <em class="sig-param"><span class="pre">number_spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.compute_spike_train_order_value" title="Link to this definition">¶</a></dt>
+<dd><p>Calculate the overall spike-train-order value F</p>
+</dd></dl>
+
+</section>
+<section id="order-trains">
+<h2>order_trains<a class="headerlink" href="#order-trains" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.order_trains">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">order_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.order_trains" title="Link to this definition">¶</a></dt>
+<dd><p>Compute spike-train-order values for all spikes and pairwise relationships
+Aggregates pairwise train-order vectors for all spike trains</p>
+</dd></dl>
+
+</section>
+<section id="pairwise-train-order">
+<h2>pairwise_train_order<a class="headerlink" href="#pairwise-train-order" title="Link to this heading">¶</a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.pairwise_train_order">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_train_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.pairwise_train_order" title="Link to this definition">¶</a></dt>
+<dd><p>Compute bidirectional pairwise spike-train ordering
+For each coincidence, both trains receive the same ordering value</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper">
+  <div>
+    <h3><a href="#">Table of Contents</a></h3>
+    <ul>
+<li><a class="reference internal" href="#">GitSpike-MATLAB documentation</a></li>
+<li><a class="reference internal" href="#common-utilities">Common Utilities</a><ul>
+<li><a class="reference internal" href="#add-auxiliary-spikes">add_auxiliary_spikes</a></li>
+<li><a class="reference internal" href="#automrts">autoMRTS</a></li>
+<li><a class="reference internal" href="#coincidence-window">coincidence_window</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#isi-distance">ISI Distance</a><ul>
+<li><a class="reference internal" href="#add-auxiliary-spikes-bis">add_auxiliary_spikes_bis</a></li>
+<li><a class="reference internal" href="#f-isi-distance">f_ISI_distance</a></li>
+<li><a class="reference internal" href="#f-isi-distance-adaptive-v1">f_ISI_distance_adaptive_v1</a></li>
+<li><a class="reference internal" href="#main-isi-test">main_ISI_test</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#latency-correction">Latency Correction</a><ul>
+<li><a class="reference internal" href="#f-cost-matrix">f_Cost_matrix</a></li>
+<li><a class="reference internal" href="#f-first-diagonal">f_first_diagonal</a></li>
+<li><a class="reference internal" href="#f-lc-simulated-annealing">f_lc_simulated_annealing</a></li>
+<li><a class="reference internal" href="#f-plot-trains-with-correction">f_plot_trains_with_correction</a></li>
+<li><a class="reference internal" href="#f-row">f_row</a></li>
+<li><a class="reference internal" href="#f-synfire">f_synfire</a></li>
+<li><a class="reference internal" href="#f-td-matrix">f_TD_matrix</a></li>
+<li><a class="reference internal" href="#plot-shifts-row">plot_shifts_row</a></li>
+<li><a class="reference internal" href="#plot-synfire-trains">plot_synfire_trains</a></li>
+<li><a class="reference internal" href="#values-to-colors">values_to_colors</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spike-distance">SPIKE Distance</a><ul>
+<li><a class="reference internal" href="#spike-distances-all">SPIKE_distances_all</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spike-order">SPIKE Order</a><ul>
+<li><a class="reference internal" href="#order-spikes">order_spikes</a></li>
+<li><a class="reference internal" href="#pairwise-order">pairwise_order</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spike-synchronization">SPIKE Synchronization</a><ul>
+<li><a class="reference internal" href="#f-adapt-spike-synchro">f_adapt_spike_synchro</a></li>
+<li><a class="reference internal" href="#f-spike-synchro">f_spike_synchro</a></li>
+<li><a class="reference internal" href="#f-spike-synchro-multi">f_spike_synchro_multi</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#spike-train-order">SPIKE Train Order</a><ul>
+<li><a class="reference internal" href="#compute-spike-train-order-value">compute_spike_train_order_value</a></li>
+<li><a class="reference internal" href="#order-trains">order_trains</a></li>
+<li><a class="reference internal" href="#pairwise-train-order">pairwise_train_order</a></li>
+</ul>
+</li>
+</ul>
+
+  </div><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="#">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &#169;2026, Lucas RAVELOARINORO, Agathe JULIEN, Laure WOLFF, Maxime BELTOISE.
+      
+      |
+      Powered by <a href="https://www.sphinx-doc.org/">Sphinx 9.1.0</a>
+      &amp; <a href="https://alabaster.readthedocs.io">Alabaster 1.0.0</a>
+      
+      |
+      <a href="_sources/index.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
