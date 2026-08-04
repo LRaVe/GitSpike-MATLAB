@@ -12,6 +12,7 @@
     <script src="_static/documentation_options.js?v=01f34227"></script>
     <script src="_static/doctools.js?v=fd6eb6e6"></script>
     <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
    
@@ -81,12 +82,67 @@ beginning and end of the observation window when needed.</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="ISI-distance.f_ISI_distance">
 <span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">f_ISI_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ISI-distance.f_ISI_distance" title="Link to this definition">¶</a></dt>
-<dd><p>F_ISI_DISTANCE Calculates the ISI-distance between multiple spike trains</p>
-<dl class="simple">
-<dt>Inputs:</dt><dd><p>spikes_trains : cell array containing spike timing vectors
-tmin, tmax    : time boundaries (minimum and maximum)
-showing       : Control console output (+2: Pairs, +4: Pop Profile, +8: Matrix)
-plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
+<dd><p>F_ISI_DISTANCE Computes the bivariate and multivariate ISI-distance between spike trains.</p>
+<p>Calculates the instantaneous and overall Inter-Spike Interval (ISI) distance
+between multiple spike trains within a given temporal window.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Based on the ISI-distance algorithm proposed by Kreuz et al.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Kreuz T, et al. <em>Measuring spike train synchrony.</em> J Neurosci Methods, 2007.</p>
+</div>
+<p>The instantaneous bivariate ISI-distance profile <span class="math notranslate nohighlight">\(I(t)\)</span> between two spike trains is defined as:</p>
+<div class="math notranslate nohighlight">
+\[I(t) = \frac{|x_1(t) - x_2(t)|}{\max(x_1(t), x_2(t))}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_1(t)\)</span> and <span class="math notranslate nohighlight">\(x_2(t)\)</span> are the instantaneous inter-spike intervals
+for each spike train at time <span class="math notranslate nohighlight">\(t\)</span>.</p>
+<p>The overall bivariate ISI-distance <span class="math notranslate nohighlight">\(D_I\)</span> is the time average over the window <span class="math notranslate nohighlight">\([T_0, T_1]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[D_I = \frac{1}{T_1 - T_0} \int_{T_0}^{T_1} I(t) \, dt\]</div>
+<p>In the multivariate case, the population profile <span class="math notranslate nohighlight">\(I_{multi}(t)\)</span> is averaged over all <span class="math notranslate nohighlight">\(N(N-1)/2\)</span> pairs:</p>
+<div class="math notranslate nohighlight">
+\[I_{multi}(t) = \frac{2}{N(N-1)} \sum_{&lt;i,j&gt;} I^{i,j}(t)\]</div>
+<p>Valid call structures:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Basic call with default output flags (showing=15, plotting=15)</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">);</span>
+
+<span class="c">% Suppress all plots and console outputs</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+
+<span class="c">% Display only the population profile (console and plot)</span>
+<span class="n">f_ISI_distance</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array where each element is a vector containing spike timestamps for a train.</p></li>
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower temporal boundary of the window of interest.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the window of interest.</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling console output verbosity (default: 15).
+* +2: Print pairwise ISI distance summary
+* +4: Print population profile array
+* +8: Print final pairwise distance matrix</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling figure generation (default: 15).
+* +2: (Reserved for pairwise plots)
+* +4: Plot population profile over time
+* +8: Plot final ISI distance matrix heatmap</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The function requires at least two spike trains (<cite>length(spikes) &gt;= 2</cite>)
+to compute pairwise distances.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Laure WOLFF</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>May 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -97,13 +153,67 @@ plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="ISI-distance.f_ISI_distance_adaptive_v1">
 <span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">f_ISI_distance_adaptive_v1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ISI-distance.f_ISI_distance_adaptive_v1" title="Link to this definition">¶</a></dt>
-<dd><p>COMPUTE_ADAPTIVE_ISI Calculates the Adaptive ISI-distance between spike trains</p>
-<dl class="simple">
-<dt>Inputs:</dt><dd><p>spikes_trains : cell array containing spike timing vectors
-tmin, tmax    : time boundaries (minimum and maximum)
-threshold     : 0 for classic, &gt;0 for manual MRTS, ‘auto’ for automated MRTS
-showing       : Control console output (+2: Pairs, +4: Pop Profile, +8: Matrix)
-plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
+<dd><p>F_ISI_DISTANCE_ADAPTIVE_V1 Computes the adaptive ISI-distance between spike trains.</p>
+<p>Calculates the adaptive Inter-Spike Interval (ISI) distance between
+multiple spike trains using a Minimum Resolvable Time Scale (MRTS) parameter.
+The MRTS threshold prevents division-by-zero artifacts and stabilizes the distance
+measure during high firing rate periods or silent intervals.</p>
+<p>The instantaneous adaptive ISI-distance profile <span class="math notranslate nohighlight">\(I_{adapt}(t)\)</span> is defined as:</p>
+<div class="math notranslate nohighlight">
+\[I_{adapt}(t) = \frac{|x_1(t) - x_2(t)|}{\max\left(x_1(t), x_2(t), \tau_{MRTS}\right)}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_1(t)\)</span> and <span class="math notranslate nohighlight">\(x_2(t)\)</span> are the instantaneous ISIs of the two spike trains
+at time <span class="math notranslate nohighlight">\(t\)</span>, and <span class="math notranslate nohighlight">\(\tau_{MRTS}\)</span> is the user-defined or automated threshold parameter.</p>
+<p>The overall adaptive distance <span class="math notranslate nohighlight">\(D_I\)</span> is obtained by time-averaging over <span class="math notranslate nohighlight">\([T_0, T_1]\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[D_I = \frac{1}{T_1 - T_0} \int_{T_0}^{T_1} I_{adapt}(t) \, dt\]</div>
+<p>Valid call structures:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Classic mode (MRTS = 0)</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">);</span>
+
+<span class="c">% Automatic threshold selection based on RMS of ISIs</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">);</span>
+
+<span class="c">% Manual MRTS threshold set to 0.05 seconds</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="mf">0.05</span><span class="p">);</span>
+
+<span class="c">% Custom threshold with console/plot display bitmasks</span>
+<span class="n">f_ISI_distance_adaptive_v1</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">tmin</span><span class="p">,</span><span class="w"> </span><span class="n">tmax</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array where each element is a vector containing spike timestamps for a train.</p></li>
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower temporal boundary of the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the analysis window.</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">or</span> <span class="pre">char,</span> <span class="pre">optional</span></code></span>) – MRTS threshold parameter (default: 0).
+* <code class="docutils literal notranslate"><span class="pre">0</span></code>: Classic ISI-distance mode.
+* <code class="docutils literal notranslate"><span class="pre">&gt;0</span></code>: Manual MRTS scalar value.
+* <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>: Automated calculation based on the Root Mean Square (RMS) of all ISIs.</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling console output verbosity (default: 15).
+* +2: Print global ISI distance summary
+* +4: Print population profile array
+* +8: Print final distance matrix</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer,</span> <span class="pre">optional</span></code></span>) – Bitmask controlling figure visualization (default: 15).
+* +2: (Reserved for pairwise plots)
+* +4: Plot population profile over time
+* +8: Plot distance matrix heatmap</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <cite>threshold</cite> is set to <code class="docutils literal notranslate"><span class="pre">'auto'</span></code>, the function internally calculates
+the Root Mean Square (RMS) of all inter-spike intervals:</p>
+<div class="math notranslate nohighlight">
+\[\tau_{MRTS} = \sqrt{\frac{1}{N_{isi}} \sum_{k=1}^{N_{isi}} (\Delta t_k)^2}\]</div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Author<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Laure WOLFF</p>
+</dd>
+<dt class="field-even">Date<span class="colon">:</span></dt>
+<dd class="field-even"><p>May 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -125,10 +235,22 @@ plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.f_Cost_matrix">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_Cost_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_Cost_matrix" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate the time difference matrix for a set of spike trains
-trains: cell array where trains{i} contains spike times for train i
-t_min: minimum time
-t_max: maximum time</p>
+<dd><p>This function computes the cost matrix based on the time differences between coincident spikes in different spike trains.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time to consider for spike trains.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to consider for spike trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>Cost_matrix</strong> (<em>matrix</em>) – A square matrix where the element at (i,j) is the cost associated with the time differences between coincident spikes in train i and train j.</p></li>
+<li><p><strong>Cost_value</strong> (<em>float</em>) – The overall cost value, calculated as the mean of the upper triangle of the Cost_matrix.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -138,7 +260,20 @@ t_max: maximum time</p>
 <dt class="sig sig-object mat" id="Latency_Correction.f_first_diagonal">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_first_diagonal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">time_difference_matrix</span></em>, <em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_first_diagonal" title="Link to this definition">¶</a></dt>
 <dd><p>Align every train to the anchor row by accumulating upper-diagonal offsets.
-Trains before the anchor get negative shifts, trains after the anchor get positive shifts.</p>
+Trains before the anchor get negative shifts, trains after the anchor get positive shifts.
+This function computes the shifts for each spike train based on the time difference matrix and the specified anchor row.</p>
+<p>It aligns every train to the anchor row by accumulating upper-diagonal offsets. Trains before the anchor get negative shifts, trains after the anchor get positive shifts.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>time_difference_matrix</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">matrix</span></code></span>) – A square matrix where the element at (i,j) represents the time difference between spike trains i and j.</p></li>
+<li><p><strong>row</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the anchor row to which all other trains will be aligned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>shifts</strong> (<em>array</em>) – An array where each element represents the shift for the corresponding spike train.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -147,7 +282,25 @@ Trains before the anchor get negative shifts, trains after the anchor get positi
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.f_lc_simulated_annealing">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_lc_simulated_annealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">cost_threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_lc_simulated_annealing" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function computes the optimal shifts for each spike train using simulated annealing to minimize the overall cost.</p>
+<p>It uses a pairwise RMSE cost function to evaluate the alignment of spike trains and iteratively adjusts the shifts to find a configuration that minimizes the cost.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time to consider for spike trains.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to consider for spike trains.</p></li>
+<li><p><strong>cost_threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float,</span> <span class="pre">optional</span></code></span>) – The threshold for the cost below which the optimization will stop. If not provided, a default value of 1e-3 is used.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>all_shifts</strong> (<em>array</em>) – An array where each element represents the optimal shift for the corresponding spike train.</p></li>
+<li><p><strong>costs</strong> (<em>array</em>) – An array containing the cost values at each iteration of the simulated annealing process.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="f-plot-trains-with-correction">
@@ -156,9 +309,22 @@ Trains before the anchor get negative shifts, trains after the anchor get positi
 <dt class="sig sig-object mat" id="Latency_Correction.f_plot_trains_with_correction">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_plot_trains_with_correction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">row</span></em>, <em class="sig-param"><span class="pre">mode</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_plot_trains_with_correction" title="Link to this definition">¶</a></dt>
 <dd><p>Generate synfire trains and apply correction based on time difference matrix
-trains: cell array where trains{i} contains spike times for train i
-row: the row of the time difference matrix to use for correction (default is 1)
-mode: correction mode (default is ‘row’)</p>
+This function generates synfire trains, computes the time difference matrix, and applies a correction based on the specified mode (‘row’, ‘first_diagonal’, or ‘sim_ann’).</p>
+<p>It plots the original and corrected synfire trains, the time difference matrices, and the cost matrices. If the ‘sim_ann’ mode is selected, it also plots the cost over iterations for simulated annealing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>row</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the anchor row to which all other trains will be aligned. Default is 1.</p></li>
+<li><p><strong>mode</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">str</span></code></span>) – The correction mode to use. Options are ‘row’, ‘first_diagonal’, or ‘sim_ann’. If not specified, defaults to ‘row’.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time to consider for spike trains.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to consider for spike trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>figures</strong> (<em>figure handle</em>) – The handle to the generated figure containing the plots of the original and corrected synfire trains, time difference matrices, and cost matrices. It also includes the cost over iterations if ‘sim_ann’ mode is selected.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -167,7 +333,18 @@ mode: correction mode (default is ‘row’)</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.f_row">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">td_matrix</span></em>, <em class="sig-param"><span class="pre">row</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_row" title="Link to this definition">¶</a></dt>
-<dd><p>Calculate the shifts for a given row in the time difference matrix</p>
+<dd><p>This function gets the shifts for each spike train based on the time difference matrix and the specified anchor row.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>td_matrix</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">matrix</span></code></span>) – A square matrix where the element at (i,j) represents the time difference between spike trains i and j.</p></li>
+<li><p><strong>row</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the anchor row to which all other trains will be aligned.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>shifts</strong> (<em>array</em>) – An array where each element represents the shift for the corresponding spike train.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -177,13 +354,24 @@ mode: correction mode (default is ‘row’)</p>
 <dt class="sig sig-object mat" id="Latency_Correction.f_synfire">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_synfire</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">n_trains</span></em>, <em class="sig-param"><span class="pre">n_correct</span></em>, <em class="sig-param"><span class="pre">n_random</span></em>, <em class="sig-param"><span class="pre">n_inversed</span></em>, <em class="sig-param"><span class="pre">overlap</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_synfire" title="Link to this definition">¶</a></dt>
 <dd><p>Create synfire trains with specified parameters
-tmin: minimum time for spike generation
-tmax: maximum time for spike generation
-n_trains: number of spike trains to generate
-n_correct: number of correctly ordered events (synchronized spikes)
-n_random: number of random events
-n_inversed: number of inversed events (anti-synchronized spikes)
-overlap: [0,1] indicating whether to allow overlapping spikes (&lt;0.5 for no overlap)</p>
+This function generates a set of spike trains that can include correctly ordered events (synchronized spikes), random events, and inversed events (anti-synchronized spikes).</p>
+<p>It allows for control over the number of events of each type, the overlap between events, and the total number of spike trains. The step between spikes is calculated based on the overlap parameter, ensuring that spikes are appropriately spaced within the specified time range. It also ensures that random spikes do not overlap with synchronized spikes, and clamps spike times within the specified time range.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for spike generation.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for spike generation.</p></li>
+<li><p><strong>n_trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of spike trains to generate.</p></li>
+<li><p><strong>n_correct</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of correctly ordered events (synchronized spikes).</p></li>
+<li><p><strong>n_random</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of random events.</p></li>
+<li><p><strong>n_inversed</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The number of inversed events (anti-synchronized spikes).</p></li>
+<li><p><strong>overlap</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – A value between 0 and 1 indicating whether to allow overlapping spikes (values &lt;0.5 indicate no overlap).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>trains</strong> (<em>cell array</em>) – A cell array where each cell contains the spike times for a specific spike train. Each spike train is represented as a vector of spike times.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -193,9 +381,19 @@ overlap: [0,1] indicating whether to allow overlapping spikes (&lt;0.5 for no ov
 <dt class="sig sig-object mat" id="Latency_Correction.f_TD_matrix">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">f_TD_matrix</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.f_TD_matrix" title="Link to this definition">¶</a></dt>
 <dd><p>Calculate the time difference matrix for a set of spike trains
-trains: cell array where trains{i} contains spike times for train i
-t_min: minimum time
-t_max: maximum time</p>
+This function computes the time difference matrix for a set of spike trains. The time difference matrix is a square matrix where the element at (i,j) represents the average time difference between coincident spikes in train i and train j.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time to consider for spike trains. If not provided, it will be calculated as the minimum spike time across all trains.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time to consider for spike trains. If not provided, it will be calculated as the maximum spike time across all trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>time_difference_matrix</strong> (<em>matrix</em>) – A square matrix where the element at (i,j) represents the average time difference between coincident spikes in train i and train j. If there are no coincident spikes between two trains, the corresponding element will be set to zero.</p>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -204,7 +402,18 @@ t_max: maximum time</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.plot_shifts_row">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">plot_shifts_row</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">shifts</span></em>, <em class="sig-param"><span class="pre">sortedTimes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.plot_shifts_row" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>This function plots the shifted spike trains based on the shifts calculated using the row method.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>sortedOrders</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike orders sorted according to the sorted spike times.</p></li>
+<li><p><strong>shifts</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array where each element represents the shift for the corresponding spike train.</p></li>
+<li><p><strong>sortedTimes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike times sorted in ascending order.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 <section id="plot-synfire-trains">
@@ -212,7 +421,22 @@ t_max: maximum time</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.plot_synfire_trains">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">plot_synfire_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">trains</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">sortedTimes</span></em>, <em class="sig-param"><span class="pre">title_str</span></em>, <em class="sig-param"><span class="pre">is_corrected</span></em>, <em class="sig-param"><span class="pre">shifts</span></em>, <em class="sig-param"><span class="pre">trains_corrected</span></em>, <em class="sig-param"><span class="pre">sortedOrders_corrected</span></em>, <em class="sig-param"><span class="pre">sortedTimes_corrected</span></em>, <em class="sig-param"><span class="pre">~</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.plot_synfire_trains" title="Link to this definition">¶</a></dt>
-<dd><p>Plot synfire trains with train 1 at top and last train at bottom</p>
+<dd><p>This function plots the synfire spike trains. It can also plot the corrected spike trains if latency correction is applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>sortedOrders</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike orders sorted according to the sorted spike times.</p></li>
+<li><p><strong>sortedTimes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike times sorted in ascending order.</p></li>
+<li><p><strong>title_str</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">str</span></code></span>) – The title for the plot. If not provided, a default title will be used.</p></li>
+<li><p><strong>is_corrected</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">bool</span></code></span>) – A boolean indicating whether the spike trains have been corrected for latency. If true, the corrected spike trains will be plotted.</p></li>
+<li><p><strong>shifts</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array where each element represents the shift for the corresponding spike train.</p></li>
+<li><p><strong>trains_corrected</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the corrected spike times for a specific spike train.</p></li>
+<li><p><strong>sortedOrders_corrected</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike orders for the corrected spike trains sorted according to the sorted corrected spike times.</p></li>
+<li><p><strong>sortedTimes_corrected</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all corrected spike times sorted in ascending order.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -221,8 +445,23 @@ t_max: maximum time</p>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="Latency_Correction.values_to_colors">
 <span class="sig-prename descclassname"><span class="pre">Latency_Correction.</span></span><span class="sig-name descname"><span class="pre">values_to_colors</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">sortedOrders</span></em>, <em class="sig-param"><span class="pre">num_trains</span></em><span class="sig-paren">)</span><a class="headerlink" href="#Latency_Correction.values_to_colors" title="Link to this definition">¶</a></dt>
-<dd><p>This function maps sortedOrders to colors and returns the corresponding color for each spike time in spikes.
-It also returns the corresponding row indices for each spike time for plotting.</p>
+<dd><p>This function maps sortedOrders to colors and returns the corresponding color for each spike time in spikes.</p>
+<p>It also returns the corresponding row indices for each spike time for plotting.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>sortedOrders</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">array</span></code></span>) – An array of all spike orders sorted according to the sorted spike times.</p></li>
+<li><p><strong>num_trains</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The total number of spike trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>spikeColors</strong> (<em>array</em>) – An array where each row corresponds to the RGB color for the corresponding spike time in spikes.</p></li>
+<li><p><strong>flatRows</strong> (<em>array</em>) – An array where each element corresponds to the train index of the corresponding spike time in spikes.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </section>
@@ -233,8 +472,9 @@ It also returns the corresponding row indices for each spike time for plotting.<
 <span id="module-SPIKE_distance"></span><h2>SPIKE_distances_all<a class="headerlink" href="#spike-distances-all" title="Link to this heading">¶</a></h2>
 <dl class="mat function">
 <dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_all">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">measures</span></em>, <em class="sig-param"><span class="pre">adaptive_measures</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em>, <em class="sig-param"><span class="pre">aux_begin</span></em>, <em class="sig-param"><span class="pre">aux_end</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition">¶</a></dt>
-<dd></dd></dl>
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition">¶</a></dt>
+<dd><p>The type of the None singleton.</p>
+</dd></dl>
 
 </section>
 </section>
