@@ -5,6 +5,7 @@
 
 clear; close all; clc;
 
+
 % Make sure subfolders containing functions and order helpers are available
 thisFile = mfilename('fullpath');
 if ~isempty(thisFile)
@@ -28,11 +29,6 @@ rng(ind_seed);
 %% =====================================================
 %% PARAMETERS
 %% =====================================================
-
-% Metric selection (useless but kept because variable used in the first codes)
-% metric_choice = 'ISI_ADAPTIVE';
-metric_choice = 'SPIKE_DISTANCE';
-
 
 MODE = 'SP';               % Choose SP or LL dataset
 
@@ -281,9 +277,9 @@ if strcmp(MODE,'SP')
         %[bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,true,true);
 
         fprintf('Starting Brute Force with MEX-compiler...\n');
-        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,metric_choice,true,true,true);
+        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,true,true,true);
         fprintf('Starting Brute Force without MEX-compiler...\n');
-        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold,metric_choice, true,true,false);
+        [bestPop,bestP] = f_brute_force_V2(spikes,params.Tmax,params.Distances,params.threshold, true,true,false);
         
     end
     

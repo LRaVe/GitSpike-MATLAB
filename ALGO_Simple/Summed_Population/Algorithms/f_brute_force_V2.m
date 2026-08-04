@@ -1,7 +1,7 @@
 %% Brute Force (Exhaustive Search) Algorithm by Binary Incrementation
 % Date: June 2026
 % Author : Laure WOLFF
-function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distances,threshold, metric_choice, showing,other_figs, useMex)
+function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distances,threshold, showing,other_figs, useMex)
        
     [num_neurons,num_stimuli, num_repetitions] = size(spikes);
 
@@ -31,7 +31,7 @@ function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distanc
         t1 = 0; 
         t2 = Tmax;
 
-        [best_subpop, best_perf_overall, history_perf_brute] = f_brute_force_mex(spikes, num_neurons, num_stimuli, num_repetitions, t1, t2, metric_choice);
+        [best_subpop, best_perf_overall, history_perf_brute] = f_brute_force_mex(spikes, num_neurons, num_stimuli, num_repetitions, t1, t2, Distances);
 
         if showing
             fprintf('\n================ BRUTE FORCE (MEX) CONVERGED ================\n');

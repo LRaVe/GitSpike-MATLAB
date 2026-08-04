@@ -38,10 +38,6 @@
 //     mxArray *lhs_eval[1]; 
 //     mxArray *rhs_eval[7];
 // 
-//     /* ========================================================================= */
-//     /* CORRECTION CRITIQUE : On réutilise directement les pointeurs mxArray      */
-//     /* d'origine fournis par MATLAB (prhs). Cela garantit le maintien des types. */
-//     /* ========================================================================= */
 //     rhs_eval[0] = (mxArray*)prhs[0]; /* CellMatrix pointer */
 //     rhs_eval[1] = current_mask_mx;   /* Dynamic mask pointer */
 //     rhs_eval[2] = (mxArray*)prhs[2]; /* num_stimuli d'origine */
