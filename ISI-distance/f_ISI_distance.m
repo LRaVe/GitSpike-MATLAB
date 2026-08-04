@@ -1,15 +1,76 @@
 %% ISI-distance computation with auxiliary boundary spikes and plotting 
 % Author: Laure WOLFF
 % Date: May 2026
-function f_ISI_distance(spikes, tmin, ...
-    tmax, showing, plotting)
-% F_ISI_DISTANCE Calculates the ISI-distance between multiple spike trains
+
+function f_ISI_distance(spikes, tmin,tmax, showing, plotting)
+% F_ISI_DISTANCE Computes the bivariate and multivariate ISI-distance between spike trains.
 %
-% Inputs:
-%   spikes_trains : cell array containing spike timing vectors
-%   tmin, tmax    : time boundaries (minimum and maximum)
-%   showing       : Control console output (+2: Pairs, +4: Pop Profile, +8: Matrix)
-%   plotting      : Control figures (+2: Pairs, +4: Pop Profile, +8: Matrix)
+%   Calculates the instantaneous and overall Inter-Spike Interval (ISI) distance 
+%   between multiple spike trains within a given temporal window.
+%
+%   .. note::
+%      Based on the ISI-distance algorithm proposed by Kreuz et al.
+%
+%   .. seealso::
+%      Kreuz T, et al. *Measuring spike train synchrony.* J Neurosci Methods, 2007.
+%
+%   The instantaneous bivariate ISI-distance profile :math:`I(t)` between two spike trains is defined as:
+%
+%   .. math::
+%
+%      I(t) = \frac{|x_1(t) - x_2(t)|}{\max(x_1(t), x_2(t))}
+%
+%   where :math:`x_1(t)` and :math:`x_2(t)` are the instantaneous inter-spike intervals 
+%   for each spike train at time :math:`t`.
+%
+%   The overall bivariate ISI-distance :math:`D_I` is the time average over the window :math:`[T_0, T_1]`:
+%
+%   .. math::
+%
+%      D_I = \frac{1}{T_1 - T_0} \int_{T_0}^{T_1} I(t) \, dt
+%
+%   In the multivariate case, the population profile :math:`I_{multi}(t)` is averaged over all :math:`N(N-1)/2` pairs:
+%
+%   .. math::
+%
+%      I_{multi}(t) = \frac{2}{N(N-1)} \sum_{<i,j>} I^{i,j}(t)
+%
+%   Valid call structures:
+%
+%   .. code-block:: matlab
+%
+%      % Basic call with default output flags (showing=15, plotting=15)
+%      f_ISI_distance(spikes, tmin, tmax);
+%
+%      % Suppress all plots and console outputs
+%      f_ISI_distance(spikes, tmin, tmax, 0, 0);
+%
+%      % Display only the population profile (console and plot)
+%      f_ISI_distance(spikes, tmin, tmax, 4, 4);
+%
+%   :param spikes: Cell array where each element is a vector containing spike timestamps for a train.
+%   :type spikes: cell
+%   :param tmin: Lower temporal boundary of the window of interest.
+%   :type tmin: double
+%   :param tmax: Upper temporal boundary of the window of interest.
+%   :type tmax: double
+%   :param showing: Bitmask controlling console output verbosity (default: 15).
+%                   * +2: Print pairwise ISI distance summary
+%                   * +4: Print population profile array
+%                   * +8: Print final pairwise distance matrix
+%   :type showing: integer, optional
+%   :param plotting: Bitmask controlling figure generation (default: 15).
+%                    * +2: (Reserved for pairwise plots)
+%                    * +4: Plot population profile over time
+%                    * +8: Plot final ISI distance matrix heatmap
+%   :type plotting: integer, optional
+%
+%   .. note::
+%      The function requires at least two spike trains (`length(spikes) >= 2`) 
+%      to compute pairwise distances.
+%
+%   :Author: Laure WOLFF
+%   :Date: May 2026
 
     % Manage parameters if necessary 
     if nargin < 4 || isempty(showing), showing = 15; end
@@ -28,7 +89,6 @@ function f_ISI_distance(spikes, tmin, ...
         else
             existing_ids = [];
         end
-        %display(existing_ids);
         while any(existing_ids == fig_profile_id) || any(existing_ids == fig_matrix_id)
                 fig_profile_id = fig_profile_id + 2; 
                 fig_matrix_id = fig_matrix_id + 2;  
@@ -47,23 +107,7 @@ function f_ISI_distance(spikes, tmin, ...
     dist_matrix = zeros(num_trains, num_trains);
     I = zeros(1, num_pairs); 
     pair_data = cell(1, num_pairs); 
-    
-    % % Edge correction 
-    % spikes = cell(1, num_trains);
-    % for i = 1:num_trains
-    %     s = unique(spikes_trains{i}); 
-    %     spikes{i} = s(s >= tmin & s <= tmax); 
-    % end
-    
     compteur = 0;
-    % num_cols = 2; 
-    % num_rows = ceil(num_pairs / num_cols);
-    
-    % % Set figure window name for pairwise plots
-    % if bitand(plotting, 4)
-    %     figure('Name', 'Pairwise ISI Distances (Classic Mode)');
-    %     set(gcf, 'Name', 'Pairwise ISI Distances (Classic Mode)');
-    % end
     
     for i = 1:num_trains
         for j = i+1:num_trains
@@ -108,48 +152,6 @@ function f_ISI_distance(spikes, tmin, ...
                 end
             end
 
-            % for k = 1 : length(t_all)-1
-            %     t_mid = (t_all(k) + t_all(k+1)) / 2;
-            % 
-            %     % %% Edge correction %%%%%%%%%%%%%%%%%%%%%%%%%%%
-            %     % % train i
-            %     % if isempty(spikes{i})
-            %     %     val_x = tmax - tmin; 
-            %     % elseif t_mid < spikes{i}(1)
-            %     %     val_x = spikes{i}(1) - tmin; 
-            %     % elseif t_mid > spikes{i}(end)
-            %     %     val_x = tmax - spikes{i}(end); 
-            %     % else
-            %     %     idx = find(spikes{i} <= t_mid, 1, 'last');
-            %     %     val_x = spikes{i}(idx+1) - spikes{i}(idx); 
-            %     % end
-            %     % 
-            %     % % train j
-            %     % if isempty(spikes{j})
-            %     %     val_y = tmax - tmin; 
-            %     % elseif t_mid < spikes{j}(1)
-            %     %     val_y = spikes{j}(1) - tmin;
-            %     % elseif t_mid > spikes{j}(end)
-            %     %     val_y = tmax - spikes{j}(end);
-            %     % else
-            %     %     idy = find(spikes{j} <= t_mid, 1, 'last');
-            %     %     val_y = spikes{j}(idy+1) - spikes{j}(idy);
-            %     % end
-            %     % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-            % 
-            %     % Train i
-            %     idx = find(spikes{i} <= t_mid, 1, 'last');
-            %     val_x = spikes{i}(idx+1) - spikes{i}(idx); 
-            % 
-            %     % Train j
-            %     idy = find(spikes{j} <= t_mid, 1, 'last');
-            %     val_y = spikes{j}(idy+1) - spikes{j}(idy);
-            % 
-            %     I_t = abs(val_x - val_y) / max(val_x, val_y);
-            %     Iij = Iij + I_t * (t_all(k+1) - t_all(k));
-            %     It_list(k) = I_t;
-            % end
-            
             I_final_pair = Iij / (tmax - tmin);
             dist_matrix(i,j) = I_final_pair;
             dist_matrix(j,i) = I_final_pair;
@@ -157,19 +159,6 @@ function f_ISI_distance(spikes, tmin, ...
             
             pair_data{compteur}.t = t_all;
             pair_data{compteur}.It = It_list;
-            
-            % if bitand(plotting, 4) 
-            %     subplot(num_rows, num_cols, compteur); 
-            %     I_plot = [It_list, It_list(end)];
-            %     stairs(t_all, I_plot, 'LineWidth', 1.5); 
-            %     title(['Pair ', num2str(i), ' & ', num2str(j)]);  
-            %     subtitle(['Dist: ', num2str(I_final_pair, '%.4f')]); 
-            %     xlabel('Time'); 
-            %     ylabel('I(t)'); 
-            %     xlim([tmin tmax]); 
-            %     ylim([0 1]); 
-            %     box on; grid on; 
-            % end
         end
     end   
     
@@ -179,7 +168,6 @@ function f_ISI_distance(spikes, tmin, ...
     end
  
     all_spikes_combined = [spikes{:}]; 
-    %t_global = unique([tmin, all_spikes_combined, tmax]);
     t_global = unique(all_spikes_combined);
     
     % Population profile average matrix allocation

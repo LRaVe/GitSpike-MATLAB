@@ -1,4 +1,4 @@
-%% SPIKE-distance computation with auxiliary boundary spikes
+%% SPIKE-distance plotting with auxiliary boundary spikes
 % Author: Maxime BELTOISE
 % Date: May 2026
 
@@ -8,7 +8,7 @@
 % =====================================================
 
 
-function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
+function SPIKE_distances_plot(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
 
     Distances = [0, 0, 0, 0];
 
@@ -209,7 +209,7 @@ function SPIKE_distances_all(spikes, t_min, t_max, threshold, measures, adaptive
 end
 
 
-
+%{
 
 %% =========================================================
 % FUNCTION
@@ -665,3 +665,5 @@ function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI
     RIA_profile_global = sortrows(prof{4},1);
 
 end
+
+%}

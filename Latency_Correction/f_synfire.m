@@ -1,15 +1,24 @@
+%% Function to generate synfire spike trains with specified parameters
 % Author : Lucas Raveloarinoro
 % Date : 2024-06-05
 
 function [trains] = f_synfire(tmin,tmax,n_trains,n_correct,n_random,n_inversed,overlap)
     % Create synfire trains with specified parameters
-    % tmin: minimum time for spike generation
-    % tmax: maximum time for spike generation
-    % n_trains: number of spike trains to generate
-    % n_correct: number of correctly ordered events (synchronized spikes)
-    % n_random: number of random events
-    % n_inversed: number of inversed events (anti-synchronized spikes)
-    % overlap: [0,1] indicating whether to allow overlapping spikes (<0.5 for no overlap)
+    % This function generates a set of spike trains that can include correctly ordered events (synchronized spikes), random events, and inversed events (anti-synchronized spikes). 
+    %
+    % It allows for control over the number of events of each type, the overlap between events, and the total number of spike trains. The step between spikes is calculated based on the overlap parameter, ensuring that spikes are appropriately spaced within the specified time range. It also ensures that random spikes do not overlap with synchronized spikes, and clamps spike times within the specified time range.
+    %
+    % Args:
+    %     tmin (float): The minimum time for spike generation.
+    %     tmax (float): The maximum time for spike generation.
+    %     n_trains (int): The number of spike trains to generate.
+    %     n_correct (int): The number of correctly ordered events (synchronized spikes).
+    %     n_random (int): The number of random events.
+    %     n_inversed (int): The number of inversed events (anti-synchronized spikes).
+    %     overlap (float): A value between 0 and 1 indicating whether to allow overlapping spikes (values <0.5 indicate no overlap).
+    %
+    % Returns:
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train. Each spike train is represented as a vector of spike times.
     
 
     n_total_events = n_correct + n_random + n_inversed; % Total number of events to generate

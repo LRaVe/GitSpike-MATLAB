@@ -6,6 +6,8 @@
 function [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_max)
     % Window spike trains and add auxiliary spike times at the
     % beginning and end of the observation window when needed.
+    
+    global window_keep;
 
     % ===============================================
     % ====== Handle cell array of spike trains ======
@@ -15,7 +17,7 @@ function [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_ma
         aux_begin = zeros(1, length(spikes));
         aux_end   = zeros(1, length(spikes));
         for i = 1:length(spikes)
-            [spikes{i}, aux_begin(i), aux_end(i)] = process_single_train(spikes{i}, t_min, t_max);
+            [spikes{i}, aux_begin(i), aux_end(i)] = process_single_train(spikes{i}, t_min, t_max, window_keep);
         end
         return;
     end
@@ -24,12 +26,12 @@ function [spikes, aux_begin, aux_end] = add_auxiliary_spikes(spikes, t_min, t_ma
     % ====== Handle single spike train ======
     % =======================================
 
-    [spikes, aux_begin, aux_end] = process_single_train(spikes, t_min, t_max);
+    [spikes, aux_begin, aux_end] = process_single_train(spikes, t_min, t_max, window_keep);
 
 end
 
 
-function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
+function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max, window_keep)
 
     aux_begin = 0;
     aux_end   = 0;
@@ -46,34 +48,55 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
         aux_end   = 1;
         return;
     end
+    
+    if window_keep
 
-    % =======================================
-    % Windowing
-    % =======================================
+        % =======================================
+        % Windowing that keep spikes at the edges
+        % =======================================
+    
+        idx_before = find(train < t_min, 1, 'last');
+        idx_after  = find(train > t_max, 1, 'first');
+    
+        idx_inside = find(train >= t_min & train <= t_max);
+    
+        new_train = [];
+    
+        % Keep last spike before t_min
+        if ~isempty(idx_before)
+            new_train(end+1) = train(idx_before);
+        end
+    
+        % Keep spikes inside window
+        if ~isempty(idx_inside)
+            new_train = [new_train train(idx_inside)];
+        end
+    
+        % Keep first spike after t_max
+        if ~isempty(idx_after)
+            new_train(end+1) = train(idx_after);
+        end
+    
+        train = new_train;
 
-    idx_before = find(train < t_min, 1, 'last');
-    idx_after  = find(train > t_max, 1, 'first');
+    else 
 
-    idx_inside = find(train >= t_min & train <= t_max);
+        % =======================================
+        % Windowing that cut spikes at the edges
+        % =======================================
 
-    new_train = [];
+        idx_inside = find(train >= t_min & train <= t_max);
+    
+        new_train = [];
+    
+        % Keep spikes inside window
+        if ~isempty(idx_inside)
+            new_train = [new_train train(idx_inside)];
+        end
+    
+        train = new_train;
 
-    % Keep last spike before t_min
-    if ~isempty(idx_before)
-        new_train(end+1) = train(idx_before);
     end
-
-    % Keep spikes inside window
-    if ~isempty(idx_inside)
-        new_train = [new_train train(idx_inside)];
-    end
-
-    % Keep first spike after t_max
-    if ~isempty(idx_after)
-        new_train(end+1) = train(idx_after);
-    end
-
-    train = new_train;
 
     % =======================================
     % Left edge correction

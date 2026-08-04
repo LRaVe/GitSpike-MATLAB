@@ -1,10 +1,23 @@
-%% Latency correction with Simulated Annealing
+%% Function to get the shifts using simulated annealing
 % Author : Lucas RAVELOARINORO
 % Date : June 2026
 
- 
 function [all_shifts, costs] = f_lc_simulated_annealing(trains, tmin, tmax, cost_threshold)
- 
+    % This function computes the optimal shifts for each spike train using simulated annealing to minimize the overall cost. 
+    %
+    % It uses a pairwise RMSE cost function to evaluate the alignment of spike trains and iteratively adjusts the shifts to find a configuration that minimizes the cost. 
+    %
+    % Args: 
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     tmin (float): The minimum time to consider for spike trains.
+    %     tmax (float): The maximum time to consider for spike trains.
+    %     cost_threshold (float, optional): The threshold for the cost below which the optimization will stop. If not provided, a default value of 1e-3 is used.
+    %
+    % Returns:
+    %     all_shifts (array): An array where each element represents the optimal shift for the corresponding spike train. 
+    %     costs (array): An array containing the cost values at each iteration of the simulated annealing process. 
+
+
     num_trains = length(trains);
     if nargin < 4 || isempty(cost_threshold)
         cost_threshold = 1e-3;
@@ -116,9 +129,23 @@ function [all_shifts, costs] = f_lc_simulated_annealing(trains, tmin, tmax, cost
 end
  
  
-%% ── compute RMSE for every pair ──────────────────────────────────
+%% Function to compute pairwise RMSE and coincidence offsets
 
 function [rmse_vec, mean_cost, pair_diff_cells] = compute_pairwise_rmse(trains, tmin, tmax, pairs)
+    % This function computes the pairwise RMSE for all unique pairs of spike trains, along with the mean cost and the coincidence offsets for each pair. 
+    %
+    % Args:
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train. 
+    %     tmin (float): The minimum time to consider for spike trains.
+    %     tmax (float): The maximum time to consider for spike trains.
+    %     pairs (matrix): A (num_pairs,2) matrix where each row contains a unique pair of spike train indices (i,j) with i<j.
+    %
+    % Returns:
+    %     rmse_vec (array): An array where each element represents the RMSE for the corresponding pair of spike trains.
+    %     mean_cost (float): The overall cost value, calculated as the mean of the RMSE values for all pairs.
+    %     pair_diff_cells (cell array): A cell array where each cell contains the coincidence offsets for the corresponding pair of spike trains.
+
+
     num_pairs = size(pairs, 1);
     rmse_vec  = zeros(1, num_pairs);
     pair_diff_cells = cell(1, num_pairs);

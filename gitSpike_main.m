@@ -20,6 +20,11 @@ sort_spike_trains=0;       % 0-no,1-yes
 tmin=0;
 tmax=10;
 threshold=1000;
+global window_keep
+window_keep = 0;    % Set this parameter to 0 if you want to remove all spikes outside the window,
+                    % or to 1 if you want to include spikes outside the window in the calculations
+global useMex
+useMex = false;         % if you have a mex compiler
 
 % ==== Dataset ====
 dataset=4;
@@ -105,7 +110,7 @@ end
 
 % ==== SPIKE distance + RI-SPIKE ====
 if mod(measures,8)>1 || mod(adaptive_measures,8)>1
-    SPIKE_distances_all(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end);
+    SPIKE_distances_plot(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end);
 end
 
 

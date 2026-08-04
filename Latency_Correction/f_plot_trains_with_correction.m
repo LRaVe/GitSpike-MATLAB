@@ -1,8 +1,21 @@
+%% Function to plot synfire trains and their corrections
+
 function [figures] = f_plot_trains_with_correction(trains,row,mode,t_min,t_max)
     % Generate synfire trains and apply correction based on time difference matrix
-    % trains: cell array where trains{i} contains spike times for train i
-    % row: the row of the time difference matrix to use for correction (default is 1)
-    % mode: correction mode (default is 'row')
+    % This function generates synfire trains, computes the time difference matrix, and applies a correction based on the specified mode ('row', 'first_diagonal', or 'sim_ann'). 
+    %
+    % It plots the original and corrected synfire trains, the time difference matrices, and the cost matrices. If the 'sim_ann' mode is selected, it also plots the cost over iterations for simulated annealing.
+    %
+    % Args:
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     row (int): The index of the anchor row to which all other trains will be aligned. Default is 1.
+    %     mode (str): The correction mode to use. Options are 'row', 'first_diagonal', or 'sim_ann'. If not specified, defaults to 'row'.
+    %     t_min (float): The minimum time to consider for spike trains.
+    %     t_max (float): The maximum time to consider for spike trains. 
+    %
+    % Returns:
+    %     figures (figure handle): The handle to the generated figure containing the plots of the original and corrected synfire trains, time difference matrices, and cost matrices. It also includes the cost over iterations if 'sim_ann' mode is selected.
+    
     
     if nargin < 3
         mode = 'row'; % Default to row-based correction
