@@ -3,11 +3,18 @@
 % Date : 06/12/26
 
 function [Cost_matrix,Cost_value] = f_Cost_matrix(trains,t_min,t_max)
-    % Calculate the time difference matrix for a set of spike trains
-    % trains: cell array where trains{i} contains spike times for train i
-    % t_min: minimum time
-    % t_max: maximum time
+    % This function computes the cost matrix based on the time differences between coincident spikes in different spike trains.
+    %
+    % Args:
+    %     trains (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     t_min (float): The minimum time to consider for spike trains.
+    %     t_max (float): The maximum time to consider for spike trains.
+    %
+    % Returns:
+    %     Cost_matrix (matrix): A square matrix where the element at (i,j) is the cost associated with the time differences between coincident spikes in train i and train j. 
+    %     Cost_value (float): The overall cost value, calculated as the mean of the upper triangle of the Cost_matrix.
 
+    
     if nargin < 2 || isempty(t_min)
         all_spikes = [trains{:}];
         t_min = min(all_spikes);
