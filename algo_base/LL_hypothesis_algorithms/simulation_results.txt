@@ -1,0 +1,229 @@
+{Index in position 1 exceeds array bounds. Index must not exceed 4.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 32)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',32,0)">line 32</a>)
+    [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 109)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',109,0)">line 109</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+{Index in position 1 exceeds array bounds. Index must not exceed 4.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 32)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',32,0)">line 32</a>)
+    [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 116)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',116,0)">line 116</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+{Index in position 1 exceeds array bounds. Index must not exceed 4.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                                   ^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 32)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',32,0)">line 32</a>)
+    [perf_B, Matrix_B] = calculate_integrated_P_optimized(CellMatrix, noise_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 117)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',117,0)">line 117</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 31)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',31,0)">line 31</a>)
+    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 74)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',74,0)">line 74</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+ans =
+
+     4     4     5
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 31)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',31,0)">line 31</a>)
+    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 74)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',74,0)">line 74</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+ans =
+
+     4     4     5
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 31)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',31,0)">line 31</a>)
+    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 74)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',74,0)">line 74</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+
+ans =
+
+     7     4     5
+
+{Error using <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('double')" style="font-weight:bold">double</a>
+Conversion to double from struct is not possible.
+
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('calculate_integrated_P_optimized', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m', 224)" style="font-weight:bold">calculate_integrated_P_optimized</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\calculate_integrated_P_optimized.m',224,0)">line 224</a>)
+            pooled_spikes = [pooled_spikes, double(CellMatrix{n, st, rp}(:))'];
+                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('plot_and_compute_distance_matrix', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m', 31)" style="font-weight:bold">plot_and_compute_distance_matrix</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\plot_and_compute_distance_matrix.m',31,0)">line 31</a>)
+    [perf_A, Matrix_A] = calculate_integrated_P_optimized(CellMatrix, coding_selection, num_stimuli, num_repetitions, t1, t2);
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Error in <a href="matlab:matlab.lang.internal.introspective.errorDocCallback('test_algo_sp', 'C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m', 74)" style="font-weight:bold">test_algo_sp</a> (<a href="matlab: opentoline('C:\gitSpike\algo_base\SP_hypthesis_algorithms\test_algo_sp.m',74,0)">line 74</a>)
+plot_and_compute_distance_matrix(CellMatrix, num_neurons, ...
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+} 
+test_algo_sp
+✓ Dimensions détectées : 7 Neurones, 4 Stimuli, 5 Répétitions
+✓ Nettoyage terminé ! All CellMatrix elements are now double arrays.
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Temp: 0.072248 | Current P: 0.2856
+Temp: 0.065024 | Current P: 0.0964
+Temp: 0.058521 | Current P: 0.1261
+Temp: 0.052669 | Current P: 0.1916
+Temp: 0.047402 | Current P: 0.1439
+Temp: 0.042662 | Current P: 0.0612
+Temp: 0.038396 | Current P: 0.1701
+Temp: 0.034556 | Current P: 0.2856
+Temp: 0.031101 | Current P: 0.1005
+Temp: 0.027991 | Current P: 0.2856
+Temp: 0.025191 | Current P: 0.2856
+Temp: 0.022672 | Current P: 0.1701
+Temp: 0.020405 | Current P: 0.1245
+Temp: 0.018365 | Current P: 0.2856
+Temp: 0.016528 | Current P: 0.2856
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+number of iteration 1225.0000
+
+--- Running Brute Force Optimization ---
+-> Launching Brute Force by binary incrementation (127 masks to evaluate...)
+
+================ BRUTE FORCE CONVERGED ================
+Best binary combination found: [1  2  3]
+Absolute maximum performance P = 0.2856
+=======================================================
+
+--- Running Bottom-Up Optimization ---
+Step k = 1 | Adding neuron : 3 | Performance P = 0.0727
+Step k = 2 | Adding neuron : 2 | Performance P = 0.1574
+Step k = 3 | Adding neuron : 1 | Performance P = 0.2856
+Step k = 4 | Adding neuron : 5 | Performance P = 0.1916
+Step k = 5 | Adding neuron : 7 | Performance P = 0.1348
+Step k = 6 | Adding neuron : 4 | Performance P = 0.1013
+Step k = 7 | Adding neuron : 6 | Performance P = 0.0794
+   [1-7] : 0.0727 0.1574 0.2856 0.1916 0.1348 0.1013 0.0794
+
+Optimal neuron inclusion order:
+   3  2  1  5  7  4  6
+
+The best subpopulation found contains 3 neurons:
+   3  2  1
+
+--- Running Simulated Annealing Optimization ---
+T_0 found: 0.594263 
+Temp: 0.594263 | Current P: -0.0016
+Temp: 0.534837 | Current P: 0.0141
+Temp: 0.481353 | Current P: 0.0114
+Temp: 0.433218 | Current P: 0.0439
+Temp: 0.389896 | Current P: -0.0030
+Temp: 0.350906 | Current P: 0.0023
+Temp: 0.315816 | Current P: 0.1217
+Temp: 0.284234 | Current P: 0.0074
+Temp: 0.255811 | Current P: -0.0029
+Temp: 0.230230 | Current P: 0.1273
+Temp: 0.207207 | Current P: 0.0064
+Temp: 0.186486 | Current P: 0.1701
+Temp: 0.167837 | Current P: 0.0468
+Temp: 0.151054 | Current P: 0.0152
+Temp: 0.135948 | Current P: 0.0541
+Temp: 0.122353 | Current P: 0.0135
+Temp: 0.110118 | Current P: 0.1245
+Temp: 0.099106 | Current P: 0.1764
+Temp: 0.089196 | Current P: 0.0435
+Temp: 0.080276 | Current P: 0.2856
+Exit: Performance remained unchanged for 2 consecutive temperature cycles.
+Optimal subpopulation found: [1  2  3]
+Max performance P = 0.2856
+number of iteration 700.0000
