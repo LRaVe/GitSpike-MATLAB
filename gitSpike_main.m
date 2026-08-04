@@ -110,7 +110,7 @@ end
 
 % ==== SPIKE distance + RI-SPIKE ====
 if mod(measures,8)>1 || mod(adaptive_measures,8)>1
-    SPIKE_distances_all(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end);
+    SPIKE_distances_plot(spikes, tmin, tmax, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end);
 end
 
 
