@@ -30,10 +30,6 @@ ISI Distance
 
 .. mat:module:: ISI-distance
 
-add_auxiliary_spikes_bis
-------------------------
-
-.. mat:autofunction:: add_auxiliary_spikes_bis
 
 f_ISI_distance
 --------------
@@ -170,4 +166,167 @@ pairwise_train_order
 
 .. mat:autofunction:: pairwise_train_order
 
+Discriminative neuronal subpopulation 
+=====================================
 
+Datasets Generation
+-------------------
+
+.. mat:module:: ALGO_Simple.Gen_data
+
+generate_SP_dataset
+~~~~~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: generate_SP_dataset
+
+generate_LL_dataset
+~~~~~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: generate_LL_dataset
+
+
+Summed Population
+-----------------
+
+Raster Plot
+~~~~~~~~~~~
+
+.. mat:module:: ALGO_Simple.Summed_Population.Raster_plot
+
+plot_SP_figure
+^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_SP_figure
+
+pool_neurons
+^^^^^^^^^^^^
+
+.. mat:autofunction:: pool_neurons
+
+
+Performance Matrices
+~~~~~~~~~~~~~~~~~~~~
+
+.. mat:module:: ALGO_Simple.Summed_Population.Performance_matrices
+
+build_trials
+^^^^^^^^^^^^
+
+.. mat:autofunction:: build_trials
+
+compute_discrimination_performance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: compute_discrimination_performance
+
+compute_population_distance_matrix
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: compute_population_distance_matrix
+
+plot_distance_matrix
+^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_distance_matrix
+
+Algorithms
+~~~~~~~~~~
+
+.. mat:module:: ALGO_Simple.Summed_Population.Algorithms
+
+evaluate_population
+^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: evaluate_population
+
+f_bottom_up_V2
+^^^^^^^^^^^^^^
+
+.. mat:autofunction:: f_bottom_up_V2
+
+f_brute_force_V2
+^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: f_brute_force_V2
+
+plot_top_down_gradient
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_top_down_gradient
+
+top_down_gradient
+^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: top_down_gradient
+
+
+Simulated Annealing
+~~~~~~~~~~~~~~~~~~~
+
+.. mat:module:: ALGO_Simple.Summed_Population.Simulated_Annealing
+
+evaluate_population_cached
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: evaluate_population_cached
+
+initialize_temperature
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: initialize_temperature
+
+metropolis_acceptance
+^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: metropolis_acceptance
+
+plot_simulated_annealing
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_simulated_annealing
+
+random_neighbor
+^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: random_neighbor
+
+simulated_annealing
+^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: simulated_annealing
+
+
+Labeled Line 
+-------------
+
+.. mat:module:: ALGO_Simple.Labeled_Line
+
+evaluate_LL_population
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: evaluate_LL_population
+
+plot_LL_results
+~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: plot_LL_results
+
+plot_LL_figure4
+~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: plot_LL_figure4
+
+Managing the data
+-----------------
+
+.. mat:module:: ALGO_Simple
+
+export_spikes_to_txt
+~~~~~~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: export_spikes_to_txt
+
+import_spikes_from_txt
+~~~~~~~~~~~~~~~~~~~~~~
+
+.. mat:autofunction:: import_spikes_from_txt

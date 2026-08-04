@@ -3,6 +3,36 @@
 % Date: July 2026
 
 function [spikes,responseMatrix] = generate_LL_dataset(params)
+% GENERATE_LL_DATASET Generates synthetic spike trains for Labeled Line analysis.
+%
+%   Constructs simulated spike train datasets dedicated to Labeled Line (LL) 
+%   framework evaluation. The function simulates distinct single-unit or subpopulation 
+%   channel identities across various experimental conditions.
+%
+%   Valid call structure:
+%
+%   .. code-block:: matlab
+%
+%      [spikes, responseMatrix] = generate_LL_dataset(params);
+%
+%   :param params: Structure containing simulation settings:
+%                  
+%                  * **N** (*integer*): Total number of neurons/channels.
+%                  * **S** (*integer*): Number of tested stimuli conditions.
+%                  * **R** (*integer*): Number of trial repetitions per stimulus.
+%                  * **Tmax** (*double*): Upper temporal boundary of trial duration (in seconds).
+%                  * **meanRate** (*double*): Mean firing rate (in Hz).
+%                  * **mode** (*string*): Response matrix mode (`'structured'` or `'random'`).
+%                  * **jitter** (*double*): Base temporal jitter level.
+%                  * **jitterIntensity** (*vector*): Array of size `N x 1` scaling jitter per neuron.
+%                  * **sameResponse** (*logical vector, optional*): Array of size `N x 1` (default: `true(N,1)`).
+%                  * **connectionProbability** (*double, optional*): Probability $p$ for random matrix (default: 0.4).
+%                  * **responseMatrix** (*matrix, optional*): Explicit `N x S` matrix if mode is `'structured'`.
+%   :type params: struct
+%
+%   :returns: 
+%             * **spikes** (*cell*) -- 3D cell array of size `[N x S x R]` containing sorted spike timestamps.
+%             * **responseMatrix** (*matrix*) -- Binary response matrix of size `N x S`.
 
     N = params.N;
     S = params.S;

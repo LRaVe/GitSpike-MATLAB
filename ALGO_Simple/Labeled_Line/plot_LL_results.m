@@ -4,13 +4,23 @@
 
 
 function plot_LL_results(spikes,result)
-    
-    % ============================================================
-    % Plot of the different LL matrices
-    %
-    % result returned by evaluate_LL_population
-    % ============================================================
-    
+% PLOT_LL_RESULTS Displays diagnostic figure windows for Labeled Line analysis.
+%
+%   Generates independent figure windows for detailed visual inspection of 
+%   spike train matrices, single-unit distance matrices, discrimination matrices, 
+%   performance matrices, and overall population metrics.
+%
+%   Valid call structure:
+%
+%   .. code-block:: matlab
+%
+%      plot_LL_results(spikes, result);
+%
+%   :param spikes: 3D cell array of size `[N x S x R]` containing spike times.
+%   :type spikes: cell
+%   :param result: Structure produced by :func:`evaluate_LL_population`.
+%   :type result: struct
+
     %% =========================================================
     %% STRUCTURED SPIKE MATRIX
     %% =========================================================

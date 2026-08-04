@@ -4,6 +4,33 @@
 
 
 function spikes = generate_SP_dataset(params)
+% GENERATE_SP_DATASET Generates synthetic spike trains for Summed Population analysis.
+%
+%   Generates a 3D cell array of simulated spike trains based on input 
+%   neural population parameters. The generated dataset models multi-neuron 
+%   responses across multiple stimuli and trial repetitions for Summed Population (SP) 
+%   benchmarks, including Collective (COLL), Individual (INDI), and Non-Coding neurons.
+%
+%   Valid call structure:
+%
+%   .. code-block:: matlab
+%
+%      spikes = generate_SP_dataset(params);
+%
+%   :param params: Structure containing dataset generation parameters:
+%                  
+%                  * **N** (*integer*): Total number of neurons in the population.
+%                  * **c** (*integer*): Number of collective (COLL) neurons.
+%                  * **nIndi** (*integer*): Number of individual (INDI) neurons.
+%                  * **S** (*integer*): Number of distinct stimulus conditions.
+%                  * **R** (*integer*): Number of trial repetitions per stimulus.
+%                  * **Tmax** (*double*): Upper temporal boundary of trial duration (in seconds).
+%                  * **rate** (*double*): Baseline firing rate (in Hz).
+%                  * **indiJitter** (*double*): Gaussian jitter standard deviation for INDI neurons.
+%   :type params: struct
+%
+%   :returns: 
+%             * **spikes** (*cell*) -- 3D cell array of dimensions `[N x S x R]` containing spike timestamps.
 
     N    = params.N;
 

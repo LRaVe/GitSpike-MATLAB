@@ -4,14 +4,36 @@
 
 
 function result = evaluate_LL_population(spikes,Tmax,Distances,threshold)
-    
-    %======================================================================
-    % Evaluate Labeled Line population
-    %
-    % Reimplementation following:
-    % Delis et al., 2015
-    %
-    %======================================================================
+   % EVALUATE_LL_POPULATION Evaluates Labeled Line population discrimination performance.
+%
+%   Evaluates single-neuron and population-level discrimination capabilities 
+%   using a Labeled Line (LL) framework following the methodology of Delis et al. (2015).
+%
+%   Valid call structure:
+%
+%   .. code-block:: matlab
+%
+%      result = evaluate_LL_population(spikes, Tmax, Distances, threshold);
+%
+%   :param spikes: 3D cell array of size `[num_neurons x num_stimuli x num_repetitions]` containing spike times.
+%   :type spikes: cell
+%   :param Tmax: Upper temporal boundary of the trial duration (in seconds).
+%   :type Tmax: double
+%   :param Distances: Distance measure type or configuration for metric computation.
+%   :type Distances: string or cell
+%   :param threshold: Distance threshold parameter passed to computation metrics.
+%   :type threshold: double
+%
+%   :returns: **result** (*struct*) -- Result structure containing:
+%
+%             * **DistanceMatrix** (*cell*): Distance matrices per neuron ($D_n$).
+%             * **Discrimination** (*cell*): Binary discrimination matrices ($M_n$).
+%             * **Performance** (*cell*): Inter/Intra cluster distance matrices.
+%             * **Mn** (*cell*): Weighted performance matrices per neuron ($P_n$).
+%             * **populationPerformance** (*matrix*): Combined population performance matrix ($P$).
+%             * **bestNeuronMatrix** (*matrix*): Matrix indicating the best-performing neuron index per stimulus pair.
+%             * **bestPopulation** (*vector*): Indices of optimal contributing neurons.
+%             * **bestP** (*double*): Global population performance scalar ($P_{LL}$).
     
     [num_neurons,num_stimuli,num_repetitions] = size(spikes);
     
