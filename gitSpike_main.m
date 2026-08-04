@@ -20,6 +20,9 @@ sort_spike_trains=0;       % 0-no,1-yes
 tmin=0;
 tmax=10;
 threshold=1000;
+global window_keep
+window_keep = 1;    % Set this parameter to 0 if you want to remove all spikes outside the window,
+                    % or to 1 if you want to include spikes outside the window in the calculations
 
 % ==== Dataset ====
 dataset=4;
