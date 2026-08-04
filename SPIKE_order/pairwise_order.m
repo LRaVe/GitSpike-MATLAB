@@ -2,9 +2,22 @@
 % Author: Agathe JULIEN
 % Date: May 2026
 
-
 function res=pairwise_order(tmin,tmax,spikes,spike_ind1,spike_ind2)
-    % Compute pairwise spike ordering between two spike trains
+    % This function computes the pairwise SPIKE-order profile between two spike trains.
+    %
+    % A value of +1 indicates that the spike in the first train leads the closest spike in the second train, -1 indicates that it follows, and 0 indicates that they are coincident or no closest spike is found within the coincidence window.
+    %
+    % Args:
+    %     tmin (float): The minimum time for the analysis window.
+    %     tmax (float): The maximum time for the analysis window.
+    %     spikes (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     spike_ind1 (int): The index of the first spike train in the spikes cell array.
+    %     spike_ind2 (int): The index of the second spike train in the spikes cell array.
+    %
+    % Returns:
+    %     res (array): An array where each element corresponds to the SPIKE-order value for the corresponding spike time in the first spike train with respect to the second spike train.
+
+
     tol = 1e-10;
 
     n=length(spikes);

@@ -2,9 +2,20 @@
 % Author: Agathe JULIEN
 % Date: May 2026
 
-
 function [sortedOrders, sortedTimes, SO_matrix]=order_spikes(tmin,tmax,spikes)
-% Aggregate pairwise order vectors for all spike trains.
+    % This function computes the SPIKE-order profile and matrix for a given set of spike trains.
+    %
+    % Args:
+    %     tmin (float): The minimum time for the analysis window. 
+    %     tmax (float): The maximum time for the analysis window. 
+    %     spikes (cell array): A cell array where each cell contains the spike times for a specific spike train. 
+    %
+    % Returns:
+    %     sortedOrders (array): An array of all spike orders sorted according to the sorted spike times.
+    %     sortedTimes (array): An array of all spike times sorted in ascending order.
+    %     SO_matrix (array): A symmetric matrix where each element (i,j) represents the SPIKE-order value between spike train i and spike train j. 
+
+
     n=length(spikes);
     results=cell(n,1); 
     SO_matrix=zeros(n,n);

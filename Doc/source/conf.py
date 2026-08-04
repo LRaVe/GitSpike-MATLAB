@@ -26,6 +26,7 @@ extensions = ['sphinx.ext.autodoc','sphinxcontrib.matlab','sphinx.ext.viewcode',
 primary_domain = 'mat'
 matlab_src_dir = _ROOT
 
+napoleon_custom_sections = [('Returns', 'params_style')]
 templates_path = ['_templates']
 exclude_patterns = ['_generated']
 

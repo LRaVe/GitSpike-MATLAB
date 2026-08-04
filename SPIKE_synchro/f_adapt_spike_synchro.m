@@ -4,8 +4,19 @@
 
 
 function [C, spike]= f_adapt_spike_synchro(train1, train2, t_min, t_max, RMTS)
-    % Adaptive SPIKE-synchronization between two spike trains
+    % Computes the Adaptive SPIKE-synchronization between two spike trains
     % If RMTS is empty or not provided, use regular SPIKE synchronization
+    %
+    % Args:
+    %     train1 (vector): Spike times for the first spike train.
+    %     train2 (vector): Spike times for the second spike train.
+    %     t_min (float): The minimum time for the analysis window.
+    %     t_max (float): The maximum time for the analysis window.
+    %     RMTS (optional value): The arbitrary threshold for the adaptive coincidence detection.
+    %
+    % Returns:
+    %     C (vector): Coincidence array (1 if matched and within tau, 0 otherwise).
+    %     spike (vector): Corresponding spike times for each coincidence value.
     if nargin < 5 || isempty(RMTS)
         f_spike_synchro(train1, train2, t_min, t_max);
         return;
