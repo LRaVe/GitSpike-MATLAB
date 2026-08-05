@@ -1,11 +1,19 @@
-%% Compute spike-train-order values for multiple spike trains
+%% Function to compute spike-train-order values for multiple spike trains
 % Author: Agathe JULIEN
 % Date: May 2026
 
-
 function [results,order_matrix]=order_trains(tmin,tmax,spikes)
-    % Compute spike-train-order values for all spikes and pairwise relationships
-    % Aggregates pairwise train-order vectors for all spike trains
+    % This function computes the SPIKE-train-order values for multiple spike trains by calculating pairwise orderings between all distinct train pairs and aggregating the results.
+    %
+    % Args: 
+    %     tmin (float): The minimum time for the analysis window.
+    %     tmax (float): The maximum time for the analysis window.
+    %     spikes (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %
+    % Returns:
+    %     results (cell array): A cell array where each cell contains the SPIKE-train-order values for the corresponding spike train, normalized by the number of other trains.
+    %     order_matrix (matrix): A matrix where the element at (i,j) represents the mean SPIKE-train-order value of train i with respect to train j, and the element at (j,i) is the negative of that value.
+
 
     n=length(spikes);
     results=cell(n,1);

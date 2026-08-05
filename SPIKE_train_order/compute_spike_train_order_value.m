@@ -1,12 +1,21 @@
-%% Compute the overall spike-train-order value F
+%% Function to compute the overall spike-train-order value F
 % Author: Agathe JULIEN
 % Date: May 2026
 
-
 function [F,sortedTimes,sortedOrders] = compute_spike_train_order_value(spikes, orders, number_spikes)
-    % Calculate the overall spike-train-order value F
+    % This function computes the overall SPIKE-train-order value F by concatenating all spike times and their corresponding order values, sorting them, and normlalizing by the total number of spikes. 
+    %
+    % Args:
+    %     spikes (cell array): A cell array where each cell contains the spike times for a specific spike train.
+    %     orders (cell array): A cell array where each cell contains the SPIKE-order values for the corresponding spike times in the spikes cell array.
+    %     number_spikes (int): The total number of spikes across all spike trains.
+    %
+    % Returns:
+    %     F (float): The overall SPIKE-train-order value, normalized by the total number of spikes.
+    %     sortedTimes (array): An array of all spike times sorted in ascending order.
+    %     sortedOrders (array): An array of SPIKE-order values corresponding to the sorted spike times.
+
     
-    % Concatenate all spike times and their corresponding order values
     time = horzcat(spikes{:});
     value = horzcat(orders{:});
 

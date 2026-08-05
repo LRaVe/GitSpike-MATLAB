@@ -57,6 +57,8 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
     % Windowing
     % =======================================
 
+    global window_keep;
+
     idx_before = find(train < t_min, 1, 'last');
     idx_after  = find(train > t_max, 1, 'first');
 
@@ -64,9 +66,11 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
 
     new_train = [];
 
-    % Keep last spike before t_min
-    if ~isempty(idx_before)
-        new_train(end+1) = train(idx_before);
+    if window_keep
+        % Keep last spike before t_min
+        if ~isempty(idx_before)
+            new_train(end+1) = train(idx_before);
+        end
     end
 
     % Keep spikes inside window
@@ -74,9 +78,11 @@ function [train, aux_begin, aux_end] = process_single_train(train, t_min, t_max)
         new_train = [new_train train(idx_inside)];
     end
 
-    % Keep first spike after t_max
-    if ~isempty(idx_after)
-        new_train(end+1) = train(idx_after);
+    if window_keep
+        % Keep first spike after t_max
+        if ~isempty(idx_after)
+            new_train(end+1) = train(idx_after);
+        end
     end
 
     train = new_train;
