@@ -48,12 +48,9 @@ function [best_subpop, best_perf_overall] = f_brute_force_V2(spikes,Tmax,Distanc
 %      A safety check aborts execution if :math:`N_{neurons} > 20` to prevent memory allocation failure 
 %      and exponential execution slowdowns (:math:`2^{20} = 1\,048\,575` iterations).
 %
-%   .. note::
-%      This algorithms has a MEX version
-%
-%   :Author: Laure WOLFF
-%   :Date: June 2026
-       
+%   .. important::
+%      This algorithms has a MEX version. 
+
     [num_neurons,num_stimuli, num_repetitions] = size(spikes);
 
     % Total number of possible combinations (2^N - 1, ignoring the all-zero mask)

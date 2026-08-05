@@ -4,13 +4,28 @@
 
 
 function plot_top_down_gradient(result,codingNeurons)
-%   PLOT_TOP_DOWN_GRADIENT
-%   The algorithm generates a dual-panel publication figure combining the **Top-Down Selection Matrix** 
-%   (showing sequential neuron inclusions with ticks and color-coded performances) 
-%   and the **Performance Function** curve indicating the global optimum size :math:`k_{opt}`.
+% PLOT_TOP_DOWN_GRADIENT Generates a dual-panel figure for top-down neuron selection analysis.
 %
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   This function creates a publication-ready dual-panel figure combining:
+%     1. **Top-Down Selection Matrix** (Left Panel): Displays sequential neuron
+%        inclusions/exclusions using a colormap, overlaying symbols for removed 
+%        neurons, complete population, and the optimal subset.
+%     2. **Performance Function** (Right Panel): Plots the performance metric 
+%        versus the population size, highlighting the global optimum size :math:`k_{opt}`.
+%
+%   :param result: Structure containing the top-down selection output with fields:
+%       * ``populations``: Cell array of neuron indices for each population size.
+%       * ``P``: Vector of performance values for each population size.
+%       * ``candidateP``: Cell array of evaluated performances at each step.
+%       * ``removedNeuron``: Vector of neuron indices removed at each step.
+%       * ``bestPopulation``: Vector of neuron indices forming the optimal subset.
+%       * ``bestP``: Maximum performance achieved.
+%   :type result: struct
+%
+%   :param codingNeurons: Vector of indices corresponding to coding neurons (used 
+%                         to draw a vertical boundary line separating coding 
+%                         from non-coding neurons).
+%   :type codingNeurons: vector
 
     N = length(result.populations{1});
 

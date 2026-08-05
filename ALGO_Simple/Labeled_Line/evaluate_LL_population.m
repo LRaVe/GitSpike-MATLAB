@@ -4,7 +4,7 @@
 
 
 function result = evaluate_LL_population(spikes,Tmax,Distances,threshold)
-   % EVALUATE_LL_POPULATION Evaluates Labeled Line population discrimination performance.
+% EVALUATE_LL_POPULATION Evaluates Labeled Line population discrimination performance.
 %
 %   Evaluates single-neuron and population-level discrimination capabilities 
 %   using a Labeled Line (LL) framework following the methodology of Delis et al. (2015).
@@ -26,14 +26,14 @@ function result = evaluate_LL_population(spikes,Tmax,Distances,threshold)
 %
 %   :returns: **result** (*struct*) -- Result structure containing:
 %
-%             * **DistanceMatrix** (*cell*): Distance matrices per neuron ($D_n$).
-%             * **Discrimination** (*cell*): Binary discrimination matrices ($M_n$).
+%             * **DistanceMatrix** (*cell*): Distance matrices per neuron (:math:`D_n`).
+%             * **Discrimination** (*cell*): Binary discrimination matrices (:math:`M_n`).
 %             * **Performance** (*cell*): Inter/Intra cluster distance matrices.
-%             * **Mn** (*cell*): Weighted performance matrices per neuron ($P_n$).
-%             * **populationPerformance** (*matrix*): Combined population performance matrix ($P$).
+%             * **Mn** (*cell*): Weighted performance matrices per neuron (:math:`P_n`).
+%             * **populationPerformance** (*matrix*): Combined population performance matrix (:math:`P`).
 %             * **bestNeuronMatrix** (*matrix*): Matrix indicating the best-performing neuron index per stimulus pair.
 %             * **bestPopulation** (*vector*): Indices of optimal contributing neurons.
-%             * **bestP** (*double*): Global population performance scalar ($P_{LL}$).
+%             * **bestP** (*double*): Global population performance scalar (:math:`P_{LL}`).
     
     [num_neurons,num_stimuli,num_repetitions] = size(spikes);
     

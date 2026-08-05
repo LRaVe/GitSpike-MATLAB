@@ -49,14 +49,11 @@ function result = top_down_gradient(spikes,Tmax,Distances,threshold)
 %             * **bestP** (*double*): Global optimal classification performance :math:`P_{opt}` achieved.
 %             * **bestPopulation** (*vector*): Neuron indices corresponding to the optimal subpopulation.
 %             * **bestStep** (*integer*): Step number where the optimal performance was reached.
-%   :rtype result: struct
+%   :type result: struct
 %
 %   .. note::
 %      The algorithm evaluates subpopulations down to a single remaining neuron to build 
 %      the complete elimination trajectory.
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
 
     [N,~,~] = size(spikes);
 

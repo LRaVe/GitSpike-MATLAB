@@ -44,10 +44,7 @@ function plot_SP_figure(spikes,params,plotParams)
 %      When `showPooling` is set to `true`, the figure adds three extra rows at the bottom 
 %      representing pooled spike trains: **C** (Coding neurons), **NC** (Non-Coding neurons), 
 %      and **All** (Entire population).
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
-    
+
     [N,~,~] = size(spikes);
     
     codingNeurons = 1:params.c;

@@ -60,11 +60,9 @@ function result = simulated_annealing(spikes,Tmax,Distances,threshold,paramsSA)
 %      **re-annealing** phase (restarting search from `bestPopulation` at `T0`); otherwise, 
 %      it terminates.
 %
-%   .. note::
+%   .. important::
 %      This algorithms has a MEX version
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+
     N = size(spikes,1);
 
     %% =====================================

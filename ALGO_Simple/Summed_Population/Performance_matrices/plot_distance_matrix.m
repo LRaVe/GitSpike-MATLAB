@@ -28,9 +28,7 @@ function plot_distance_matrix(D,labels,titleStr)
 %   .. note::
 %      - If the number of trials :math:`T \le 10`, all individual trial labels (`S1R1`, `S1R2`, ...) are shown.
 %      - If :math:`T > 10`, an adaptive sub-sampling displays up to 10 evenly spaced tick marks to prevent label overlap.
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
+
 
     %% =====================================
     %% discrimination performance

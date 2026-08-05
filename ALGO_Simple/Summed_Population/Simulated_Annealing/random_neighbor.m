@@ -20,10 +20,7 @@ function candidate = random_neighbor(population,N)
 %   :type N: integer
 %
 %   :returns: **candidate** -- Mutated subpopulation vector containing one less or one more neuron index, sorted in ascending order.
-%   :rtype candidate: vector of integers
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   :type candidate: vector of integers
 
     candidate = population;
 

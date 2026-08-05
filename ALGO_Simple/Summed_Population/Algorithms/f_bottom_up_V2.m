@@ -44,12 +44,13 @@ function f_bottom_up_V2(spikes,Tmax,Distances,threshold,showing,plotting,other_f
 %   :type other_figs: logical
 %
 %   .. note::
-%      The algorithm generates a dual-panel publication figure combining the **Bottom-Up Selection Matrix** 
-%      (showing sequential neuron inclusions with ticks and color-coded performances) 
-%      and the **Performance Function** curve indicating the global optimum size :math:`k_{opt}`.
-%
-%   :Author: Laure WOLFF
-%   :Date: May-June 2026
+%      This function creates a publication-ready dual-panel figure combining:
+%        1. **Top-Down Selection Matrix** (Left Panel): Displays sequential neuron
+%           inclusions/exclusions using a colormap, overlaying symbols for removed 
+%           neurons, complete population, and the optimal subset.
+%        2. **Performance Function** (Right Panel): Plots the performance metric 
+%           versus the population size, highlighting the global optimum size :math:`k_{opt}`
+
 
     % Initialization variableq
     [num_neurons,~,~] = size(spikes);

@@ -27,11 +27,11 @@ function plot_LL_figure4(spikes,result,params,Distances,threshold)
 %      **Panel Layout Structure:**
 %
 %      * **Panel B:** Spike raster plots per neuron and stimulus.
-%      * **Panel C:** Single-neuron pairwise distance matrices ($D_n$).
-%      * **Panel D:** Single-neuron discrimination matrices ($M_n$).
-%      * **Panel E:** Single-neuron performance matrices ($P_n$).
-%      * **Panel F:** Global population performance matrix ($P$).
-%      * **Panel G:** Best-performing neuron map ($M$).
+%      * **Panel C:** Single-neuron pairwise distance matrices (:math:`D_n`).
+%      * **Panel D:** Single-neuron discrimination matrices (:math:`M_n`).
+%      * **Panel E:** Single-neuron performance matrices (:math:`P_n`).
+%      * **Panel F:** Global population performance matrix (:math:`P`).
+%      * **Panel G:** Best-performing neuron map (:math:`M`).
     
     [N,S,R] = size(spikes);
     

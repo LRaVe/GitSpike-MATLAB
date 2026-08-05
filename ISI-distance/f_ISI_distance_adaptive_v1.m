@@ -70,9 +70,6 @@ function f_ISI_distance_adaptive_v1(spikes, tmin, tmax, threshold, showing, plot
 %      .. math::
 %
 %         \tau_{MRTS} = \sqrt{\frac{1}{N_{isi}} \sum_{k=1}^{N_{isi}} (\Delta t_k)^2}
-%
-%   :Author: Laure WOLFF
-%   :Date: May 2026
 
     % Manage the parameters if necessary
     if nargin < 4 || isempty(threshold), threshold = 0; end

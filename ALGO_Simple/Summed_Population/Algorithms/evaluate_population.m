@@ -33,14 +33,11 @@ function [P,D,labels] = evaluate_population(spikes,neurons,Tmax,Distances,thresh
 %   :type threshold: double or char
 %
 %   :returns: **P** -- Overall discrimination performance score :math:`P` achieved by the selected subpopulation.
-%   :rtype P: double
+%   :type P: double
 %   :returns: **D** -- Pairwise distance matrix :math:`D` computed between all concatenated trials.
-%   :rtype D: matrix
+%   :type D: matrix
 %   :returns: **labels** -- Class label vector associated with each pooled trial.
-%   :rtype labels: vector
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   :type labels: vector
 
     %% pooled trials
 

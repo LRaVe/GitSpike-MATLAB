@@ -26,9 +26,6 @@ function plot_simulated_annealing(result,codingNeurons)
 %   .. note::
 %      The figure includes a overall title (`sgtitle`) summarizing the best performance :math:`P_{\text{best}}` 
 %      and listing the optimal neuron subset.
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
     
     figure('Color','w');
     

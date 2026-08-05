@@ -40,16 +40,13 @@ function [P,D,labels,cache] = evaluate_population_cached(spikes,neurons,Tmax,Dis
 %   :type cache: struct
 %
 %   :returns: **P** -- Discrimination performance score :math:`P` for the selected subpopulation.
-%   :rtype P: double
+%   :type P: double
 %   :returns: **D** -- Pairwise distance matrix of dimensions `[T x T]` between concatenated trials.
-%   :rtype D: matrix of doubles
+%   :type D: matrix of doubles
 %   :returns: **labels** -- Class label vector associated with each pooled trial.
-%   :rtype labels: vector of integers
+%   :type labels: vector of integers
 %   :returns: **cache** -- Updated cache structure containing updated map entries and hit/miss counters.
-%   :rtype cache: struct
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   :type cache: struct
 
     %% =====================================
     %% unique key of the population

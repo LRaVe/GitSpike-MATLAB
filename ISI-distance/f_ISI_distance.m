@@ -68,9 +68,6 @@ function f_ISI_distance(spikes, tmin,tmax, showing, plotting)
 %   .. note::
 %      The function requires at least two spike trains (`length(spikes) >= 2`) 
 %      to compute pairwise distances.
-%
-%   :Author: Laure WOLFF
-%   :Date: May 2026
 
     % Manage parameters if necessary 
     if nargin < 4 || isempty(showing), showing = 15; end

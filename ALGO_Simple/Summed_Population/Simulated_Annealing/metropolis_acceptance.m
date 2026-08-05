@@ -24,10 +24,7 @@ function accept = metropolis_acceptance(Pcandidate,Pcurrent,T)
 %   :type T: double
 %
 %   :returns: **accept** -- Logical flag set to `true` if the candidate state is accepted, or `false` otherwise.
-%   :rtype accept: logical
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   :type accept: logical
 
     if Pcandidate > Pcurrent
 

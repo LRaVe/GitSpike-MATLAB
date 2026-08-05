@@ -30,13 +30,10 @@ function P = compute_discrimination_performance(D,labels)
 %   :type labels: vector of integers
 %
 %   :returns: **P** -- Discrimination performance score :math:`P`.
-%   :rtype P: double
+%   :type P: double
 %
-%   .. note::
-%      This algorithms has a MEX version
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
+%   .. important::
+%      This algorithms has a MEX version.
     
     T = length(labels);
     

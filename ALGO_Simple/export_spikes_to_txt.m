@@ -18,9 +18,6 @@ function export_spikes_to_txt(spikes,filename)
 %
 %   COMPATIBILITY:
 %       - Fully compatible with the complementary function import_spikes_from_txt.m.
-%
-%   Author: Maxime BELTOISE
-%   Date: June 2026
 
     fid = fopen(filename,'w');
 

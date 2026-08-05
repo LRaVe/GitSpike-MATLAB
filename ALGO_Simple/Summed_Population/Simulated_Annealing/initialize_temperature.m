@@ -37,10 +37,7 @@ function T0 = initialize_temperature(spikes,Tmax,Distances,threshold,N0)
 %   :type N0: integer
 %
 %   :returns: **T0** -- Calibrated initial temperature :math:`T_0` ensuring a 95% initial acceptance rate.
-%   :rtype T0: double
-%
-%   :Author: Maxime BELTOISE
-%   :Date: June 2026
+%   :type T0: double
 
     N = size(spikes,1);
 

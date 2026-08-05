@@ -31,10 +31,7 @@ function D = compute_population_distance_matrix(trials,Tmax,Distances,threshold)
 %   :type threshold: double or char
 %
 %   :returns: **D** -- Symmetric distance matrix of dimensions `[T x T]` where `D(i,j)` represents the distance between trial `i` and trial `j`.
-%   :rtype D: matrix of doubles
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
+%   :type D: matrix of doubles
     
     T = length(trials);
     

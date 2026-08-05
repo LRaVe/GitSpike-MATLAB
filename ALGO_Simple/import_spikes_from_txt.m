@@ -22,9 +22,6 @@ function spikes = import_spikes_from_txt(filename, num_stimuli, num_repetitions,
 %
 %   COMPATIBILITY:
 %       - Perfectly mirrors the writing format produced by export_spikes_to_txt.m.
-%
-%   Author: Laure WOLFF
-%   Date: June 2026
 
     % 1. Read all lines from the file
     fid = fopen(filename, 'r');

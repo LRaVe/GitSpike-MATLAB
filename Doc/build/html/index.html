@@ -53,20 +53,6 @@
 <li><a class="reference internal" href="#isi-distance">ISI Distance</a><ul>
 <li><a class="reference internal" href="#f-isi-distance">f_ISI_distance</a></li>
 <li><a class="reference internal" href="#f-isi-distance-adaptive-v1">f_ISI_distance_adaptive_v1</a></li>
-<li><a class="reference internal" href="#main-isi-test">main_ISI_test</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#latency-correction">Latency Correction</a><ul>
-<li><a class="reference internal" href="#f-cost-matrix">f_Cost_matrix</a></li>
-<li><a class="reference internal" href="#f-first-diagonal">f_first_diagonal</a></li>
-<li><a class="reference internal" href="#f-lc-simulated-annealing">f_lc_simulated_annealing</a></li>
-<li><a class="reference internal" href="#f-plot-trains-with-correction">f_plot_trains_with_correction</a></li>
-<li><a class="reference internal" href="#f-row">f_row</a></li>
-<li><a class="reference internal" href="#f-synfire">f_synfire</a></li>
-<li><a class="reference internal" href="#f-td-matrix">f_TD_matrix</a></li>
-<li><a class="reference internal" href="#plot-shifts-row">plot_shifts_row</a></li>
-<li><a class="reference internal" href="#plot-synfire-trains">plot_synfire_trains</a></li>
-<li><a class="reference internal" href="#values-to-colors">values_to_colors</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#spike-distance">SPIKE Distance</a><ul>
@@ -90,6 +76,19 @@
 <li><a class="reference internal" href="#pairwise-train-order">pairwise_train_order</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#latency-correction">Latency Correction</a><ul>
+<li><a class="reference internal" href="#f-cost-matrix">f_Cost_matrix</a></li>
+<li><a class="reference internal" href="#f-first-diagonal">f_first_diagonal</a></li>
+<li><a class="reference internal" href="#f-lc-simulated-annealing">f_lc_simulated_annealing</a></li>
+<li><a class="reference internal" href="#f-plot-trains-with-correction">f_plot_trains_with_correction</a></li>
+<li><a class="reference internal" href="#f-row">f_row</a></li>
+<li><a class="reference internal" href="#f-synfire">f_synfire</a></li>
+<li><a class="reference internal" href="#f-td-matrix">f_TD_matrix</a></li>
+<li><a class="reference internal" href="#plot-shifts-row">plot_shifts_row</a></li>
+<li><a class="reference internal" href="#plot-synfire-trains">plot_synfire_trains</a></li>
+<li><a class="reference internal" href="#values-to-colors">values_to_colors</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#discriminative-neuronal-subpopulation">Discriminative neuronal subpopulation</a><ul>
 <li><a class="reference internal" href="#datasets-generation">Datasets Generation</a><ul>
 <li><a class="reference internal" href="#generate-sp-dataset">generate_SP_dataset</a></li>
@@ -111,19 +110,19 @@
 </li>
 <li><a class="reference internal" href="#algorithms">Algorithms</a><ul>
 <li><a class="reference internal" href="#evaluate-population">evaluate_population</a></li>
-<li><a class="reference internal" href="#f-bottom-up-v2">f_bottom_up_V2</a></li>
 <li><a class="reference internal" href="#f-brute-force-v2">f_brute_force_V2</a></li>
-<li><a class="reference internal" href="#plot-top-down-gradient">plot_top_down_gradient</a></li>
+<li><a class="reference internal" href="#f-bottom-up-v2">f_bottom_up_V2</a></li>
 <li><a class="reference internal" href="#top-down-gradient">top_down_gradient</a></li>
+<li><a class="reference internal" href="#plot-top-down-gradient">plot_top_down_gradient</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#simulated-annealing">Simulated Annealing</a><ul>
 <li><a class="reference internal" href="#evaluate-population-cached">evaluate_population_cached</a></li>
 <li><a class="reference internal" href="#initialize-temperature">initialize_temperature</a></li>
 <li><a class="reference internal" href="#metropolis-acceptance">metropolis_acceptance</a></li>
-<li><a class="reference internal" href="#plot-simulated-annealing">plot_simulated_annealing</a></li>
 <li><a class="reference internal" href="#random-neighbor">random_neighbor</a></li>
 <li><a class="reference internal" href="#id1">simulated_annealing</a></li>
+<li><a class="reference internal" href="#plot-simulated-annealing">plot_simulated_annealing</a></li>
 </ul>
 </li>
 </ul>
@@ -262,14 +261,6 @@ for each spike train at time <span class="math notranslate nohighlight">\(t\)</s
 <p>The function requires at least two spike trains (<cite>length(spikes) &gt;= 2</cite>)
 to compute pairwise distances.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Laure WOLFF</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May 2026</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -333,23 +324,236 @@ the Root Mean Square (RMS) of all inter-spike intervals:</p>
 <div class="math notranslate nohighlight">
 \[\tau_{MRTS} = \sqrt{\frac{1}{N_{isi}} \sum_{k=1}^{N_{isi}} (\Delta t_k)^2}\]</div>
 </div>
+</dd></dl>
+
+</section>
+</section>
+<section id="spike-distance">
+<h1>SPIKE Distance<a class="headerlink" href="#spike-distance" title="Link to this heading"></a></h1>
+<section id="spike-distances-all">
+<span id="module-SPIKE_distance"></span><h2>SPIKE_distances_all<a class="headerlink" href="#spike-distances-all" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_all">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+<section id="spike-order">
+<h1>SPIKE Order<a class="headerlink" href="#spike-order" title="Link to this heading"></a></h1>
+<section id="order-spikes">
+<span id="module-SPIKE_order"></span><h2>order_spikes<a class="headerlink" href="#order-spikes" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_order.order_spikes">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">order_spikes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.order_spikes" title="Link to this definition"></a></dt>
+<dd><p>This function computes the SPIKE-order profile and matrix for a given set of spike trains.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Laure WOLFF</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May 2026</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>sortedOrders</strong> (<em>array</em>) – An array of all spike orders sorted according to the sorted spike times.</p></li>
+<li><p><strong>sortedTimes</strong> (<em>array</em>) – An array of all spike times sorted in ascending order.</p></li>
+<li><p><strong>SO_matrix</strong> (<em>array</em>) – A symmetric matrix where each element (i,j) represents the SPIKE-order value between spike train i and spike train j.</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
 
 </section>
-<section id="main-isi-test">
-<h2>main_ISI_test<a class="headerlink" href="#main-isi-test" title="Link to this heading"></a></h2>
-<dl class="mat script">
-<dt class="sig sig-object mat" id="ISI-distance.main_ISI_test">
-<span class="sig-prename descclassname"><span class="pre">ISI-distance.</span></span><span class="sig-name descname"><span class="pre">main_ISI_test</span></span><a class="headerlink" href="#ISI-distance.main_ISI_test" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<section id="pairwise-order">
+<h2>pairwise_order<a class="headerlink" href="#pairwise-order" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_order.pairwise_order">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.pairwise_order" title="Link to this definition"></a></dt>
+<dd><p>This function computes the pairwise SPIKE-order profile between two spike trains.</p>
+<p>A value of +1 indicates that the spike in the first train leads the closest spike in the second train, -1 indicates that it follows, and 0 indicates that they are coincident or no closest spike is found within the coincidence window.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>spike_ind1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the first spike train in the spikes cell array.</p></li>
+<li><p><strong>spike_ind2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the second spike train in the spikes cell array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>res</strong> (<em>array</em>) – An array where each element corresponds to the SPIKE-order value for the corresponding spike time in the first spike train with respect to the second spike train.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="spike-synchronization">
+<h1>SPIKE Synchronization<a class="headerlink" href="#spike-synchronization" title="Link to this heading"></a></h1>
+<section id="f-adapt-spike-synchro">
+<span id="module-SPIKE_synchro"></span><h2>f_adapt_spike_synchro<a class="headerlink" href="#f-adapt-spike-synchro" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_adapt_spike_synchro">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_adapt_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">train1</span></em>, <em class="sig-param"><span class="pre">train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_adapt_spike_synchro" title="Link to this definition"></a></dt>
+<dd><p>Computes the Adaptive SPIKE-synchronization between two spike trains
+If RMTS is empty or not provided, use regular SPIKE synchronization</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the first spike train.</p></li>
+<li><p><strong>train2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the second spike train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>RMTS</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">optional</span> <span class="pre">value</span></code></span>) – The arbitrary threshold for the adaptive coincidence detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>C</strong> (<em>vector</em>) – Coincidence array (1 if matched and within tau, 0 otherwise).</p></li>
+<li><p><strong>spike</strong> (<em>vector</em>) – Corresponding spike times for each coincidence value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="f-spike-synchro">
+<h2>f_spike_synchro<a class="headerlink" href="#f-spike-synchro" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Spike_train1</span></em>, <em class="sig-param"><span class="pre">Spike_train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro" title="Link to this definition"></a></dt>
+<dd><p>Given two spike trains, this function calculates the coincidence of spikes between them.
+Uses a greedy matching algorithm to pair spikes based on minimum distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>Spike_train1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the first spike train.</p></li>
+<li><p><strong>Spike_train2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the second spike train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>C</strong> – coincidence array (1 if matched and within tau, 0 otherwise)</p></li>
+<li><p><strong>spike_times</strong> – corresponding spike times for each coincidence value</p></li>
+<li><p><strong>coincidence_times</strong> – times of coincident spikes for plotting</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="f-spike-synchro-multi">
+<h2>f_spike_synchro_multi<a class="headerlink" href="#f-spike-synchro-multi" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro_multi">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">st</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro_multi" title="Link to this definition"></a></dt>
+<dd><p>This function computes the SPIKE-synchronization for multiple spike trains.
+It calculates pairwise coincidence matrices and builds a profile for each train.
+It depends on whether RMTS (Real-Time Spike Train Synchronization) is enabled or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>st</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>RMTS</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">optional</span> <span class="pre">value</span></code></span>) – The arbitrary threshold for the adaptive coincidence detection.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>C_matrix</strong> (<em>matrix</em>) – A square matrix where each element (i,j) represents the coincidence value between spike train i and spike train j.</p></li>
+<li><p><strong>C_global</strong> (<em>float</em>) – The global SPIKE-synchronization index, calculated as the mean of the upper triangle of C_matrix (excluding diagonal).</p></li>
+<li><p><strong>sortedTimes</strong> (<em>vector</em>) – A vector of sorted spike times across all trains.</p></li>
+<li><p><strong>sortedValues</strong> (<em>vector</em>) – A vector of sorted synchronization values across all trains.</p></li>
+<li><p><strong>spike_synchro_data</strong> (<em>cell array</em>) – A cell array storing [time, C_value] pairs for each train comparison.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="spike-train-order">
+<h1>SPIKE Train Order<a class="headerlink" href="#spike-train-order" title="Link to this heading"></a></h1>
+<section id="compute-spike-train-order-value">
+<span id="module-SPIKE_train_order"></span><h2>compute_spike_train_order_value<a class="headerlink" href="#compute-spike-train-order-value" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.compute_spike_train_order_value">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">compute_spike_train_order_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">orders</span></em>, <em class="sig-param"><span class="pre">number_spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.compute_spike_train_order_value" title="Link to this definition"></a></dt>
+<dd><p>This function computes the overall SPIKE-train-order value F by concatenating all spike times and their corresponding order values, sorting them, and normlalizing by the total number of spikes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>orders</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the SPIKE-order values for the corresponding spike times in the spikes cell array.</p></li>
+<li><p><strong>number_spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The total number of spikes across all spike trains.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>F</strong> (<em>float</em>) – The overall SPIKE-train-order value, normalized by the total number of spikes.</p></li>
+<li><p><strong>sortedTimes</strong> (<em>array</em>) – An array of all spike times sorted in ascending order.</p></li>
+<li><p><strong>sortedOrders</strong> (<em>array</em>) – An array of SPIKE-order values corresponding to the sorted spike times.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="order-trains">
+<h2>order_trains<a class="headerlink" href="#order-trains" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.order_trains">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">order_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.order_trains" title="Link to this definition"></a></dt>
+<dd><p>This function computes the SPIKE-train-order values for multiple spike trains by calculating pairwise orderings between all distinct train pairs and aggregating the results.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>results</strong> (<em>cell array</em>) – A cell array where each cell contains the SPIKE-train-order values for the corresponding spike train, normalized by the number of other trains.</p></li>
+<li><p><strong>order_matrix</strong> (<em>matrix</em>) – A matrix where the element at (i,j) represents the mean SPIKE-train-order value of train i with respect to train j, and the element at (j,i) is the negative of that value.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="pairwise-train-order">
+<h2>pairwise_train_order<a class="headerlink" href="#pairwise-train-order" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_train_order.pairwise_train_order">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_train_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.pairwise_train_order" title="Link to this definition"></a></dt>
+<dd><p>This function computes the pairwise SPIKE-train-order values for two distinct spike trains by comparing their spike times and determining the relative ordering of spikes within a specified coincidence window.</p>
+<p>For each spike in the first train, it checks for coincidences with spikes in the second train. If a coincidence is found, both trains receive the same ordering value based on their relative timing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
+<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
+<li><p><strong>spike_ind1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the first spike train in the spikes cell array.</p></li>
+<li><p><strong>spike_ind2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the second spike train in the spikes cell array.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>res1</strong> (<em>array</em>) – An array containing the SPIKE-train-order values for the first spike train, where each element corresponds to a spike in that train.</p></li>
+<li><p><strong>res2</strong> (<em>array</em>) – An array containing the SPIKE-train-order values for the second spike train, where each element corresponds to a spike in that train.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>
@@ -591,190 +795,14 @@ This function computes the time difference matrix for a set of spike trains. The
 
 </section>
 </section>
-<section id="spike-distance">
-<h1>SPIKE Distance<a class="headerlink" href="#spike-distance" title="Link to this heading"></a></h1>
-<section id="spike-distances-all">
-<span id="module-SPIKE_distance"></span><h2>SPIKE_distances_all<a class="headerlink" href="#spike-distances-all" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_all">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</section>
-</section>
-<section id="spike-order">
-<h1>SPIKE Order<a class="headerlink" href="#spike-order" title="Link to this heading"></a></h1>
-<section id="order-spikes">
-<span id="module-SPIKE_order"></span><h2>order_spikes<a class="headerlink" href="#order-spikes" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_order.order_spikes">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">order_spikes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.order_spikes" title="Link to this definition"></a></dt>
-<dd><p>This function computes the SPIKE-order profile and matrix for a given set of spike trains.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
-<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
-<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>sortedOrders</strong> (<em>array</em>) – An array of all spike orders sorted according to the sorted spike times.</p></li>
-<li><p><strong>sortedTimes</strong> (<em>array</em>) – An array of all spike times sorted in ascending order.</p></li>
-<li><p><strong>SO_matrix</strong> (<em>array</em>) – A symmetric matrix where each element (i,j) represents the SPIKE-order value between spike train i and spike train j.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="pairwise-order">
-<h2>pairwise_order<a class="headerlink" href="#pairwise-order" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_order.pairwise_order">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_order.pairwise_order" title="Link to this definition"></a></dt>
-<dd><p>This function computes the pairwise SPIKE-order profile between two spike trains.</p>
-<p>A value of +1 indicates that the spike in the first train leads the closest spike in the second train, -1 indicates that it follows, and 0 indicates that they are coincident or no closest spike is found within the coincidence window.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>tmin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
-<li><p><strong>tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
-<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
-<li><p><strong>spike_ind1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the first spike train in the spikes cell array.</p></li>
-<li><p><strong>spike_ind2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">int</span></code></span>) – The index of the second spike train in the spikes cell array.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>res</strong> (<em>array</em>) – An array where each element corresponds to the SPIKE-order value for the corresponding spike time in the first spike train with respect to the second spike train.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-</section>
-<section id="spike-synchronization">
-<h1>SPIKE Synchronization<a class="headerlink" href="#spike-synchronization" title="Link to this heading"></a></h1>
-<section id="f-adapt-spike-synchro">
-<span id="module-SPIKE_synchro"></span><h2>f_adapt_spike_synchro<a class="headerlink" href="#f-adapt-spike-synchro" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_synchro.f_adapt_spike_synchro">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_adapt_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">train1</span></em>, <em class="sig-param"><span class="pre">train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_adapt_spike_synchro" title="Link to this definition"></a></dt>
-<dd><p>Computes the Adaptive SPIKE-synchronization between two spike trains
-If RMTS is empty or not provided, use regular SPIKE synchronization</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>train1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the first spike train.</p></li>
-<li><p><strong>train2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the second spike train.</p></li>
-<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
-<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
-<li><p><strong>RMTS</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">optional</span> <span class="pre">value</span></code></span>) – The arbitrary threshold for the adaptive coincidence detection.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>C</strong> (<em>vector</em>) – Coincidence array (1 if matched and within tau, 0 otherwise).</p></li>
-<li><p><strong>spike</strong> (<em>vector</em>) – Corresponding spike times for each coincidence value.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="f-spike-synchro">
-<h2>f_spike_synchro<a class="headerlink" href="#f-spike-synchro" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">Spike_train1</span></em>, <em class="sig-param"><span class="pre">Spike_train2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro" title="Link to this definition"></a></dt>
-<dd><p>Given two spike trains, this function calculates the coincidence of spikes between them.
-Uses a greedy matching algorithm to pair spikes based on minimum distance.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>Spike_train1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the first spike train.</p></li>
-<li><p><strong>Spike_train2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Spike times for the second spike train.</p></li>
-<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
-<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>C</strong> – coincidence array (1 if matched and within tau, 0 otherwise)</p></li>
-<li><p><strong>spike_times</strong> – corresponding spike times for each coincidence value</p></li>
-<li><p><strong>coincidence_times</strong> – times of coincident spikes for plotting</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="f-spike-synchro-multi">
-<h2>f_spike_synchro_multi<a class="headerlink" href="#f-spike-synchro-multi" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_synchro.f_spike_synchro_multi">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_synchro.</span></span><span class="sig-name descname"><span class="pre">f_spike_synchro_multi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">st</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">RMTS</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_synchro.f_spike_synchro_multi" title="Link to this definition"></a></dt>
-<dd><p>This function computes the SPIKE-synchronization for multiple spike trains.
-It calculates pairwise coincidence matrices and builds a profile for each train.
-It depends on whether RMTS (Real-Time Spike Train Synchronization) is enabled or not.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>st</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">array</span></code></span>) – A cell array where each cell contains the spike times for a specific spike train.</p></li>
-<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The minimum time for the analysis window.</p></li>
-<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">float</span></code></span>) – The maximum time for the analysis window.</p></li>
-<li><p><strong>RMTS</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">optional</span> <span class="pre">value</span></code></span>) – The arbitrary threshold for the adaptive coincidence detection.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><ul class="simple">
-<li><p><strong>C_matrix</strong> (<em>matrix</em>) – A square matrix where each element (i,j) represents the coincidence value between spike train i and spike train j.</p></li>
-<li><p><strong>C_global</strong> (<em>float</em>) – The global SPIKE-synchronization index, calculated as the mean of the upper triangle of C_matrix (excluding diagonal).</p></li>
-<li><p><strong>sortedTimes</strong> (<em>vector</em>) – A vector of sorted spike times across all trains.</p></li>
-<li><p><strong>sortedValues</strong> (<em>vector</em>) – A vector of sorted synchronization values across all trains.</p></li>
-<li><p><strong>spike_synchro_data</strong> (<em>cell array</em>) – A cell array storing [time, C_value] pairs for each train comparison.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-</section>
-<section id="spike-train-order">
-<h1>SPIKE Train Order<a class="headerlink" href="#spike-train-order" title="Link to this heading"></a></h1>
-<section id="compute-spike-train-order-value">
-<span id="module-SPIKE_train_order"></span><h2>compute_spike_train_order_value<a class="headerlink" href="#compute-spike-train-order-value" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_train_order.compute_spike_train_order_value">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">compute_spike_train_order_value</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">orders</span></em>, <em class="sig-param"><span class="pre">number_spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.compute_spike_train_order_value" title="Link to this definition"></a></dt>
-<dd><p>Calculate the overall spike-train-order value F</p>
-</dd></dl>
-
-</section>
-<section id="order-trains">
-<h2>order_trains<a class="headerlink" href="#order-trains" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_train_order.order_trains">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">order_trains</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.order_trains" title="Link to this definition"></a></dt>
-<dd><p>Compute spike-train-order values for all spikes and pairwise relationships
-Aggregates pairwise train-order vectors for all spike trains</p>
-</dd></dl>
-
-</section>
-<section id="pairwise-train-order">
-<h2>pairwise_train_order<a class="headerlink" href="#pairwise-train-order" title="Link to this heading"></a></h2>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="SPIKE_train_order.pairwise_train_order">
-<span class="sig-prename descclassname"><span class="pre">SPIKE_train_order.</span></span><span class="sig-name descname"><span class="pre">pairwise_train_order</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">tmin</span></em>, <em class="sig-param"><span class="pre">tmax</span></em>, <em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">spike_ind1</span></em>, <em class="sig-param"><span class="pre">spike_ind2</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_train_order.pairwise_train_order" title="Link to this definition"></a></dt>
-<dd><p>Compute bidirectional pairwise spike-train ordering
-For each coincidence, both trains receive the same ordering value</p>
-</dd></dl>
-
-</section>
-</section>
 <section id="discriminative-neuronal-subpopulation">
 <h1>Discriminative neuronal subpopulation<a class="headerlink" href="#discriminative-neuronal-subpopulation" title="Link to this heading"></a></h1>
+<p>This section describes the algorithms implemented to find the most discriminative neuronal subpopulation. Several hypotheses and methods are explained.</p>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Kreuz T, et al. <em>Using spike train distances to identify the most discriminative neuronal subpopulation</em>, J Neurosci Methods, 2017-2018.</p>
+<p><a class="reference external" href="https://www.thomaskreuz.org/publications/journal-articles#h.j3c8pcr54mx6">Link to see the publication</a></p>
+</div>
 <section id="datasets-generation">
 <h2>Datasets Generation<a class="headerlink" href="#datasets-generation" title="Link to this heading"></a></h2>
 <section id="generate-sp-dataset">
@@ -912,14 +940,6 @@ and Non-Coding in blue). Dashed separation lines visually divide the different f
 representing pooled spike trains: <strong>C</strong> (Coding neurons), <strong>NC</strong> (Non-Coding neurons),
 and <strong>All</strong> (Entire population).</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May 2026</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -943,15 +963,6 @@ is merged and sorted in ascending chronological order to simulate population-lev
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>pooled</strong> – Chronologically sorted vector containing all concatenated spike timestamps from the selected neurons.</p>
-</dd>
-<dt class="field-odd">Rtype pooled<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vector of doubles</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>May 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -983,20 +994,8 @@ its corresponding stimulus class label.</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>trials</strong> – 1D cell array of length <span class="math notranslate nohighlight">\(T = S \times R\)</span> containing sorted spike time vectors for each trial.</p>
 </dd>
-<dt class="field-odd">Rtype trials<span class="colon">:</span></dt>
-<dd class="field-odd"><p>cell array</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>labels</strong> – Class label vector of length <span class="math notranslate nohighlight">\(T\)</span> associating each trial with its stimulus index <span class="math notranslate nohighlight">\(s \in \{1, \dots, S\}\)</span>.</p>
-</dd>
-<dt class="field-odd">Rtype labels<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vector of integers</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>May 2026</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>labels</strong> – Class label vector of length <span class="math notranslate nohighlight">\(T\)</span> associating each trial with its stimulus index <span class="math notranslate nohighlight">\(s \in \{1, \dots, S\}\)</span>.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1030,22 +1029,11 @@ population responses for different stimuli with high repeatability within the sa
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>P</strong> – Discrimination performance score <span class="math notranslate nohighlight">\(P\)</span>.</p>
 </dd>
-<dt class="field-odd">Rtype P<span class="colon">:</span></dt>
-<dd class="field-odd"><p>double</p>
-</dd>
 </dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This algorithms has a MEX version</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This algorithms has a MEX version.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May 2026</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -1078,15 +1066,6 @@ if set to <cite>‘auto’</cite>, and calls <cite>SPIKE_dist_2x2</cite> for pai
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>D</strong> – Symmetric distance matrix of dimensions <cite>[T x T]</cite> where <cite>D(i,j)</cite> represents the distance between trial <cite>i</cite> and trial <cite>j</cite>.</p>
-</dd>
-<dt class="field-odd">Rtype D<span class="colon">:</span></dt>
-<dd class="field-odd"><p>matrix of doubles</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>May 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1123,14 +1102,6 @@ and dynamically adapts axis tick labels depending on the number of trials <span 
 <li><p>If <span class="math notranslate nohighlight">\(T &gt; 10\)</span>, an adaptive sub-sampling displays up to 10 evenly spaced tick marks to prevent label overlap.</p></li>
 </ul>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May 2026</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
@@ -1168,78 +1139,11 @@ metrics, and calculates the overall discrimination performance <span class="math
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>P</strong> – Overall discrimination performance score <span class="math notranslate nohighlight">\(P\)</span> achieved by the selected subpopulation.</p>
 </dd>
-<dt class="field-odd">Rtype P<span class="colon">:</span></dt>
-<dd class="field-odd"><p>double</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>D</strong> – Pairwise distance matrix <span class="math notranslate nohighlight">\(D\)</span> computed between all concatenated trials.</p>
-</dd>
-<dt class="field-odd">Rtype D<span class="colon">:</span></dt>
-<dd class="field-odd"><p>matrix</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>D</strong> – Pairwise distance matrix <span class="math notranslate nohighlight">\(D\)</span> computed between all concatenated trials.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>labels</strong> – Class label vector associated with each pooled trial.</p>
-</dd>
-<dt class="field-odd">Rtype labels<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vector</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>June 2026</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="f-bottom-up-v2">
-<h4>f_bottom_up_V2<a class="headerlink" href="#f-bottom-up-v2" title="Link to this heading"></a></h4>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Algorithms.f_bottom_up_V2">
-<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Algorithms.</span></span><span class="sig-name descname"><span class="pre">f_bottom_up_V2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">Tmax</span></em>, <em class="sig-param"><span class="pre">Distances</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em>, <em class="sig-param"><span class="pre">other_figs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Algorithms.f_bottom_up_V2" title="Link to this definition"></a></dt>
-<dd><p>F_BOTTOM_UP_V2 Sequential greedy inclusion algorithm for optimal neuronal subpopulation selection.</p>
-<p>Performs a iterative Bottom-Up (forward selection) search to identify
-the subpopulation of neurons that maximizes the classification performance :math:P.
-Starting from an empty set, at each step <span class="math notranslate nohighlight">\(k\)</span>, the algorithm evaluates all available
-candidate neurons and permanently includes the one that yields the highest incremental performance.</p>
-<p>The computational complexity of this forward selection process is polynomial:</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{O}\left(\frac{N(N+1)}{2}\right)\]</div>
-<p>which drastically reduces the evaluation space compared to the <span class="math notranslate nohighlight">\(2^N - 1\)</span> exhaustive search.</p>
-<p>Valid call structures:</p>
-<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Run Bottom-Up selection with console display and paper figure generation</span>
-<span class="n">f_bottom_up_V2</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">Tmax</span><span class="p">,</span><span class="w"> </span><span class="n">Distances</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
-
-<span class="c">% Quiet execution without figure generation</span>
-<span class="n">f_bottom_up_V2</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">Tmax</span><span class="p">,</span><span class="w"> </span><span class="n">Distances</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
-</pre></div>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">or</span> <span class="pre">double</span></code></span>) – 3D cell array or matrix of dimensions <cite>[num_neurons x num_stimuli x num_repetitions]</cite> containing spike timestamps.</p></li>
-<li><p><strong>Tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the analysis window.</p></li>
-<li><p><strong>Distances</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">0</span> <span class="pre">or</span> <span class="pre">1</span> <span class="pre">array</span>&#160; <span class="pre">(e.g</span> <span class="pre">[1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0]</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">SPIKE</span> <span class="pre">distance)</span></code></span>) – Distance metric type (e.g., <cite>‘SPIKE’</cite>, <cite>‘RI-SPIKE’</cite>, <cite>‘SPIKE_adaptive’</cite>, <cite>‘RI-SPIKE adaptative’</cite>).</p></li>
-<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">or</span> <span class="pre">char</span></code></span>) – MRTS threshold value for adaptive distances (set <cite>0</cite> for classic mode or <cite>‘auto’</cite>).</p></li>
-<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Flag to enable/disable detailed console output and progression logs.</p></li>
-<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Master flag to enable figure generation.</p></li>
-<li><p><strong>other_figs</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Secondary flag to plot intermediate step-by-step exploration figures.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The algorithm generates a dual-panel publication figure combining the <strong>Bottom-Up Selection Matrix</strong>
-(showing sequential neuron inclusions with ticks and color-coded performances)
-and the <strong>Performance Function</strong> curve indicating the global optimum size <span class="math notranslate nohighlight">\(k_{opt}\)</span>.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Laure WOLFF</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>May-June 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1290,38 +1194,61 @@ it calculates the classification performance <span class="math notranslate nohig
 <p>A safety check aborts execution if <span class="math notranslate nohighlight">\(N_{neurons} &gt; 20\)</span> to prevent memory allocation failure
 and exponential execution slowdowns (<span class="math notranslate nohighlight">\(2^{20} = 1\,048\,575\)</span> iterations).</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This algorithms has a MEX version</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This algorithms has a MEX version.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Laure WOLFF</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>June 2026</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>
-<section id="plot-top-down-gradient">
-<h4>plot_top_down_gradient<a class="headerlink" href="#plot-top-down-gradient" title="Link to this heading"></a></h4>
+<section id="f-bottom-up-v2">
+<h4>f_bottom_up_V2<a class="headerlink" href="#f-bottom-up-v2" title="Link to this heading"></a></h4>
 <dl class="mat function">
-<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Algorithms.plot_top_down_gradient">
-<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Algorithms.</span></span><span class="sig-name descname"><span class="pre">plot_top_down_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">result</span></em>, <em class="sig-param"><span class="pre">codingNeurons</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Algorithms.plot_top_down_gradient" title="Link to this definition"></a></dt>
-<dd><p>PLOT_TOP_DOWN_GRADIENT
-The algorithm generates a dual-panel publication figure combining the <strong>Top-Down Selection Matrix</strong>
-(showing sequential neuron inclusions with ticks and color-coded performances)
-and the <strong>Performance Function</strong> curve indicating the global optimum size <span class="math notranslate nohighlight">\(k_{opt}\)</span>.</p>
+<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Algorithms.f_bottom_up_V2">
+<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Algorithms.</span></span><span class="sig-name descname"><span class="pre">f_bottom_up_V2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">Tmax</span></em>, <em class="sig-param"><span class="pre">Distances</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em>, <em class="sig-param"><span class="pre">other_figs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Algorithms.f_bottom_up_V2" title="Link to this definition"></a></dt>
+<dd><p>F_BOTTOM_UP_V2 Sequential greedy inclusion algorithm for optimal neuronal subpopulation selection.</p>
+<p>Performs a iterative Bottom-Up (forward selection) search to identify
+the subpopulation of neurons that maximizes the classification performance :math:P.
+Starting from an empty set, at each step <span class="math notranslate nohighlight">\(k\)</span>, the algorithm evaluates all available
+candidate neurons and permanently includes the one that yields the highest incremental performance.</p>
+<p>The computational complexity of this forward selection process is polynomial:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{O}\left(\frac{N(N+1)}{2}\right)\]</div>
+<p>which drastically reduces the evaluation space compared to the <span class="math notranslate nohighlight">\(2^N - 1\)</span> exhaustive search.</p>
+<p>Valid call structures:</p>
+<div class="highlight-matlab notranslate"><div class="highlight"><pre><span></span><span class="c">% Run Bottom-Up selection with console display and paper figure generation</span>
+<span class="n">f_bottom_up_V2</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">Tmax</span><span class="p">,</span><span class="w"> </span><span class="n">Distances</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">true</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+
+<span class="c">% Quiet execution without figure generation</span>
+<span class="n">f_bottom_up_V2</span><span class="p">(</span><span class="n">spikes</span><span class="p">,</span><span class="w"> </span><span class="n">Tmax</span><span class="p">,</span><span class="w"> </span><span class="n">Distances</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;auto&#39;</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">,</span><span class="w"> </span><span class="nb">false</span><span class="p">);</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>June 2026</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span> <span class="pre">or</span> <span class="pre">double</span></code></span>) – 3D cell array or matrix of dimensions <cite>[num_neurons x num_stimuli x num_repetitions]</cite> containing spike timestamps.</p></li>
+<li><p><strong>Tmax</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the analysis window.</p></li>
+<li><p><strong>Distances</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">0</span> <span class="pre">or</span> <span class="pre">1</span> <span class="pre">array</span>&#160; <span class="pre">(e.g</span> <span class="pre">[1</span> <span class="pre">0</span> <span class="pre">0</span> <span class="pre">0]</span> <span class="pre">for</span> <span class="pre">the</span> <span class="pre">SPIKE</span> <span class="pre">distance)</span></code></span>) – Distance metric type (e.g., <cite>‘SPIKE’</cite>, <cite>‘RI-SPIKE’</cite>, <cite>‘SPIKE_adaptive’</cite>, <cite>‘RI-SPIKE adaptative’</cite>).</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">or</span> <span class="pre">char</span></code></span>) – MRTS threshold value for adaptive distances (set <cite>0</cite> for classic mode or <cite>‘auto’</cite>).</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Flag to enable/disable detailed console output and progression logs.</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Master flag to enable figure generation.</p></li>
+<li><p><strong>other_figs</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span></code></span>) – Secondary flag to plot intermediate step-by-step exploration figures.</p></li>
+</ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<dl class="simple">
+<dt>This function creates a publication-ready dual-panel figure combining:</dt><dd><ol class="arabic simple">
+<li><p><strong>Top-Down Selection Matrix</strong> (Left Panel): Displays sequential neuron
+inclusions/exclusions using a colormap, overlaying symbols for removed
+neurons, complete population, and the optimal subset.</p></li>
+<li><p><strong>Performance Function</strong> (Right Panel): Plots the performance metric
+versus the population size, highlighting the global optimum size <span class="math notranslate nohighlight">\(k_{opt}\)</span></p></li>
+</ol>
+</dd>
+</dl>
+</div>
 </dd></dl>
 
 </section>
@@ -1371,21 +1298,45 @@ one whose removal yields the highest performance.</p>
 </ul>
 </p>
 </dd>
-<dt class="field-odd">Rtype result<span class="colon">:</span></dt>
-<dd class="field-odd"><p>struct</p>
-</dd>
 </dl>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The algorithm evaluates subpopulations down to a single remaining neuron to build
 the complete elimination trajectory.</p>
 </div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
+</dd></dl>
+
+</section>
+<section id="plot-top-down-gradient">
+<h4>plot_top_down_gradient<a class="headerlink" href="#plot-top-down-gradient" title="Link to this heading"></a></h4>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Algorithms.plot_top_down_gradient">
+<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Algorithms.</span></span><span class="sig-name descname"><span class="pre">plot_top_down_gradient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">result</span></em>, <em class="sig-param"><span class="pre">codingNeurons</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Algorithms.plot_top_down_gradient" title="Link to this definition"></a></dt>
+<dd><p>PLOT_TOP_DOWN_GRADIENT Generates a dual-panel figure for top-down neuron selection analysis.</p>
+<dl class="simple">
+<dt>This function creates a publication-ready dual-panel figure combining:</dt><dd><ol class="arabic simple">
+<li><p><strong>Top-Down Selection Matrix</strong> (Left Panel): Displays sequential neuron
+inclusions/exclusions using a colormap, overlaying symbols for removed
+neurons, complete population, and the optimal subset.</p></li>
+<li><p><strong>Performance Function</strong> (Right Panel): Plots the performance metric
+versus the population size, highlighting the global optimum size <span class="math notranslate nohighlight">\(k_{opt}\)</span>.</p></li>
+</ol>
 </dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>June 2026</p>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">struct</span></code></span>) – Structure containing the top-down selection output with fields:
+* <code class="docutils literal notranslate"><span class="pre">populations</span></code>: Cell array of neuron indices for each population size.
+* <code class="docutils literal notranslate"><span class="pre">P</span></code>: Vector of performance values for each population size.
+* <code class="docutils literal notranslate"><span class="pre">candidateP</span></code>: Cell array of evaluated performances at each step.
+* <code class="docutils literal notranslate"><span class="pre">removedNeuron</span></code>: Vector of neuron indices removed at each step.
+* <code class="docutils literal notranslate"><span class="pre">bestPopulation</span></code>: Vector of neuron indices forming the optimal subset.
+* <code class="docutils literal notranslate"><span class="pre">bestP</span></code>: Maximum performance achieved.</p></li>
+<li><p><strong>codingNeurons</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span></code></span>) – Vector of indices corresponding to coding neurons (used
+to draw a vertical boundary line separating coding
+from non-coding neurons).</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -1433,32 +1384,14 @@ Subpopulations are identified using a unique string key derived from their sorte
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>P</strong> – Discrimination performance score <span class="math notranslate nohighlight">\(P\)</span> for the selected subpopulation.</p>
 </dd>
-<dt class="field-odd">Rtype P<span class="colon">:</span></dt>
-<dd class="field-odd"><p>double</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>D</strong> – Pairwise distance matrix of dimensions <cite>[T x T]</cite> between concatenated trials.</p>
-</dd>
-<dt class="field-odd">Rtype D<span class="colon">:</span></dt>
-<dd class="field-odd"><p>matrix of doubles</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>D</strong> – Pairwise distance matrix of dimensions <cite>[T x T]</cite> between concatenated trials.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>labels</strong> – Class label vector associated with each pooled trial.</p>
 </dd>
-<dt class="field-odd">Rtype labels<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vector of integers</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>cache</strong> – Updated cache structure containing updated map entries and hit/miss counters.</p>
-</dd>
-<dt class="field-odd">Rtype cache<span class="colon">:</span></dt>
-<dd class="field-odd"><p>struct</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>June 2026</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cache</strong> – Updated cache structure containing updated map entries and hit/miss counters.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1497,15 +1430,6 @@ rate of 95% for degradation moves:</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>T0</strong> – Calibrated initial temperature <span class="math notranslate nohighlight">\(T_0\)</span> ensuring a 95% initial acceptance rate.</p>
 </dd>
-<dt class="field-odd">Rtype T0<span class="colon">:</span></dt>
-<dd class="field-odd"><p>double</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>June 2026</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -1534,59 +1458,6 @@ to the Boltzmann distribution:</p>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>accept</strong> – Logical flag set to <cite>true</cite> if the candidate state is accepted, or <cite>false</cite> otherwise.</p>
 </dd>
-<dt class="field-odd">Rtype accept<span class="colon">:</span></dt>
-<dd class="field-odd"><p>logical</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>June 2026</p>
-</dd>
-</dl>
-</dd></dl>
-
-</section>
-<section id="plot-simulated-annealing">
-<h4>plot_simulated_annealing<a class="headerlink" href="#plot-simulated-annealing" title="Link to this heading"></a></h4>
-<dl class="mat function">
-<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Simulated_Annealing.plot_simulated_annealing">
-<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Simulated_Annealing.</span></span><span class="sig-name descname"><span class="pre">plot_simulated_annealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">result</span></em>, <em class="sig-param"><span class="pre">codingNeurons</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Simulated_Annealing.plot_simulated_annealing" title="Link to this definition"></a></dt>
-<dd><p>PLOT_SIMULATED_ANNEALING Generates a multi-panel diagnostic figure for Simulated Annealing optimization.</p>
-<p>Displays execution trajectories and convergence metrics across iterations using a 3x2 tiled layout:</p>
-<ol class="arabic simple">
-<li><p><strong>Population size:</strong> Tracks subpopulation size evolution against ground truth coding neurons.</p></li>
-<li><p><strong>Discrimination performance:</strong> Compares instantaneous performance <span class="math notranslate nohighlight">\(P\)</span> with the running best score.</p></li>
-<li><p><strong>Population composition:</strong> Monitors the counts of coding vs. non-coding neurons over time.</p></li>
-<li><p><strong>Cooling schedule:</strong> Displays exponential temperature decay on a logarithmic scale.</p></li>
-<li><p><strong>Subpopulation purity:</strong> Plots the proportion of true coding neurons in the subpopulation.</p></li>
-</ol>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>result</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">struct</span></code></span>) – <p>Structure produced by the Simulated Annealing solver containing fields:</p>
-<ul>
-<li><p><strong>history</strong> (<em>struct</em>): Iteration logs for <cite>size</cite>, <cite>P</cite>, <cite>bestP</cite>, <cite>nCoding</cite>, <cite>nNonCoding</cite>, and <cite>temperature</cite>.</p></li>
-<li><p><strong>bestP</strong> (<em>double</em>): Overall maximum discrimination performance score achieved.</p></li>
-<li><p><strong>bestPopulation</strong> (<em>vector</em>): Indices of neurons comprising the optimal subpopulation.</p></li>
-</ul>
-</p></li>
-<li><p><strong>codingNeurons</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span> <span class="pre">of</span> <span class="pre">integers</span></code></span>) – Vector of 1-based indices identifying ground-truth coding neurons for reference lines.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The figure includes a overall title (<cite>sgtitle</cite>) summarizing the best performance <span class="math notranslate nohighlight">\(P_{\text{best}}\)</span>
-and listing the optimal neuron subset.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>June 2026</p>
-</dd>
 </dl>
 </dd></dl>
 
@@ -1614,15 +1485,6 @@ mutations with boundary conditions:</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>candidate</strong> – Mutated subpopulation vector containing one less or one more neuron index, sorted in ascending order.</p>
-</dd>
-<dt class="field-odd">Rtype candidate<span class="colon">:</span></dt>
-<dd class="field-odd"><p>vector of integers</p>
-</dd>
-<dt class="field-even">Author<span class="colon">:</span></dt>
-<dd class="field-even"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-odd">Date<span class="colon">:</span></dt>
-<dd class="field-odd"><p>June 2026</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1693,18 +1555,46 @@ whether the current state is sub-optimal compared to <cite>bestP</cite>. If so, 
 <strong>re-annealing</strong> phase (restarting search from <cite>bestPopulation</cite> at <cite>T0</cite>); otherwise,
 it terminates.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
 <p>This algorithms has a MEX version</p>
 </div>
+</dd></dl>
+
+</section>
+<section id="plot-simulated-annealing">
+<h4>plot_simulated_annealing<a class="headerlink" href="#plot-simulated-annealing" title="Link to this heading"></a></h4>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="ALGO_Simple.Summed_Population.Simulated_Annealing.plot_simulated_annealing">
+<span class="sig-prename descclassname"><span class="pre">ALGO_Simple.Summed_Population.Simulated_Annealing.</span></span><span class="sig-name descname"><span class="pre">plot_simulated_annealing</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">result</span></em>, <em class="sig-param"><span class="pre">codingNeurons</span></em><span class="sig-paren">)</span><a class="headerlink" href="#ALGO_Simple.Summed_Population.Simulated_Annealing.plot_simulated_annealing" title="Link to this definition"></a></dt>
+<dd><p>PLOT_SIMULATED_ANNEALING Generates a multi-panel diagnostic figure for Simulated Annealing optimization.</p>
+<p>Displays execution trajectories and convergence metrics across iterations using a 3x2 tiled layout:</p>
+<ol class="arabic simple">
+<li><p><strong>Population size:</strong> Tracks subpopulation size evolution against ground truth coding neurons.</p></li>
+<li><p><strong>Discrimination performance:</strong> Compares instantaneous performance <span class="math notranslate nohighlight">\(P\)</span> with the running best score.</p></li>
+<li><p><strong>Population composition:</strong> Monitors the counts of coding vs. non-coding neurons over time.</p></li>
+<li><p><strong>Cooling schedule:</strong> Displays exponential temperature decay on a logarithmic scale.</p></li>
+<li><p><strong>Subpopulation purity:</strong> Plots the proportion of true coding neurons in the subpopulation.</p></li>
+</ol>
 <dl class="field-list simple">
-<dt class="field-odd">Author<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Maxime BELTOISE</p>
-</dd>
-<dt class="field-even">Date<span class="colon">:</span></dt>
-<dd class="field-even"><p>June 2026</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>result</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">struct</span></code></span>) – <p>Structure produced by the Simulated Annealing solver containing fields:</p>
+<ul>
+<li><p><strong>history</strong> (<em>struct</em>): Iteration logs for <cite>size</cite>, <cite>P</cite>, <cite>bestP</cite>, <cite>nCoding</cite>, <cite>nNonCoding</cite>, and <cite>temperature</cite>.</p></li>
+<li><p><strong>bestP</strong> (<em>double</em>): Overall maximum discrimination performance score achieved.</p></li>
+<li><p><strong>bestPopulation</strong> (<em>vector</em>): Indices of neurons comprising the optimal subpopulation.</p></li>
+</ul>
+</p></li>
+<li><p><strong>codingNeurons</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">vector</span> <span class="pre">of</span> <span class="pre">integers</span></code></span>) – Vector of 1-based indices identifying ground-truth coding neurons for reference lines.</p></li>
+</ul>
 </dd>
 </dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The figure includes a overall title (<cite>sgtitle</cite>) summarizing the best performance <span class="math notranslate nohighlight">\(P_{\text{best}}\)</span>
+and listing the optimal neuron subset.</p>
+</div>
 </dd></dl>
 
 </section>
@@ -1736,14 +1626,14 @@ using a Labeled Line (LL) framework following the methodology of Delis et al. (2
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><p><strong>result</strong> (<em>struct</em>) – Result structure containing:</p>
 <ul class="simple">
-<li><p><strong>DistanceMatrix</strong> (<em>cell</em>): Distance matrices per neuron ($D_n$).</p></li>
-<li><p><strong>Discrimination</strong> (<em>cell</em>): Binary discrimination matrices ($M_n$).</p></li>
+<li><p><strong>DistanceMatrix</strong> (<em>cell</em>): Distance matrices per neuron (<span class="math notranslate nohighlight">\(D_n\)</span>).</p></li>
+<li><p><strong>Discrimination</strong> (<em>cell</em>): Binary discrimination matrices (<span class="math notranslate nohighlight">\(M_n\)</span>).</p></li>
 <li><p><strong>Performance</strong> (<em>cell</em>): Inter/Intra cluster distance matrices.</p></li>
-<li><p><strong>Mn</strong> (<em>cell</em>): Weighted performance matrices per neuron ($P_n$).</p></li>
-<li><p><strong>populationPerformance</strong> (<em>matrix</em>): Combined population performance matrix ($P$).</p></li>
+<li><p><strong>Mn</strong> (<em>cell</em>): Weighted performance matrices per neuron (<span class="math notranslate nohighlight">\(P_n\)</span>).</p></li>
+<li><p><strong>populationPerformance</strong> (<em>matrix</em>): Combined population performance matrix (<span class="math notranslate nohighlight">\(P\)</span>).</p></li>
 <li><p><strong>bestNeuronMatrix</strong> (<em>matrix</em>): Matrix indicating the best-performing neuron index per stimulus pair.</p></li>
 <li><p><strong>bestPopulation</strong> (<em>vector</em>): Indices of optimal contributing neurons.</p></li>
-<li><p><strong>bestP</strong> (<em>double</em>): Global population performance scalar ($P_{LL}$).</p></li>
+<li><p><strong>bestP</strong> (<em>double</em>): Global population performance scalar (<span class="math notranslate nohighlight">\(P_{LL}\)</span>).</p></li>
 </ul>
 </p>
 </dd>
@@ -1804,11 +1694,11 @@ performance, and optimal neuron selection.</p>
 <p><strong>Panel Layout Structure:</strong></p>
 <ul class="simple">
 <li><p><strong>Panel B:</strong> Spike raster plots per neuron and stimulus.</p></li>
-<li><p><strong>Panel C:</strong> Single-neuron pairwise distance matrices ($D_n$).</p></li>
-<li><p><strong>Panel D:</strong> Single-neuron discrimination matrices ($M_n$).</p></li>
-<li><p><strong>Panel E:</strong> Single-neuron performance matrices ($P_n$).</p></li>
-<li><p><strong>Panel F:</strong> Global population performance matrix ($P$).</p></li>
-<li><p><strong>Panel G:</strong> Best-performing neuron map ($M$).</p></li>
+<li><p><strong>Panel C:</strong> Single-neuron pairwise distance matrices (<span class="math notranslate nohighlight">\(D_n\)</span>).</p></li>
+<li><p><strong>Panel D:</strong> Single-neuron discrimination matrices (<span class="math notranslate nohighlight">\(M_n\)</span>).</p></li>
+<li><p><strong>Panel E:</strong> Single-neuron performance matrices (<span class="math notranslate nohighlight">\(P_n\)</span>).</p></li>
+<li><p><strong>Panel F:</strong> Global population performance matrix (<span class="math notranslate nohighlight">\(P\)</span>).</p></li>
+<li><p><strong>Panel G:</strong> Best-performing neuron map (<span class="math notranslate nohighlight">\(M\)</span>).</p></li>
 </ul>
 </div>
 </dd></dl>
@@ -1848,8 +1738,6 @@ of a single neuron for a single trial.</p></li>
 </ul>
 </dd>
 </dl>
-<p>Author: Maxime BELTOISE
-Date: June 2026</p>
 </dd></dl>
 
 </section>
@@ -1882,8 +1770,6 @@ spike train dataset.</p>
 </ul>
 </dd>
 </dl>
-<p>Author: Laure WOLFF
-Date: June 2026</p>
 </dd></dl>
 
 </section>

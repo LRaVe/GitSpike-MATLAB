@@ -41,65 +41,6 @@ f_ISI_distance_adaptive_v1
 
 .. mat:autofunction:: f_ISI_distance_adaptive_v1
 
-main_ISI_test
--------------
-
-.. mat:script:: main_ISI_test
-
-Latency Correction
-==================
-
-.. mat:module:: Latency_Correction
-
-f_Cost_matrix
--------------
-
-.. mat:autofunction:: f_Cost_matrix
-
-f_first_diagonal
-----------------
-
-.. mat:autofunction:: f_first_diagonal
-
-f_lc_simulated_annealing
-------------------------
-
-.. mat:autofunction:: f_lc_simulated_annealing
-
-f_plot_trains_with_correction
------------------------------
-
-.. mat:autofunction:: f_plot_trains_with_correction
-
-f_row
------
-
-.. mat:autofunction:: f_row
-
-f_synfire
----------
-
-.. mat:autofunction:: f_synfire
-
-f_TD_matrix
------------
-
-.. mat:autofunction:: f_TD_matrix
-
-plot_shifts_row
----------------
-
-.. mat:autofunction:: plot_shifts_row
-
-plot_synfire_trains
--------------------
-
-.. mat:autofunction:: plot_synfire_trains
-
-values_to_colors
-----------------
-
-.. mat:autofunction:: values_to_colors
 
 SPIKE Distance
 ==============
@@ -166,8 +107,70 @@ pairwise_train_order
 
 .. mat:autofunction:: pairwise_train_order
 
+Latency Correction
+==================
+
+.. mat:module:: Latency_Correction
+
+f_Cost_matrix
+-------------
+
+.. mat:autofunction:: f_Cost_matrix
+
+f_first_diagonal
+----------------
+
+.. mat:autofunction:: f_first_diagonal
+
+f_lc_simulated_annealing
+------------------------
+
+.. mat:autofunction:: f_lc_simulated_annealing
+
+f_plot_trains_with_correction
+-----------------------------
+
+.. mat:autofunction:: f_plot_trains_with_correction
+
+f_row
+-----
+
+.. mat:autofunction:: f_row
+
+f_synfire
+---------
+
+.. mat:autofunction:: f_synfire
+
+f_TD_matrix
+-----------
+
+.. mat:autofunction:: f_TD_matrix
+
+plot_shifts_row
+---------------
+
+.. mat:autofunction:: plot_shifts_row
+
+plot_synfire_trains
+-------------------
+
+.. mat:autofunction:: plot_synfire_trains
+
+values_to_colors
+----------------
+
+.. mat:autofunction:: values_to_colors
+
 Discriminative neuronal subpopulation 
 =====================================
+
+This section describes the algorithms implemented to find the most discriminative neuronal subpopulation. Several hypotheses and methods are explained.
+
+.. seealso::
+   Kreuz T, et al. *Using spike train distances to identify the most discriminative neuronal subpopulation*, J Neurosci Methods, 2017-2018.
+
+   `Link to see the publication <https://www.thomaskreuz.org/publications/journal-articles#h.j3c8pcr54mx6>`_
 
 Datasets Generation
 -------------------
@@ -239,26 +242,25 @@ evaluate_population
 
 .. mat:autofunction:: evaluate_population
 
-f_bottom_up_V2
-^^^^^^^^^^^^^^
-
-.. mat:autofunction:: f_bottom_up_V2
-
 f_brute_force_V2
 ^^^^^^^^^^^^^^^^
 
 .. mat:autofunction:: f_brute_force_V2
 
-plot_top_down_gradient
-^^^^^^^^^^^^^^^^^^^^^^
+f_bottom_up_V2
+^^^^^^^^^^^^^^
 
-.. mat:autofunction:: plot_top_down_gradient
+.. mat:autofunction:: f_bottom_up_V2
 
 top_down_gradient
 ^^^^^^^^^^^^^^^^^
 
 .. mat:autofunction:: top_down_gradient
 
+plot_top_down_gradient
+^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_top_down_gradient
 
 Simulated Annealing
 ~~~~~~~~~~~~~~~~~~~
@@ -280,10 +282,6 @@ metropolis_acceptance
 
 .. mat:autofunction:: metropolis_acceptance
 
-plot_simulated_annealing
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-.. mat:autofunction:: plot_simulated_annealing
 
 random_neighbor
 ^^^^^^^^^^^^^^^
@@ -295,6 +293,10 @@ simulated_annealing
 
 .. mat:autofunction:: simulated_annealing
 
+plot_simulated_annealing
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. mat:autofunction:: plot_simulated_annealing
 
 Labeled Line 
 -------------

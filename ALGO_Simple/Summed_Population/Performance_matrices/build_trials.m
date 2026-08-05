@@ -23,12 +23,9 @@ function [trials,labels] = build_trials(spikes,neurons)
 %   :type neurons: vector of integers
 %
 %   :returns: **trials** -- 1D cell array of length :math:`T = S \times R` containing sorted spike time vectors for each trial.
-%   :rtype trials: cell array
+%   :type trials: cell array
 %   :returns: **labels** -- Class label vector of length :math:`T` associating each trial with its stimulus index :math:`s \in \{1, \dots, S\}`.
-%   :rtype labels: vector of integers
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
+%   :type labels: vector of integers
 
     [~,S,R] = size(spikes);
 

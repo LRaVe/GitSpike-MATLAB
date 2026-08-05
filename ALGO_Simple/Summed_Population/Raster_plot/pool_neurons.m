@@ -20,10 +20,7 @@ function pooled = pool_neurons(spikes,neurons,s,r)
 %   :type r: integer
 %
 %   :returns: **pooled** -- Chronologically sorted vector containing all concatenated spike timestamps from the selected neurons.
-%   :rtype pooled: vector of doubles
-%
-%   :Author: Maxime BELTOISE
-%   :Date: May 2026
+%   :type pooled: vector of doubles
 
     %% space allocation
 
