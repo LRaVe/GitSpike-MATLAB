@@ -47,12 +47,6 @@ SPIKE Distance
 
 .. mat:module:: SPIKE_distance
 
-SPIKE_distances_all
--------------------
-
-.. mat:autofunction:: SPIKE_distances_all
-
-.. mat:module:: SPIKE_distance
 
 auxiliary_delta
 ---------------
