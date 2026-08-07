@@ -11,8 +11,7 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2_matlab(spikes1, spik
 %   and Rate-Independent Adaptive (RIA) variants.
 %
 %   Syntax:
-%      [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2_matlab(spikes1, spikes2, ...
-%          t_min, t_max, aux1_begin, aux1_end, aux2_begin, aux2_end, Distances, threshold)
+%      [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2_matlab(spikes1, spikes2, t_min, t_max, aux1_begin, aux1_end, aux2_begin, aux2_end, Distances, threshold)
 %
 %   :param spikes1: Spike timestamps for the first train.
 %   :type spikes1: double
@@ -38,6 +37,10 @@ function [SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2_matlab(spikes1, spik
 %   :returns:
 %       * **SPIKE_distance_2x2** (*1x4 double*) -- Time-averaged distance values.
 %       * **profile_mat** (*1x4 cell*) -- Temporal distance profiles formatted as `[time, distance]`.
+%
+%   .. important::
+%      This algorithms has a MEX version. 
+
 
     %% =====================================================
     % INITIALIZE PROFILE

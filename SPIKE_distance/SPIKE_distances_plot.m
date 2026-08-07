@@ -9,8 +9,7 @@ function SPIKE_distances_plot(spikes, t_min, t_max, threshold, measures, adaptiv
 %   SPIKE-distance metrics, and generates formatted figures and terminal output.
 %
 %   Syntax:
-%      SPIKE_distances_plot(spikes, t_min, t_max, threshold, ...
-%          measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
+%      SPIKE_distances_plot(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
 %
 %   :param spikes: Cell array of spike timestamp vectors.
 %   :type spikes: cell

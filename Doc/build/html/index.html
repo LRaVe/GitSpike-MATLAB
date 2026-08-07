@@ -57,6 +57,11 @@
 </li>
 <li><a class="reference internal" href="#spike-distance">SPIKE Distance</a><ul>
 <li><a class="reference internal" href="#spike-distances-all">SPIKE_distances_all</a></li>
+<li><a class="reference internal" href="#auxiliary-delta">auxiliary_delta</a></li>
+<li><a class="reference internal" href="#spike-dist-2x2">SPIKE_dist_2x2</a></li>
+<li><a class="reference internal" href="#spike-dist-2x2-matlab">SPIKE_dist_2x2_matlab</a></li>
+<li><a class="reference internal" href="#spike-dist-n">SPIKE_dist_N</a></li>
+<li><a class="reference internal" href="#spike-distances-plot">SPIKE_distances_plot</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#spike-order">SPIKE Order</a><ul>
@@ -336,6 +341,200 @@ the Root Mean Square (RMS) of all inter-spike intervals:</p>
 <dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_all">
 <span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_all</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_all" title="Link to this definition"></a></dt>
 <dd></dd></dl>
+
+</section>
+<section id="auxiliary-delta">
+<span id="module-SPIKE_distance"></span><h2>auxiliary_delta<a class="headerlink" href="#auxiliary-delta" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.auxiliary_delta">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">auxiliary_delta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spike</span></em>, <em class="sig-param"><span class="pre">own_train</span></em>, <em class="sig-param"><span class="pre">other_train</span></em>, <em class="sig-param"><span class="pre">idx</span></em>, <em class="sig-param"><span class="pre">aux_idx</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.auxiliary_delta" title="Link to this definition"></a></dt>
+<dd><p>AUXILIARY_DELTA Computes boundary-adjusted nearest-neighbor distance.</p>
+<p>Calculates the smallest temporal distance between a target spike and all
+spikes in another train, inheriting distances from neighboring inner spikes
+if the target spike is an auxiliary boundary spike.</p>
+<dl class="simple">
+<dt>Syntax:</dt><dd><p>delta = auxiliary_delta(spike, own_train, other_train, idx, aux_idx)</p>
+</dd>
+</dl>
+<p>AUXILIARY DELTA MANAGEMENT</p>
+<p>For auxiliary spikes:
+- beginning auxiliary spike inherits delta from right neighbor
+- ending auxiliary spike inherits delta from left neighbor</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spike</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Timestamp of the current spike.</p></li>
+<li><p><strong>own_train</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Vector of spike timestamps for the target train.</p></li>
+<li><p><strong>other_train</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Vector of spike timestamps for the reference train.</p></li>
+<li><p><strong>idx</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – Index of the current spike within <cite>own_train</cite>.</p></li>
+<li><p><strong>aux_idx</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Boolean flag indicating if the current spike is auxiliary.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>delta</strong> – Computed nearest-neighbor temporal distance.</p>
+</dd>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>double</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="spike-dist-2x2">
+<h2>SPIKE_dist_2x2<a class="headerlink" href="#spike-dist-2x2" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_dist_2x2">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_dist_2x2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes1</span></em>, <em class="sig-param"><span class="pre">spikes2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">aux1_begin</span></em>, <em class="sig-param"><span class="pre">aux1_end</span></em>, <em class="sig-param"><span class="pre">aux2_begin</span></em>, <em class="sig-param"><span class="pre">aux2_end</span></em>, <em class="sig-param"><span class="pre">Distances</span></em>, <em class="sig-param"><span class="pre">threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_dist_2x2" title="Link to this definition"></a></dt>
+<dd><p>SPIKE_DIST_2X2 Bivariate SPIKE-distance dispatcher.</p>
+<p>Routes the bivariate SPIKE-distance calculation between two spike trains
+to either a compiled C++/MEX implementation (<cite>SPIKE_dist_2x2_mex</cite>) or a pure
+MATLAB implementation (<cite>SPIKE_dist_2x2_matlab</cite>) based on the global <cite>useMex</cite> flag.</p>
+<dl class="simple">
+<dt>Syntax:</dt><dd><p>[SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2(spikes1, spikes2, t_min, t_max, aux1_begin, aux1_end, aux2_begin, aux2_end, Distances, threshold)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Spike timestamps for the first train.</p></li>
+<li><p><strong>spikes2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Spike timestamps for the second train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Start boundary of the observation window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – End boundary of the observation window.</p></li>
+<li><p><strong>aux1_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if first spike of train 1 is auxiliary.</p></li>
+<li><p><strong>aux1_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if last spike of train 1 is auxiliary.</p></li>
+<li><p><strong>aux2_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if first spike of train 2 is auxiliary.</p></li>
+<li><p><strong>aux2_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if last spike of train 2 is auxiliary.</p></li>
+<li><p><strong>Distances</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">|</span> <span class="pre">logical</span></code></span>) – Logical 1x4 mask selecting measures: [SPIKE, RI-SPIKE, A-SPIKE, RIA-SPIKE].</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Adaptive threshold value for A-SPIKE and RIA-SPIKE variants.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>SPIKE_distance_2x2</strong> (<em>1x4 double</em>) – Overall distance values for requested measures.</p></li>
+<li><p><strong>profile_mat</strong> (<em>1x4 cell</em>) – Discontinuous time profiles <cite>[t, distance]</cite> for each measure.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Routes execution to <cite>SPIKE_dist_2x2_mex</cite> when the global variable <cite>useMex</cite> is <cite>true</cite>,
+otherwise defaults to <cite>SPIKE_dist_2x2_matlab</cite>.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="spike-dist-2x2-matlab">
+<h2>SPIKE_dist_2x2_matlab<a class="headerlink" href="#spike-dist-2x2-matlab" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_dist_2x2_matlab">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_dist_2x2_matlab</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes1</span></em>, <em class="sig-param"><span class="pre">spikes2</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">aux1_begin</span></em>, <em class="sig-param"><span class="pre">aux1_end</span></em>, <em class="sig-param"><span class="pre">aux2_begin</span></em>, <em class="sig-param"><span class="pre">aux2_end</span></em>, <em class="sig-param"><span class="pre">Distances</span></em>, <em class="sig-param"><span class="pre">threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_dist_2x2_matlab" title="Link to this definition"></a></dt>
+<dd><p>SPIKE_DIST_2X2_MATLAB Pure MATLAB implementation of bivariate SPIKE-distance.</p>
+<p>Calculates bivariate SPIKE-distance profile and scalar distance between two
+spike trains, supporting standard, Rate-Independent (RI), Adaptive (A),
+and Rate-Independent Adaptive (RIA) variants.</p>
+<dl class="simple">
+<dt>Syntax:</dt><dd><p>[SPIKE_distance_2x2, profile_mat] = SPIKE_dist_2x2_matlab(spikes1, spikes2, t_min, t_max, aux1_begin, aux1_end, aux2_begin, aux2_end, Distances, threshold)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes1</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Spike timestamps for the first train.</p></li>
+<li><p><strong>spikes2</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Spike timestamps for the second train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower temporal boundary of the analysis window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper temporal boundary of the analysis window.</p></li>
+<li><p><strong>aux1_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if start spike of train 1 is auxiliary.</p></li>
+<li><p><strong>aux1_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if end spike of train 1 is auxiliary.</p></li>
+<li><p><strong>aux2_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if start spike of train 2 is auxiliary.</p></li>
+<li><p><strong>aux2_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">integer</span></code></span>) – Flag indicating if end spike of train 2 is auxiliary.</p></li>
+<li><p><strong>Distances</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">|</span> <span class="pre">logical</span></code></span>) – 1x4 binary array indicating active measures <cite>[SPIKE, RI, A, RIA]</cite>.</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Cutoff threshold used in adaptive (A / RIA) calculations.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>SPIKE_distance_2x2</strong> (<em>1x4 double</em>) – Time-averaged distance values.</p></li>
+<li><p><strong>profile_mat</strong> (<em>1x4 cell</em>) – Temporal distance profiles formatted as <cite>[time, distance]</cite>.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This algorithms has a MEX version.</p>
+</div>
+</dd></dl>
+
+</section>
+<section id="spike-dist-n">
+<h2>SPIKE_dist_N<a class="headerlink" href="#spike-dist-n" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_dist_N">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_dist_N</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">aux_begin</span></em>, <em class="sig-param"><span class="pre">aux_end</span></em>, <em class="sig-param"><span class="pre">Distances</span></em>, <em class="sig-param"><span class="pre">threshold</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_dist_N" title="Link to this definition"></a></dt>
+<dd><p>SPIKE_DIST_N Computes multivariate SPIKE-distance across N spike trains.</p>
+<p>Evaluates all pairwise combinations of N spike trains, builds the pairwise
+distance matrices, and constructs global ensemble profiles and scalar averages.</p>
+<dl class="simple">
+<dt>Syntax:</dt><dd><p>[D_global, profile_global, D_matrix,RI_D_global, RI_profile_global, RI_D_matrix, A_D_global, A_profile_global, A_D_matrix, RIA_D_global, RIA_profile_global, RIA_D_matrix] = SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array containing spike timestamp vectors for each train.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Lower bound of the evaluation window.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Upper bound of the evaluation window.</p></li>
+<li><p><strong>aux_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">double</span></code></span>) – Boolean array indicating auxiliary start spikes per train.</p></li>
+<li><p><strong>aux_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">double</span></code></span>) – Boolean array indicating auxiliary end spikes per train.</p></li>
+<li><p><strong>Distances</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span> <span class="pre">|</span> <span class="pre">logical</span></code></span>) – 1x4 mask selecting enabled distance variants <cite>[SPIKE, RI, A, RIA]</cite>.</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Adaptive distance calculation threshold.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>D_global</strong> (<em>double</em>) – Global mean SPIKE-distance across all pairs.</p></li>
+<li><p><strong>profile_global</strong> (<em>Nx2 double</em>) – Averaged time profile for SPIKE-distance.</p></li>
+<li><p><strong>D_matrix</strong> (<em>NxN double</em>) – Pairwise distance matrix for SPIKE-distance.</p></li>
+<li><p><strong>RI_D_global, RI_profile_global, RI_D_matrix</strong> – Corresponding outputs for RI-SPIKE-distance.</p></li>
+<li><p><strong>A_D_global, A_profile_global, A_D_matrix</strong> – Corresponding outputs for A-SPIKE-distance.</p></li>
+<li><p><strong>RIA_D_global, RIA_profile_global, RIA_D_matrix</strong> – Corresponding outputs for RIA-SPIKE-distance.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="spike-distances-plot">
+<h2>SPIKE_distances_plot<a class="headerlink" href="#spike-distances-plot" title="Link to this heading"></a></h2>
+<dl class="mat function">
+<dt class="sig sig-object mat" id="SPIKE_distance.SPIKE_distances_plot">
+<span class="sig-prename descclassname"><span class="pre">SPIKE_distance.</span></span><span class="sig-name descname"><span class="pre">SPIKE_distances_plot</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">spikes</span></em>, <em class="sig-param"><span class="pre">t_min</span></em>, <em class="sig-param"><span class="pre">t_max</span></em>, <em class="sig-param"><span class="pre">threshold</span></em>, <em class="sig-param"><span class="pre">measures</span></em>, <em class="sig-param"><span class="pre">adaptive_measures</span></em>, <em class="sig-param"><span class="pre">showing</span></em>, <em class="sig-param"><span class="pre">plotting</span></em>, <em class="sig-param"><span class="pre">aux_begin</span></em>, <em class="sig-param"><span class="pre">aux_end</span></em><span class="sig-paren">)</span><a class="headerlink" href="#SPIKE_distance.SPIKE_distances_plot" title="Link to this definition"></a></dt>
+<dd><p>SPIKE_DISTANCES_PLOT High-level visualizer and driver for SPIKE-distances.</p>
+<p>Parses configuration bitmasks, calculates requested bivariate/multivariate
+SPIKE-distance metrics, and generates formatted figures and terminal output.</p>
+<dl class="simple">
+<dt>Syntax:</dt><dd><p>SPIKE_distances_plot(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)</p>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spikes</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">cell</span></code></span>) – Cell array of spike timestamp vectors.</p></li>
+<li><p><strong>t_min</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Start time of interval.</p></li>
+<li><p><strong>t_max</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – End time of interval.</p></li>
+<li><p><strong>threshold</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">double</span></code></span>) – Adaptive measure threshold.</p></li>
+<li><p><strong>measures</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – Bitmask for standard measures (2: SPIKE-distance, 4: RI-SPIKE-distance).</p></li>
+<li><p><strong>adaptive_measures</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – Bitmask for adaptive measures (2: A-SPIKE, 4: RIA-SPIKE).</p></li>
+<li><p><strong>showing</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – Bitmask for console verbosity (2: summary, 4: profiles, 8: matrices).</p></li>
+<li><p><strong>plotting</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">integer</span></code></span>) – Bitmask for figure output (4: time profiles, 8: distance matrices).</p></li>
+<li><p><strong>aux_begin</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">double</span></code></span>) – Boolean flags for beginning auxiliary spikes.</p></li>
+<li><p><strong>aux_end</strong> (<span><code class="xref mat mat-obj docutils literal notranslate"><span class="pre">logical</span> <span class="pre">|</span> <span class="pre">double</span></code></span>) – Boolean flags for ending auxiliary spikes.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
 
 </section>
 </section>

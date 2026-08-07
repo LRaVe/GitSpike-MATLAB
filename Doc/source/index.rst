@@ -69,10 +69,6 @@ SPIKE_dist_2x2_matlab
 
 .. mat:autofunction:: SPIKE_dist_2x2_matlab
 
-SPIKE_dist_2x2_mex
-------------------
-
-.. mat:autofunction:: SPIKE_dist_2x2_mex
 
 SPIKE_dist_N
 ------------

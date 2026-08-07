@@ -52,6 +52,34 @@ SPIKE_distances_all
 
 .. mat:autofunction:: SPIKE_distances_all
 
+.. mat:module:: SPIKE_distance
+
+auxiliary_delta
+---------------
+
+.. mat:autofunction:: auxiliary_delta
+
+SPIKE_dist_2x2
+--------------
+
+.. mat:autofunction:: SPIKE_dist_2x2
+
+SPIKE_dist_2x2_matlab
+---------------------
+
+.. mat:autofunction:: SPIKE_dist_2x2_matlab
+
+
+SPIKE_dist_N
+------------
+
+.. mat:autofunction:: SPIKE_dist_N
+
+SPIKE_distances_plot
+--------------------
+
+.. mat:autofunction:: SPIKE_distances_plot
+
 SPIKE Order
 ===========
 
