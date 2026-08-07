@@ -2,10 +2,41 @@
 % Author: Maxime BELTOISE
 % Date: May 2026
 
-%% =========================================================
-% SPIKE-distance between N spike trains
-% =========================================================
 function [D_global, profile_global, D_matrix, RI_D_global, RI_profile_global, RI_D_matrix, A_D_global, A_profile_global, A_D_matrix, RIA_D_global, RIA_profile_global, RIA_D_matrix] = SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold)
+% SPIKE_DIST_N Computes multivariate SPIKE-distance across N spike trains.
+%
+%   Evaluates all pairwise combinations of N spike trains, builds the pairwise 
+%   distance matrices, and constructs global ensemble profiles and scalar averages.
+%
+%   Syntax:
+%      [D_global, profile_global, D_matrix, ...
+%       RI_D_global, RI_profile_global, RI_D_matrix, ...
+%       A_D_global, A_profile_global, A_D_matrix, ...
+%       RIA_D_global, RIA_profile_global, RIA_D_matrix] = ...
+%          SPIKE_dist_N(spikes, t_min, t_max, aux_begin, aux_end, Distances, threshold)
+%
+%   :param spikes: Cell array containing spike timestamp vectors for each train.
+%   :type spikes: cell
+%   :param t_min: Lower bound of the evaluation window.
+%   :type t_min: double
+%   :param t_max: Upper bound of the evaluation window.
+%   :type t_max: double
+%   :param aux_begin: Boolean array indicating auxiliary start spikes per train.
+%   :type aux_begin: logical | double
+%   :param aux_end: Boolean array indicating auxiliary end spikes per train.
+%   :type aux_end: logical | double
+%   :param Distances: 1x4 mask selecting enabled distance variants `[SPIKE, RI, A, RIA]`.
+%   :type Distances: double | logical
+%   :param threshold: Adaptive distance calculation threshold.
+%   :type threshold: double
+%
+%   :returns:
+%       * **D_global** (*double*) -- Global mean SPIKE-distance across all pairs.
+%       * **profile_global** (*Nx2 double*) -- Averaged time profile for SPIKE-distance.
+%       * **D_matrix** (*NxN double*) -- Pairwise distance matrix for SPIKE-distance.
+%       * **RI_D_global, RI_profile_global, RI_D_matrix** -- Corresponding outputs for RI-SPIKE-distance.
+%       * **A_D_global, A_profile_global, A_D_matrix** -- Corresponding outputs for A-SPIKE-distance.
+%       * **RIA_D_global, RIA_profile_global, RIA_D_matrix** -- Corresponding outputs for RIA-SPIKE-distance.
 
     N = length(spikes);
 

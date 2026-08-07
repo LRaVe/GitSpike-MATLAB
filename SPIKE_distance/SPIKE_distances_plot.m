@@ -2,13 +2,36 @@
 % Author: Maxime BELTOISE
 % Date: May 2026
 
-
-%% =====================================================
-% DISPLAY
-% =====================================================
-
-
 function SPIKE_distances_plot(spikes, t_min, t_max, threshold, measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
+% SPIKE_DISTANCES_PLOT High-level visualizer and driver for SPIKE-distances.
+%
+%   Parses configuration bitmasks, calculates requested bivariate/multivariate 
+%   SPIKE-distance metrics, and generates formatted figures and terminal output.
+%
+%   Syntax:
+%      SPIKE_distances_plot(spikes, t_min, t_max, threshold, ...
+%          measures, adaptive_measures, showing, plotting, aux_begin, aux_end)
+%
+%   :param spikes: Cell array of spike timestamp vectors.
+%   :type spikes: cell
+%   :param t_min: Start time of interval.
+%   :type t_min: double
+%   :param t_max: End time of interval.
+%   :type t_max: double
+%   :param threshold: Adaptive measure threshold.
+%   :type threshold: double
+%   :param measures: Bitmask for standard measures (2: SPIKE-distance, 4: RI-SPIKE-distance).
+%   :type measures: integer
+%   :param adaptive_measures: Bitmask for adaptive measures (2: A-SPIKE, 4: RIA-SPIKE).
+%   :type adaptive_measures: integer
+%   :param showing: Bitmask for console verbosity (2: summary, 4: profiles, 8: matrices).
+%   :type showing: integer
+%   :param plotting: Bitmask for figure output (4: time profiles, 8: distance matrices).
+%   :type plotting: integer
+%   :param aux_begin: Boolean flags for beginning auxiliary spikes.
+%   :type aux_begin: logical | double
+%   :param aux_end: Boolean flags for ending auxiliary spikes.
+%   :type aux_end: logical | double
 
     Distances = [0, 0, 0, 0];
 
